@@ -81,6 +81,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <jvmArguments>-Duser.timezone=Asia/Taipei</jvmArguments>
                 </configuration>
             </plugin>
         </plugins>

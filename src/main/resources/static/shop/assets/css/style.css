@@ -8156,8 +8156,8 @@ nav.navbar .svg-inline--fa {
     font-size: 16px;
 }
 
-.checkout_form input:focus {
-    box-shadow: 0px 0px 10px #F53737;
+.checkout_form input[type="text"]:focus {
+    box-shadow: 0 0 10px #F53737;
 }
 
 .checkout_form input:disabled {
@@ -8233,30 +8233,15 @@ nav.navbar .svg-inline--fa {
     margin-right: 10px;
 }
 
-.auto_fill_btn button {
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 30px;
-    padding: 5px 10px;
-    text-transform: capitalize;
-    color: #ffffff;
-    background: #F53737;
-    font-weight: 500;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    margin-bottom: 0;
-    border-radius: 5px;
 
-    border: 0;
-}
 
-.auto_fill_btn button:hover {
-    background: #222222;
+.order_button {
+    text-align: right;
 }
 
 .order_button button {
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 30px;
     padding: 5px 10px;
     text-transform: capitalize;
@@ -8265,10 +8250,15 @@ nav.navbar .svg-inline--fa {
     font-weight: 500;
     -webkit-transition: 0.3s;
     transition: 0.3s;
-    margin-bottom: 0;
-    border-radius: 5px;
 
+    margin-bottom: 0;
+    margin-top: 20px;
+
+    border-radius: 5px;
     border: 0;
+
+    width: 120px;
+    height: 60px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -8347,8 +8337,28 @@ nav.navbar .svg-inline--fa {
     border-bottom: 1px solid #ddd;
 }
 
-.order_table table tbody tr td a {
-    font-size: 15px;
+.order_table table tbody tr td.counter {
+    min-width: 50%;
+    text-align: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    background: #e5e5e5;
+}
+
+.order_table table tbody tr td h5 {
+    line-height: 20px;
+    font-size: 16px;
+
+    min-height: 40px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
 }
 
 .order_table table tbody tr td p {
@@ -8961,12 +8971,22 @@ nav.navbar .svg-inline--fa {
 }
 
 .table-responsive table thead tr th {
+    border-right: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
     text-align: center;
+
+    font-size: 18px;
 }
 
 .table-responsive td.cart_img {
     width: 100px;
     height: 100px;
+
+    padding: 0;
+}
+
+.table-responsive td.cart_img:hover {
+    border-color: #e5e5e5;
 }
 
 .table-responsive td.cart_info {

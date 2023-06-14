@@ -4,7 +4,8 @@ $(document).ready(function () {
     setupRadioButtons('shipping_method', 'shipping');
     setupRadioButtons('invoice_method', 'invoice');
 
-    firstAutoFill();
+    fillInMemberData();
+    getCartInfo();
 });
 
 function setupRadioButtons(name, id) {
@@ -34,15 +35,80 @@ function setupRadioButtons(name, id) {
     });
 }
 
-function firstAutoFill() {
+function fillInMemberData() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/Jamigo/shop/checkout/memberData", // 設定與後端相同的 url
-        success: function(response) {
+        url: "http://localhost:8080/Jamigo/shop/checkout/memberData/1", // 設定與後端相同的 url
+        success: function (response) {
             $("input#memberName").val(response.memberName);
             $("input#memberPhone").val(response.memberPhone);
-            $("input#memberEmail").val(response.memberEmail);// test
+            $("input#memberEmail").val(response.memberEmail);
+        }
+    });
+}
+
+function getCartInfo() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/Jamigo/shop/checkout/cart/1", // 設定與後端相同的 url
+        success: function (response) {
+
+            let total_price = 0;
+            let html_str = '<table>';
+
+            for (let counter_name in response) {
+
+                html_str +=
+                    `<tbody>
+                        <tr>
+                            <td class="counter" colspan="3">${counter_name}</td>
+                        </tr>`;
+
+                for (let item of response[counter_name]) {
+
+                    total_price += item["productPrice"] * item["amount"];
+
+                    html_str +=
+                        `<tr>
+                            <td class="cart_img">
+                                <img src="http://localhost:8080/Jamigo/shop/product_picture/${item['productNo']}" alt="">
+                            </td>
+                            <td class="cart_info" colspan="2">
+                                <h5>${item["productName"]}</h5>
+                                <p>單價: NT$${item["productPrice"]} / 數量: ${item["amount"]}</p>
+                            </td>
+                        </tr>`;
+                }
+
+                html_str += `</tbody>`;
+            }
+
+            html_str +=
+                `<tfoot>
+                        <tr>
+                            <th colspan="2">原總金額</th>
+                            <th>NT$${total_price}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">折價券折抵</th>
+                            <th>NT$0</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">點數折抵</th>
+                            <th>NT$0</th>
+                        </tr>
+                        <tr class="order_total">
+                            <th colspan="2">訂單實付金額</th>
+                            <th>NT$${total_price}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="order_button">
+                    <button type="submit">送出訂單</button>
+                </div>`;
+
+            $("div.order_table").html(html_str);
         }
     });
 }

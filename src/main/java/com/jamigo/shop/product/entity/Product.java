@@ -1,5 +1,6 @@
 package com.jamigo.shop.product.entity;
 
+import com.jamigo.counter.counter.entity.Counter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +19,9 @@ public class Product {
     @Column(nullable = false)
     private Integer productCatNo;
 
-    @Column(nullable = false)
-    private Integer counterNo;
+    @ManyToOne
+    @JoinColumn(name = "counterNo", nullable = false)
+    private Counter counter;
 
     @Column(nullable = false)
     private Integer productPrice;

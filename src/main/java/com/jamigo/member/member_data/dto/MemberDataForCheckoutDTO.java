@@ -1,6 +1,7 @@
 package com.jamigo.member.member_data.dto;
 
-public class MemberDataDTO {
+// 用於結帳頁面的 DTO
+public class MemberDataForCheckoutDTO {
     private String memberName;
     private String memberPhone;
     private String memberEmail;

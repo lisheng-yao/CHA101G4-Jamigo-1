@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Getter
@@ -19,27 +22,14 @@ public class PlatformOrder {
     @Column(nullable = false)
     private Integer memberNo;
 
-    @Column(nullable = false)
-    private Instant orderTime;
+    @Column(nullable = false, length = 20)
+    private String buyerName;
 
-    @Column(nullable = false)
-    private Integer orderTotal;
+    @Column(nullable = false, length = 10)
+    private String buyerPhone;
 
-    private Integer orderCouponTotal;
-
-    private Integer orderPointsTotal;
-
-    @Column(nullable = false)
-    private Integer orderSalePrice;
-
-    @Column(nullable = false)
-    private Byte orderStat;
-
-    @Column(nullable = false)
-    private Byte shipStat;
-
-    @Column(nullable = false)
-    private Byte paymentStat;
+    @Column(nullable = false, length = 40)
+    private String buyerEmail;
 
     @Column(nullable = false)
     private Byte paymentMethod;
@@ -50,10 +40,42 @@ public class PlatformOrder {
     @Column(length = 16)
     private String remitAccount;
 
-    private Integer pointUsedOrder;
+    @Column(nullable = false)
+    private Byte pickupMethod;
 
-    private Integer orderRewardPoints;
+    @Column(length = 10)
+    private String deliveryCountry;
 
     @Column(length = 100)
-    private String orderAddress;
+    private String deliveryAddress;
+
+    @Column(nullable = false)
+    private Byte invoiceMethod;
+
+    @Column(length = 8)
+    private String invoiceGui;
+
+    @Column(nullable = false)
+    private Integer totalPaid;
+
+    @Column(nullable = false)
+    private Integer totalCoupon;
+
+    @Column(nullable = false)
+    private Integer totalPoints;
+
+    @Column(nullable = false)
+    private Integer actuallyPaid;
+
+    @Column(nullable = false)
+    private Integer rewardPoints;
+
+    @Column(nullable = false)
+    private Timestamp orderTime;
+
+    @Column(nullable = false)
+    private Byte orderStat;
+
+    @Column(nullable = false)
+    private Byte paymentStat;
 }
