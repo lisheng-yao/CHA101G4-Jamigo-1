@@ -1,0 +1,9 @@
+span.logo-name{
+    font-family: "Ubuntu";
+}
+
+.btn:hover{
+    background-color: bisque;
+    color: brown;
+    transition: 0.25s;
+}
