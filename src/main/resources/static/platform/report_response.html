@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-field {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <div class="form-field">
+            <label class="form-label" for="report-status">檢舉狀態:</label>
+            <span id="report-status">未處理</span>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="product-name">商品名稱:</label>
+            <span id="product-name">xxx</span>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="report-content">檢舉內容:</label>
+            <span id="report-content">xxxxxxx</span>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="member-name">會員名稱:</label>
+            <span id="member-name">xxxxxx</span>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="report-count">被檢舉次數:</label>
+            <span id="report-count">12</span>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="report-time">檢舉時間:</label>
+            <span id="report-time">yyyy-xx-zz</span>
+        </div>
+        <!-- 回應內容 -->
+        <div class="form-field">
+            <label class="form-label" for="additional-comments">平台回覆:</label>
+            <textarea id="additional-comments" class="form-textarea" cols="100%" rows="20"></textarea>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="other-options">其他選項:</label>
+            <select id="other-options" class="form-select" name="otherOptions">
+                <option value="" selected disabled>--------------請選擇--------------</option>
+                <option value="option1">已收到您的意見，將立即改善</option>
+                <option value="option2">檢舉屬實，將立即處理</option>
+                <option value="option3">謝謝您寶貴的意見</option>
+            </select>
+        </div>
+        <input type="submit" value="提交">
+        </div>
+    </form>
+
+</body>
+
+</html>
