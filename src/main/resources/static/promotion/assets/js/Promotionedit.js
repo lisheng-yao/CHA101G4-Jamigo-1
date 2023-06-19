@@ -5,7 +5,7 @@
     // ===============================VVV方法區VVV====================================
 
     // ============================1.查資料回來getAllPromotion()========================
-
+let dataaccount =0;
     function getAllPromotion() {
         console.log('進入getAllPromotion()')
         fetch("http://localhost:8080/Jamigo/Promotion/GetAllPromotionType")
@@ -93,10 +93,10 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">取消
+                        <button type="button" class="btn btn-secondary editbutton"
+                                data-bs-dismiss="modal" id="cancle${i}">取消
                         </button>
-                        <button type="button" class="btn btn-primary">修改</button>
+                        <button type="button" class="btn btn-primary" id="confirm${i}">修改</button>
                     </div>
                 </div>
             </div>
@@ -113,8 +113,10 @@
                         console.log("Promotion Method: " + promotionMethod);
                         console.log("Admin No: " + adminNo);
                         console.log("Counter No: " + counterNo);
+                        dataaccount =i;
                     }
                     tbody.innerHTML = str;
+
                 });
             })
             .catch(function (err) {
@@ -344,6 +346,13 @@
     //=================================1. 總之先查一次=================================
     getAllPromotion();
     // ===============================2. 確認修改按鈕================================
+        const editbutton =document.querySelectorAll('.editbutton');
+        for(let x=0;x<dataaccount;x++){
+            editbutton[x].addEventListener('click',()=>{
+                
+            })
+        }
+
     // confirmbtn.addEventListener('click', () => {
     //     editmemberdata();
     // });
