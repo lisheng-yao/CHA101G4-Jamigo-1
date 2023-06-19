@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import static com.jamigo.member.member_data.util.CommonUtil.json2Pojo;
 import static com.jamigo.member.member_data.util.CommonUtil.writePojo2Json;
 
-@WebServlet("/login/login")
+@WebServlet("member/login/login")
 public class loginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Autowired

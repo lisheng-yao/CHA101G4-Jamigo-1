@@ -1,58 +1,70 @@
 package com.jamigo.member.member_data.controller;
 
-import com.jamigo.member.member_data.Service.impl.MemberServiceImpl;
 import com.jamigo.member.member_data.entity.MemberData;
 import com.jamigo.member.member_data.dao.impl.MemberDataDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 
-    @WebServlet("/DBGifReaderController")
-public class DBGifReaderController extends HttpServlet {
-        private static final long serialVersionUID = 1L;
-        @Autowired
-        private MemberDataDaoImpl dao;
+@RestController
+public class DBGifReaderController {
+    private static final long serialVersionUID = 1L;
+    @Autowired
+    private MemberDataDaoImpl dao;
+    @Autowired
+    private HttpServletRequest request;
 
-        public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-            res.setContentType("image/gif");
-            ServletOutputStream out = res.getOutputStream();
-
+    @GetMapping("member/member_data/{memberNo}")
+    public ResponseEntity<byte[]> findPic(@PathVariable("memberNo") Integer memberNo) {
+        MemberData thismember = dao.selectById(memberNo);
+        if (thismember != null) {
+            byte[] thisPic = thismember.getMemberPic();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            System.out.println("把查到的物件的照片放上去");
+            return new ResponseEntity<>(thisPic, headers, HttpStatus.OK);
+        } else {
+            System.out.println("把預設的照片放上去");
             try {
-                Integer memberNoA = Integer.valueOf(req.getParameter("memberNo"));
-                MemberData thismemberNo = dao.selectById(memberNoA);
-                byte[] thisPic = thismemberNo.getMemberPic();
+                byte[] gray= getImageBytes("/static/member/member/image/gray.jpg");
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_JPEG);
+                return new ResponseEntity<>(gray, headers, HttpStatus.OK);
 
-                if (thisPic != null) {
-                    out.write(thisPic);
-                    System.out.println("把查到的物件的照片放上去" );
-                } else {
-                    out.write(getImageBytes("/WEB-INF/member/image/gray.jpg"));
-                    System.out.println("把預設的照片放上去" );
-                }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
-        }
-
-        private byte[] getImageBytes(String imageUrl) throws IOException {
-            InputStream in = getServletContext().getResourceAsStream(imageUrl);
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            int nRead;
-            byte[] data = new byte[1024];
-            while ((nRead = in.read(data, 0, data.length)) != -1) {
-                buffer.write(data, 0, nRead);
-            }
-            buffer.flush();
-            return buffer.toByteArray();
         }
     }
+
+    private byte[] getImageBytes(String imageUrl) throws IOException {
+        InputStream in = request.getServletContext().getResourceAsStream(imageUrl);
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[1024];
+        while ((nRead = in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        buffer.flush();
+        return buffer.toByteArray();
+    }
+}
+
+
+
+
+
+

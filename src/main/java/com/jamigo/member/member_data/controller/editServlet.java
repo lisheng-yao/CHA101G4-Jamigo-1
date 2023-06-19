@@ -12,7 +12,7 @@ import java.util.Base64;
 
 import static com.jamigo.member.member_data.util.CommonUtil.json2Pojo;
 import static com.jamigo.member.member_data.util.CommonUtil.writePojo2Json;
-@WebServlet("/member/edit")
+@WebServlet("/member/member/edit")
 public class editServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Autowired
