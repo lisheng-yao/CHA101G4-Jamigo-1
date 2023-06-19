@@ -6,6 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.Instant;
 
+/**
+ * 日後即使換成鈞閔的版本，也不會影響豪哥程式的運行
+ */
 @Getter
 @Setter
 @Entity

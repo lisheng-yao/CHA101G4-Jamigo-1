@@ -1,13 +1,11 @@
 package com.jamigo.shop.platform_order.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.Instant;
 
 @Getter
 @Setter
@@ -34,12 +32,6 @@ public class PlatformOrder {
     @Column(nullable = false)
     private Byte paymentMethod;
 
-    @Column(length = 19)
-    private String creditCard;
-
-    @Column(length = 16)
-    private String remitAccount;
-
     @Column(nullable = false)
     private Byte pickupMethod;
 
@@ -59,10 +51,10 @@ public class PlatformOrder {
     private Integer totalPaid;
 
     @Column(nullable = false)
-    private Integer totalCoupon;
+    private Integer totalCoupon = 0;
 
     @Column(nullable = false)
-    private Integer totalPoints;
+    private Integer totalPoints = 0;
 
     @Column(nullable = false)
     private Integer actuallyPaid;
@@ -71,10 +63,11 @@ public class PlatformOrder {
     private Integer rewardPoints;
 
     @Column(nullable = false)
-    private Timestamp orderTime;
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp orderTime = new Timestamp(System.currentTimeMillis());
 
     @Column(nullable = false)
-    private Byte orderStat;
+    private Byte platformOrderStat;
 
     @Column(nullable = false)
     private Byte paymentStat;

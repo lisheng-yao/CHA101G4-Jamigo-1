@@ -1,33 +1,20 @@
 package com.jamigo.member.member_data.dto;
 
-// 用於結帳頁面的 DTO
+import lombok.Getter;
+import lombok.Setter;
+
+
+/**
+ * 用於結帳時，自動填入訂購人資料
+ */
+@Getter
+@Setter
 public class MemberDataForCheckoutDTO {
+
+    // 會員姓名
     private String memberName;
+    // 會員手機
     private String memberPhone;
+    // 會員Email
     private String memberEmail;
-
-    // getters and setters
-    public String getMemberName() {
-        return memberName;
-    }
-
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
-    }
-
-    public String getMemberPhone() {
-        return memberPhone;
-    }
-
-    public void setMemberPhone(String memberPhone) {
-        this.memberPhone = memberPhone;
-    }
-
-    public String getMemberEmail() {
-        return memberEmail;
-    }
-
-    public void setMemberEmail(String memberEmail) {
-        this.memberEmail = memberEmail;
-    }
 }

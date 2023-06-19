@@ -5984,17 +5984,17 @@ nav.navbar .svg-inline--fa {
 }
 
 .shop_toolbar_btn>button.btn-grid-3 {
-    background: url(../img/icon/bkg_grid.png) no-repeat scroll center center;
+    background: url(bkg_grid.png) no-repeat scroll center center;
     width: 20px;
     height: 20px;
 }
 
 .shop_toolbar_btn>button.btn-grid-3.active {
-    background: url(../img/icon/bkg_grid_hover.png) no-repeat scroll center center !important;
+    background: url(bkg_grid_hover.png) no-repeat scroll center center !important;
 }
 
 .shop_toolbar_btn>button.btn-grid-4 {
-    background: url(../img/icon/bkg_grid4.png) no-repeat scroll center center;
+    background: url(bkg_grid4.png) no-repeat scroll center center;
     width: 30px;
     height: 20px;
 }
@@ -6012,17 +6012,17 @@ nav.navbar .svg-inline--fa {
 }
 
 .shop_toolbar_btn>button.btn-grid-4.active {
-    background: url(../img/icon/bkg_grid4_hover.png) no-repeat scroll center center !important;
+    background: url(bkg_grid4_hover.png) no-repeat scroll center center !important;
 }
 
 .shop_toolbar_btn>button.btn-list {
-    background: url(../img/icon/bkg_list.png) no-repeat scroll center center;
+    background: url(bkg_list.png) no-repeat scroll center center;
     width: 20px;
     height: 20px;
 }
 
 .shop_toolbar_btn>button.btn-list.active {
-    background: url(../img/icon/bkg_list_hover.png) no-repeat scroll center center !important;
+    background: url(bkg_list_hover.png) no-repeat scroll center center !important;
 }
 
 .product_content.list_content {
@@ -8235,11 +8235,11 @@ nav.navbar .svg-inline--fa {
 
 
 
-.order_button {
+.create_order {
     text-align: right;
 }
 
-.order_button button {
+.create_order button {
     cursor: pointer;
     font-size: 20px;
     line-height: 30px;
@@ -8262,12 +8262,12 @@ nav.navbar .svg-inline--fa {
 }
 
 @media only screen and (max-width: 767px) {
-    .order_button button {
+    .create_order button {
         font-size: 14px;
     }
 }
 
-.order_button button:hover {
+.create_order button:hover {
     background: #222222;
 }
 

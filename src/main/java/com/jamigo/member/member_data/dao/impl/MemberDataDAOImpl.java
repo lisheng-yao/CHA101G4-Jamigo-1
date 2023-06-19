@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceContext;
 
+/**
+ * 日後即使換成鈞閔的版本，也不會影響豪哥程式的運行
+ */
 @Repository
 public class MemberDataDAOImpl implements MemberDataDAO {
 

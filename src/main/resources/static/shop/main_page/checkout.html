@@ -179,23 +179,14 @@
                             <div class="payment_method" id="payment_accordion">
                                 <div class="panel-default">
                                     <input id="payment1" type="radio" name="payment_method" data-toggle="collapse"
-                                        data-target="#payment_method1">
+                                        data-target="#payment_method1" value="1">
                                     <label for="payment1" data-toggle="collapse"
                                         data-target="#payment_method1">信用卡一次付清</label>
 
                                     <div id="payment_method1" class="collapse" data-parent="#payment_accordion">
                                         <div class="row">
-                                            <div class="card-body1 col-9 mt-10">
-                                                <label>信用卡卡號 <span>*</span></label>
-                                                <input type="text" placeholder="**** **** **** ****">
-                                            </div>
-                                            <div class="card-body1 col-lg-5 mt-10">
-                                                <label>信用卡有效期限 <span>*</span></label>
-                                                <input type="text" placeholder="MM / YY">
-                                            </div>
-                                            <div class="card-body1 col-lg-4 mt-10">
-                                                <label>卡片背面後三碼 <span>*</span></label>
-                                                <input type="text" placeholder="CVC / CVV">
+                                            <div class="card-body1">
+                                                <p>下一步將連至綠界金流並取得繳費資訊</p>
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +194,7 @@
 
                                 <div class="panel-default">
                                     <input id="payment2" type="radio" name="payment_method" data-toggle="collapse"
-                                        data-target="#payment_method2">
+                                        data-target="#payment_method2" value="2">
                                     <label for="payment2" data-toggle="collapse" data-target="#payment_method2">ATM
                                         轉帳</label>
 
@@ -216,7 +207,7 @@
 
                                 <div class="panel-default">
                                     <input id="payment3" type="radio" name="payment_method" data-toggle="collapse"
-                                        data-target="#payment_method3">
+                                        data-target="#payment_method3" value="3">
                                     <label for="payment3" data-toggle="collapse"
                                         data-target="#payment_method3">貨到付款</label>
 
@@ -233,7 +224,7 @@
                             <div class="shipping_method" id="shipping_accordion">
                                 <div class="panel-default">
                                     <input id="shipping1" type="radio" name="shipping_method" data-toggle="collapse"
-                                        data-target="#shipping_method1">
+                                        data-target="#shipping_method1" value="1">
                                     <label for="shipping1" data-toggle="collapse"
                                         data-target="#shipping_method1">店取</label>
 
@@ -241,7 +232,7 @@
                                         <div class="row">
                                             <div class="card-body1 col-3 mt-10">
                                                 <label for="branch">請選擇館別 <span>*</span></label>
-                                                <select class="select_option" name="country" id="branch">
+                                                <select class="select_option branch" name="branch" id="branch">
                                                     <option value="ZhongLi">中壢館</option>
                                                 </select>
                                             </div>
@@ -251,22 +242,22 @@
 
                                 <div class="panel-default">
                                     <input id="shipping2" type="radio" name="shipping_method" data-toggle="collapse"
-                                        data-target="#shipping_method2">
+                                        data-target="#shipping_method2" value="2">
                                     <label for="shipping2" data-toggle="collapse"
-                                        data-target="#shipping_method2">宅配</label>
+                                        data-target="#shipping_method2">宅配到府</label>
 
                                     <div id="shipping_method2" class="collapse" data-parent="#shipping_accordion">
                                         <div class="row">
                                             <div class=" card-body1 col-3 mt-10">
                                                 <label for="country">國家 <span>*</span></label>
-                                                <select class="select_option" name="country" id="country">
-                                                    <option value="Taiwan">台灣</option>
-                                                    <option value="ROC">中華民國</option>
+                                                <select class="select_option country" name="country" id="country">
+                                                    <option value="台灣">台灣</option>
+                                                    <option value="台灣">中華民國</option>
                                                 </select>
                                             </div>
                                             <div class="card-body1 col-12 mt-10">
                                                 <label>住址 <span>*</span></label>
-                                                <input type="text">
+                                                <input type="text" class="address">
 
                                             </div>
 
@@ -284,7 +275,7 @@
                             <div class="invoice_method" id="invoice_accordion">
                                 <div class="panel-default">
                                     <input id="invoice1" type="radio" name="invoice_method" data-toggle="collapse"
-                                        data-target="#invoice_method1">
+                                        data-target="#invoice_method1" value="1">
                                     <label for="invoice1" data-toggle="collapse"
                                         data-target="#invoice_method1">紙本發票</label>
 
@@ -298,7 +289,7 @@
 
                                 <div class="panel-default">
                                     <input id="invoice2" type="radio" name="invoice_method" data-toggle="collapse"
-                                        data-target="#invoice_method2">
+                                        data-target="#invoice_method2" value="2">
                                     <label for="invoice2" data-toggle="collapse"
                                         data-target="#invoice_method2">公司發票</label>
 
@@ -306,7 +297,7 @@
                                         <div class="row">
                                             <div class="card-body1 col-6 mt-10">
                                                 <label>統一編號 <span>*</span></label>
-                                                <input type="text">
+                                                <input type="text" class="invoice_gui">
                                             </div>
                                         </div>
                                     </div>
@@ -362,7 +353,7 @@
 <!--                                        </tr>-->
 <!--                                    </tfoot>-->
 <!--                                </table>-->
-<!--                                <div class="order_button">-->
+<!--                                <div class="create_order">-->
 <!--                                    <button type="submit">送出訂單</button>-->
 <!--                                </div>-->
                             </div>
@@ -408,6 +399,8 @@
     <script src="assets/js/slinky.menu.js"></script>
     <!-- Plugins JS -->
     <script src="assets/js/plugins.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
