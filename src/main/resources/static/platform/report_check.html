@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- 新引入的CSS檔案或套件請由此往下放 -->
+
+    <!-- jquery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- datatable  css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <!-- datatable js -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" href="css/all.css">
+
+    <!-- 引入fontawsome -->
+    <link rel="stylesheet" href="assets/fontawsome/css/all.css">
+    <!-- 引入Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <title>商品檢舉審核</title>
+
+    <style>
+        #th2container {
+            width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 整頁的容器 -->
+    <div class="container-fluid whole-page">
+        <div class="row">
+            <div class="col my-2">
+                <span class="d-flex align-items-center logo-part">
+                    <span class="logo-img mx-3">
+                        <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+                    </span>
+                    <span class="fs-3 fw-bold logo-name">
+                        Jamigo
+                    </span>
+                    <span class="fs-4 fw-bold platform-page">
+                        平臺後臺管理系統
+                    </span>
+                    <button type="button" class="btn rounded-circle border-0 nav-btn home-btn" data-bs-toggle="tooltip"
+                        data-bs-placement="right" style="padding: 12px;" data-bs-title="返回首頁">
+                        <i class="fa-solid fa-house fa-lg"></i>
+                    </button>
+                </span>
+            </div>
+            <div class="col-auto my-2">
+                <ul class="nav justify-content-end d-flex align-items-center">
+                    <li class="nav-item">
+                        <!-- 通知訊息 -->
+                        <div class="dropdown position-relative">
+                            <button class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-bell"></i>
+                                <span
+                                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">
+                                        通知
+                                    </a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- 頭像 -->
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <img src="https://picsum.photos/id/684/600" class="rounded-circle" width="40" height="40"
+                                alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <!-- 側邊選單列表 -->
+            <div class="col-2 sidebar">
+                <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+                <div class="list-group rounded-bottom-0">
+                    <a href="emp_data.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-solid fa-address-card me-2"></i>
+                        員工資料管理
+                    </a>
+                    <a href="memData_search.html"
+                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-solid fa-users me-2"></i>
+                        會員資料查詢
+                    </a>
+                </div>
+
+                <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne">
+                                <i class="fa-solid fa-store me-2"></i>
+                                櫃位資料管理
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0 border-0">
+                                <div class="list-group rounded-0">
+                                    <a href="counter_accountCtrl.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        櫃位帳號管理
+                                    </a>
+                                    <a href="counter_monthlyCtrl.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        月結抽成管理
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true"
+                                aria-controls="flush-collapseTwo">
+                                <i class="fa-solid fa-list me-2"></i>
+                                商城與訂單管理
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                            data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0">
+                                <div class="list-group rounded-0">
+                                    <a href="platform_order.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        平臺訂單管理
+                                    </a>
+                                    <a href="product_category.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        商品類別管理
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action sidebar-submenu active">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        商品檢舉審核
+                                    </a>
+                                    <a href="latest_news.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        商城輪播管理
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree">
+                                <i class="fa-solid fa-champagne-glasses me-2"></i>
+                                線下活動與場地
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0">
+                                <div class="list-group rounded-0">
+                                    <a href="event_check.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        線下活動申請審核
+                                    </a>
+                                    <a href="event_venueCtrl.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        線下活動場地管理
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                aria-controls="flush-collapseFour">
+                                <i class="fa-solid fa-gift me-2"></i>
+                                全館優惠管理
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0">
+                                <div class="list-group rounded-0">
+                                    <a href="platform_coupon.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        全館折價票券管理
+                                    </a>
+                                    <a href="platform_discountAct.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        全館優惠活動管理
+                                    </a>
+                                    <a href="member_rewards.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        會員等級回饋管理
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group rounded-top-0">
+                    <a href="robot_settings.html"
+                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-solid fa-robot me-2"></i>
+                        客服機器人管理
+                    </a>
+                    <a href="platform_DM.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-regular fa-message me-2"></i>
+                        即時客服問答
+                    </a>
+                    <a href="platform_fullpage.html"
+                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-solid fa-eye me-2"></i>
+                        平臺首頁管理
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-solid fa-right-from-bracket me-2"></i>
+                        登出
+                    </a>
+                </div>
+            </div>
+            <!-- 網頁內容主體 -->
+            <div class="col-10 page-body">
+
+                <table id="all" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>檢舉狀態</th>
+                            <th>商品名稱</th>
+                            <th>
+                                <div id="th2container">檢舉內容</div>
+                            </th>
+                            <th>會員名稱</th>
+                            <th>被檢舉次數</th>
+                            <th>檢舉時間</th>
+                            <th>狀態操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id = "rows_container">
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>未處理</th>
+                            <th>商品名稱</th>
+                            <th>檢舉內容</th>
+                            <th>會員名稱</th>
+                            <th>被檢舉次數</th>
+                            <th>檢舉日期</th>
+                            <th>審核結果</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <table id="finish" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>檢舉狀態</th>
+                            <th>商品名稱</th>
+                            <th>
+                                <div id="th2container">檢舉原因</div>
+                            </th>
+                            <th>會員名稱</th>
+                            <th>被檢舉次數</th>
+                            <th>檢舉日期</th>
+                            <th>狀態操作</th>
+                        </tr>
+                    </thead>
+                </table>
+                <!---------------------------------主體結束-------------------------------->
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- 引入bootstrap CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!-- 新引入的JS檔案或套件請由此往下放 -->
+
+    <script>
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+
+    <!-- 初始化datatable函式 -->
+    <script>
+        $(document).ready(function () {
+            $('#all').DataTable({
+                scrollY: '200px',
+                scrollCollapse: true,
+                paging: false,
+                pageLength: 10
+            });
+        });
+        $(document).ready(function () {
+            $('#finish').DataTable({
+                scrollY: '200px',
+                scrollCollapse: true,
+                paging: false,
+            });
+        });
+
+        // 按變更狀態的button 狀態改變的js
+        function toggle(e) {
+            var row = e.parentNode.parentNode;
+            var td1 = row.getElementsByTagName('td')[0];
+
+            var alltable = document.getElementById('all');
+            var finishtable = document.getElementById('finish');
+
+            // 判斷式，搭配克隆，轉移資料到另一表格中
+            if (td1.textContent === '未處理') {
+                td1.textContent = '已處理';
+                var newrow = row.cloneNode(true);
+                finishtable.appendChild(newrow);
+            } else if (td1.textContent === '已處理') {
+                td1.textContent = '未處理';
+                var newrow = row.cloneNode(true);
+                alltable.appendChild(newrow)
+            }
+            row.parentNode.removeChild(row);
+        }
+
+        //點選該列 會跳出小視窗 顯示檢舉詳情
+
+        function openNewWindow(url) {
+            var width = 400;
+            var height = 600;
+            var left = (window.innerWidth - width / 2);
+            var top = (window.innerHeight - height / 2);
+            window.open(url, '_blank', 'width=' + width, 'height=' + height, 'left=' + left, 'top=' + top);
+        }
+
+
+        //頁面載入查詢表格 資料庫拿到的data是一個物件的陣列
+      $(document).ready(function(){
+
+          var data = [
+                  {
+                      productName: "商品1",
+                      reportContent: "檢舉內容1",
+                      memberName: "會員1",
+                      reportCount: 1,
+                      reportDate: "2023-06-14"
+                  },
+                  {
+                      productName: "商品2",
+                      reportContent: "檢舉內容2",
+                      memberName: "會員2",
+                      reportCount: 2,
+                      reportDate: "2023-06-15"
+                  }
+                  // ... 可以繼續添加更多數據
+              ];
+              
+              // 商品編號跟會員編號從不同表格查詢改插入名字 檢舉次數要查詢商品檢舉次數
+              //把rowdata塞到表格中
+              //從資料庫查到的資料迭代塞入rowdata物件裡
+            data.forEach(function(rowData){
+                var newRow = $("<tr>");
+                newRow.append("<td>未處理</td>");
+            
+                newRow.append("<td>" + rowData.productName + "</td>");
+                newRow.append("<td><div id='th2container'>" + rowData.reportContent + "</div></td>");
+                newRow.append("<td>" + rowData.memberName + "</td>");
+                newRow.append("<td>" + rowData.reportCount + "</td>");
+                newRow.append("<td>" + rowData.reportDate + "</td>");
+            
+                newRow.append("<td><button onclick=\"openNewWindow('report_response.html');\">回覆</button><button onclick='toggle(this)'>變更狀態</button></td>");
+                    $("#rows_container").append(newRow);
+                
+            });
+            
+
+              
+        })
+      
+
+
+
+
+
+    </script>
+</body>
+
+</html>
