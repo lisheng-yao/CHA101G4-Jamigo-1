@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 
-import static core.util.CommonUtil.json2Pojo;
-import static core.util.CommonUtil.writePojo2Json;
-import static web.member.util.MemberConstants.SERVICE;
+import static com.jamigo.member.member_data.util.CommonUtil.json2Pojo;
+import static com.jamigo.member.member_data.util.CommonUtil.writePojo2Json;
 @WebServlet("/member/edit")
 public class editServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

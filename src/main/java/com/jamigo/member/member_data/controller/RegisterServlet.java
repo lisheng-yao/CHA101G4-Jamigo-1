@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static core.util.CommonUtil.json2Pojo;
-import static core.util.CommonUtil.writePojo2Json;
-import static web.member.util.MemberConstants.SERVICE;
+import static com.jamigo.member.member_data.util.CommonUtil.json2Pojo;
+import static com.jamigo.member.member_data.util.CommonUtil.writePojo2Json;
 
 @WebServlet("/login/register")
 public class RegisterServlet extends HttpServlet {
