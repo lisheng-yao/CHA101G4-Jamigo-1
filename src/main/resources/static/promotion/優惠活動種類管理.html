@@ -375,7 +375,7 @@
 <script>
   $(document).ready(function () {
     $('#all').DataTable({
-      scrollY: '200px',
+      scrollY: '600px',
       scrollCollapse: true,
       paging: false,
       pageLength: 10
@@ -383,7 +383,7 @@
   });
   $(document).ready(function () {
     $('#finish').DataTable({
-      scrollY: '200px',
+      scrollY: '600px',
       scrollCollapse: true,
       paging: false,
     });
@@ -391,33 +391,32 @@
 
   // 按變更狀態的button 狀態改變的js
   function toggle(e) {
-    var row = e.parentNode.parentNode;
-    var td1 = row.getElementsByTagName('td')[0];
+    const row = e.parentNode.parentNode;
+    const td1 = row.getElementsByTagName('td')[0];
 
-    var alltable = document.getElementById('all');
-    var finishtable = document.getElementById('finish');
+    const alltable = document.getElementById('all');
+    const finishtable = document.getElementById('finish');
 
     // 判斷式，搭配克隆，轉移資料到另一表格中
     if (td1.textContent === '未處理') {
       td1.textContent = '已處理';
-      var newrow = row.cloneNode(true);
+      const newrow = row.cloneNode(true);
       finishtable.appendChild(newrow);
     } else if (td1.textContent === '已處理') {
       td1.textContent = '未處理';
-      var newrow = row.cloneNode(true);
+      const newrow = row.cloneNode(true);
       alltable.appendChild(newrow)
     }
     row.parentNode.removeChild(row);
   }
 
 
-  //點選該列 會跳出小視窗 顯示檢舉詳情
 
   function openNewWindow(url) {
-    var width = 400;
-    var height = 600;
-    var left = (window.innerWidth - width / 2);
-    var top = (window.innerHeight - height / 2);
+    const width = 400;
+    const height = 600;
+    let left = (window.innerWidth - width / 2);
+    let top = (window.innerHeight - height / 2);
     window.open(url, '_blank', 'width=' + width, 'height=' + height, 'left=' + left, 'top=' + top);
   }
 

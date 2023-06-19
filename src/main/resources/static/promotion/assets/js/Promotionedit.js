@@ -1,6 +1,7 @@
 (() => {
     const tbody = document.querySelector('#tbody');
 
+
     // ===============================VVV方法區VVV====================================
 
     // ============================1.查資料回來getAllPromotion()========================
@@ -29,7 +30,8 @@
                         const adminNo = promotion.adminNo;
                         const counterNo = promotion.counterNo;
 
-                         str += `<tr>
+
+                        str += `<tr>
     <td>${promotionName}</td>
     <td>${promotionType}</td>
     <td>${promotionMethod}</td>
@@ -57,35 +59,35 @@
                                 <label htmlFor="recipient-name"
                                        class="col-form-label">活動種類名稱:</label>
                                 <input type="text" class="form-control"
-                                       id="recipient-name${i}">
+                                       id="recipient-name${i}" value="${promotionName}">
                             </div>
                             <div class="mb-3">
                                 <label htmlFor="recipient-name"
                                        class="col-form-label">發放種類:</label>
-                                <select name="" id="recipient-type${i}">
-                                    <option value="折價券">折價券</option>
-                                    <option value="點數">點數</option>
+                                <select name="" id="recipient-type${i}" >
+                                    <option value="折價券" ${promotionType === '折價券' ? 'selected' : ''}>折價券</option>
+                                    <option value="點數" ${promotionType === '點數' ? 'selected' : ''}>點數</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label htmlFor="recipient-name"
                                        class="col-form-label">發放方式:</label>
-                                <select name="" id="recipient-methed${i}">
-                                    <option value="結帳後取得">結帳後取得</option>
-                                    <option value="自由兌換">自由兌換</option>
+                                <select name="" id="recipient-methed${i}" >
+                                    <option value="結帳後取得" ${promotionMethod === '結帳後取得' ? 'selected' : ''}>結帳後取得</option>
+                                    <option value="自由兌換" ${promotionMethod === '自由兌換' ? 'selected' : ''}>自由兌換</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label htmlFor="recipient-name"
                                        class="col-form-label">管理員編號:</label>
                                 <input type="text" class="form-control"
-                                       id="recipient-cNo${i}">
+                                       id="recipient-cNo${i}" value="">
                             </div>
                             <div class="mb-3">
                                 <label htmlFor="recipient-name"
                                        class="col-form-label">欄位編號:</label>
                                 <input type="text" class="form-control"
-                                       id="recipient-aNo${i}">
+                                       id="recipient-aNo${i}" value="">
                             </div>
                         </form>
 
@@ -119,6 +121,7 @@
                 console.log('錯誤：', err);
             });
     }
+
 
     // ============================2. 修改資料進去 editmemberdata()========================
     function editmemberdata() {
