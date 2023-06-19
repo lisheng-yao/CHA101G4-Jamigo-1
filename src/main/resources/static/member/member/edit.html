@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- 新引入的CSS檔案或套件請由此往下放 -->
+
+    <link rel="stylesheet" href="css/all.css">
+    <style>
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            background-color: #a5a9ac; /* 灰色區塊的背景顏色 */
+            border-radius: 50%;
+        }
+    </style>
+
+    <!-- 引入fontawsome -->
+<!--    <link rel="stylesheet" href="assets/fontawsome/css/all.css">-->
+    <!-- 引入Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+            rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>前臺頁面管理</title>
+</head>
+
+<body>
+
+<!-- 整頁的容器 -->
+<div class="container-fluid whole-page">
+    <div class="row">
+        <div class="col my-2">
+                <span class="d-flex align-items-center logo-part">
+                    <span class="logo-img mx-3">
+                        <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+                    </span>
+                    <span class="fs-3 fw-bold logo-name">
+                        Jamigo會員資訊系統
+                    </span>
+                    <button type="button" class="btn rounded-circle border-0 home-btn" data-bs-toggle="tooltip"
+                            data-bs-placement="right" style="padding: 12px;" data-bs-title="返回首頁">
+                        <i class="fa-solid fa-house fa-lg"></i>
+                    </button>
+                </span>
+        </div>
+        <div class="col-auto my-2">
+            <ul class="nav justify-content-end d-flex align-items-center">
+                <li class="nav-item">
+                    <!-- 通知訊息 -->
+                    <div class="dropdown position-relative">
+                        <button class="btn rounded-circle dropdown-button position-relative border-0" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-bell"></i>
+                            <span
+                                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                </span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">
+                                通知
+                            </a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- 頭像 -->
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <img src="https://picsum.photos/id/684/600" class="rounded-circle" width="40" height="40"
+                             alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- 側邊選單列表 -->
+        <div class="col-2 sidebar">
+            <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+            <div class="list-group rounded-bottom-0">
+                <a href="#" class="list-group-item list-group-item-action fs-6 fw-bold p-3 sidebar-menu active">
+                    <i class="fa-solid fa-eye me-2"></i>
+                    前臺頁面管理
+                </a>
+            </div>
+            <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne">
+                            <i class="fa-solid fa-list me-2"></i>
+                            商品與訂單管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0 border-0">
+                            <div class="list-group rounded-0">
+                                <a href="counter_product.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    商品資料管理
+                                </a>
+                                <a href="counter_order.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    櫃位訂單管理
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo">
+                            <i class="fa-solid fa-circle-info me-2"></i>
+                            櫃位資料專區
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0">
+                            <div class="list-group rounded-0">
+                                <a href="counter_data.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    櫃位帳號資料管理
+                                </a>
+                                <a href="counter_monthly.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    櫃位月結報表查詢
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree">
+                            <i class="fa-solid fa-gift me-2"></i>
+                            櫃位優惠管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0">
+                            <div class="list-group rounded-0">
+                                <a href="counter_coupon.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    櫃位折價票券管理
+                                </a>
+                                <a href="counter_discountAct.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    櫃位優惠活動管理
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                aria-controls="flush-collapseFour">
+                            <i class="fa-solid fa-champagne-glasses me-2"></i>
+                            線下活動管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0">
+                            <div class="list-group rounded-0">
+                                <a href="counter_actApply.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    線下活動申請
+                                </a>
+                                <a href="counter_actContent.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    活動內容管理
+                                </a>
+                                <a href="counter_actHistory.html"
+                                   class="list-group-item list-group-item-action fs-6 fw-bold sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    活動歷史紀錄
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group rounded-top-0">
+                <a href="counter_DM.html" class="list-group-item list-group-item-action fs-6 fw-bold p-3">
+                    <i class="fa-regular fa-message me-2"></i>
+                    客戶訊息回覆
+                </a>
+                <a href="#" class="list-group-item list-group-item-action fs-6 fw-bold p-3">
+                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+                    登出
+                </a>
+            </div>
+        </div>
+
+        <!-- 網頁內容主體 -->
+        <div class="col-10 page-body">
+            <div class="container d-flex">
+                <div class="col-8">
+                    <div class="controll-box counter-alter-controll-box">
+                        <div class="back-end-box-title counter-alter-controll-title">
+                            <h2>會員資訊管理</h2>
+                        </div>
+                        <div class="controll-content counter-alter-controll-content">
+                            <form action="" id="editmemberform">
+
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberNo" class="input-group-text">會員編號</label>
+                                    <input type="text" class="form-control" id="inputmemberNo" readonly>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberAccount" class="input-group-text">會員帳號</label>
+                                    <input type="text" class="form-control" id="inputmemberAccount" readonly>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberName" class="input-group-text">會員姓名</label>
+                                    <input type="text" class="form-control" id="inputmemberName">
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberPhone" class="input-group-text">手機號碼</label>
+                                    <input type="text" class="form-control" id="inputmemberPhone">
+                                </div>
+
+
+                                <div class="input-group mt-2">
+                                    <select  class="btn btn-outline-primary dropdown-toggle" id="selectGender">
+                                        <option selected disabled>未選擇</option>
+                                        <option >男生</option>
+                                        <option >女生</option>
+                                    </select>
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                                     readonly  id="inputmemberGender">
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberEmail" class="input-group-text">E-mail</label>
+                                    <input type="text" class="form-control" id="inputmemberEmail">
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberAddress" class="input-group-text">地址</label>
+                                    <input type="text" class="form-control" id="inputmemberAddress">
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberJoinTime" class="input-group-text">會員註冊時間</label>
+                                    <input type="text" class="form-control" id="inputmemberJoinTime" readonly>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberNation" class="input-group-text">國籍</label>
+                                    <input type="text" class="form-control" id="inputmemberNation" value="台灣" readonly>
+                                </div>
+                                <!-- 上傳大頭貼區塊開始 -->
+
+                                <style>
+                                    .img-div{
+                                        /*max-width: 200px;*/
+                                        width: 100px;
+                                        height: 100px;
+                                        border-radius: 500px;
+                                        overflow: hidden;
+                                        /*position: relative;*/
+                                    }
+                                    #avatar-preview{
+                                        /*width: 100%;*/
+                                        /*display: block;*/
+                                        /*aspect-ratio: unset;*/
+                                        /*border-radius: unset;*/
+                                        /*height: unset;*/
+                                        position: relative;
+                                        /*top: -25%;*/
+                                    }
+                                </style>
+                                <div class="input-group">
+                                    <div class="input-group-text">會員照片</div>
+                                    <div class="d-flex align-items-center">
+                                        <div id="avatar-placeholder" class="avatar-placeholder ms-3"></div>
+                                        <div class="img-div  ms-3">
+                                            <img id="avatar-preview" src="#" alt="Avatar Preview" style="
+
+                "
+                                                 class="img-fluid border border-dark"/>
+                                        </div>
+                                        <div class="flex-grow-1 custom-file ps-3">
+                                            <input type="file" class="form-control" id="inputmemberPic"
+                                                   aria-describedby="avatar-upload-label"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 上傳大頭貼區塊結束 -->
+
+
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberCard" class="input-group-text">信用卡</label>
+                                    <input type="text" class="form-control" id="inputmemberCard">
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberPoints" class="input-group-text">會員點數</label>
+                                    <input type="text" class="form-control" id="inputmemberPoints" readonly>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberStat" class="input-group-text">帳號狀態</label>
+                                    <input type="text" class="form-control" id="inputmemberStat" readonly>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputlevelNo" class="input-group-text">會員等級</label>
+                                    <input type="text" class="form-control" id="inputlevelNo" readonly>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <label for="inputmemberBirthday" class="input-group-text">生日</label>
+                                    <input type="date" class="form-control" id="inputmemberBirthday">
+                                </div>
+                                <div id="msg"></div>
+
+
+                                <!-- 按鈕區-->
+                                <div class="button-group mt-2">
+                                    <button type="button" class="btn revise-btn btn-outline-primary" id="confirmbtn">
+                                        確認修改
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary ml-2" id="canslebtn">重設
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal"
+                                            data-bs-whatever="@mdo">修改密碼
+                                    </button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">修改密碼</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <!-- 燈箱區  修改密碼-->
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label for="oldmemberPassword"
+                                                                   class="col-form-label">舊的密碼</label>
+                                                            <input type="password" class="form-control"
+                                                                   id="oldmemberPassword">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="newmemberPassword"
+                                                                   class="col-form-label">新的密碼</label>
+                                                            <input type="password" class="form-control"
+                                                                   id="newmemberPassword"></textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="newmemberPasswordConfirm"
+                                                                   class="col-form-label">確認密碼</label>
+                                                            <input type="password" class="form-control"
+                                                                   id="newmemberPasswordConfirm"></textarea>
+                                                            <span id="msg2"></span>
+                                                        </div>
+
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal" id="cancelbtn2">
+                                                        取消
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary" id="confirmbtn2">
+                                                        確定更改
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 引入bootstrap CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+<!-- 新引入的JS檔案或套件請由此往下放 -->
+<script src="js/edit.js"></script>
+<!--<script>-->
+<!--    // const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')-->
+<!--    // const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))-->
+<!--</script>-->
+
+<!--<script>-->
+<!--    // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')-->
+<!--    // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))-->
+<!--</script>-->
+
+<!--<script>-->
+<!--    // const popoverTriggerList = document.querySelectorAll(-->
+<!--    //     '[data-bs-toggle="popover"]'-->
+<!--    // );-->
+<!--    // const popoverList = [...popoverTriggerList].map(-->
+<!--    //     (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)-->
+<!--    // );-->
+<!--</script>-->
+
+<!--<script>-->
+<!--    // const tooltipTriggerList = document.querySelectorAll(-->
+<!--    //     '[data-bs-toggle="tooltip"]'-->
+<!--    // );-->
+<!--    // const tooltipList = [...tooltipTriggerList].map(-->
+<!--    //     (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)-->
+<!--    // );-->
+<!--</script>-->
+
+<script>
+    const avatarUpload = document.getElementById("inputmemberPic");
+    const avatarPlaceholder = document.getElementById("avatar-placeholder");
+    const avatarPreview = document.getElementById("avatar-preview");
+
+    avatarUpload.addEventListener("change", function () {
+        const file = avatarUpload.files[0];
+        const reader = new FileReader();
+
+            reader.onload = function (e) {
+                avatarPreview.src = e.target.result;
+                avatarPreview.style.display = "block";
+                avatarPlaceholder.style.display = "none"; // 隱藏灰色區塊
+            };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            avatarPreview.src = "#";
+            avatarPreview.style.display = "none";
+            avatarPlaceholder.style.display = "block"; // 顯示灰色區塊
+        }
+    });
+
+
+</script>
+</body>
+
+</html>

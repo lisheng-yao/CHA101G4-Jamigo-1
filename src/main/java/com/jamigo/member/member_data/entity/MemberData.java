@@ -1,61 +1,76 @@
 package com.jamigo.member.member_data.entity;
 
+import com.jamigo.member.member_data.core.Core;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "member_data")
-public class MemberData {
+public class MemberData extends Core {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name = "memberNo", nullable = false, insertable = false, updatable = false)
     private Integer memberNo;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "memberAccount", nullable = false, length = 20, updatable = false)
     private String memberAccount;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "memberName", nullable = false, length = 20)
     private String memberName;
 
-    @Column(nullable = false)
-    private Byte memberGender;
+    @Builder.Default
+    @Column(name = "memberGender")
+    private Byte memberGender = null;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "memberPassword", nullable = false, length = 20)
     private String memberPassword;
 
-    @Column(nullable = false, length = 10)
+    @Column(name = "memberPhone", nullable = false, length = 10)
     private String memberPhone;
 
-    @Column(nullable = false, length = 40)
+    @Column(name = "memberEmail", nullable = false, length = 40)
     private String memberEmail;
 
-    @Column(length = 100)
-    private String memberAddress;
+    @Column(name = "memberAddress", length = 100, insertable = false)
+    private String memberAddress ;
 
-    @Column(nullable = false)
-    private Instant memberJoinTime;
+    @Column(name = "memberJoinTime", nullable = false, insertable = false, updatable = false)
+    private Timestamp memberJoinTime;
 
-    @Column(nullable = false)
-    private Byte levelNo;
+    @Column(name = "memberBirthday", insertable = false)
+    private Timestamp memberBirthday ;
 
-    private Instant memberBirthday;
+    @Builder.Default
+    @Column(name = "memberNation", length = 10, updatable = false)
+    private String memberNation = "台灣";
 
-    @Column(length = 10)
-    private String memberNation;
+    @Column(name = "memberPic", insertable = false)
+    private byte[] memberPic ;
 
-    private byte[] memberPic;
+    @Column(name = "memberPicString", insertable = false)
+    private String memberPic4json ;
 
-    @Column(length = 19)
-    private String memberCard;
+    @Column(name = "memberCard", length = 19, insertable = false)
+    private String memberCard ;
 
-    @Column(nullable = false)
-    private Integer memberPoints;
+    @Builder.Default
+    @Column(name = "memberPoints", nullable = false)
+    private Integer memberPoints = 0;
 
-    @Column(nullable = false)
-    private Byte memberStat;
+    @Builder.Default
+    @Column(name = "levelNo", nullable = false)
+    private Byte levelNo=1;
+
+    @Builder.Default
+    @Column(name = "memberStat", nullable = false)
+    private Byte memberStat = 0;
+
 }
