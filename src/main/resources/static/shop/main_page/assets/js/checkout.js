@@ -1,11 +1,22 @@
+const memberNo = 1;
+
+let buyerName;
+let buyerPhone;
+let buyerEmail;
+
+let totalPaid;
+let actuallyPaid;
+let rewardPoints;
+
 $(document).ready(function () {
 
     setupRadioButtons('payment_method', 'payment');
     setupRadioButtons('shipping_method', 'shipping');
     setupRadioButtons('invoice_method', 'invoice');
 
-    fillInMemberData();
-    getCartInfo();
+
+    autoFillMemberData(memberNo);
+    getCartInfo(memberNo);
 });
 
 function setupRadioButtons(name, id) {
@@ -35,23 +46,27 @@ function setupRadioButtons(name, id) {
     });
 }
 
-function fillInMemberData() {
+function autoFillMemberData(memberNo) {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/Jamigo/shop/checkout/memberData/1", // 設定與後端相同的 url
+        url: `http://localhost:8080/Jamigo/shop/platform_order/memberData/${memberNo}`, // 設定與後端相同的 url
         success: function (response) {
             $("input#memberName").val(response.memberName);
             $("input#memberPhone").val(response.memberPhone);
             $("input#memberEmail").val(response.memberEmail);
+
+            buyerName = response.memberName;
+            buyerPhone = response.memberPhone;
+            buyerEmail = response.memberEmail;
         }
     });
 }
 
-function getCartInfo() {
+function getCartInfo(memberNo) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/Jamigo/shop/checkout/cart/1", // 設定與後端相同的 url
+        url: `http://localhost:8080/Jamigo/shop/platform_order/cart/${memberNo}`, // 設定與後端相同的 url
         success: function (response) {
 
             let total_price = 0;
@@ -72,7 +87,7 @@ function getCartInfo() {
                     html_str +=
                         `<tr>
                             <td class="cart_img">
-                                <img src="http://localhost:8080/Jamigo/shop/product_picture/${item['productNo']}" alt="">
+                                <img src="http://localhost:8080/Jamigo/shop/product_picture/${item['productNo']}/temp" alt="">
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>
@@ -102,13 +117,76 @@ function getCartInfo() {
                             <th colspan="2">訂單實付金額</th>
                             <th>NT$${total_price}</th>
                         </tr>
+                        <tr class="order_total">
+                            <th colspan="2">回饋點數</th>
+                            <th>NT$${total_price / 10}</th>
+                        </tr>
                     </tfoot>
                 </table>
-                <div class="order_button">
-                    <button type="submit">送出訂單</button>
+                <div class="create_order">
+                    <button type="button">送出訂單</button>
                 </div>`;
 
             $("div.order_table").html(html_str);
+
+
+            totalPaid = total_price;
+            actuallyPaid = total_price;
+            rewardPoints = total_price / 10;
         }
     });
 }
+
+$("div.order_table").on("click", "div.create_order button",function() {
+
+    Swal.fire({
+        title: '確認送出訂單？',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是的，送出訂單',
+        cancelButtonText: '取消'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: '你的訂單已成功送出',
+                icon: 'success'
+            })
+
+            let paymentMethod = $("input[name='payment_method']:checked").val();
+            let pickupMethod = $("input[name='shipping_method']:checked").val();
+            let deliveryCountry = $("div.country ul li.selected").attr("data-value");
+            let deliveryAddress = $("input.address").val();
+            let invoiceMethod = $("input[name='invoice_method']:checked").val();
+            let invoiceGui = $("input.invoice_gui").val();
+
+            let platform_order_data = {
+                memberNo: memberNo,
+                buyerName: buyerName,
+                buyerPhone: buyerPhone,
+                buyerEmail: buyerEmail,
+                paymentMethod: paymentMethod,
+                pickupMethod: pickupMethod,
+                deliveryCountry: deliveryCountry,
+                deliveryAddress: deliveryAddress,
+                invoiceMethod: invoiceMethod,
+                invoiceGui: invoiceGui,
+                totalPaid: totalPaid,
+                actuallyPaid: actuallyPaid,
+                rewardPoints: rewardPoints
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/Jamigo/shop/platform_order",
+                data: JSON.stringify(platform_order_data),
+                contentType: "application/json",
+                success: function(res) {
+                    console.log(res);
+                }
+            })
+        }
+    })
+
+});
