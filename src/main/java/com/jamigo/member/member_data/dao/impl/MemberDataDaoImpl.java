@@ -19,7 +19,6 @@ public class MemberDataDaoImpl implements MemberDataDAO {
     @Override
     public int insert(MemberData memberdata) {//註冊用
         session.persist(memberdata);
-        System.out.println("完成insert");
         return 1;
     }
 
