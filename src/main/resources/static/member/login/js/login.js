@@ -6,7 +6,7 @@
     console.log("login.js啟動");
     btn1.addEventListener('click', function () {
         console.log("登入按鈕啟動");
-        fetch('/member/login', {
+        fetch('login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

@@ -1,6 +1,7 @@
 package com.jamigo.member.member_data.Service;
 
 import com.jamigo.member.member_data.entity.MemberData;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

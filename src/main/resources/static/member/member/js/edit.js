@@ -101,13 +101,6 @@
 
                 inputmemberNation.value = memberNation;
 
-                if (memberPic4json == "有圖") {
-                    avatarPreview.style.display = "block";
-                    avatarPlaceholder.style.display = "none"; // 隱藏灰色區塊
-                } else {
-                    avatarPreview.style.display = "none";
-                    avatarPlaceholder.style.display = "block"; // 顯示灰色區塊
-                }
                 if (typeof memberCard !== 'undefined') {
                     inputmemberCard.value = memberCard;
                 } else {
@@ -117,8 +110,9 @@
                 inputmemberPoints.value = memberPoints;
                 inputmemberStat.value = memberStat;
                 inputmemberAccount.value = memberAccount;
-                avatarpreview.src = `http://localhost:8080/hibernate_war/DBGifReaderController?memberNo=${memberNo}`;
-                if (memberPic4json) {
+
+                if (memberPic4json ==="有圖") {
+                    avatarpreview.src = `http://localhost:8080/Jamigo/member/member_data/${memberNo}`;
                     avatarPreview.style.display = "block";
                     avatarPlaceholder.style.display = "none";
                 } else {

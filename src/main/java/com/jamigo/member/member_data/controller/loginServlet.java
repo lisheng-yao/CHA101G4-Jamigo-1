@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import static com.jamigo.member.member_data.util.CommonUtil.json2Pojo;
 import static com.jamigo.member.member_data.util.CommonUtil.writePojo2Json;
 
-@WebServlet("member/login/login")
+@WebServlet("/member/login/login")
 public class loginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Autowired
@@ -21,6 +21,7 @@ public class loginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("application/json; charset=utf-8");
         MemberData memberData = json2Pojo(request, MemberData.class);
         if (memberData == null) {
             memberData = new MemberData();

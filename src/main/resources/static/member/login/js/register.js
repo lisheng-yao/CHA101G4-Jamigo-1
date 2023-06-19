@@ -69,7 +69,6 @@
             .then(body => {
                 console.log(body);
                 const {successful} = body;//const successful = body.successful;
-                const {memberAccount} =body;
                 if (successful) {
                     // for (let input of inputs) {
                     //     input.disabled = true;
@@ -89,11 +88,10 @@
                     msg.className = 'error';
                     msg.textContent = '註冊失敗';
                     Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: '註冊失敗!',
-                        showConfirmButton: false,
-                        timer: 1500
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: ' 註冊失敗!',
+                        footer: '<a href=""></a>'
                     })
                 };
                 setTimeout(function() {

@@ -1,6 +1,6 @@
 package com.jamigo.member.member_data.controller;
 
-import com.jamigo.member.member_data.Service.impl.MemberServiceImpl;
+import com.jamigo.member.member_data.Service.MemberService;
 import com.jamigo.member.member_data.entity.MemberData;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,12 +14,14 @@ import static com.jamigo.member.member_data.util.CommonUtil.json2Pojo;
 import static com.jamigo.member.member_data.util.CommonUtil.writePojo2Json;
 @WebServlet("/member/member/edit")
 public class editServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
     @Autowired
-    private MemberServiceImpl SERVICE;
+    private MemberService SERVICE;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("application/json; charset=utf-8");
 
         MemberData memberData = json2Pojo(request, MemberData.class);
         if (memberData == null) {
@@ -30,8 +32,6 @@ public class editServlet extends HttpServlet {
             return;
         }
         //把圖片從base64轉型成byte[]
-        System.out.println("這字串到底是啥?"+memberData.getMemberPic4json());
-        System.out.println("修改時有沒有照片傳進來?");
         System.out.println(memberData.getMemberPic4json() != null && !memberData.getMemberPic4json().isEmpty());
         if(memberData.getMemberPic4json() != null && !memberData.getMemberPic4json().isEmpty()){
             byte[] MemberPic = Base64.getDecoder().decode(memberData.getMemberPic4json());
