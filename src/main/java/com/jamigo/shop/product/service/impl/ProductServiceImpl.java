@@ -15,14 +15,13 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    public final ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
     @Autowired
-    private ProductCategoryRepository categoryRepository;
-
-    @Autowired
-    public ProductServiceImpl(ProductRepository productRepository){
+    public ProductServiceImpl(ProductRepository productRepository, ProductCategoryRepository productCategoryRepository){
         this.productRepository = productRepository;
+        this.productCategoryRepository = productCategoryRepository;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
         Counter counter = new Counter();
         counter.setCounterNo(addProductDTO.getCounterNo());
         product.setCounter(counter);
-        product.setProductCategory(categoryRepository.getReferenceById(addProductDTO.getProductCategory()));
+        product.setProductCategory(productCategoryRepository.getReferenceById(addProductDTO.getProductCategory()));
         product.setProductName(addProductDTO.getProductName());
         product.setProductPrice(addProductDTO.getProductPrice());
         product.setProductInfo(addProductDTO.getProductInfo());
