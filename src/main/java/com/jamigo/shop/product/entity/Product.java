@@ -1,14 +1,14 @@
 package com.jamigo.shop.product.entity;
 
 import com.jamigo.counter.counter.entity.Counter;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
+@NoArgsConstructor
 @Table(name = "product")
 public class Product {
     @Id
@@ -16,8 +16,9 @@ public class Product {
     @Column(nullable = false)
     private Integer productNo;
 
-    @Column(nullable = false)
-    private Integer productCatNo;
+    @ManyToOne
+    @JoinColumn(name = "productCatNo", referencedColumnName = "productCatNo", nullable = false)
+    private ProductCategory productCategory;
 
     @ManyToOne
     @JoinColumn(name = "counterNo", nullable = false)
@@ -32,19 +33,19 @@ public class Product {
     @Column(nullable = false)
     private Byte productStat;
 
-    @Column(nullable = false)
+    @Column(nullable = false, insertable = false)
     private Integer productSaleNum;
 
-    @Column(nullable = false)
+    @Column(nullable = false, insertable = false)
     private Integer reportNumber;
 
     @Column(nullable = false, length = 100)
     private String productName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, insertable = false)
     private Integer evalTotalPeople;
 
-    @Column(nullable = false)
+    @Column(nullable = false, insertable = false)
     private Integer evalTotalScore;
 
 }

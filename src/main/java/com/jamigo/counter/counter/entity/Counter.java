@@ -1,13 +1,15 @@
 package com.jamigo.counter.counter.entity;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
+@NoArgsConstructor
 @Table(name = "counter")
 public class Counter {
     @Id
