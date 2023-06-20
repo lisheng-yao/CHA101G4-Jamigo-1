@@ -1,7 +1,7 @@
 package com.jamigo.member.member_data.controller;
 
+import com.jamigo.member.member_data.dao.MemberDataDAO;
 import com.jamigo.member.member_data.entity.MemberData;
-import com.jamigo.member.member_data.dao.impl.MemberDataDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import static java.lang.System.out;
 public class DBGifReaderController {
     private static final long serialVersionUID = 1L;
     @Autowired
-    private MemberDataDaoImpl dao;
+    private MemberDataDAO dao;
 
 
     @GetMapping("member/member_data/{memberNo}")

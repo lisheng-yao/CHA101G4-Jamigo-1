@@ -10,4 +10,5 @@ public interface PromotionTypeDao {
     int deleteByPK(String promotionName);
     int insert(Promotion promotion);
 
+    Promotion selectById(String promotionName);
 }

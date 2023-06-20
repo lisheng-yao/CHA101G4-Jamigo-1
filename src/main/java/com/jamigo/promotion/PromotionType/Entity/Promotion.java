@@ -1,5 +1,6 @@
 package com.jamigo.promotion.PromotionType.Entity;
 
+import com.jamigo.member.member_data.core.Core;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "promotion")
-public class Promotion {
+public class Promotion extends Core {
     @Id
     @Column(name = "promotionName", nullable = false, length = 10)
     private String promotionName;
