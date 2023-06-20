@@ -1,0 +1,17 @@
+span.logo-name{
+    font-family: "Ubuntu";
+}
+
+button.nav-btn:hover{
+    background-color: bisque;
+    color: brown;
+    transition: 0.25s;
+}
+
+.sidebar-menu{
+    font-size: 15px;
+}
+
+.sidebar-submenu{
+    font-size: 14px;
+}
