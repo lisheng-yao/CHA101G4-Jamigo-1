@@ -16,7 +16,8 @@ public class ReportRowMapper implements RowMapper<ReportVO> {
 		
 		ReportVO reportVO = new ReportVO();
 		
-		reportVO.setProductNo(rs.getInt("productNo"));
+		reportVO.setProductname(rs.getString("productName"));
+		reportVO.setMembername(rs.getString("memberName"));
 		reportVO.setReportContent(rs.getString("reportContent"));
 		reportVO.setReportStat(rs.getInt("reportStat"));
 		reportVO.setReportTime(rs.getTimestamp("reportTime"));

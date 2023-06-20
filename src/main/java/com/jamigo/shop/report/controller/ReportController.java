@@ -26,8 +26,7 @@ public class ReportController {
 	private ReportService reportService;
 	
 	@PostMapping("/insertOne")
-	public ResponseEntity<?> insertOne(@RequestBody ReportRequest reportRequest) {
-		System.out.println("進入!");
+	public ResponseEntity<Map<String, String>> insertOne(@RequestBody ReportRequest reportRequest) {
 		
 		//錯誤判斷		
 		Integer productNo = reportRequest.getProductNo();
@@ -43,7 +42,7 @@ public class ReportController {
 		if(memberNo == null || memberNo == 0) {
 			map.put("memberNo","請輸入會員編號");
 		}
-		if (reportContent.equals("[]") || reportContent.trim().isEmpty()) {
+		if (reportContent.equals("[]")) {
 			map.put("reportContent","您尚未發表意見~");
 		}
 		if (!map.isEmpty()) {
@@ -57,31 +56,38 @@ public class ReportController {
 		
 			return ResponseEntity.status(HttpStatus.CREATED).body(map) ;
 	}
-	
+
+	@GetMapping("/reports")
+	public ResponseEntity<List<ReportVO>> getAllReports(){
+		System.out.println("進入!");
+
+		List<ReportVO> list = reportService.getAllReports();
+
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+
 	@PostMapping("/updateOne")
 	public ResponseEntity<?> updateOne(@RequestBody ReportRequest reportRequest){
-		
+
 		//錯誤判斷 陣列轉字串 回應內容
 		String reportresponse = Arrays.toString(reportRequest.getReportResponses());
 		reportRequest.setReportResponse(reportresponse);
-		
+
 		Map<String, String> map = new HashMap<>();
-		
+
 		if (reportresponse.equals("[]") || reportresponse.trim().isEmpty()) {
 			map.put("reportContent","您尚未發表意見~");
 		}
 		if (!map.isEmpty()) {
 			System.out.println(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map));
-			
+
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 		}
-		
+
 		//update
-		
-		
-		
-		
-		return ResponseEntity.status(HttpStatus.CREATED).BODY(map);
+
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(map);
 	}
 
 	@GetMapping("/reports/{memberNo}/{productNo}")
@@ -96,17 +102,7 @@ public class ReportController {
 		}
 	} 
 	
-	@PostMapping("/AllReports")
-	public List<ReportVO> getAll(){
-		
-		List<ReportVO> list = new ArrayList<>();
-		
-		//檢舉狀態、商品名稱、檢舉內容、會員名稱、(依商品編號查詢出現次數)、檢舉時間////客服回應、回應時間
-		//取得資料庫資料
-		list = reportService.getAllReports();
-		
-		return list;
-	}
+
 	
 	
 }
