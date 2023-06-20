@@ -1,10 +1,11 @@
 package com.jamigo.shop.platform_order.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -19,41 +20,55 @@ public class PlatformOrder {
     @Column(nullable = false)
     private Integer memberNo;
 
-    @Column(nullable = false)
-    private Instant orderTime;
+    @Column(nullable = false, length = 20)
+    private String buyerName;
 
-    @Column(nullable = false)
-    private Integer orderTotal;
+    @Column(nullable = false, length = 10)
+    private String buyerPhone;
 
-    private Integer orderCouponTotal;
-
-    private Integer orderPointsTotal;
-
-    @Column(nullable = false)
-    private Integer orderSalePrice;
-
-    @Column(nullable = false)
-    private Byte orderStat;
-
-    @Column(nullable = false)
-    private Byte shipStat;
-
-    @Column(nullable = false)
-    private Byte paymentStat;
+    @Column(nullable = false, length = 40)
+    private String buyerEmail;
 
     @Column(nullable = false)
     private Byte paymentMethod;
 
-    @Column(length = 19)
-    private String creditCard;
+    @Column(nullable = false)
+    private Byte pickupMethod;
 
-    @Column(length = 16)
-    private String remitAccount;
-
-    private Integer pointUsedOrder;
-
-    private Integer orderRewardPoints;
+    @Column(length = 10)
+    private String deliveryCountry;
 
     @Column(length = 100)
-    private String orderAddress;
+    private String deliveryAddress;
+
+    @Column(nullable = false)
+    private Byte invoiceMethod;
+
+    @Column(length = 8)
+    private String invoiceGui;
+
+    @Column(nullable = false)
+    private Integer totalPaid;
+
+    @Column(nullable = false)
+    private Integer totalCoupon = 0;
+
+    @Column(nullable = false)
+    private Integer totalPoints = 0;
+
+    @Column(nullable = false)
+    private Integer actuallyPaid;
+
+    @Column(nullable = false)
+    private Integer rewardPoints;
+
+    @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp orderTime = new Timestamp(System.currentTimeMillis());
+
+    @Column(nullable = false)
+    private Byte platformOrderStat;
+
+    @Column(nullable = false)
+    private Byte paymentStat;
 }

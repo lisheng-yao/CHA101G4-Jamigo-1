@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>查詢表單</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+    }
+
+    .form {
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    .form input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 200px;
+      margin-right: 10px;
+    }
+
+    .form button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .form button:hover {
+      background-color: #45a049;
+    }
+
+    #report_container {
+      width: 600px;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="form">
+      <input type="text" id="productId" placeholder="輸入產品編號">
+      <input type="text" id="memberId" placeholder="輸入會員編號">
+      <button onclick="search()">查詢</button>
+    </div>
+  </div>
+
+  <div class="container" id="report_container">
+    <ul id="reportList"></ul>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function search() {
+      var memberId = $("#memberId").val();
+      var productId = $("#productId").val();
+
+
+      //發出請求
+      $.ajax({
+        url: "/Jamigo/reports/" + memberId + "/" + productId,
+        type: "GET",
+        success: function (response) {
+
+//轉換時間格式
+          var Time1 = new Date(response.reportTime);
+          var reporttime = Time1.toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          }).replace(',', ' ');
+
+          if(responsetime == null){
+            responsetime = '等候回覆';
+          }else{
+            var Time2 = new Date(response.responseTime);
+            var responsetime = Time2.toLocaleString('en-US', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: false
+            }).replace(',', ' ');
+          }
+
+//轉換處理狀態
+          var responsestatement = response.reportStat;
+          if(responsestatement == 1){
+            var responsestatement = "已處理";
+          }else{
+            var responsestatement = "未處理";
+          }
+          var responseContent =response.reportResponse;
+          if(responseContent == null ){
+            responseContent = "等候回覆";
+          }
+
+
+          //把回傳的資料塞到object物件
+          var reportData = {
+            商品編號: response.productNo,
+            檢舉內容: response.reportContent,
+            處理狀態: responsestatement,
+            檢舉時間: reporttime,
+            客服回應: responseContent,
+            回應時間: responsetime
+          };
+
+          var reportList = $("#reportList");
+          reportList.empty();    // 清空列表
+
+          //迭代塞給html
+          for (var key in reportData) {
+            if (reportData.hasOwnProperty(key)) {
+              var li = $("<li></li>");
+              li.text(key + ": " + reportData[key]);
+              li.css(
+                "list-style-type", "none"
+              )
+              reportList.append(li);
+            }
+          }
+
+        },
+        error: function (xhr, status, error) {
+
+          alert("無法獲取資料,請輸入正確會員編號");
+        }
+      });
+
+    }
+
+
+  </script>
+</body>
+
+</html>
