@@ -1,0 +1,11 @@
+div.pagination-detail {
+    display: none;
+}
+
+button.btn {
+    margin: 0 5px;
+}
+
+table#main_table tbody td span {
+    font-size: 14px;
+}
