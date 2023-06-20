@@ -4,8 +4,10 @@
 
     // ===============================VVV方法區VVV====================================
 
-    // ============================1.查資料回來getAllPromotion()========================
-let dataaccount =0;
+    // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
+    let dataaccount = 0;
+    let PromotionType = [];
+
     function getAllPromotion() {
         console.log('進入getAllPromotion()')
         fetch("http://localhost:8080/Jamigo/Promotion/GetAllPromotionType")
@@ -17,112 +19,118 @@ let dataaccount =0;
                 }
 
                 // 解析 JSON 格式的數據
-                response.json().then(function (PromotiomType) {
+                response.json().then(function (data) {
                     // 在此處可以處理從 API 獲取的數據
-                    console.log('獲取的促銷活動數據：', PromotiomType);
-                    let str = '';
-                    // 遍歷數據並進行處理
-                    for (let i = 0; i < PromotiomType.length; i++) {
-                        const promotion = PromotiomType[i];
-                        const promotionName = promotion.promotionName;
-                        const promotionType = promotion.promotionType;
-                        const promotionMethod = promotion.promotionMethod;
-                        const adminNo = promotion.adminNo;
-                        const counterNo = promotion.counterNo;
+                    PromotionType =data;
+                    console.log('獲取的促銷活動數據：', PromotionType);
 
 
-                        str += `<tr>
-    <td>${promotionName}</td>
-    <td>${promotionType}</td>
-    <td>${promotionMethod}</td>
-    <td>${adminNo}</td>
-    <td>${counterNo}</td>
-    <td>
-        <!-- 燈箱 -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
-        </button>
-        <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
-             aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel${i}">優惠活動種類修改
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+                    for (let i = 0; i < PromotionType.length; i++) {
+                        dataaccount =i;
+                        let row = PromotionType[i];
+                        const promotionName = row.promotionName;
+                        const promotionType = row.promotionType;
+                        const promotionMethod = row.promotionMethod;
+                        const adminNo = row.adminNo;
+                        const counterNo = row.counterNo;
+                        dataTable.row.add([
+                            row.promotionName,
+                            row.promotionType,
+                            row.promotionMethod,
+                            row.adminNo,
+                            row.counterNo,
+                            `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
+            </button>
+            <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel${i}">優惠活動種類修改
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
 
-                        <form>
-                            <div class="mb-3">
-                                <label htmlFor="recipient-name"
-                                       class="col-form-label">活動種類名稱:</label>
-                                <input type="text" class="form-control"
-                                       id="recipient-name${i}" value="${promotionName}">
-                            </div>
-                            <div class="mb-3">
-                                <label htmlFor="recipient-name"
-                                       class="col-form-label">發放種類:</label>
-                                <select name="" id="recipient-type${i}" >
-                                    <option value="折價券" ${promotionType === '折價券' ? 'selected' : ''}>折價券</option>
-                                    <option value="點數" ${promotionType === '點數' ? 'selected' : ''}>點數</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label htmlFor="recipient-name"
-                                       class="col-form-label">發放方式:</label>
-                                <select name="" id="recipient-methed${i}" >
-                                    <option value="結帳後取得" ${promotionMethod === '結帳後取得' ? 'selected' : ''}>結帳後取得</option>
-                                    <option value="自由兌換" ${promotionMethod === '自由兌換' ? 'selected' : ''}>自由兌換</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label htmlFor="recipient-name"
-                                       class="col-form-label">管理員編號:</label>
-                                <input type="text" class="form-control"
-                                       id="recipient-cNo${i}" value="">
-                            </div>
-                            <div class="mb-3">
-                                <label htmlFor="recipient-name"
-                                       class="col-form-label">欄位編號:</label>
-                                <input type="text" class="form-control"
-                                       id="recipient-aNo${i}" value="">
-                            </div>
-                        </form>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="recipient-name${i}"
+                                           class="col-form-label">活動種類名稱:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipient-name${i}" value="${promotionName}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipient-type${i}"
+                                           class="col-form-label">發放種類:</label>
+                                    <select name="" id="recipient-type${i}">
+                                        <option value="折價券" ${promotionType === '折價券' ? 'selected' : ''}>折價券
+                                        </option>
+                                        <option value="點數" ${promotionType === '點數' ? 'selected' : ''}>點數</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipient-methed${i}"
+                                           class="col-form-label">發放方式:</label>
+                                    <select name="" id="recipient-methed${i}">
+                                        <option value="結帳後取得"
+                                                ${promotionMethod === '結帳後取得' ? 'selected' : ''}>結帳後取得
+                                        </option>
+                                        <option value="自由兌換"
+                                                ${promotionMethod === '自由兌換' ? 'selected' : ''}>自由兌換
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipient-cNo${i}"
+                                           class="col-form-label">管理員編號:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipient-cNo${i}" value="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipient-aNo${i}"
+                                           class="col-form-label">欄位編號:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipient-aNo${i}" value="">
+                                </div>
+                            </form>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary editbutton"
-                                data-bs-dismiss="modal" id="cancle${i}">取消
-                        </button>
-                        <button type="button" class="btn btn-primary" id="confirm${i}">修改</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary editbutton"
+                                    data-bs-dismiss="modal" id="cancle${i}">取消
+                            </button>
+                            <button type="button" class="btn btn-primary" id="confirm${i}">修改</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </td>
-    <td>
-        <button type="button" class="btn btn-primary">刪除</button>
-    </td>
-</tr>`;
+            </div>`,
+                            `<button type="button" class="btn btn-primary">刪除</button>`
 
-                        // 在此處可以使用獲得的數據進行相應的操作，例如添加到網頁元素中或進行其他處理
-                        console.log("Promotion Name: " + promotionName);
-                        console.log("Promotion Type: " + promotionType);
-                        console.log("Promotion Method: " + promotionMethod);
-                        console.log("Admin No: " + adminNo);
-                        console.log("Counter No: " + counterNo);
-                        dataaccount =i;
+                        ]);
                     }
-                    tbody.innerHTML = str;
-
+                    dataTable.draw();
                 });
             })
             .catch(function (err) {
                 console.log('錯誤：', err);
             });
     }
+
+
+    // ============================2.  初始化datatable函式========================
+
+        let dataTable = $('#all').DataTable({
+            scrollY: '600px',
+            scrollCollapse: true,
+            paging: false,
+            pageLength: 10,
+            info: false,
+            destroy: true,
+        });
+
+// ============================３. 修改資料進去 editmemberdata()========================
 
 
     // ============================2. 修改資料進去 editmemberdata()========================
@@ -345,13 +353,14 @@ let dataaccount =0;
 
     //=================================1. 總之先查一次=================================
     getAllPromotion();
+    // post2tboby();
     // ===============================2. 確認修改按鈕================================
-        const editbutton =document.querySelectorAll('.editbutton');
-        for(let x=0;x<dataaccount;x++){
-            editbutton[x].addEventListener('click',()=>{
-                
-            })
-        }
+    const editbutton = document.querySelectorAll('.editbutton');
+    for (let x = 0; x < dataaccount; x++) {
+        editbutton[x].addEventListener('click', () => {
+
+        })
+    }
 
     // confirmbtn.addEventListener('click', () => {
     //     editmemberdata();
