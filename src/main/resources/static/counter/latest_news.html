@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 引入bootstrap CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+
+    <!-- 引入jquery CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <!-- 新引入的CSS檔案或套件請由此往下放 -->
+
+    <link rel="stylesheet" href="css/all.css" />
+
+    <!-- 引入fontawsome -->
+    <link rel="stylesheet" href="assets/fontawsome/css/all.css" />
+    <!-- 引入Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <title>商城輪播管理</title>
+  </head>
+
+  <body>
+    <!-- 整頁的容器 -->
+    <div class="container-fluid whole-page">
+      <div class="row">
+        <div class="col my-2">
+          <span class="d-flex align-items-center logo-part">
+            <span class="logo-img mx-3">
+              <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+            </span>
+            <span class="fs-3 fw-bold logo-name"> Jamigo </span>
+            <span class="fs-4 fw-bold platform-page"> 平臺後臺管理系統 </span>
+            <button
+              type="button"
+              class="btn rounded-circle border-0 nav-btn home-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              style="padding: 12px"
+              data-bs-title="返回首頁"
+            >
+              <i class="fa-solid fa-house fa-lg"></i>
+            </button>
+          </span>
+        </div>
+        <div class="col-auto my-2">
+          <ul class="nav justify-content-end d-flex align-items-center">
+            <li class="nav-item">
+              <!-- 通知訊息 -->
+              <div class="dropdown position-relative">
+                <button
+                  class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-bell"></i>
+                  <span
+                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+                  >
+                    <span class="visually-hidden">New alerts</span>
+                  </span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"> 通知 </a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <!-- 頭像 -->
+            <li class="nav-item">
+              <a class="nav-link">
+                <img
+                  src="https://picsum.photos/id/684/600"
+                  class="rounded-circle"
+                  width="40"
+                  height="40"
+                  alt=""
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- 側邊選單列表 -->
+        <div class="col-2 sidebar">
+          <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+          <div class="list-group rounded-bottom-0">
+            <a
+              href="emp_data.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-address-card me-2"></i>
+              員工資料管理
+            </a>
+            <a
+              href="memData_search.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-users me-2"></i>
+              會員資料查詢
+            </a>
+          </div>
+
+          <div
+            class="accordion accordion-flush border-start border-end"
+            id="accordionFlushSidebar"
+          >
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  <i class="fa-solid fa-store me-2"></i>
+                  櫃位資料管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0 border-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_accountCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位帳號管理
+                    </a>
+                    <a
+                      href="counter_monthlyCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      月結抽成管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseTwo"
+                  aria-expanded="true"
+                  aria-controls="flush-collapseTwo"
+                >
+                  <i class="fa-solid fa-list me-2"></i>
+                  商城與訂單管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseTwo"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="platform_order.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      平臺訂單管理
+                    </a>
+                    <a
+                      href="product_category.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      商品類別管理
+                    </a>
+                    <a
+                      href="report_check.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      商品檢舉審核
+                    </a>
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action sidebar-submenu active"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      商城輪播管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseThree"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseThree"
+                >
+                  <i class="fa-solid fa-champagne-glasses me-2"></i>
+                  線下活動與場地
+                </button>
+              </h2>
+              <div
+                id="flush-collapseThree"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="event_check.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      線下活動申請審核
+                    </a>
+                    <a
+                      href="event_venueCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      線下活動場地管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseFour"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseFour"
+                >
+                  <i class="fa-solid fa-gift me-2"></i>
+                  全館優惠管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseFour"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="platform_coupon.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      全館折價票券管理
+                    </a>
+                    <a
+                      href="platform_discountAct.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      全館優惠活動管理
+                    </a>
+                    <a
+                      href="member_rewards.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      會員等級回饋管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-group rounded-top-0">
+            <a
+              href="robot_settings.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-robot me-2"></i>
+              客服機器人管理
+            </a>
+            <a
+              href="platform_DM.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-regular fa-message me-2"></i>
+              即時客服問答
+            </a>
+            <a
+              href="platform_fullpage.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-eye me-2"></i>
+              平臺首頁管理
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-right-from-bracket me-2"></i>
+              登出
+            </a>
+          </div>
+        </div>
+        <!-- 網頁內容主體 -->
+        <div class="col-10 page-body">
+          <!-- Recent Sales Start -->
+          <div class="container-fluid pt-4 px-4">
+            <div class="bg-light rounded p-4">
+              <div
+                class="d-flex align-items-center justify-content-between mb-4"
+              >
+                <h6 class="mb-0 fs-2 fw-bold">商城輪播管理</h6>
+                <a href="">Show All</a>
+              </div>
+              <div>
+                <!-- 燈箱彈跳 -->
+                <button
+                  type="button"
+                  class="btn btn-success fw-bold modal-lg"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  data-bs-whatever="@mdo"
+                >
+                  新增輪播圖
+                </button>
+                <div
+                  class="modal fade"
+                  id="exampleModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                          新增輪播圖
+                        </h1>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+
+                      <div class="modal-body">
+                        <form>
+                          <div class="mb-3">
+                            <label for="recipient-title" class="col-form-label"
+                              >輪播標題</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="recipient-title"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="recipient-text" class="col-form-label"
+                              >輪播文字</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="recipient-text"
+                            />
+                            <div class="mb-3">
+                              <label
+                                for="recipient-state"
+                                class="col-form-label"
+                                >狀態</label
+                              >
+                              <select
+                                class="form-select"
+                                id="recipient-state"
+                                aria-label="Floating label select example"
+                              >
+                                <option selected disabled>請選擇狀態</option>
+                                <option value="1">啟用</option>
+                                <option value="0">停用</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="recipient-statTime"
+                              class="col-form-label"
+                              >開始時間</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="recipient-statTime"
+                            />
+                          </div>
+
+                          <div class="mb-3">
+                            <label
+                              for="recipient-endTime"
+                              class="col-form-label"
+                              >結束時間</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="recipient-endTime"
+                            />
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="formFile" class="form-label"
+                              >上傳圖片</label
+                            >
+                            <input
+                              class="form-control"
+                              type="file"
+                              id="formFile"
+                              accept="image/jpeg, image/png"
+                            />
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="recipient-url" class="col-form-label"
+                              >輪播連結</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="recipient-url"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          onclick="addCarousel()"
+                        >
+                          確認新增
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table
+                  class="table table-striped table text-start align-middle table-bordered table-hover mb-0"
+                >
+                  <thead>
+                    <tr class="text-dark">
+                      <th scope="col">編號</th>
+                      <th scope="col">輪播標題</th>
+                      <th scope="col">輪播文字</th>
+                      <th scope="col">狀態</th>
+                      <th scope="col">開始時間</th>
+                      <th scope="col">結束時間</th>
+                      <th scope="col">修改 / 刪除</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body">
+                    <!----------------- 輪播資料樣板 ------------------->
+                    <!-- <tr>
+                      <td>1</td>
+                      <td>滿千送百</td>
+                      <td>滿3000送300</td>
+                      <td>1</td>
+                      <td>2023/1/1</td>
+                      <td>2023/12/31</td>
+                      <td>
+                        <a
+                          class="btn btn-sm btn-primary"
+                          id="btn-change"
+                          href="./latest_newsUpdate.html"
+                          >修改</a
+                        >
+                        <a class="btn btn-sm btn-danger" id="btn-delete" href=""
+                          >刪除</a
+                        >
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal2"
+                          data-bs-whatever="@mdo"
+                        >
+                          修改
+                        </button>
+                        <div
+                          class="modal fade"
+                          id="exampleModal2"
+                          tabindex="-1"
+                          aria-labelledby="exampleModalLabel"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                  修改輪播
+                                </h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">
+                                <form>
+                                  <div class="mb-3">
+                                    <label
+                                      for="recipient-title"
+                                      class="col-form-label"
+                                      >輪播標題</label
+                                    >
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="recipient-title"
+                                    />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label
+                                      for="recipient-text"
+                                      class="col-form-label"
+                                      >輪播文字</label
+                                    >
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="recipient-text"
+                                    />
+                                    <div class="mb-3">
+                                      <label
+                                        for="recipient-state"
+                                        class="col-form-label"
+                                        >狀態</label
+                                      >
+                                      <select
+                                        class="form-select"
+                                        id="recipient-state"
+                                        aria-label="Floating label select example"
+                                      >
+                                        <option selected disabled>
+                                          請選擇狀態
+                                        </option>
+                                        <option value="1">啟用</option>
+                                        <option value="0">停用</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="mb-3">
+                                    <label
+                                      for="recipient-statTime"
+                                      class="col-form-label"
+                                      >開始時間</label
+                                    >
+                                    <input
+                                      type="date"
+                                      class="form-control"
+                                      id="recipient-statTime"
+                                    />
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label
+                                      for="recipient-endTime"
+                                      class="col-form-label"
+                                      >結束時間</label
+                                    >
+                                    <input
+                                      type="date"
+                                      class="form-control"
+                                      id="recipient-endTime"
+                                    />
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="formFile" class="form-label"
+                                      >上傳圖片</label
+                                    >
+                                    <input
+                                      class="form-control"
+                                      type="file"
+                                      id="formFile"
+                                      accept="image/jpeg, image/png"
+                                    />
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label
+                                      for="recipient-url"
+                                      class="col-form-label"
+                                      >輪播連結</label
+                                    >
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="recipient-url"
+                                    />
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button type="button" class="btn btn-primary">
+                                  確認修改
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr> -->
+                    <!----------------- 輪播資料樣板結束 ------------------->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <button onclick="getData()" class="btn btn-outline-success">
+              取得所有資料
+            </button>
+          </div>
+          <!-- Recent Sales End -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 引入bootstrap CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- 引入日期處理 CDN-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <!-- 新引入的JS檔案或套件請由此往下放 -->
+
+    <script>
+      const popoverTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="popover"]'
+      );
+      const popoverList = [...popoverTriggerList].map(
+        (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+      );
+    </script>
+
+    <script>
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      const tooltipList = [...tooltipTriggerList].map(
+        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+      );
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- <script>
+      // 刪除按鈕的點擊事件處理tr jquary寫法
+
+      $("#table-body").on("click", "#btn-delete", function (event) {
+        event.preventDefault();
+        var row = event.target.closest("tr"); // 取得最接近的 <tr> 元素
+        row.remove(); // 從 DOM 中刪除該列
+      });
+    </script> -->
+
+    <script>
+      // 刪除按鈕的點擊事件處理函式
+      var tableBody = document.getElementById("table-body");
+      tableBody.addEventListener("click", function (event) {
+        if (event.target && event.target.id === "btn-delete") {
+          event.preventDefault();
+          var row = event.target.closest("tr"); // 取得最接近的 <tr> 元素
+          row.remove(); // 從 DOM 中刪除該列
+        }
+      });
+    </script>
+
+    <!-------------------------------------- js新增 ---------------------------------->
+
+    <!-- <script>
+      // 新增輪播獲取按鈕元素
+      var confirmButton = document.querySelector(".modal-footer .btn-primary");
+
+      // 監聽按鈕的點擊事件
+      confirmButton.addEventListener("click", function () {
+        // 獲取表單中的各個輸入元素的值
+        var title = document.getElementById("recipient-name").value;
+        var text = document.getElementById("recipient-name").value;
+        var state = document.getElementById("recipient-name").value;
+        var stat = document.getElementById("message-text").value;
+        var end = document.getElementById("floatingSelect").value;
+
+        // 創建一個新的表格行元素
+        var newRow = document.createElement("tr");
+
+        // 使用 innerHTML 屬性設置新行的 HTML 內容
+        newRow.innerHTML = `
+            <td>圖</td>
+            <td>${startTime}</td>
+            <td>${endTime}</td>
+            <td>${messageTitle}</td>
+            <td>${messageContent}</td>
+            <td>${status}</td>
+            <td>圖</td>
+            <td>
+            <a class="btn btn-sm btn-primary" id="btn-change" href="">修改</a>
+            <a class="btn btn-sm btn-danger" id="btn-delete" href="">刪除</a>
+            </td>
+  `;
+
+        // 在表格的最後插入新行
+        var tableBody = document.getElementById("table-body");
+        tableBody.appendChild(newRow);
+
+        // 關閉彈跳燈箱
+        var modal = bootstrap.Modal.getInstance(
+          document.getElementById("exampleModal")
+        );
+        modal.hide();
+
+        // 清空表單輸入的值
+        var form = document.querySelector("#exampleModal form");
+        form.reset();
+      });
+    </script> -->
+
+    <!-------------------------------------- 取得所有資訊 ---------------------------------->
+    <script>
+      // 載入印出
+      window.onload = function () {
+        getData();
+      };
+
+      function getData() {
+        fetch("/Jamigo/ShopCarouselServlet")
+          .then((response) => response.json())
+          .then((data) => {
+            // 在這裡處理回應的資料
+            console.log(data);
+            const dataRow = document.getElementById("table-body");
+
+            // 清空先前的內容
+            dataRow.innerHTML = "";
+
+            // 輸出每個輪播資料
+            data.forEach((carousel) => {
+              const no = carousel.shopCarouselNo;
+              const title = carousel.shopCarouselTitle;
+              const text = carousel.shopCarouselText;
+              const pic = carousel.shopCarouselPic;
+              const startTime = carousel.shopCarouselStartTime;
+              const endTime = carousel.shopCarouselEndTime;
+              const state = carousel.shopCarouselState;
+              const states =
+                carousel.shopCarouselState === 1 ? "啟用" : "未啟用";
+              const url = carousel.shopCarouselUrl;
+              // console.log(url);
+
+              const newStarTime = moment(startTime, "M月 DD, YYYY").format(
+                "YYYY-MM-DD"
+              );
+              const newEndTime = moment(endTime, "M月 DD, YYYY").format(
+                "YYYY-MM-DD"
+              );
+
+              // 建立元素並插入資料
+              const trElement = document.createElement("tr");
+
+              trElement.innerHTML = `
+                    <td>${no}</td>
+                    <td>${title}</td>
+                    <td><img src="/Jamigo/DBPicReader?shopCarouselNo=${no}" style="max-width: 250px; max-height: 150px;"></td>
+                    <td>${states}</td>
+                    <td>${startTime}</td>
+                    <td>${endTime}</td>
+                    <td>
+                      <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal${no}"
+                          data-bs-whatever="@mdo"
+                        >
+                        詳細資料 / 修改
+                        </button>
+                        <div
+                          class="modal fade"
+                          id="exampleModal${no}"
+                          tabindex="-1"
+                          aria-labelledby="exampleModalLabel"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                  修改輪播
+                                </h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">
+                                <form>
+                                  <input type="hidden"
+                                   id="update-no-${no}" 
+                                   value="${no}">
+                                  <div class="mb-3">
+                                    <label
+                                      for="update-title-${no}"
+                                      class="col-form-label"
+                                      >輪播標題</label
+                                    >
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="update-title-${no}"
+                                      value="${title}"
+                                    />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label
+                                      for="update-text-${no}"
+                                      class="col-form-label"
+                                      >輪播文字</label
+                                    >
+                                    <textarea class="form-control"
+                                     id="update-text-${no}">${text}</textarea>
+                                    <div class="mb-3">
+                                      <label
+                                        for="recipient-state-${no}"
+                                        class="col-form-label"
+                                        >狀態</label
+                                      >
+                                      <select
+                                        class="form-select"
+                                        id="update-state-${no}"
+                                        aria-label="Floating label select example"
+                                      >
+                                        <option value="1" ${
+                                          state == 1 ? "selected" : ""
+                                        }>啟用</option>
+                                        <option value="0" ${
+                                          state == 0 ? "selected" : ""
+                                        }
+                                        >未啟用</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="mb-3">
+                                    <label
+                                      for="update-statTim-${no}"
+                                      class="col-form-label"
+                                      >開始時間</label
+                                    >
+                                    <input
+                                      type="date"
+                                      class="form-control"
+                                      id="update-statTime-${no}"
+                                      value="${newStarTime}"
+                                    />
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label
+                                      for="update-endTime-${no}"
+                                      class="col-form-label"
+                                      >結束時間</label
+                                    >
+                                    <input
+                                      type="date"
+                                      class="form-control"
+                                      id="update-endTime-${no}"
+                                      value="${newEndTime}"
+                                    />
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="updateFormFile-${no}" class="form-label"
+                                      >上傳圖片</label
+                                    >
+                                    <input
+                                      class="form-control"
+                                      type="file"
+                                      id="updateFormFile-${no}"
+                                      accept="image/jpeg, image/png"
+                                    />
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label
+                                      for="recipient-url-${no}"
+                                      class="col-form-label"
+                                      >輪播連結</label
+                                    >
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="update-url-${no}"
+                                      value="${url}"
+                                    />
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="updateCarousel(${no})">
+                                  確認修改
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </td>
+                      `;
+              // <a class="btn btn-sm btn-danger" id="btn-delete" href="">刪除</a>
+              // 將元素插入
+              var tableBody = document.getElementById("table-body");
+              tableBody.appendChild(trElement);
+            });
+          })
+          .catch((error) => {
+            // 處理錯誤
+            console.error("Error:", error);
+          });
+      }
+    </script>
+
+    <!-------------------------------------- 新增資輪播 ---------------------------------->
+
+    <script>
+      // 用於將圖片文件轉換為 Base64 字串
+      function convertImageToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+        });
+      }
+
+      async function addCarousel() {
+        // 取得表單元素的值
+        const title = document.getElementById("recipient-title").value;
+        const text = document.getElementById("recipient-text").value;
+        const startTime = document.getElementById("recipient-statTime").value;
+        const endTime = document.getElementById("recipient-endTime").value;
+        const url = document.getElementById("recipient-url").value;
+        const state = document.getElementById("recipient-state").value;
+
+        // 取得圖片檔案
+        const fileInput = document.getElementById("formFile");
+        const file = fileInput.files[0];
+        // console.log(file);
+
+        // 將圖片轉換為 Base64
+        const base64Image = await convertImageToBase64(file);
+        // console.log(base64Image);
+
+        // 建立 JSON 物件
+        const data = {
+          shopCarouselTitle: title,
+          shopCarouselText: text,
+          shopCarouselStartTime: startTime,
+          shopCarouselEndTime: endTime,
+          shopCarouselPic: base64Image,
+          shopCarouselUrl: url,
+          shopCarouselState: state,
+        };
+        // console.log(data);
+
+        // 發送 POST 請求
+        fetch("/Jamigo/ShopCarouselServlet", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Data-Type": "json1",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            Swal.fire("新增完成", "你很棒唉!", "success")
+              .then(() => {
+                // 清空表單
+                document.getElementById("recipient-title").value = "";
+                document.getElementById("recipient-text").value = "";
+                document.getElementById("recipient-statTime").value = "";
+                document.getElementById("recipient-endTime").value = "";
+                document.getElementById("formFile").value = "";
+                document.getElementById("recipient-url").value = "";
+              })
+              .then(() => {
+                location.reload();
+              });
+          })
+          .catch((error) => {
+            // 處理錯誤
+            console.error("Error:", error);
+          });
+
+        // 確認後燈箱隱藏
+        var modal = bootstrap.Modal.getInstance(
+          document.getElementById("exampleModal")
+        );
+        modal.hide();
+      }
+    </script>
+
+    <!------------------------------------- 確認update ------------------------------->
+    <script>
+      // 用於將圖片文件轉換為 Base64 字串
+      function convertImageToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+        });
+      }
+
+      async function addCarousel() {
+        // 取得表單元素的值
+        const title = document.getElementById("recipient-title").value;
+        const text = document.getElementById("recipient-text").value;
+        const startTime = document.getElementById("recipient-statTime").value;
+        const endTime = document.getElementById("recipient-endTime").value;
+        const url = document.getElementById("recipient-url").value;
+        const state = document.getElementById("recipient-state").value;
+
+        // 取得圖片檔案
+        const fileInput = document.getElementById("formFile");
+        const file = fileInput.files[0];
+        // console.log(file);
+
+        // 將圖片轉換為 Base64
+        const base64Image = await convertImageToBase64(file);
+        // console.log(base64Image);
+
+        // 建立 JSON 物件
+        const data = {
+          shopCarouselTitle: title,
+          shopCarouselText: text,
+          shopCarouselStartTime: startTime,
+          shopCarouselEndTime: endTime,
+          shopCarouselPic: base64Image,
+          shopCarouselUrl: url,
+          shopCarouselState: state,
+        };
+        // console.log(data);
+
+        // 發送 POST 請求
+        fetch("/s123/ShopCarouselServlet", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Data-Type": "json1",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            Swal.fire("新增完成", "你很棒唉!", "success")
+              .then(() => {
+                // 清空表單
+                document.getElementById("recipient-title").value = "";
+                document.getElementById("recipient-text").value = "";
+                document.getElementById("recipient-statTime").value = "";
+                document.getElementById("recipient-endTime").value = "";
+                document.getElementById("formFile").value = "";
+                document.getElementById("recipient-url").value = "";
+              })
+              .then(() => {
+                location.reload();
+              });
+          })
+          .catch((error) => {
+            // 處理錯誤
+            console.error("Error:", error);
+          });
+
+        // 確認後燈箱隱藏
+        var modal = bootstrap.Modal.getInstance(
+          document.getElementById("exampleModal")
+        );
+        modal.hide();
+      }
+    </script>
+
+    <!------------------------------------- 確認update ------------------------------->
+    <script>
+      // 用於將圖片文件轉換為 Base64 字串
+      function convertImageToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+        });
+      }
+
+      async function updateCarousel(modalId) {
+        // console.log(e);
+        // const modalId = e ;
+        // .target
+        //   .getAttribute("data-bs-target")
+        //   .match(/\d+$/)[0];
+
+        // console.log(modalId);
+
+        const no = document.getElementById(`update-no-${modalId}`).value;
+        const title = document.getElementById(`update-title-${modalId}`).value;
+        const text = document.getElementById(`update-text-${modalId}`).value;
+        const startTime = document.getElementById(
+          `update-statTime-${modalId}`
+        ).value;
+        const endTime = document.getElementById(
+          `update-endTime-${modalId}`
+        ).value;
+        const url = document.getElementById(`update-url-${modalId}`).value;
+        const state = document.getElementById(`update-state-${modalId}`).value;
+
+        const fileInput = document.getElementById(`updateFormFile-${modalId}`);
+        const file = fileInput.files[0];
+        // console.log(file);
+
+        let base64Image = ""; // 預設為空字串
+
+        if (file) {
+          // 如果有選擇圖片，才進行轉123
+          base64Image = await convertImageToBase64(file);
+        }
+
+        const data = {
+          updateShopCarouselNo: no,
+          updateShopCarouselTitle: title,
+          updateShopCarouselText: text,
+          updateShopCarouselStartTime: startTime,
+          updateShopCarouselEndTime: endTime,
+          updateShopCarouselPic: base64Image,
+          updateShopCarouselUrl: url,
+          updateShopCarouselState: state,
+        };
+        console.log(data);
+
+        fetch("/Jamigo/ShopCarouselServlet", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Data-Type": "json2",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log(responseData);
+            Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
+              location.reload();
+            });
+            // location.reload();
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+
+        var modal = new bootstrap.Modal(
+          document.getElementById(`exampleModal${modalId}`)
+        );
+        modal.hide();
+      }
+    </script>
+  </body>
+</html>
