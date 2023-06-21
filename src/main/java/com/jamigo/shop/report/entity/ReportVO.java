@@ -7,7 +7,11 @@ public class ReportVO implements java.io.Serializable {
 
 	private Integer productNo;
 
+	private String productname;
+
 	private Integer memberNo;
+
+	private String membername;
 
 	private String reportContent;
 
@@ -78,7 +82,19 @@ public class ReportVO implements java.io.Serializable {
 	}
 
 
+	public String getProductname() {
+		return productname;
+	}
 
-	
-	
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+
+	public String getMembername() {
+		return membername;
+	}
+
+	public void setMembername(String membername) {
+		this.membername = membername;
+	}
 }
