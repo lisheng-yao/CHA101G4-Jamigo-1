@@ -1,10 +1,13 @@
 package com.jamigo.shop.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jamigo.counter.counter.entity.Counter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,9 +23,10 @@ public class Product {
     @JoinColumn(name = "productCatNo", referencedColumnName = "productCatNo", nullable = false)
     private ProductCategory productCategory;
 
-    @ManyToOne
-    @JoinColumn(name = "counterNo", nullable = false)
-    private Counter counter;
+//    @ManyToOne
+//    @JoinColumn(name = "counterNo", nullable = false)
+    @Column(nullable = false)
+    private Integer counterNo;
 
     @Column(nullable = false)
     private Integer productPrice;
@@ -31,7 +35,7 @@ public class Product {
     private String productInfo;
 
     @Column(nullable = false)
-    private Byte productStat;
+    private Boolean productStat;
 
     @Column(nullable = false, insertable = false)
     private Integer productSaleNum;
@@ -47,5 +51,11 @@ public class Product {
 
     @Column(nullable = false, insertable = false)
     private Integer evalTotalScore;
+
+   // @JsonManagedReference
+    //@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany
+    @JoinColumn(name="productNo")
+    private List<ProductPic> productPics;
 
 }

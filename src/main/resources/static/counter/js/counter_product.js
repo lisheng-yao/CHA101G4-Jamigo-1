@@ -11,8 +11,8 @@ $(function(){
             console.log(resp);
             let list_html = "";
             for (let e in resp){
-                let productStatusString = `${resp[e].productStat === 1 ? "上架" : "下架"}`;
-                let productStatusColor = `${resp[e].productStat === 1 ? "badge rounded-pill text-bg-success" : "badge rounded-pill text-bg-danger"}`;
+                let productStatusString = `${resp[e].productStat === true ? "上架" : "下架"}`;
+                let productStatusColor = `${resp[e].productStat === true ? "badge rounded-pill text-bg-success" : "badge rounded-pill text-bg-danger"}`;
                 list_html += `
                     <tr>
                         <td>${resp[e].productCategory.productCatName}</td>
@@ -99,7 +99,7 @@ function addProduct(counterNo){
 }
 
 function gotoEditPage(id){
-    window.location=`/Jamigo/counter/counter_product_edit.html?id=${id}`;
+    window.location=`/Jamigo/counter/counter_product_edit.html?productNo=${id}`;
 }
 
 // document.getElementById('imageUpload').addEventListener('change', function (event) {

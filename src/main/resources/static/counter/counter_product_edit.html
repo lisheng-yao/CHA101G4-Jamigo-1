@@ -224,55 +224,99 @@
                             商品資料修改
                         </div>
                         <div class="card-body edit-product-content">
-                            <div class="mb-3">
-                                <label for="categoryEdit" class="form-label">商品類別</label>
-                                <select class="form-select" id="categoryEdit">
-                                    <option value="1">彩妝保養</option>
-                                    <option value="2">生活家居</option>
-                                    <option value="3">親子寵物</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="productName" class="form-label">商品名稱</label>
-                                <input type="text" class="form-control" id="productName">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="productPrice" class="form-label">商品價格</label>
-                                <input type="number" class="form-control" id="productPrice">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="productDescription" class="form-label">商品敘述</label>
-                                <textarea class="form-control" id="productDescription" rows="4"></textarea>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="imageUpload" class="form-label">上傳商品照片</label>
-                                <input class="form-control" type="file" id="imageUpload" multiple>
-                                <div id="imagePreview"></div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">商品狀態</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="productStatus"
-                                        id="productStatus1" value="1">
-                                    <label class="form-check-label" for="productStatus1">上架</label>
+                            <form id="product-detail" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="counterNo" class="form-label" style="display: none;">櫃位編號</label>
+                                    <input type="text" class="form-control" id="counterNo" name="counterNo" style="display: none;">
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="productStatus"
-                                        id="productStatus2" value="0">
-                                    <label class="form-check-label" for="productStatus2">下架</label>
+
+                                <div class="mb-3">
+                                    <label for="categoryEdit" class="form-label">商品類別</label>
+                                    <select class="form-select" id="categoryEdit" name="productCatNo">
+                                        <!--                                    <option value="1">彩妝保養</option>-->
+                                        <!--                                    <option value="2">生活家居</option>-->
+                                        <!--                                    <option value="3">親子寵物</option>-->
+                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="mb-3">
-                                <button type="button" class="btn btn-secondary">取消修改</button>
-                                <button type="button" class="btn btn-primary">確認修改</button>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="productName" class="form-label">商品名稱</label>
+                                    <input type="text" class="form-control" id="productName" name="productName">
+                                </div>
 
+                                <div class="mb-3">
+                                    <label for="productPrice" class="form-label">商品價格</label>
+                                    <input type="number" class="form-control" id="productPrice" name="productPrice">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="productDescription" class="form-label">商品敘述</label>
+                                    <textarea class="form-control" id="productDescription" rows="4" name="productInfo"></textarea>
+                                </div>
+
+                                <div>查看照片及修改</div>
+
+                                <div class="mb-3">
+                                    <label for="imageUpload1" class="form-label productPic">商品照片1</label>
+                                    <input class="form-control" type="file" id="imageUpload1" accept="image/*" name="productPic1" required>
+                                    <img id="imagePreview1" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imageUpload2" class="form-label productPic">商品照片2</label>
+                                    <input class="form-control" type="file" id="imageUpload2" accept="image/*" name="productPic2" required>
+                                    <img id="imagePreview2" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imageUpload3" class="form-label productPic">商品照片3</label>
+                                    <input class="form-control" type="file" id="imageUpload3" accept="image/*" name="productPic3" required>
+                                    <img id="imagePreview3" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imageUpload4" class="form-label productPic">商品照片4</label>
+                                    <input class="form-control" type="file" id="imageUpload4" accept="image/*" name="productPic4" required>
+                                    <img id="imagePreview4" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">商品狀態</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="productStatus"
+                                               id="productStatus1" value="1">
+                                        <label class="form-check-label" for="productStatus1">上架</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="productStatus"
+                                               id="productStatus2" value="0">
+                                        <label class="form-check-label" for="productStatus2">下架</label>
+                                    </div>
+                                </div>
+
+                                <!-- readonly區塊：銷售數量、被檢舉次數-->
+                                <div class="mb-3">
+                                    <label for="productSaleNum" class="form-label">銷售數量</label>
+                                    <input type="text" class="form-control" id="productSaleNum" name="counterNo" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reportNumber" class="form-label">被檢舉次數</label>
+                                    <input type="text" class="form-control" id="reportNumber" name="counterNo" readonly>
+                                </div>
+<!--                                <div class="mb-3">-->
+<!--                                    <label for="evalTotalPeople" class="form-label" style="display: none">評價人數</label>-->
+<!--                                    <input type="text" class="form-control" id="evalTotalPeople" name="counterNo" style="display: none">-->
+<!--                                </div>-->
+<!--                                <div class="mb-3">-->
+<!--                                    <label for="evalTotalScore" class="form-label" style="display: none">評價總分</label>-->
+<!--                                    <input type="text" class="form-control" id="evalTotalScore" name="counterNo" style="display: none">-->
+<!--                                </div>-->
+<!--                                <div class="mb-3">-->
+<!--                                    <span id="evalAvg">評分平均</span>-->
+<!--                                </div>-->
+
+                                <div class="mb-3 justify-content-end">
+                                    <button type="button" class="btn btn-secondary" id="cancel-edit">取消修改</button>
+                                    <button type="button" class="btn btn-primary" id="confirm-edit">確認修改</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -290,6 +334,7 @@
     <!-- 新引入的JS檔案或套件請由此往下放 -->
 
     <script src="/Jamigo/counter/vendors/jquery/jquery-3.6.4.min.js"></script>
+    <script src="/Jamigo/counter/js/counter_product_edit.js"></script>
 
     <script>
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')

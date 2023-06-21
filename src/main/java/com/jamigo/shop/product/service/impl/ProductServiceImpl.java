@@ -4,11 +4,15 @@ import com.jamigo.counter.counter.entity.Counter;
 import com.jamigo.shop.product.dto.AddProductDTO;
 import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.entity.ProductCategory;
+import com.jamigo.shop.product.entity.ProductPic;
 import com.jamigo.shop.product.repo.ProductCategoryRepository;
+import com.jamigo.shop.product.repo.ProductPicRepository;
 import com.jamigo.shop.product.repo.ProductRepository;
 import com.jamigo.shop.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,11 +21,13 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductCategoryRepository productCategoryRepository;
+    private final ProductPicRepository productPicRepository;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, ProductCategoryRepository productCategoryRepository){
+    public ProductServiceImpl(ProductRepository productRepository, ProductCategoryRepository productCategoryRepository, ProductPicRepository productPicRepository) {
         this.productRepository = productRepository;
         this.productCategoryRepository = productCategoryRepository;
+        this.productPicRepository = productPicRepository;
     }
 
     @Override
@@ -32,15 +38,36 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(AddProductDTO addProductDTO) {
         Product product = new Product();
-        Counter counter = new Counter();
-        counter.setCounterNo(addProductDTO.getCounterNo());
-        product.setCounter(counter);
+        //改成用Integer
+//        Counter counter = new Counter();
+//        counter.setCounterNo(addProductDTO.getCounterNo());
+//        product.setCounter(counter);
+        product.setCounterNo(addProductDTO.getCounterNo());
         product.setProductCategory(productCategoryRepository.getReferenceById(addProductDTO.getProductCategory()));
         product.setProductName(addProductDTO.getProductName());
         product.setProductPrice(addProductDTO.getProductPrice());
         product.setProductInfo(addProductDTO.getProductInfo());
-        product.setProductStat((byte) (addProductDTO.getProductStat() ? 1 : 0));
+        product.setProductStat(addProductDTO.getProductStat());
 
         productRepository.save(product);
+    }
+
+    @Override
+    public Product getProductByNo(Integer productNo) {
+        //用findById把資料一起拿回來
+        return productRepository.findById(productNo).get();
+    }
+
+    @Override
+    public Product updateProduct(Integer productNo, Integer productCatNo, String productName, Integer productPrice, String productInfo, Boolean productStatus, MultipartFile pic1, MultipartFile pic2, MultipartFile pic3, MultipartFile pic4) {
+
+        // 更新產品資料
+        productRepository.updateProduct(productNo, productCatNo, productName, productPrice, productInfo, productStatus);
+
+        // 處理圖片上傳
+        // 這裡省略具體的實現邏輯，您可以根據需求使用相應的圖片處理庫來處理圖片上傳
+
+        return productRepository.findById(productNo).orElse(null);
+
     }
 }
