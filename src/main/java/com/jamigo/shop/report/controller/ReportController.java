@@ -1,4 +1,7 @@
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 //package com.jamigo.shop.report.controller;
 //
 //import java.util.ArrayList;
@@ -25,19 +28,34 @@
 //
 //	@Autowired
 //	private ReportService reportService;
+<<<<<<< Updated upstream
 //
 //	@PostMapping("/insertOne")
 //	public ResponseEntity<?> insertOne(@RequestBody ReportRequest reportRequest) {
 //		System.out.println("進入!");
 //
 //		//錯誤判斷
+=======
+//	
+//	@PostMapping("/insertOne")
+//	public ResponseEntity<?> insertOne(@RequestBody ReportRequest reportRequest) {
+//		System.out.println("進入!");
+//		
+//		//錯誤判斷		
+>>>>>>> Stashed changes
 //		Integer productNo = reportRequest.getProductNo();
 //		Integer memberNo = reportRequest.getMemberNo();
 //		String reportContent = Arrays.toString(reportRequest.getReportContents());
 //		reportRequest.setReportContent(reportContent);
+<<<<<<< Updated upstream
 //
 //	    Map<String, String> map = new HashMap<>();
 //
+=======
+//		
+//	    Map<String, String> map = new HashMap<>();
+//		
+>>>>>>> Stashed changes
 //		if(productNo == null || productNo == 0) {
 //			map.put("productNo","請輸入產品編號");
 //		}
@@ -49,6 +67,7 @@
 //		}
 //		if (!map.isEmpty()) {
 //			System.out.println(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map));
+<<<<<<< Updated upstream
 //
 //			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 //		}
@@ -68,11 +87,33 @@
 //
 //		Map<String, String> map = new HashMap<>();
 //
+=======
+//			
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+//		}
+//	  
+//		//儲存資料
+//		map.put("message",reportService.insertOne(reportRequest));
+//		
+//			return ResponseEntity.status(HttpStatus.CREATED).body(map) ;
+//	}
+//	
+//	@PostMapping("/updateOne")
+//	public ResponseEntity<?> updateOne(@RequestBody ReportRequest reportRequest){
+//		
+//		//錯誤判斷 陣列轉字串 回應內容
+//		String reportresponse = Arrays.toString(reportRequest.getReportResponses());
+//		reportRequest.setReportResponse(reportresponse);
+//		
+//		Map<String, String> map = new HashMap<>();
+//		
+>>>>>>> Stashed changes
 //		if (reportresponse.equals("[]") || reportresponse.trim().isEmpty()) {
 //			map.put("reportContent","您尚未發表意見~");
 //		}
 //		if (!map.isEmpty()) {
 //			System.out.println(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map));
+<<<<<<< Updated upstream
 //
 //			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 //		}
@@ -82,6 +123,17 @@
 //
 //
 //
+=======
+//			
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+//		}
+//		
+//		//update
+//		
+//		
+//		
+//		
+>>>>>>> Stashed changes
 //		return ResponseEntity.status(HttpStatus.CREATED).BODY(map);
 //	}
 //
@@ -95,6 +147,7 @@
 //		}else {
 //			return ResponseEntity.status(HttpStatus.NOT_FOUND).build() ;
 //		}
+<<<<<<< Updated upstream
 //	}
 //
 //	@PostMapping("/AllReports")
@@ -221,3 +274,21 @@ public class ReportController {
 	
 }
 >>>>>>> Shawn
+=======
+//	} 
+//	
+//	@PostMapping("/AllReports")
+//	public List<ReportVO> getAll(){
+//		
+//		List<ReportVO> list = new ArrayList<>();
+//		
+//		//檢舉狀態、商品名稱、檢舉內容、會員名稱、(依商品編號查詢出現次數)、檢舉時間////客服回應、回應時間
+//		//取得資料庫資料
+//		list = reportService.getAllReports();
+//		
+//		return list;
+//	}
+//	
+//	
+//}
+>>>>>>> Stashed changes
