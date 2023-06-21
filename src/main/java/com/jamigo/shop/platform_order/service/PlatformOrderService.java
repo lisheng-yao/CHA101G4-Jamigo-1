@@ -20,7 +20,7 @@ public interface PlatformOrderService {
      * @param memberNo 會員編號
      * @return { "櫃位A名稱": ["商品a", "商品b"], "櫃位B名稱": ["商品c"] } 類型的資料
      */
-    Map<String, List<CartForCheckoutDTO>> getCartInfo(Integer memberNo);
+//    Map<String, List<CartForCheckoutDTO>> getCartInfo(Integer memberNo);
 
     /**
      * 根據商品編號，取得該商品的第一張圖片
