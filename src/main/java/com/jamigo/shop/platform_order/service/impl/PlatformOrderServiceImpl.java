@@ -50,27 +50,27 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
             return null;
     }
 
-    @Override
-    public Map<String, List<CartForCheckoutDTO>> getCartInfo(Integer memberNo) {
-
-        List<Cart> cartFullInfo = cartRepository.findByIdMemberNo(memberNo);  // 取得購物車的全部資料
-
-        if (cartFullInfo != null) {
-            // 使用 Java 8 的 Stream API 對購物車資訊進行處理
-            return cartFullInfo.stream()
-                    .map(cart -> new CartForCheckoutDTO(
-                            cart.getProduct().getCounter().getCounterName(),
-                            cart.getProduct().getProductNo(),
-                            cart.getProduct().getProductName(),
-                            cart.getProduct().getProductPrice(),
-                            cart.getAmount()))  // 透過 map 操作，將每個 Cart 物件轉換為 CartForCheckoutDTO 物件
-                    // 在此過程中，我們建立新的 CartForCheckoutDTO 物件並將 Cart 物件中的各個欄位轉換並填入對應的 CartForCheckoutDTO 欄位
-                    .collect(Collectors.groupingBy(CartForCheckoutDTO::getCounterName)); // 使用 groupingBy 操作進行分組，將 CartForCheckoutDTO 物件根據其櫃位名稱分組
-            // 結果為一個 Map 物件，其鍵為櫃位名稱，值為具有相同櫃位名稱的 CartForCheckoutDTO 物件列表
-        }
-        else
-            return null;
-    }
+//    @Override
+//    public Map<String, List<CartForCheckoutDTO>> getCartInfo(Integer memberNo) {
+//
+//        List<Cart> cartFullInfo = cartRepository.findByIdMemberNo(memberNo);  // 取得購物車的全部資料
+//
+//        if (cartFullInfo != null) {
+//            // 使用 Java 8 的 Stream API 對購物車資訊進行處理
+//            return cartFullInfo.stream()
+//                    .map(cart -> new CartForCheckoutDTO(
+//                            cart.getProduct().getCounterNo().getCounterName(),
+//                            cart.getProduct().getProductNo(),
+//                            cart.getProduct().getProductName(),
+//                            cart.getProduct().getProductPrice(),
+//                            cart.getAmount()))  // 透過 map 操作，將每個 Cart 物件轉換為 CartForCheckoutDTO 物件
+//                    // 在此過程中，我們建立新的 CartForCheckoutDTO 物件並將 Cart 物件中的各個欄位轉換並填入對應的 CartForCheckoutDTO 欄位
+//                    .collect(Collectors.groupingBy(CartForCheckoutDTO::getCounterName)); // 使用 groupingBy 操作進行分組，將 CartForCheckoutDTO 物件根據其櫃位名稱分組
+//            // 結果為一個 Map 物件，其鍵為櫃位名稱，值為具有相同櫃位名稱的 CartForCheckoutDTO 物件列表
+//        }
+//        else
+//            return null;
+//    }
 
     @Override
     public byte[] getFirstProductPic(Integer productNo) {

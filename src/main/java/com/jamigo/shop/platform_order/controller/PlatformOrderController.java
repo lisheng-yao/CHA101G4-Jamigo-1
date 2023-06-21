@@ -50,17 +50,17 @@ public class PlatformOrderController {
     // 完整說明：取得 shop/platform_order 底下，會員編號為 XXX 的購物車資料
     //
     // 目前僅為測試，日後可能會改為使用詒婷寫的 購物車 的 Controller
-    @GetMapping("/shop/platform_order/cart/{memberNo}")
-    public ResponseEntity<?> getCartInfo(
-            @PathVariable("memberNo") Integer memberNo) {
-
-        Map<String, List<CartForCheckoutDTO>> cartMap = platformOrderService.getCartInfo(memberNo);
-
-        if (cartMap != null)
-            return ResponseEntity.status(HttpStatus.OK).body(cartMap);
-        else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
+//    @GetMapping("/shop/platform_order/cart/{memberNo}")
+//    public ResponseEntity<?> getCartInfo(
+//            @PathVariable("memberNo") Integer memberNo) {
+//
+//        Map<String, List<CartForCheckoutDTO>> cartMap = platformOrderService.getCartInfo(memberNo);
+//
+//        if (cartMap != null)
+//            return ResponseEntity.status(HttpStatus.OK).body(cartMap);
+//        else
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//    }
 
     // HTTP Method：GET
     // URL：http://localhost:8080/Jamigo/shop/product_picture/{productNo}/temp
