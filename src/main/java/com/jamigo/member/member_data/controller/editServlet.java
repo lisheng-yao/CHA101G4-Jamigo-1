@@ -2,6 +2,7 @@ package com.jamigo.member.member_data.controller;
 
 import com.jamigo.member.member_data.Service.MemberService;
 import com.jamigo.member.member_data.entity.MemberData;
+import com.jamigo.promotion.PromotionType.Service.PromotionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.annotation.WebServlet;

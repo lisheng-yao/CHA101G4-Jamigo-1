@@ -6,11 +6,11 @@
 
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
     let dataaccount = 0;
-    let PromotionType = [];
+    let CouponType = [];
 
     function getAllPromotion() {
-        console.log('進入getAllPromotion()')
-        fetch("http://localhost:8080/Jamigo/Promotion/GetAllPromotionType")
+        console.log('進入getAllcouponType()')
+        fetch("http://localhost:8080/Jamigo/Promotion/GetAllcouponType")
             .then(function (response) {
                 // 檢查 API 响應的狀態碼
                 if (response.status !== 200) {
@@ -21,24 +21,48 @@
                 // 解析 JSON 格式的數據
                 response.json().then(function (data) {
                     // 在此處可以處理從 API 獲取的數據
-                    PromotionType = data;
-                    console.log('獲取的促銷活動數據：', PromotionType);
+                    CouponType = data;
+                    console.log('獲取的促銷活動數據：', CouponType);
 
-
-                    for (let i = 0; i < PromotionType.length; i++) {
+                    for (let i = 0; i < CouponType.length; i++) {
                         dataaccount = i;
-                        let row = PromotionType[i];
-                        const promotionName = row.promotionName;
-                        const promotionType = row.promotionType;
-                        const promotionMethod = row.promotionMethod;
-                        const adminNo = row.adminNo;
+                        let row = CouponType[i];
+                        const couponTypeNo = row.couponTypeNo;
+                        const couponTypeName = row.couponTypeName;
+                        const adminNod = row.adminNo;
                         const counterNo = row.counterNo;
+
+                        // 處理日期格式
+                        const originalDate = new Date(row.couponCreateDate);
+                        const year = originalDate.getFullYear();
+                        const month = originalDate.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
+                        const day = originalDate.getDate();
+                        const formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
+                        // 處理日期格式
+                        const couponCreateDate = formattedDate;
+                        // 處理日期格式
+                        const originalDatea = new Date(row.couponExpireDate);
+                        const yeara = originalDatea.getFullYear();
+                        const montha = originalDatea.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
+                        const daya = originalDatea.getDate();
+                        const formattedDatea = yeara + '-' + ('0' + montha).slice(-2) + '-' + ('0' + daya).slice(-2);
+                        // 處理日期格式
+                        const couponExpireDate = formattedDatea;
+
+
+                        const couponConditions = row.couponConditions;
+                        const couponPrice = row.couponPrice;
+                        const couponLowest = row.couponLowest;
                         dataTable.row.add([
-                            row.promotionName,
-                            row.promotionType,
-                            row.promotionMethod,
-                            row.adminNo,
-                            row.counterNo,
+                            couponTypeNo,
+                            couponTypeName,
+                            adminNod,
+                            counterNo,
+                            couponCreateDate,
+                            couponExpireDate,
+                            couponPrice,
+                            couponLowest,
+                            couponConditions,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
             </button>
@@ -55,32 +79,17 @@
                         <div class="modal-body">
 
                             <form>
+                            <div class="mb-3">
+                                    <label for="recipientNo${i}"
+                                           class="col-form-label">折價券種類編號:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipientNo${i}" value="${couponTypeNo}" readonly>
+                                </div>
                                 <div class="mb-3">
                                     <label for="recipientname${i}"
                                            class="col-form-label">活動種類名稱:</label>
                                     <input type="text" class="form-control"
-                                           id="recipientname${i}" value="${promotionName}" readonly>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="recipienttype${i}"
-                                           class="col-form-label">發放種類:</label>
-                                    <select name="" id="recipienttype${i}">
-                                        <option value="折價券" ${promotionType === '折價券' ? 'selected' : ''}>折價券
-                                        </option>
-                                        <option value="點數" ${promotionType === '點數' ? 'selected' : ''}>點數</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="recipientmethed${i}"
-                                           class="col-form-label">發放方式:</label>
-                                    <select name="" id="recipientmethed${i}">
-                                        <option value="結帳後取得"
-                                                ${promotionMethod === '結帳後取得' ? 'selected' : ''}>結帳後取得
-                                        </option>
-                                        <option value="自由兌換"
-                                                ${promotionMethod === '自由兌換' ? 'selected' : ''}>自由兌換
-                                        </option>
-                                    </select>
+                                           id="recipientname${i}" value="${couponTypeName}" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipientcNo${i}"
@@ -93,6 +102,37 @@
                                            class="col-form-label">欄位編號:</label>
                                     <input type="text" class="form-control"
                                            id="recipientaNo${i}" value="" readonly>
+                                </div>
+                                
+                                <div class="mb-3" >
+                                    <label for="recipientaDatea${i}"
+                                           class="col-form-label">建立日期:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipientaDatea${i}" value="${couponCreateDate}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipientaDateb${i}"
+                                           class="col-form-label">失效日期:</label>
+                                    <input type="date" class="form-control"
+                                           id="recipientaDateb${i}" value="${couponExpireDate}" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipientaPrice${i}"
+                                           class="col-form-label">  折扣金額:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipientaPrice${i}" value="${couponPrice}" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipientaLow${i}"
+                                           class="col-form-label"> 使用門檻:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipientaLow${i}" value="${couponLowest}" >
+                                </div>
+                                 <div class="mb-3">
+                                    <label for="recipientaCond${i}"
+                                           class="col-form-label"> 使用說明:</label>
+                                    <input type="text" class="form-control"
+                                           id="recipientaCond${i}" value="${couponConditions}" >
                                 </div>
                                 <span id="msg"> </span>
                             </form>
@@ -135,6 +175,7 @@
         pageLength: 10,
         info: false,
         destroy: true,
+
     });
 
     // ============================３. 抓取所有修改的燈箱按鈕 ========================
@@ -148,51 +189,72 @@
     }
 
     // ============================4. 抓取所有燈箱的input ========================
-    let promotionNameinputs = [];
-    let promotionTypeinputs = [];
-    let promotionMethodinputs = [];
-    let adminNoinputs = [];
-    let counterNoinputs = [];
+    let recipientNoinputs = [];
+    let recipientnameinputs = [];
+    let recipientcNoinputs = [];
+    let recipientaNoinputs = [];
+    let recipientaDateainputs = [];
+    let recipientaDatebinputs = [];
+    let recipientaPriceinputs = [];
+    let recipientaLowinputs = [];
+    let recipientaCondinputs = [];
 
     function setinputinbox() {
         for (let i = 0; i <= dataaccount; i++) {
-            const promotionNameinput = document.querySelector('#recipientname' + i);
-            const promotionTypeinput = document.querySelector('#recipienttype' + i);
-            const promotionMethodinput = document.querySelector('#recipientmethed' + i);
-            const adminNoinput = document.querySelector('#recipientcNo' + i);
-            const counterNoinput = document.querySelector('#recipientaNo' + i);
-            promotionNameinputs.push(promotionNameinput);
-            promotionTypeinputs.push(promotionTypeinput);
-            promotionMethodinputs.push(promotionMethodinput);
-            adminNoinputs.push(adminNoinput);
-            counterNoinputs.push(counterNoinput);
+            const recipientNoinput = document.querySelector('#recipientNo' + i);
+            const recipientnameinput = document.querySelector('#recipientname' + i);
+            const recipientcNoinput = document.querySelector('#recipientcNo' + i);
+            const recipientaNoinput = document.querySelector('#recipientaNo' + i);
+            const recipientaDateainput = document.querySelector('#recipientaDatea' + i);
+            const recipientaDatebinput = document.querySelector('#recipientaDateb' + i);
+            const recipientaPriceinput = document.querySelector('#recipientaPrice' + i);
+            const recipientaLowinput = document.querySelector('#recipientaLow' + i);
+            const recipientaCondinput = document.querySelector('#recipientaCond' + i);
+
+            recipientNoinputs.push(recipientNoinput);
+            recipientnameinputs.push(recipientnameinput);
+            recipientcNoinputs.push(recipientcNoinput);
+            recipientaNoinputs.push(recipientaNoinput);
+            recipientaDateainputs.push(recipientaDateainput);
+            recipientaDatebinputs.push(recipientaDatebinput);
+            recipientaPriceinputs.push(recipientaPriceinput);
+            recipientaLowinputs.push(recipientaLowinput);
+            recipientaCondinputs.push(recipientaCondinput);
         }
     }
 
 
     // ============================4. 修改資料進去 editPromotion()========================
     function editPromotion(i) {
-        const promotionName4json = promotionNameinputs[i].value;
-        const promotionType4json = promotionTypeinputs[i].value;
-        const promotionMethod4json = promotionMethodinputs[i].value;
-        const adminNo4json = adminNoinputs[i].value;
-        const counterNo4json = counterNoinputs[i].value;
+        const recipientNoinputs4json = recipientNoinputs[i].value;
+        const recipientnameinputs4json = recipientnameinputs[i].value;
+        const recipientcNoinputs4json = recipientcNoinputs[i].value;
+        const recipientaNoinputs4json = recipientaNoinputs[i].value;
+        const recipientaDateainputs4json = recipientaDateainputs[i].value;
+        const recipientaDatebinputs4json = recipientaDatebinputs[i].value;
+        const recipientaPriceinputs4json = recipientaPriceinputs[i].value;
+        const recipientaLowinputs4json = recipientaLowinputs[i].value;
+        const recipientaCondinputs4json = recipientaCondinputs[i].value;
 
 
         msg.textContent = '';
         // 檢查結束
 
-        fetch('editpromotion', {
+        fetch('editcouponType', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                promotionName: promotionName4json,
-                promotionType: promotionType4json,
-                promotionMethod: promotionMethod4json,
-                adminNo: adminNo4json,
-                counterNo: counterNo4json
+                couponTypeNo: recipientNoinputs4json,
+                couponTypeName: recipientnameinputs4json,
+                adminNo: recipientcNoinputs4json,
+                counterNo: recipientaNoinputs4json,
+                couponCreateDate: recipientaDateainputs4json,
+                couponExpireDate: recipientaDatebinputs4json,
+                couponPrice: recipientaPriceinputs4json,
+                couponLowest: recipientaLowinputs4json,
+                couponConditions: recipientaCondinputs4json
             }),
         })
             .then(resp => resp.json())
@@ -208,6 +270,8 @@
                         title: '修改成功!',
                         showConfirmButton: false,
                         timer: 1500
+                    }).then(() => {
+                        location.reload()
                     })
                 } else {
                     msg.className = 'error';
@@ -234,22 +298,30 @@
 
     // ============================6.   newAPromotion()新增promotion========================
     function newAPromotion() {
-        const recipientname4new = document.querySelector('#recipient-name').value;
-        const recipienttype4new = document.querySelector('#recipient-type').value;
-        const recipientmethed4new = document.querySelector('#recipient-methed').value;
-        const recipientcNo4new = document.querySelector('#recipient-cNo').value;
-        const recipientaNo4new = document.querySelector('#recipient-aNo').value;
-        fetch('newpromotion', {
+        // const coupontypeNo4new = document.querySelector('#coupontypeNoe').value;
+        const coupontypeName4new = document.querySelector('#coupontypeName').value;
+        const coupontypecNo4new = document.querySelector('#coupontypecNo').value;
+        const coupontypeaNo4new = document.querySelector('#coupontypeaNo').value;
+        const coupontypeExpireDate4new = document.querySelector('#coupontypeExpireDate').value;
+        const coupontypeDate4new = document.querySelector('#coupontypeDate').value;
+        const coupontypePrice4new = document.querySelector('#coupontypePrice').value;
+        const coupontypeLowest4new = document.querySelector('#coupontypeLowest').value;
+        const coupontypeConditions4new = document.querySelector('#coupontypeConditions').value;
+        fetch('newcouponType', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                promotionName: recipientname4new,
-                promotionType: recipienttype4new,
-                promotionMethod: recipientmethed4new,
-                adminNo: recipientcNo4new,
-                counterNo: recipientaNo4new
+                // couponTypeNo: coupontypeNo4new,
+                couponTypeName: coupontypeName4new,
+                adminNo: coupontypecNo4new,
+                counterNo: coupontypeaNo4new,
+                couponCreateDate: coupontypeDate4new,
+                couponConditions: coupontypeConditions4new,
+                couponPrice: coupontypePrice4new,
+                couponExpireDate: coupontypeExpireDate4new,
+                couponLowest: coupontypeLowest4new
             }),
         })
             .then(resp => resp.json())
@@ -264,6 +336,8 @@
                         title: '新增成功!',
                         showConfirmButton: false,
                         timer: 1500
+                    }).then(() => {
+                        location.reload()
                     })
                 } else {
                     Swal.fire({
@@ -291,23 +365,23 @@
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
             deletebuttons[i].addEventListener('click', () => {
-                const inputvalue =promotionNameinputs[i].value;
+                const inputvalue = recipientNoinputs[i].value;
                 deledtbyPK(inputvalue);
             })
         }
     }
 
     // ============================9. 刪除方法========================
-    function deledtbyPK(promotionName) {
+    function deledtbyPK(CouponTypeNo) {
         const confirmed = confirm("確定要刪除嗎？");
         if (confirmed) {
-            fetch('deletepromotion', {
+            fetch('deletecouponType', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    promotionName: promotionName
+                    couponTypeNo: CouponTypeNo
                 }),
             })
                 .then((resp) => {
@@ -318,6 +392,8 @@
                                 title: '刪除成功!',
                                 showConfirmButton: false,
                                 timer: 1500
+                            }).then(() => {
+                                location.reload()
                             })
                         } else {
                             Swal.fire({

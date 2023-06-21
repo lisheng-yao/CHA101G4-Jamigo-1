@@ -285,9 +285,9 @@
                                 <div class="modal-body">
 
                                     <form>
-                                        <div class="mb-3">
+                                        <div class="mb-3" style="display: none;">
                                             <label for="coupontypeNo" class="col-form-label">折價券種類編號:</label>
-                                            <input type="text" class="form-control" id="coupontypeNo">
+                                            <input type="text" class="form-control" id="coupontypeNo" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label for="coupontypeName" class="col-form-label">折價券種類名稱:</label>
@@ -295,33 +295,33 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="coupontypecNo" class="col-form-label">管理員編號:</label>
-                                            <input type="text" class="form-control" id="coupontypecNo">
+                                            <input type="text" class="form-control" id="coupontypecNo" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label for="coupontypeaNo" class="col-form-label">欄位編號:</label>
-                                            <input type="text" class="form-control" id="coupontypeaNo">
+                                            <input type="text" class="form-control" id="coupontypeaNo" readonly>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="mb-3" style="display: none;">
                                             <label for="coupontypeDate" class="col-form-label">建立日期:</label>
                                             <input type="text" class="form-control" id="coupontypeDate" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label for="coupontypeExpireDate" class="col-form-label">失效日期:</label>
-                                            <input type="Date" class="form-control" id="coupontypeExpireDate" readonly>
+                                            <input type="Date" class="form-control" id="coupontypeExpireDate" >
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="coupontypePrice" class="col-form-label">折扣金額:</label>
-                                            <input type="text" class="form-control" id="coupontypePrice" readonly>
+                                            <input type="text" class="form-control" id="coupontypePrice" >
                                         </div>
                                         <div class="mb-3">
                                             <label for="coupontypeLowest" class="col-form-label">使用門檻:</label>
-                                            <input type="text" class="form-control" id="coupontypeLowest" readonly>
+                                            <input type="text" class="form-control" id="coupontypeLowest" >
                                         </div>
 <!--                                        不可低於折扣金額不能填非數字-->
                                         <div class="mb-3">
                                             <label for="coupontypeConditions" class="col-form-label">使用條件:</label>
-                                            <input type="text" class="form-control" id="coupontypeConditions" readonly>
+                                            <input type="text" class="form-control" id="coupontypeConditions" >
                                         </div>
                                     </form>
 
@@ -341,14 +341,16 @@
                         <thead>
                         <tr>
                             <th>編號</th>
-                            <th>名稱</th>
-                            <th>管理員編號</th>
-                            <th>櫃位編號</th>
+                            <th>種類名稱</th>
+                            <th>管理員</th>
+                            <th>櫃位</th>
                             <th>建立日期</th>
                             <th>失效日期</th>
-                            <th>折扣金額</th>
-                            <th>使用門檻</th>
-                            <th>使用條件</th>
+                            <th>折扣額</th>
+                            <th>門檻</th>
+                            <th>說明</th>
+                            <th>修改</th>
+                            <th>刪除</th>
                         </tr>
                         </thead>
                         <tbody id="tbody">
