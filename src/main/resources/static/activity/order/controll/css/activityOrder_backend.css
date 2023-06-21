@@ -1,0 +1,111 @@
+.activity-attendee{
+    /* padding-top: 1rem; */
+    /* margin: 1.8rem 0 1rem; */
+    /* border-top: 2px dashed #90afde; */
+    /* border-bottom: 2px dashed #90afde; */
+    /* border-spacing: 1rem; */
+}
+.activity-attendee-title{
+    margin-top: 1.8rem;
+    padding: 1rem 1rem 0;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    border-top: 2px dashed #90afde;
+    color: #6984ad;
+}
+.activity-attendee h4 i{
+    font-size: 18px;
+    vertical-align: baseline;
+}
+.activity-attendee-arrow{
+    padding-left: 1rem;
+    font-weight: bold;
+}
+.activity-attendee-content{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.activity-attendee .activity-attendee-content:nth-child(n+3){
+    position: relative;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+.activity-attendee .activity-attendee-content:nth-child(n+3)::before{
+    content: "";
+    position: absolute;
+    border-top: 1px dashed #90afde;
+    top: .5rem;
+    left: 1rem;
+    right: 1rem;
+}
+.activity-attendee .activity-attendee-content:last-child{
+    padding-bottom: 1rem;
+}
+.form-item-attendee-more-gender{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.form-item-attendee-more-gender::after{
+    content: "";
+    flex-grow: 1;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.form-item-attendee-more-gender::after,
+.form-item-attendee-more-gender .form-item-attendee-more-gender-title,
+.form-item-attendee-more-gender-content{
+    position: relative;
+    background-color: #f5f5f5;
+}
+.form-item-attendee-more-gender::before{
+    content: "";
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 12px;
+    right: 12px;
+    pointer-events: none;
+    box-shadow: 0 2px 4px -1px #ddd;
+}
+.form-item-attendee-more-gender-content{
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+}
+.form-item-attendee-more-gender .form-item-attendee-more-gender-title{
+    box-sizing: border-box;
+    padding: 9px 1rem 4px;
+    border-bottom: 0;
+    color: #6984ad;
+    font-size: 14px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.form-item.form-item-attendee-more-gender .input-group-attendee-more-gender label{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    border-width: 2px;
+    border-radius: 10px;
+    transition: all .3s;
+}
+.form-item.form-item-attendee-more-gender .input-group-attendee-more-gender input{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+}
+.form-item.form-item-attendee-more-gender input:checked ~ label{
+    border-color: #86b7fe;
+    background-color: #fff;
+    box-shadow: inset 0 2px 4px -1px #ddd;
+}
+.form-item.form-item-attendee-more-gender .input-group-attendee-more-gender::after{
+    left: 12px;
+    right: 12px;
+    z-index: 2;
+}
