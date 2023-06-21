@@ -11,7 +11,7 @@ public interface PlatformOrderService {
     /**
      * 根據會員編號，取得該會員的部分資料，用於結帳
      * @param memberNo 會員編號
-     * @return 帶有會員的部分資料 (姓名、手機、Email) 的 DTO
+     * @return 帶有會員的部分資料 (姓名、手機、Email、住址) 的 DTO
      */
     MemberDataForCheckoutDTO getMemberData(Integer memberNo);
 
@@ -20,7 +20,7 @@ public interface PlatformOrderService {
      * @param memberNo 會員編號
      * @return { "櫃位A名稱": ["商品a", "商品b"], "櫃位B名稱": ["商品c"] } 類型的資料
      */
-    Map<String, List<CartForCheckoutDTO>> getCartInfo(Integer memberNo);
+//    Map<String, List<CartForCheckoutDTO>> getCartInfo(Integer memberNo);
 
     /**
      * 根據商品編號，取得該商品的第一張圖片
@@ -29,9 +29,9 @@ public interface PlatformOrderService {
      */
     byte[] getFirstProductPic(Integer productNo);
 
-    List<PlatformOrder> findAll();
+    List<PlatformOrder> getAllPlatformOrder();
 
-    PlatformOrder findById(Integer platformOrderNo);
+    PlatformOrder getPlatformOrderById(Integer platformOrderNo);
 
     void createOrder(PlatformOrder platformOrder);
 }

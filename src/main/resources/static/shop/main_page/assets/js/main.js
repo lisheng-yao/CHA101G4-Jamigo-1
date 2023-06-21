@@ -179,7 +179,6 @@
 
     /*---blog column3 activation---*/
     $('.blog_column3').owlCarousel({
-        autoplay: true,
         loop: true,
         nav: true,
         autoplay: false,
@@ -207,7 +206,6 @@
 
     /*---category product column5 activation---*/
     $('.category_product_column5').owlCarousel({
-        autoplay: true,
         loop: true,
         nav: false,
         autoplay: false,
@@ -238,7 +236,6 @@
     $('.brand_container').on('changed.owl.carousel initialized.owl.carousel', function (event) {
         $(event.target).find('.owl-item').removeClass('last').eq(event.item.index + event.page.size - 1).addClass('last')
     }).owlCarousel({
-        autoplay: true,
         loop: true,
         nav: true,
         autoplay: false,
@@ -269,7 +266,6 @@
 
     /*---testimonial carousel activation---*/
     $('.testimonial_column1').owlCarousel({
-        autoplay: true,
         loop: true,
         nav: false,
         autoplay: false,
@@ -282,7 +278,6 @@
     $('.testimonial_column3').on('changed.owl.carousel initialized.owl.carousel', function (event) {
         $(event.target).find('.owl-item').removeClass('last').eq(event.item.index + event.page.size - 1).addClass('last')
     }).owlCarousel({
-        autoplay: true,
         loop: true,
         nav: false,
         autoplay: false,
@@ -312,7 +307,6 @@
     $('.testimonial_column5').on('changed.owl.carousel initialized.owl.carousel', function (event) {
         $(event.target).find('.owl-item').removeClass('last').eq(event.item.index + event.page.size - 1).addClass('last')
     }).owlCarousel({
-        autoplay: true,
         loop: true,
         nav: false,
         autoplay: false,
@@ -347,7 +341,6 @@
 
     /*---blog thumb activation---*/
     $('.blog_thumb_active').owlCarousel({
-        autoplay: true,
         loop: true,
         nav: true,
         autoplay: false,
@@ -360,7 +353,6 @@
 
     /*---single product activation---*/
     $('.single-product-active').owlCarousel({
-        autoplay: true,
         loop: true,
         nav: true,
         autoplay: false,
@@ -391,7 +383,6 @@
 
     /*---product navactive activation---*/
     $('.product_navactive').owlCarousel({
-        autoplay: true,
         loop: true,
         nav: true,
         autoplay: false,
