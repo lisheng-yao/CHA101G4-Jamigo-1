@@ -221,7 +221,7 @@
                         title: '修改成功!',
                         showConfirmButton: false,
                         timer: 1500
-                    })
+                    }).then(()=>{location.reload()})
                 } else {
                     msg.className = 'error';
                     msg.textContent = '修改失敗';

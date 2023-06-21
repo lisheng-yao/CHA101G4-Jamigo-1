@@ -208,7 +208,7 @@
                         title: '修改成功!',
                         showConfirmButton: false,
                         timer: 1500
-                    }).then(()=>{location.reload()})
+                    })
                 } else {
                     msg.className = 'error';
                     msg.textContent = '修改失敗';
@@ -264,7 +264,7 @@
                         title: '新增成功!',
                         showConfirmButton: false,
                         timer: 1500
-                    }).then(()=>{location.reload()})
+                    })
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -274,9 +274,7 @@
                     })
                 }
                 ;
-
             });
-
     };
 
     // ============================7. 找到所有刪除按鈕========================
@@ -320,7 +318,7 @@
                                 title: '刪除成功!',
                                 showConfirmButton: false,
                                 timer: 1500
-                            }).then(()=>{location.reload()})
+                            })
                         } else {
                             Swal.fire({
                                 icon: 'error',

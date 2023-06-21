@@ -29,7 +29,7 @@
             href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
             rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>平台優惠活動種類管理</title>
+    <title>折價券種類管理</title>
 
     <style>
         #th2container {
@@ -267,7 +267,7 @@
         <div class="col-10 page-body">
             <div class="controll-box activity-order-controll-box">
                 <div class="back-end-box-title activity-order-controll-title">
-                    <h2 class="h2">平台優惠活動種類管理</h2>
+                    <h2 class="h2">折價券種類管理</h2>
                     <!-- 燈箱 -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal" data-bs-whatever="@mdo">新增
@@ -277,7 +277,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">優惠活動種類新增
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">折價券種類新增
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
@@ -286,30 +286,42 @@
 
                                     <form>
                                         <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">活動種類名稱:</label>
-                                            <input type="text" class="form-control" id="recipient-name">
+                                            <label for="coupontypeNo" class="col-form-label">折價券種類編號:</label>
+                                            <input type="text" class="form-control" id="coupontypeNo">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="recipient-type" class="col-form-label">發放種類:</label>
-                                            <select name="" id="recipient-type">
-                                                <option value="折價券">折價券</option>
-                                                <option value="點數">點數</option>
-                                            </select>
+                                            <label for="coupontypeName" class="col-form-label">折價券種類名稱:</label>
+                                            <input type="text" class="form-control" id="coupontypeName">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="recipient-methed" class="col-form-label">發放方式:</label>
-                                            <select name="" id="recipient-methed">
-                                                <option value="結帳後取得">結帳後取得</option>
-                                                <option value="自由兌換">自由兌換</option>
-                                            </select>
+                                            <label for="coupontypecNo" class="col-form-label">管理員編號:</label>
+                                            <input type="text" class="form-control" id="coupontypecNo">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="recipient-cNo" class="col-form-label">管理員編號:</label>
-                                            <input type="text" class="form-control" id="recipient-cNo">
+                                            <label for="coupontypeaNo" class="col-form-label">欄位編號:</label>
+                                            <input type="text" class="form-control" id="coupontypeaNo">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="recipient-aNo" class="col-form-label">欄位編號:</label>
-                                            <input type="text" class="form-control" id="recipient-aNo">
+                                            <label for="coupontypeDate" class="col-form-label">建立日期:</label>
+                                            <input type="text" class="form-control" id="coupontypeDate" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="coupontypeExpireDate" class="col-form-label">失效日期:</label>
+                                            <input type="Date" class="form-control" id="coupontypeExpireDate" readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="coupontypePrice" class="col-form-label">折扣金額:</label>
+                                            <input type="text" class="form-control" id="coupontypePrice" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="coupontypeLowest" class="col-form-label">使用門檻:</label>
+                                            <input type="text" class="form-control" id="coupontypeLowest" readonly>
+                                        </div>
+<!--                                        不可低於折扣金額不能填非數字-->
+                                        <div class="mb-3">
+                                            <label for="coupontypeConditions" class="col-form-label">使用條件:</label>
+                                            <input type="text" class="form-control" id="coupontypeConditions" readonly>
                                         </div>
                                     </form>
 
@@ -328,13 +340,15 @@
                     <table id="all" class="display" style="width:100%">
                         <thead>
                         <tr>
-                            <th>活動類別名稱</th>
-                            <th>發放種類</th>
-                            <th>發放方式</th>
+                            <th>編號</th>
+                            <th>名稱</th>
                             <th>管理員編號</th>
                             <th>櫃位編號</th>
-                            <th>修改</th>
-                            <th>刪除</th>
+                            <th>建立日期</th>
+                            <th>失效日期</th>
+                            <th>折扣金額</th>
+                            <th>使用門檻</th>
+                            <th>使用條件</th>
                         </tr>
                         </thead>
                         <tbody id="tbody">
@@ -360,7 +374,7 @@
         crossorigin="anonymous"></script>
 
 <!-- 新引入的JS檔案或套件請由此往下放 -->
-<script src="assets/js/Promotionedit.js"></script>
+<script src="assets/js/CouponTypeEdit.js"></script>
 <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
