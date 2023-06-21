@@ -2,7 +2,6 @@ package com.jamigo.shop.product.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jamigo.counter.counter.entity.Counter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
