@@ -253,30 +253,6 @@
                                     <label for="productDescription" class="form-label">商品敘述</label>
                                     <textarea class="form-control" id="productDescription" rows="4" name="productInfo"></textarea>
                                 </div>
-
-                                <div>查看照片及修改</div>
-
-                                <div class="mb-3">
-                                    <label for="imageUpload1" class="form-label productPic">商品照片1</label>
-                                    <input class="form-control" type="file" id="imageUpload1" accept="image/*" name="productPic1" required>
-                                    <img id="imagePreview1" style="max-width: 300px; display: none; margin-top: 10px;">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imageUpload2" class="form-label productPic">商品照片2</label>
-                                    <input class="form-control" type="file" id="imageUpload2" accept="image/*" name="productPic2" required>
-                                    <img id="imagePreview2" style="max-width: 300px; display: none; margin-top: 10px;">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imageUpload3" class="form-label productPic">商品照片3</label>
-                                    <input class="form-control" type="file" id="imageUpload3" accept="image/*" name="productPic3" required>
-                                    <img id="imagePreview3" style="max-width: 300px; display: none; margin-top: 10px;">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imageUpload4" class="form-label productPic">商品照片4</label>
-                                    <input class="form-control" type="file" id="imageUpload4" accept="image/*" name="productPic4" required>
-                                    <img id="imagePreview4" style="max-width: 300px; display: none; margin-top: 10px;">
-                                </div>
-
                                 <div class="mb-3">
                                     <label class="form-label">商品狀態</label>
                                     <div class="form-check">
@@ -300,6 +276,32 @@
                                     <label for="reportNumber" class="form-label">被檢舉次數</label>
                                     <input type="text" class="form-control" id="reportNumber" name="counterNo" readonly>
                                 </div>
+                            </form>
+
+                                <div>查看照片及修改</div>
+
+                                <div class="mb-3">
+                                    <label for="imageUpload1" class="form-label productPic">商品照片1</label>
+                                    <input class="form-control" type="file" id="imageUpload1" accept="image/*" name="productPic1" required>
+                                    <img class="previewPic" id="imagePreview1" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imageUpload2" class="form-label productPic">商品照片2</label>
+                                    <input class="form-control" type="file" id="imageUpload2" accept="image/*" name="productPic2" required>
+                                    <img class="previewPic" id="imagePreview2" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imageUpload3" class="form-label productPic">商品照片3</label>
+                                    <input class="form-control" type="file" id="imageUpload3" accept="image/*" name="productPic3" required>
+                                    <img class="previewPic" id="imagePreview3" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imageUpload4" class="form-label productPic">商品照片4</label>
+                                    <input class="form-control" type="file" id="imageUpload4" accept="image/*" name="productPic4" required>
+                                    <img class="previewPic" id="imagePreview4" style="max-width: 300px; display: none; margin-top: 10px;">
+                                </div>
+
+
 <!--                                <div class="mb-3">-->
 <!--                                    <label for="evalTotalPeople" class="form-label" style="display: none">評價人數</label>-->
 <!--                                    <input type="text" class="form-control" id="evalTotalPeople" name="counterNo" style="display: none">-->
@@ -316,7 +318,7 @@
                                     <button type="button" class="btn btn-secondary" id="cancel-edit">取消修改</button>
                                     <button type="button" class="btn btn-primary" id="confirm-edit">確認修改</button>
                                 </div>
-                            </form>
+<!--                            </form>-->
                         </div>
                     </div>
                 </div>

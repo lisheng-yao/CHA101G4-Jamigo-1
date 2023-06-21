@@ -15,5 +15,5 @@ public interface ProductService {
 
     Product getProductByNo(Integer productNo);
 
-    Product updateProduct(Integer productNo, Integer productCatNo, String productName, Integer productPrice, String productInfo, Boolean productStatus, MultipartFile pic1, MultipartFile pic2, MultipartFile pic3, MultipartFile pic4);
+    Product updateProductWordsInfo(Integer productNo, Integer productCatNo, String productName, Integer productPrice, String productInfo, Boolean productStatus);
 }

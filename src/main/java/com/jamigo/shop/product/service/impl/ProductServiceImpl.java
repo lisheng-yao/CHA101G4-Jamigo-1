@@ -59,13 +59,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Integer productNo, Integer productCatNo, String productName, Integer productPrice, String productInfo, Boolean productStatus, MultipartFile pic1, MultipartFile pic2, MultipartFile pic3, MultipartFile pic4) {
+    public Product updateProductWordsInfo(Integer productNo, Integer productCatNo, String productName, Integer productPrice, String productInfo, Boolean productStatus) {
 
-        // 更新產品資料
         productRepository.updateProduct(productNo, productCatNo, productName, productPrice, productInfo, productStatus);
-
-        // 處理圖片上傳
-        // 這裡省略具體的實現邏輯，您可以根據需求使用相應的圖片處理庫來處理圖片上傳
 
         return productRepository.findById(productNo).orElse(null);
 
