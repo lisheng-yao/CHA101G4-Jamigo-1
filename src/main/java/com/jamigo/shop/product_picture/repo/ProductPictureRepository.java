@@ -3,7 +3,7 @@ package com.jamigo.shop.product_picture.repo;
 import com.jamigo.shop.product_picture.entity.ProductPicture;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductPictureRepository extends JpaRepository<ProductPicture, Integer>{
+public interface ProductPictureRepository extends JpaRepository<ProductPicture, Integer> {
 
     /**
      * 根據商品編號，找到該商品所對應的第一張圖片資料

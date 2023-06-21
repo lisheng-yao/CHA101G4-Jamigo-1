@@ -1,9 +1,16 @@
 const memberNo = 1;
 
+let memberAddress;
+
 let buyerName;
 let buyerPhone;
 let buyerEmail;
-
+let paymentMethod;
+let pickupMethod;
+let deliveryCountry;
+let deliveryAddress;
+let invoiceMethod;
+let invoiceGui;
 let totalPaid;
 let actuallyPaid;
 let rewardPoints;
@@ -59,6 +66,7 @@ function autoFillMemberData(memberNo) {
             buyerName = response.memberName;
             buyerPhone = response.memberPhone;
             buyerEmail = response.memberEmail;
+            memberAddress = response.memberAddress;
         }
     });
 }
@@ -91,7 +99,7 @@ function getCartInfo(memberNo) {
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>
-                                <p>單價: NT$${item["productPrice"]} / 數量: ${item["amount"]}</p>
+                                <p>單價: $${item["productPrice"]} / 數量: ${item["amount"]}</p>
                             </td>
                         </tr>`;
                 }
@@ -103,23 +111,26 @@ function getCartInfo(memberNo) {
                 `<tfoot>
                         <tr>
                             <th colspan="2">原總金額</th>
-                            <th>NT$${total_price}</th>
+                            <th>$${total_price}</th>
                         </tr>
                         <tr>
-                            <th colspan="2">折價券折抵</th>
-                            <th>NT$0</th>
+                            <th colspan="2"><i class="fa fa-ticket" aria-hidden="true"></i> 折價券折抵</th>
+                            <th>-$0</th>
                         </tr>
                         <tr>
-                            <th colspan="2">點數折抵</th>
-                            <th>NT$0</th>
+                            <th colspan="2"><i class="fa-solid fa-coins fa-lg"></i> 點數折抵</th>
+                            <th>-$0</th>
                         </tr>
                         <tr class="order_total">
                             <th colspan="2">訂單實付金額</th>
-                            <th>NT$${total_price}</th>
+                            <th>$${total_price}</th>
                         </tr>
                         <tr class="order_total">
                             <th colspan="2">回饋點數</th>
-                            <th>NT$${total_price / 10}</th>
+                            <th>
+                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                                <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${total_price / 10}
+                            </th>
                         </tr>
                     </tfoot>
                 </table>
@@ -137,22 +148,35 @@ function getCartInfo(memberNo) {
     });
 }
 
+$("input#fillInAddress").on("change", function () {
+    if(this.checked) {
+        // checkbox 被勾選時執行的程式碼
+        $("input.address").val(memberAddress);
+        $('input.address').prop('disabled', true);
+    } else {
+        // checkbox 被取消勾選時執行的程式碼
+        $("input.address").val("");
+        $('input.address').prop('disabled', false);
+    }
+})
+
 $("div.order_table").on("click", "div.create_order button",function() {
+
+    if(!check_all_fill_in()){
+        return;
+    }
 
     Swal.fire({
         title: '確認送出訂單？',
-        icon: 'warning',
+        icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: '是的，送出訂單',
         cancelButtonText: '取消'
     }).then((result) => {
+
         if (result.isConfirmed) {
-            Swal.fire({
-                title: '你的訂單已成功送出',
-                icon: 'success'
-            })
 
             let paymentMethod = $("input[name='payment_method']:checked").val();
             let pickupMethod = $("input[name='shipping_method']:checked").val();
@@ -186,7 +210,66 @@ $("div.order_table").on("click", "div.create_order button",function() {
                     console.log(res);
                 }
             })
+
+            Swal.fire({
+                title: '你的訂單已成功送出',
+                icon: 'success',
+                confirmButtonText: "回到商城首頁"
+            }).then(function () {
+                window.location.href = "商城首頁.html"
+            })
         }
     })
-
 });
+
+function check_all_fill_in() {
+
+    if(!$("input[name='payment_method']:checked").length) {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '您必須選擇一種付款方式！'
+        })
+
+        return false;
+    }
+    else if(!$("input[name='shipping_method']:checked").length) {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '您必須選擇一種取貨方式！'
+        })
+
+        return false;
+    }
+    else if($("#shipping2").prop("checked") && $("input.address").val() === "") {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '住址不得為空！'
+        })
+
+        return false;
+    }
+    else if(!$("input[name='invoice_method']:checked").length) {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '您必須選擇一種開立發票方式！'
+        })
+
+        return false;
+    }
+    else if($("#invoice2").prop("checked") && $("input.invoice_gui").val() === "") {
+        Swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '統一編號不得為空！'
+        })
+
+        return false;
+    }
+
+    return true;
+}
+
