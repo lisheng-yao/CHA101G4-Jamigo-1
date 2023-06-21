@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>檢舉視窗</title>
+	<style>
+		#submit_button {
+			display: block;
+		}
+
+		#other_input_container {
+			display: none;
+		}
+
+		#title_container {
+			background-color: rgb(204, 250, 250);
+			height: 50px;
+		}
+
+		#title {
+			padding-top: 10px;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		#other_input {
+			width: 600px;
+			height: 100px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+			color: #333;
+			box-sizing: border-box;
+			resize: none;
+		}
+
+		textarea:focus {
+			outline: none;
+			border-color: #007bff;
+			box-shadow: 0 0 3px #007bff;
+		}
+
+		#imagecontainer {
+			display: inline-block;
+			border: 1px solid #E0E0E0;
+			max-width: 50%;
+			max-height: auto;
+
+		}
+
+		#imagecontainer img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="reportForm">
+		<label></label>
+		<div id="title_container">
+			<h2 class="title" id="title">檢舉申請</h2>
+		</div>
+		<label>商品編號：</label>
+		<input type="text" name="productNo" onclick="hideerror('productNo_error')">
+		<span class="error" id="productNo_error"></span><br>
+
+		<label>會員編號：</label>
+		<input type="text" name="memberNo" onclick="hideerror('memberNo_error')">
+		<span class="error" id="memberNo_error"></span><br>
+
+		<input type="checkbox" class="report_checkbox" name="reportContent" value="破損瑕疵"
+			onclick="hideerror('reportContent_error')">
+		<label>破損瑕疵</label>
+		<input type="checkbox" class="report_checkbox" name="reportContent" value="尺寸與標籤不符"
+			onclick="hideerror('reportContent_error')">
+		<label>尺寸與標籤不符</label>
+		<input type="checkbox" class="report_checkbox" name="reportContent" value="假貨"
+			onclick="hideerror('reportContent_error')">
+		<label>假貨</label>
+		<input type="checkbox" class="report_checkbox" name="reportContent" value="價格標示異常"
+			onclick="hideerror('reportContent_error')">
+		<label>價格標示異常</label>
+		<input type="checkbox" class="report_checkbox" name="reportContent" value="照片與實物不符"
+			onclick="hideerror('reportContent_error')">
+		<label>照片與實物不符</label>
+		<input type="checkbox" class="report_checkbox" id="other_checkbox" onclick="hideerror('reportContent_error')">
+		<label>其他(請填寫)</label>
+		<div id="other_input_container">
+			<textarea name="reportContent" id="other_input" placeholder="請輸入檢舉內容" required></textarea>
+		</div><br>
+		<span class="error" id="reportContent_error"></span><br>
+
+		<!-- <input type="file" name="reportImage" accept="image/*" id="uploadimage"> -->
+		<input type="hidden" name="reportStat" value="0">
+
+		<button type="button" id="submit_button" onclick="submit()">送出</button>
+
+		<div id='imagecontainer'></div>
+	</div>
+
+	<div id="report_result"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+	// 其他選項的填寫區屏蔽
+	var other_checkbox = document.getElementById('other_checkbox');
+	var other_input_container = document
+		.querySelector('#other_input_container');
+
+	other_checkbox.addEventListener('change', function () {
+		if (other_checkbox.checked) {
+			other_input_container.style.display = 'block';
+			document.getElementById('other_input').setAttribute('required', 'required');
+		} else {
+			other_input_container.style.display = 'none';
+			document.getElementById('other_input').removeAttribute('required');
+		}
+	})
+	// 上傳圖片的預覽區
+	// var uploadimage = document.getElementById('uploadimage');
+	// uploadimage.addEventListener('change',function(e){
+	// 	var file = e.target.files[0];
+	// 	var reader = new FileReader();
+
+	// 	reader.onload = function(e){
+	// 		var imagecontainer = document.getElementById('imagecontainer');
+	// 		var img = document.createElement('img');
+	// 		img.src = e.target.result;
+	// 		imagecontainer.innerHTML = '';
+	// 		imagecontainer.appendChild(img);
+	// 	}
+	// 	reader.readAsDataURL(file);
+	// })
+
+	//隱藏錯誤訊息
+	function hideerror(e) {
+		if (e.checked) {
+			document.getElementById(e).style.display = 'block';
+		} else {
+			document.getElementById(e).style.display = 'none';
+		}
+	}
+
+	function submit() {
+
+		//檢舉內容轉成陣列
+		var reportContentElements = $('input[name="reportContent"]:checked,textarea[name="reportContent"]:required');
+		var reportContentArray = [];
+
+		reportContentElements.each(function () {
+			reportContentArray.push($(this).val());
+		});
+
+
+		// 取得表單中的值
+		var formData = {
+			productNo: $('input[name="productNo"]').val(),
+			memberNo: $('input[name="memberNo"]').val(),
+			reportContents: reportContentArray,
+			reportStat: $('input[name="reportStat"]').val()
+		};
+
+		// 使用AJAX發送資料
+		$.ajax({
+			type: 'POST',
+			url: '/Jamigo/insertOne',
+			data: JSON.stringify(formData),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function (response) {
+				finish(response);
+			},
+			error: function (error) {
+				fail(error)
+			}
+		});
+
+		//執行成功的函式
+		function finish(response){
+				if(response){
+					for(var fieldName in response){
+						var successmessage = response[fieldName];
+						alert(successmessage);
+					}
+				}
+				location.reload();
+		}
+		//執行失敗的函式
+		function fail(error) {
+			let errorMsgs = error.responseJSON;
+			if (errorMsgs) {
+				for (var fieldName in errorMsgs) {
+					var errorMessage = errorMsgs[fieldName];
+					// 在這裡將錯誤訊息顯示在相應的位置，例如使用jQuery的.text()函式
+					$('#' + fieldName + '_error').text(errorMessage);
+				}
+			}
+		}
+
+	};
+
+
+
+</script>
+
+
+</html>

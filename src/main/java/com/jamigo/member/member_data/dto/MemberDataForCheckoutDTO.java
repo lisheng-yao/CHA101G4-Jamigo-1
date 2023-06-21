@@ -5,6 +5,7 @@ public class MemberDataForCheckoutDTO {
     private String memberName;
     private String memberPhone;
     private String memberEmail;
+    private String memberAddress;
 
     // getters and setters
     public String getMemberName() {
@@ -29,5 +30,13 @@ public class MemberDataForCheckoutDTO {
 
     public void setMemberEmail(String memberEmail) {
         this.memberEmail = memberEmail;
+    }
+
+    public String getMemberAddress() {
+        return memberAddress;
+    }
+
+    public void setMemberAddress(String memberAddress) {
+        this.memberAddress = memberAddress;
     }
 }

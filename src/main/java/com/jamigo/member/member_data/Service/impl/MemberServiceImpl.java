@@ -1,17 +1,18 @@
 package com.jamigo.member.member_data.Service.impl;
 
 
-
 import com.jamigo.member.member_data.Service.MemberService;
-import com.jamigo.member.member_data.dao.impl.MemberDataDaoImpl;
+import com.jamigo.member.member_data.dao.MemberDataDAO;
 import com.jamigo.member.member_data.entity.MemberData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MemberServiceImpl implements MemberService {
     @Autowired
-    public MemberDataDaoImpl dao;
+    public MemberDataDAO dao;
 
     @Override
     public MemberData register(MemberData memberData) {
@@ -129,9 +130,6 @@ public class MemberServiceImpl implements MemberService {
         if (memberData.getMemberNation() != null) {
             oMember.setMemberNation(memberData.getMemberNation());
         }
-        System.out.println("有沒有圖傳進來");
-        System.out.println(memberData.getMemberPic4json());
-        System.out.println(memberData.getMemberPic4json().equals("有傳圖進來"));
         if (memberData.getMemberPic4json().equals("有傳圖進來")) {
             oMember.setMemberPic(memberData.getMemberPic());
             oMember.setMemberPic4json("有圖");

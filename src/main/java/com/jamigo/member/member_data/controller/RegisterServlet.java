@@ -1,6 +1,6 @@
 package com.jamigo.member.member_data.controller;
 
-import com.jamigo.member.member_data.Service.impl.MemberServiceImpl;
+import com.jamigo.member.member_data.Service.MemberService;
 import com.jamigo.member.member_data.entity.MemberData;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,12 +16,12 @@ import static com.jamigo.member.member_data.util.CommonUtil.writePojo2Json;
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Autowired
-    private MemberServiceImpl SERVICE;
+    private MemberService SERVICE;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
-
+        response.setContentType("application/json; charset=utf-8");
         MemberData memberData = json2Pojo(request, MemberData.class);
 
 

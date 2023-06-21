@@ -1,0 +1,19 @@
+th,
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.prod-description {
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.preview-image {
+    max-width: 100px;
+    /* 設定最大寬度 */
+    max-height: 100px;
+    /* 設定最大高度 */
+}

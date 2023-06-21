@@ -12,6 +12,6 @@ public interface PromotionTypeService {
 
     List<Promotion> findAll();
 
-    boolean remove(Integer id);
+    boolean remove(String promotionName);
 
 }
