@@ -2,6 +2,7 @@ package com.jamigo.shop.product.controller;
 
 import com.jamigo.counter.counter.entity.Counter;
 import com.jamigo.shop.product.dto.AddProductDTO;
+import com.jamigo.shop.product.dto.ProductPageDTO;
 import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.entity.ProductCategory;
 import com.jamigo.shop.product.entity.ProductPic;
@@ -83,4 +84,9 @@ public class ProductController {
         productPicService.updateProductPic(productNo, pic1, pic2, pic3, pic4);
     }
 
+    @GetMapping("/getProductForDetailPage/{productNo}")
+    public ProductPageDTO getProductForDetailPage(@PathVariable Integer productNo){
+        System.out.println(productService.getProductWithCounterName(productNo));
+        return productService.getProductWithCounterName(productNo);
+    }
 }
