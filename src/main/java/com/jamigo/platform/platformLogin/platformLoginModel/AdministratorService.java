@@ -13,7 +13,7 @@ public class AdministratorService {
 	AdministratorRepository repository;
 	
 	public AdministratorVO findByName(String adminName, String adminPassword) {
-		return repository.findByadminNameAndAdminPassword(adminName, adminPassword);
+		return repository.findByAdminNameAndAdminPassword(adminName, adminPassword);
 	}
 	
 	public List<AdministratorVO> getAll() {

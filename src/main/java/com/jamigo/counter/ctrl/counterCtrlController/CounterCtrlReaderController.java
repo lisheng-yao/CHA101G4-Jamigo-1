@@ -28,7 +28,7 @@ public class CounterCtrlReaderController{
 		} catch (Exception e) {
 			try {
 				// 抓取NullPointerException
-				resp.sendRedirect("/Jamigo/counter/counter_ctrl/image-nodata/111.jpg");
+				resp.sendRedirect("/Jamigo/platform/counter_ctrl/image-nodata/111.jpg");
 //				e.printStackTrace();
 			} catch (Exception e1) {
 				e1.printStackTrace();
