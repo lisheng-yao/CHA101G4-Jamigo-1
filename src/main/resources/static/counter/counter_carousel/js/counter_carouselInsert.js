@@ -1,6 +1,6 @@
 //  select欄位選取判斷
-let form_option_group = document.querySelectorAll(".controll-box-form-select .form-option-item");
-let selectState = document.querySelector("#selectState");
+//let form_option_group = document.querySelectorAll(".controll-box-form-select .form-option-item");
+//let selectState = document.querySelector("#selectState");
 
 let sure_btn = document.querySelector('.sure-btn');
 let revise_btn = document.querySelector('.revise-btn');
@@ -13,20 +13,57 @@ let inputAccount_error = document.querySelector('.form-item-account .error-text 
 let inputCutPercent = document.querySelector('.form-label #inputCutPercent');
 let inputCutPercent_error = document.querySelector('.form-item-percent .error-text span');
 
-let form_select = document.querySelector('.form-select');
-let form_options = document.querySelectorAll('.form-select option');
+//let form_select = document.querySelector('.form-select');
+//let form_options = document.querySelectorAll('.form-select option');
+//
+//let inputAccount_flag = 1;
+//let inputCutPercent_flag = 1;
 
-let inputAccount_flag = 1;
-let inputCutPercent_flag = 1;
-
+let carousel_upfile_form = document.querySelector(".carousel-img-upfile-box form");
+let carousel_upfile_info = document.querySelector(".carousel-img-upfile-info");
 // ------------------------------------------------------------------------------------------------
+
+
+// 允許接受拖曳，且拖曳經過時加.drag
+carousel_upfile_form.addEventListener('dragover', e => {
+	e.preventDefault();
+	carousel_upfile_form.classList.add("drag");
+})
+// 拖曳出來時加.drag
+carousel_upfile_form.addEventListener('dragleave', e => 
+	carousel_upfile_form.classList.remove("drag"))
+// 拖曳進來後移除.drag，並且產生預覽圖
+carousel_upfile_form.addEventListener('drop', e => {
+	e.preventDefault();
+	carousel_upfile_form.classList.remove("drag");
+	
+	let html = `<div class="carousel-img-upfile-upText">
+		           <div class="carousel-img-upfile-label">輪播圖片預覽</div>
+		         </div>
+		         <div class="carousel-img-upfile-upImg">
+		         </div>`;
+	carousel_upfile_info.innerHTML = html;
+	getPrevImg(e.dataTransfer.files[0]);
+		
+})
+
+function getPrevImg(file){
+	
+	let reader = new FileReader();
+	reader.readAsDataURL(file);
+	reader.addEventListener('load', () => {
+		document.querySelector('.carousel-img-upfile-upImg').innerHTML = 
+			`<img src="${reader.result}" alt="輪播預覽圖">`;
+	})
+		
+}
 
 
 
 // ------------------------------------------------------------------------------------------------
 
 // 自定義的select套用點選附值事件
-getSelectVersion();
+//getSelectVersion();
 function getSelectVersion() {
   for(let form_option_item of form_option_group) {
     form_option_item.addEventListener('click', e => {

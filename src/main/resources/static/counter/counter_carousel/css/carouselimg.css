@@ -34,6 +34,7 @@
 
 .carousel-img-content form {
     position: relative;
+    /* margin: 22px 22px 40px; */
     padding: 22px 22px 40px;
     min-height: 400px;
     display: flex;
@@ -131,9 +132,12 @@
 }
 
 .carousel-img-upfile-box .carousel-img-upfile-upImg {
-    border-radius: 10px;
+    /* border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 4px -1px #ddd;;
+    box-shadow: 0 2px 4px -1px #ddd; */
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px dotted #b4d2ff;
 }
 .carousel-img-upfile-box .carousel-img-upfile-upImg img{
     width: 100%;
