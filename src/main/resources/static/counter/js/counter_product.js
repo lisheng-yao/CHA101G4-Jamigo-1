@@ -1,8 +1,11 @@
 $(function(){
     // DOM 載入完成之後執行
 
+    let urlParams = new URLSearchParams(window.location.search);
+    let counterNo = urlParams.get(`counterNo`);
+
     //進入頁面需要列出商品清單
-    let counterNo = 2;
+    // let counterNo = 1;
     $.ajax({
         url: `/Jamigo/products/listAllCounterProducts/${counterNo}`,
         method: "GET",

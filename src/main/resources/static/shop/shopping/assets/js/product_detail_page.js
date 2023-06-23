@@ -68,4 +68,29 @@ $(function (){
             console.error(xhr);
         }
     });
+
+    //加入購物稱
+    addToCart(productNo);
 });
+
+//放入購物車
+function addToCart(productNo){
+    $("#add_to_cart").on("click", function (){
+        let quantity = $("#product_quantity").val();
+        $.ajax({
+            url: `/Jamigo/cart/addOneToCart`,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                productNo: productNo,
+                quantity: quantity
+            }),
+            success: function (resp){
+                alert("商品已加入購物車" + resp);
+            },
+            error: function (){
+                alert("商品加入購物車失敗");
+            }
+        });
+    });
+}

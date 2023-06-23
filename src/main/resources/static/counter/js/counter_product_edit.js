@@ -28,6 +28,7 @@ $(function () {
         type: "GET",
         success: function (productWithPics) {
             console.log(productWithPics);
+            $("#cancel-edit").attr('onclick', `cancelEdit(${productWithPics.counterNo})`);
             // $("#categoryEdit").val(productWithPics.productCategory.productCatNo);
             let categoryEdit = document.getElementById("categoryEdit");
             for (let i = 0; i < categoryEdit.length; i++) {
@@ -161,4 +162,8 @@ function sendUpdateData(productNo) {
         }
 
         return new Blob(byteArrays, {type: 'image/gif'});
-    }//----------------------------------------
+    }
+
+    function cancelEdit(counterNo){
+        window.location=`/Jamigo/counter/counter_product.html?counterNo=${counterNo}`;
+    }

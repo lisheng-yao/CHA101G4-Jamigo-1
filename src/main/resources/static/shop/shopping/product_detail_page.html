@@ -260,7 +260,7 @@
                         <div id="img-1" class="zoomWrapper single-zoom">
                             <a href="#">
                                 <img id="zoom1" src=""
-                                    data-zoom-image="" alt="big-1">
+                                    data-zoom-image="" alt="big-1" class="w-100">
                             </a>
                         </div>
                         <div class="single-zoom-thumb">
@@ -303,7 +303,7 @@
                             <a href="#" class="counter_name" id="counterName">櫃位名稱</a>
                         </div>
                         <form action="#">
-                            <h1>commodo augue nisi</h1>
+                            <h1 id="productName"></h1>
 
                             <div class="price_area">
                                 <span class="product_priceTag">商品價格：</span>
@@ -328,8 +328,8 @@
                             </div> -->
                             <div class="product_variant quantity">
                                 <label>商品數量</label>
-                                <input min="1" max="50" value="1" type="number">
-                                <button class="button" type="submit">放入購物車</button>
+                                <input min="1" max="10" value="1" type="number" id="product_quantity">
+                                <button class="button" type="button" id="add_to_cart">放入購物車</button>
 
                             </div>
                             <!-- 加入追蹤清單 -->
