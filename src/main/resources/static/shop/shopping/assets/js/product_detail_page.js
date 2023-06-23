@@ -11,9 +11,11 @@ $(function (){
 
             // $("#counterNo").val(productWithPics.counterNo);
             let transProductStat = productWithPics.productStat === true ? 1 : 0;
-            $("#productName").val(productWithPics.productName);
-            $("#productPrice").val(productWithPics.productPrice);
-            $("#productDescription").val(productWithPics.productInfo);
+            $("#counterName").text(productWithPics.counterName);
+            $("#productName").text(productWithPics.productName);
+            $("#productPrice").text(productWithPics.productPrice);
+            $("#productCat").text(productWithPics.productCategory.productCatName);
+            $("#productInfo").text(productWithPics.productInfo);
             $("input[name='productStatus'][value='" + transProductStat + "']").prop("checked", true);
             $("#productSaleNum").val(productWithPics.productSaleNum);
             $("#reportNumber").val(productWithPics.reportNumber);
@@ -23,30 +25,42 @@ $(function (){
             // console.log(productWithPics.productPics[0].productPic);
             if (productWithPics.productPics && productWithPics.productPics.length >= 1) {
                 if(productWithPics.productPics[0].productPic != ""){
-                    $("#imagePreview1").attr('src', 'data:image/*;base64,' + productWithPics.productPics[0].productPic).show();
-                }else {
-                    $("#imagePreview1").attr('src', '/Jamigo/shop/shopping/assets/img/noPic/noPic.jpg' + productWithPics.productPics[0].productPic).show();
+                    $("#zoom1:not(.cloned)").attr({
+                        'src': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
+                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
+                    });
+                    $("#picture1:not(.cloned)").attr({
+                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
+                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
+                    });
+                    $("#pic1:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[0].productPic);
                 }
             }
             if (productWithPics.productPics && productWithPics.productPics.length >= 2) {
                 if(productWithPics.productPics[1].productPic != "") {
-                    $("#imagePreview2").attr('src', 'data:image/*;base64,' + productWithPics.productPics[1].productPic).show();
-                }else {
-                    $("#imagePreview1").attr('src', '/Jamigo/shop/shopping/assets/img/noPic/noPic.jpg' + productWithPics.productPics[0].productPic).show();
+                    $("#picture2:not(.cloned)").attr({
+                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic,
+                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic
+                    });
+                    $("#pic2:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[1].productPic);
                 }
             }
             if (productWithPics.productPics && productWithPics.productPics.length >= 3) {
                 if(productWithPics.productPics[2].productPic != "") {
-                    $("#imagePreview3").attr('src', 'data:image/*;base64,' + productWithPics.productPics[2].productPic).show();
-                }else {
-                    $("#imagePreview1").attr('src', '/Jamigo/shop/shopping/assets/img/noPic/noPic.jpg' + productWithPics.productPics[0].productPic).show();
+                    $("#picture3:not(.cloned)").attr({
+                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic,
+                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic
+                    });
+                    $("#pic3:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[2].productPic);
                 }
             }
             if (productWithPics.productPics && productWithPics.productPics.length >= 4) {
                 if(productWithPics.productPics[3].productPic != "") {
-                    $("#imagePreview4").attr('src', 'data:image/*;base64,' + productWithPics.productPics[3].productPic).show();
-                }else {
-                    $("#imagePreview1").attr('src', '/Jamigo/shop/shopping/assets/img/noPic/noPic.jpg' + productWithPics.productPics[0].productPic).show();
+                    $("#picture4:not(.cloned)").attr({
+                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic,
+                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic
+                    });
+                    $("#pic4:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[3].productPic);
                 }
             }
         },
