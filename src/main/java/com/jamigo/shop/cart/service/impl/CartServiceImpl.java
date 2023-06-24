@@ -102,10 +102,12 @@ public class CartServiceImpl implements CartService {
                     JsonObject oldItem = element.getAsJsonObject();
                     //迴圈每次都建立新物件
                     CartDTO cartDTO = new CartDTO();
+                    cartDTO.setCounterNo(oldItem.get("counterNo").getAsInt());
+                    cartDTO.setCounterName(oldItem.get("counterName").getAsString());
                     cartDTO.setProductNo(oldItem.get("productNo").getAsInt());
-                    cartDTO.setQuantity(oldItem.get("quantity").getAsInt());
                     cartDTO.setProductName(oldItem.get("productName").getAsString());
                     cartDTO.setProductPrice(oldItem.get("productPrice").getAsInt());
+                    cartDTO.setQuantity(oldItem.get("quantity").getAsInt());
                     //加進回應前端的List
                     cartDTOList.add(cartDTO);
                 }

@@ -1,4 +1,15 @@
-$(document).ready(function () {
+$(function () {
+    let memberNo = getMemberNo();
+    $.ajax({
+        url: `/Jamigo/cart/getCartList/${memberNo}`,
+        method: "GET",
+        success: function (cartItems){
+            console.log(cartItems);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            console.error(xhr);
+        }
+    });
 
     validqtyInput();
 
@@ -12,6 +23,12 @@ $(document).ready(function () {
 
     validPointsInput();
 });
+
+//取得會員編號
+function getMemberNo(){
+    // return localStorage.getItem("memberNo");
+    return 3;
+}
 
 // 只能輸入數字
 function validqtyInput() {

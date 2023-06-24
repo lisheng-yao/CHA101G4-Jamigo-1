@@ -1,3 +1,4 @@
+let product;
 $(function (){
     //從網址上獲取productNo
     let urlParams = new URLSearchParams(window.location.search);
@@ -8,26 +9,27 @@ $(function (){
         type: "GET",
         success: function (productWithPics) {
             console.log(productWithPics);
+            product = productWithPics;
 
             // $("#counterNo").val(productWithPics.counterNo);
-            let transProductStat = productWithPics.productStat === true ? 1 : 0;
-            $("#counterName").text(productWithPics.counterName);
-            $("#counterNo").text(productWithPics.counterNo);
-            $("#productName").text(productWithPics.productName);
-            $("#productPrice").text(productWithPics.productPrice);
-            $("#productCat").text(productWithPics.productCategory.productCatName);
-            $("#productInfo").text(productWithPics.productInfo);
+            let transProductStat = product.productStat === true ? 1 : 0;
+            $("#counterName").text(product.counterName);
+            $("#counterNo").text(product.counterNo);
+            $("#productName").text(product.productName);
+            $("#productPrice").text(product.productPrice);
+            $("#productCat").text(product.productCategory.productCatName);
+            $("#productInfo").text(product.productInfo);
             $("input[name='productStatus'][value='" + transProductStat + "']").prop("checked", true);
-            $("#productSaleNum").val(productWithPics.productSaleNum);
-            $("#reportNumber").val(productWithPics.reportNumber);
+            $("#productSaleNum").val(product.productSaleNum);
+            $("#reportNumber").val(product.reportNumber);
             // $("#evalTotalPeople").val(productWithPics.evalTotalPeople);
             // $("#evalTotalScore").val(productWithPics.evalTotalScore);
             // $("#evalAvg").innerText(productWithPics.evalTotalScore / productWithPics.evalTotalPeople);
             // console.log(productWithPics.productPics[0].productPic);
             for(let i= 0; i < 4; i++) {
-                let pic = (productWithPics.productPics[i].productPic == "") ?
+                let pic = (product.productPics[i].productPic == "") ?
                     "/Jamigo/shop/shopping/assets/img/noPic/noPic.jpg" :
-                    'data:image/*;base64,' + productWithPics.productPics[i].productPic;
+                    'data:image/*;base64,' + product.productPics[i].productPic;
 
                 if( i === 0){
                     $("#zoom1:not(.cloned)").attr({
@@ -41,53 +43,13 @@ $(function (){
                 });
                 $(`#pic${i+1}:not(.cloned)`).attr('src', pic);
             }
-            // if (productWithPics.productPics && productWithPics.productPics.length >= 1) {
-            //     if(productWithPics.productPics[0].productPic != ""){
-            //         $("#zoom1:not(.cloned)").attr({
-            //             'src': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
-            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
-            //         });
-            //         $("#picture1:not(.cloned)").attr({
-            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
-            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
-            //         });
-            //         $("#pic1:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[0].productPic);
-            //     }
-            // }
-            // if (productWithPics.productPics && productWithPics.productPics.length >= 2) {
-            //     if(productWithPics.productPics[1].productPic != "") {
-            //         $("#picture2:not(.cloned)").attr({
-            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic,
-            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic
-            //         });
-            //         $("#pic2:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[1].productPic);
-            //     }
-            // }
-            // if (productWithPics.productPics && productWithPics.productPics.length >= 3) {
-            //     if(productWithPics.productPics[2].productPic != "") {
-            //         $("#picture3:not(.cloned)").attr({
-            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic,
-            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic
-            //         });
-            //         $("#pic3:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[2].productPic);
-            //     }
-            // }
-            // if (productWithPics.productPics && productWithPics.productPics.length >= 4) {
-            //     if(productWithPics.productPics[3].productPic != "") {
-            //         $("#picture4:not(.cloned)").attr({
-            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic,
-            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic
-            //         });
-            //         $("#pic4:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[3].productPic);
-            //     }
-            // }
         },
         error: function (xhr, textStatus, errorThrown) {
             console.error(xhr);
         }
     });
     //加入購物稱
-    addToCart(parseInt(productNo));
+    addToCart(productNo);
 });
 
 //取得會員編號
@@ -100,10 +62,10 @@ function getMemberNo(){
 function addToCart(productNo){
     $("#add_to_cart").on("click", function (){
         let memberNo = getMemberNo();
-        let counterName = $("#counterName").text();
-        let counterNo = parseInt($("#counterNo").text());
-        let productName = $("#productName").text();
-        let productPrice = parseInt($("#productPrice").text());
+        let counterName = product.counterName;
+        let counterNo = product.counterNo;
+        let productName = product.productName;
+        let productPrice = product.productPrice;
         let quantity = parseInt($("#product_quantity").val());
         let cartItem = {
             counterNo: counterNo,
