@@ -23,46 +23,63 @@ $(function (){
             // $("#evalTotalScore").val(productWithPics.evalTotalScore);
             // $("#evalAvg").innerText(productWithPics.evalTotalScore / productWithPics.evalTotalPeople);
             // console.log(productWithPics.productPics[0].productPic);
-            if (productWithPics.productPics && productWithPics.productPics.length >= 1) {
-                if(productWithPics.productPics[0].productPic != ""){
+            for(let i= 0; i < 4; i++) {
+                let pic = (productWithPics.productPics[i].productPic == "") ?
+                    "/Jamigo/shop/shopping/assets/img/noPic/noPic.jpg" :
+                    'data:image/*;base64,' + productWithPics.productPics[i].productPic;
+
+                if( i === 0){
                     $("#zoom1:not(.cloned)").attr({
-                        'src': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
-                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
+                        'src': pic,
+                        'data-zoom-image': pic
                     });
-                    $("#picture1:not(.cloned)").attr({
-                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
-                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
-                    });
-                    $("#pic1:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[0].productPic);
                 }
+                $(`#picture${i+1}:not(.cloned)`).attr({
+                    'data-image': pic,
+                    'data-zoom-image': pic
+                });
+                $(`#pic${i+1}:not(.cloned)`).attr('src', pic);
             }
-            if (productWithPics.productPics && productWithPics.productPics.length >= 2) {
-                if(productWithPics.productPics[1].productPic != "") {
-                    $("#picture2:not(.cloned)").attr({
-                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic,
-                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic
-                    });
-                    $("#pic2:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[1].productPic);
-                }
-            }
-            if (productWithPics.productPics && productWithPics.productPics.length >= 3) {
-                if(productWithPics.productPics[2].productPic != "") {
-                    $("#picture3:not(.cloned)").attr({
-                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic,
-                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic
-                    });
-                    $("#pic3:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[2].productPic);
-                }
-            }
-            if (productWithPics.productPics && productWithPics.productPics.length >= 4) {
-                if(productWithPics.productPics[3].productPic != "") {
-                    $("#picture4:not(.cloned)").attr({
-                        'data-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic,
-                        'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic
-                    });
-                    $("#pic4:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[3].productPic);
-                }
-            }
+            // if (productWithPics.productPics && productWithPics.productPics.length >= 1) {
+            //     if(productWithPics.productPics[0].productPic != ""){
+            //         $("#zoom1:not(.cloned)").attr({
+            //             'src': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
+            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
+            //         });
+            //         $("#picture1:not(.cloned)").attr({
+            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic,
+            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[0].productPic
+            //         });
+            //         $("#pic1:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[0].productPic);
+            //     }
+            // }
+            // if (productWithPics.productPics && productWithPics.productPics.length >= 2) {
+            //     if(productWithPics.productPics[1].productPic != "") {
+            //         $("#picture2:not(.cloned)").attr({
+            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic,
+            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[1].productPic
+            //         });
+            //         $("#pic2:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[1].productPic);
+            //     }
+            // }
+            // if (productWithPics.productPics && productWithPics.productPics.length >= 3) {
+            //     if(productWithPics.productPics[2].productPic != "") {
+            //         $("#picture3:not(.cloned)").attr({
+            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic,
+            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[2].productPic
+            //         });
+            //         $("#pic3:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[2].productPic);
+            //     }
+            // }
+            // if (productWithPics.productPics && productWithPics.productPics.length >= 4) {
+            //     if(productWithPics.productPics[3].productPic != "") {
+            //         $("#picture4:not(.cloned)").attr({
+            //             'data-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic,
+            //             'data-zoom-image': 'data:image/*;base64,' + productWithPics.productPics[3].productPic
+            //         });
+            //         $("#pic4:not(.cloned)").attr('src', 'data:image/*;base64,' + productWithPics.productPics[3].productPic);
+            //     }
+            // }
         },
         error: function (xhr, textStatus, errorThrown) {
             console.error(xhr);
