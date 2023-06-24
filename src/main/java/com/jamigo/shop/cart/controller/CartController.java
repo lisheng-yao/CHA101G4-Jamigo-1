@@ -7,12 +7,10 @@ import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.service.ProductPicService;
 import com.jamigo.shop.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cart")
@@ -30,18 +28,26 @@ public class CartController {
     }
 
     @PostMapping("/addOneToCart")
-    public String addOneToCart(@RequestBody CartDTO cartDTO, HttpServletRequest request){
-//        MemberData member = (MemberData) request.getSession().getAttribute("memberNo");
-//        if (member != null){
-//            Integer memberNo = member.getMemberNo();
-//        }else {
-//            return "導回登入頁面";
-//        }
-        Integer memberNo = 3;
+    public String addOneToCart(@RequestBody Map<String, Object> cartData){
 
-        Product product = productService.getProductByNo(cartDTO.getProductNo());
-        cartDTO.setProductPrice(product.getProductPrice());
-        cartDTO.setProductName(product.getProductName());
+        //取得前端傳送的會員編號
+        Integer memberNo = (Integer) cartData.get("memberNo");
+        //取得前端傳來加入購物車項目
+        Map<String, Object> cartItem = (Map<String, Object>) cartData.get("cartItem");
+        Integer counterNo = (Integer) cartItem.get("counterNo");
+        String counterName = (String) cartItem.get("counterName");
+        Integer productNo = (Integer) cartItem.get("productNo");
+        String productName = (String) cartItem.get("productName");
+        Integer productPrice = (Integer) cartItem.get("productPrice");
+        Integer quantity = (Integer) cartItem.get("quantity");
+
+        CartDTO cartDTO = new CartDTO();
+        cartDTO.setCounterNo(counterNo);
+        cartDTO.setCounterName(counterName);
+        cartDTO.setProductNo(productNo);
+        cartDTO.setProductName(productName);
+        cartDTO.setProductPrice(productPrice);
+        cartDTO.setQuantity(quantity);
 
         //將前端送來的購物車項目和會員編號放入購物車
         return cartService.addOneToCart(cartDTO, memberNo);
