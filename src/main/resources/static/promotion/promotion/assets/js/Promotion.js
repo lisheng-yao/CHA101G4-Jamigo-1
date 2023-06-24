@@ -64,7 +64,7 @@
                                 <div class="mb-3">
                                     <label for="recipienttype${i}"
                                            class="col-form-label">發放種類:</label>
-                                    <select name="" id="recipienttype${i}">
+                                    <select name="" id="recipienttype${i}" class="form-control">
                                         <option value="折價券" ${promotionType === '折價券' ? 'selected' : ''}>折價券
                                         </option>
                                         <option value="點數" ${promotionType === '點數' ? 'selected' : ''}>點數</option>
@@ -73,7 +73,7 @@
                                 <div class="mb-3">
                                     <label for="recipientmethed${i}"
                                            class="col-form-label">發放方式:</label>
-                                    <select name="" id="recipientmethed${i}">
+                                    <select name="" id="recipientmethed${i}" class="form-control">
                                         <option value="結帳後取得"
                                                 ${promotionMethod === '結帳後取得' ? 'selected' : ''}>結帳後取得
                                         </option>
@@ -180,6 +180,11 @@
 
 
         msg.textContent = '';
+        const promotionNameLength = promotionName4json.length;
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msg.textContent = '名稱長度須介於1~10字元';
+            return;
+        }
         // 檢查結束
 
         fetch('editpromotion', {
@@ -211,7 +216,6 @@
                     }).then(()=>{location.reload()})
                 } else {
                     msg.className = 'error';
-                    msg.textContent = '修改失敗';
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -233,12 +237,18 @@
     }
 
     // ============================6.   newAPromotion()新增promotion========================
+    const msg2 =document.querySelector('#msg2');
     function newAPromotion() {
         const recipientname4new = document.querySelector('#recipient-name').value;
         const recipienttype4new = document.querySelector('#recipient-type').value;
         const recipientmethed4new = document.querySelector('#recipient-methed').value;
         const recipientcNo4new = document.querySelector('#recipient-cNo').value;
         const recipientaNo4new = document.querySelector('#recipient-aNo').value;
+        const promotionNameLength = recipientname4new.length;
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msg2.textContent = '名稱長度須介於1~10字元';
+            return;
+        }
         fetch('newpromotion', {
             method: 'POST',
             headers: {
