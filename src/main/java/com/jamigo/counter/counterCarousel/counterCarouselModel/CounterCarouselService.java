@@ -12,21 +12,25 @@ public class CounterCarouselService {
 	@Autowired
 	CounterCarouselRepository repository;
 	
-	public void update(CounterCarouselDTO counterCarouselDTO) {
-		repository.save(counterCarouselDTO);
+	public void update(CounterCarouselVO counterCarouselVO) {
+		repository.save(counterCarouselVO);
 	}
 
-	public void add(CounterCarouselDTO counterCarouselDTO) {
-		repository.save(counterCarouselDTO);
+	public void add(CounterCarouselVO counterCarouselVO) {
+		repository.save(counterCarouselVO);
 	}
 	
-	public CounterCarouselDTO getById(Integer counterCarouselNo) {
-		Optional<CounterCarouselDTO> optional = repository.findById(counterCarouselNo);
+	public CounterCarouselVO getById(Integer counterCarouselNo) {
+		Optional<CounterCarouselVO> optional = repository.findById(counterCarouselNo);
 		return optional.get();
 	}
+
+	public List<CounterCarouselVO> getAllByCounterNo(Integer counterNo) {
+		return repository.findAllByCounterNo(counterNo);
+	}
 	
-	public List<CounterCarouselDTO> getAll() {
-		return repository.findAll();
+	public void deleteById(Integer counterCarouselNo) {
+		repository.deleteById(counterCarouselNo);
 	}
 	
 }

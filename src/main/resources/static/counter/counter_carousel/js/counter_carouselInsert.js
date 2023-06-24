@@ -1,27 +1,128 @@
-//  select欄位選取判斷
-//let form_option_group = document.querySelectorAll(".controll-box-form-select .form-option-item");
-//let selectState = document.querySelector("#selectState");
-
 let sure_btn = document.querySelector('.sure-btn');
 let revise_btn = document.querySelector('.revise-btn');
 
 let form_items = document.querySelectorAll('.form-item');
 let inputNo = document.querySelector('.form-label #inputNo');
-let inputName = document.querySelector('.form-label #inputName');
-let inputAccount = document.querySelector('.form-label #inputAccount');
-let inputAccount_error = document.querySelector('.form-item-account .error-text span');
-let inputCutPercent = document.querySelector('.form-label #inputCutPercent');
-let inputCutPercent_error = document.querySelector('.form-item-percent .error-text span');
-
-//let form_select = document.querySelector('.form-select');
-//let form_options = document.querySelectorAll('.form-select option');
-//
-//let inputAccount_flag = 1;
-//let inputCutPercent_flag = 1;
+let inputCounterNo = document.querySelector('#inputCounterNo');
+let inputText = document.querySelector('.form-label #inputText');
+let inputStartDate = document.querySelector('.form-label #inputStartDate');
+let inputStartTime = document.querySelector('.form-label #inputStartTime');
+let inputEndDate = document.querySelector('.form-label #inputEndDate');
+let inputEndTime = document.querySelector('.form-label #inputEndTime');
 
 let carousel_upfile_form = document.querySelector(".carousel-img-upfile-box form");
+let carousel_upfile_imgInputBtn = document.querySelector(".carousel-img-upfile-btn");
+let carousel_upfile_imgUpInput = document.querySelector(".carousel-img-upfile-box #carousel-img-upfile-input");
 let carousel_upfile_info = document.querySelector(".carousel-img-upfile-info");
+let carousel_insertFile_btn = document.querySelector(".button-group .carousel-img-insertFile-btn");
+let carousel_editFile_btn = document.querySelector(".button-group .carousel-img-editFile-btn");
+
+// 裝formData用的
+let img_data;
 // ------------------------------------------------------------------------------------------------
+
+// 取得櫃位所有的輪播圖片資訊
+
+
+
+// 新增輪播圖
+if(carousel_insertFile_btn != null) {
+	
+	carousel_insertFile_btn.addEventListener('click', async () => {
+		console.log('傳送1')
+		// 第一次請求
+		await axios.post('/Jamigo/counterCarousel/insert', {
+			counterNo: inputCounterNo.value,
+			counterCarouselText: inputText.value,
+			counterCarouselStartTime: `${inputStartDate.value} ${inputStartTime.value}:00`,
+			counterCarouselEndTime: `${inputEndDate.value} ${inputEndTime.value}:00`,
+		}, {
+			headers : {
+				'Content-Type' : 'application/json'
+			}
+		})
+		.then(resp => {
+			console.log('post1' + resp)
+			return resp.data;
+		})
+		.then(async data => {
+			// 第二次請求
+				let formData = new FormData();
+				console.log(img_data);
+				formData.append('counterCarouselPic', img_data);
+				formData.append('counterCarouselNo', data);
+				console.log('傳送2');
+				console.log('data' + data);
+				
+				await axios.post('/Jamigo/counterCarousel/insertImg', formData, {
+					headers : {
+						'Content-Type' : 'multipart/form-data'
+					}
+				})
+				.then(resp => {
+					console.log('post1' + resp)
+				})
+				.catch(err => {
+					console.log('post1' + err)
+				})
+		})
+		.catch(err => {
+			console.log('post1' + err)
+		})
+	})
+}
+
+
+// 修改輪播圖
+if(carousel_editFile_btn != null) {
+	
+	carousel_editFile_btn.addEventListener('click', async () => {
+		
+		console.log('傳送1')
+		// 第一次請求
+		await axios.post('/Jamigo/counterCarousel/update', {
+			counterCarouselNo: inputNo.value,
+			counterNo: inputCounterNo.value,
+			counterCarouselText: inputText.value,
+			counterCarouselStartTime: `${inputStartDate.value} ${inputStartTime.value}:00`,
+			counterCarouselEndTime: `${inputEndDate.value} ${inputEndTime.value}:00`,
+		}, {
+			headers : {
+				'Content-Type' : 'application/json'
+			}
+		})
+		.then(resp => {
+			console.log('post1' + resp)
+			return resp.data;
+		})
+		.then(async data => {
+			// 第二次請求
+			if(img_data != null) {
+				let formData = new FormData();
+				console.log(img_data);
+				formData.append('counterCarouselPic', img_data);
+				formData.append('counterCarouselNo', data);
+				console.log('傳送2');
+				console.log('data' + data);
+				
+				await axios.post('/Jamigo/counterCarousel/insertImg', formData, {
+					headers : {
+						'Content-Type' : 'multipart/form-data'
+					}
+				})
+				.then(resp => {
+					console.log('post1' + resp)
+				})
+				.catch(err => {
+					console.log('post1' + err)
+				})
+			}
+		})
+		.catch(err => {
+			console.log('post1' + err)
+		})
+	})
+}
 
 
 // 允許接受拖曳，且拖曳經過時加.drag
@@ -37,31 +138,85 @@ carousel_upfile_form.addEventListener('drop', e => {
 	e.preventDefault();
 	carousel_upfile_form.classList.remove("drag");
 	
-	let html = `<div class="carousel-img-upfile-upText">
-		           <div class="carousel-img-upfile-label">輪播圖片預覽</div>
-		         </div>
-		         <div class="carousel-img-upfile-upImg">
-		         </div>`;
-	carousel_upfile_info.innerHTML = html;
+	
 	getPrevImg(e.dataTransfer.files[0]);
-		
+	
+//	img_data = e.dataTransfer.files[0];
 })
 
+// 抓取input的預覽圖
+carousel_upfile_imgUpInput.addEventListener('change', () => {
+	if(carousel_upfile_imgUpInput.files.length > 0) {
+		getPrevImg(carousel_upfile_imgUpInput.files[0]);
+	} else {
+		let html = 
+		 `<div class="carousel-img-upfile-icon">
+	          <i class="fa-solid fa-cloud-arrow-up"></i>
+	      </div>
+	      <div class="carousel-img-upfile">
+	          <div class="carousel-img-upfile-text">
+	              <span>請將檔案拖曳至此處上傳，或</span>
+	          </div>
+	          <label class="carousel-img-upfile-btn" for="carousel-img-upfile-input">選擇檔案</label>
+	          <input type="file" name="" id="carousel-img-upfile-input">
+	      </div>`;
+       carousel_upfile_info.innerHTML = html;
+	}
+})
+
+// 顯示預覽圖
 function getPrevImg(file){
 	
-	let reader = new FileReader();
-	reader.readAsDataURL(file);
-	reader.addEventListener('load', () => {
-		document.querySelector('.carousel-img-upfile-upImg').innerHTML = 
-			`<img src="${reader.result}" alt="輪播預覽圖">`;
-	})
+	let reader64 = new FileReader();
+	reader64.readAsDataURL(file);
+	reader64.addEventListener('load', () => {
 		
+		let html = 
+		`<div class="carousel-img-upfile-upText">
+           <div class="carousel-img-upfile-label">輪播圖片預覽</div>
+         </div>
+         <div class="carousel-img-upfile-upImg">
+         	<img src="${reader64.result}" alt="輪播預覽圖">
+         </div>`;
+		         
+		carousel_upfile_info.innerHTML = html;
+	
+	})
+	
+	img_data = file;
+}
+
+
+// 檢查query中是否有值，有值代表為修改，要將櫃位原本數值放進input內
+getQueryString();
+function getQueryString() {
+  let urlParam = new URLSearchParams(window.location.search);
+  let queryValue = urlParam.get('counterCarouselNo');
+
+  if(queryValue != null) {
+    axios.get(`/Jamigo/counterCarousel/getByIdWithoutPic/${queryValue}`)
+    .then(response => { return response.data })
+    .then(data => {
+		const [startDate, startTime] = data.counterCarouselStartTime.split(' ');
+		const [endDate, endTime] = data.counterCarouselEndTime.split(' ');
+        inputNo.value = data.counterCarouselNo;
+        inputCounterNo.value = data.counterNo;
+        inputText.value = (data.counterCarouselText ? data.counterCarouselText : '');
+        inputStartDate.value = startDate;
+        inputStartTime.value = startTime;
+        inputEndDate.value = endDate;
+        inputEndTime.value = endTime;
+        document.querySelector('.carousel-img-upfile-originPic img').src = `/Jamigo/counterCarouselImg/${data.counterCarouselNo}`;
+    })
+    .catch(error => console.log(error))
+  }
 }
 
 
 
-// ------------------------------------------------------------------------------------------------
 
+// ------------------------------------------------------------------------------------------------
+/*
 // 自定義的select套用點選附值事件
 //getSelectVersion();
 function getSelectVersion() {
@@ -101,36 +256,7 @@ function getSelectVersion() {
   }
 }
 
-// 檢查query中是否有值，有值代表為修改，要將櫃位原本數值放進input內
-getQueryString();
-function getQueryString() {
-  let urlParam = new URLSearchParams(window.location.search);
-  let queryValue = urlParam.get('counterNo');
-  // console.log('queryValue: ' + queryValue);
-  let counter = ``;
 
-  if(queryValue != null) {
-    let url = `/Jamigo/counterCtrl/getCounterById/${queryValue}`;
-    fetch(url, {
-      method : 'GET',
-      headers : {
-        'Content-Type' : 'text/plain',
-        'Header-Action': 'getCounterById'
-      }
-    })
-    .then(response => { return response.json() })
-    .then(data => {
-      counter = data;
-      inputNo.value = counter.counterNo;
-      console.log(counter.counterName);
-      inputName.value = (counter.counterName ? counter.counterName : '預設');
-      inputAccount.value = counter.counterAccount;
-      inputCutPercent.value = counter.cutPercent;
-      form_option_group[counter.counterStat].firstElementChild.click();
-    })
-    .catch(error => console.log(error))
-  }
-}
 
 // 新增櫃位
 if(sure_btn) {
@@ -339,3 +465,4 @@ function error_text_controll(flag, item, error_text) {
     itemParent.parentElement.classList.add('show');
   }
 }
+*/

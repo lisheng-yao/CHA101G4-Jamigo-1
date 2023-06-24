@@ -411,6 +411,12 @@
                                       <label class="carousel-img-upfile-btn" for="carousel-img-upfile-input">選擇檔案</label>
                                       <input type="file" name="" id="carousel-img-upfile-input">
                                   </div>
+                                  <div class="carousel-img-upfile-upText carousel-img-upfile-originPicText mt-3">
+                                    <div class="carousel-img-upfile-label">輪播原始圖片</div>
+                                  </div>
+                                  <div class="carousel-img-upfile-upImg carousel-img-upfile-originPic">
+                                    <img src="" alt="">
+                                  </div>
                                 </div>
                               </form>
                           </div>
@@ -419,12 +425,12 @@
                       <form class="form-content-edit" action="" method="post">
                         <div class="row">
                           <input name="inputCounterNo" type="hidden" class="form-control" id="inputCounterNo" value="1" disabled>
-                          <!-- <div class="form-item form-item-num col-12 mt-3">
+                          <div class="form-item form-item-num col-12 mt-3">
                             <div class="form-label input-group-disable input-group-num">
                               <input name="inputNo" type="text" class="form-control" id="inputNo" disabled>
                               <label for="inputNo" class="input-group-text disabled_label">輪播圖片編號</label>
                             </div>
-                          </div> -->
+                          </div>
                           <div class="form-item form-item-name col-12 mt-3">
                             <div class="form-label input-group-carousel-text">
                               <textarea name="inputText" id="inputText"></textarea>
@@ -512,9 +518,9 @@
                           </div> -->
                         </div>
                         <div class="button-group mt-4">
-                          <button class="btn upload-btn sure-btn btn-primary carousel-img-insertFile-btn" type="button">
+                          <button class="btn upload-btn revise-btn btn-primary carousel-img-editFile-btn" type="button">
                             <i class="fa-solid fa-user-pen"></i>
-                            上傳輪播圖
+                            更新輪播圖
                           </button>
                           <!-- <button class="btn revise-btn btn-primary carousel-img-upfile-btn" type="button">
                             <i class="fa-solid fa-user-pen"></i>

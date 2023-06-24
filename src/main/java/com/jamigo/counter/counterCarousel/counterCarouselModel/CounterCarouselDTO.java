@@ -1,6 +1,7 @@
 package com.jamigo.counter.counterCarousel.counterCarouselModel;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,47 +9,78 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
-@Table(name = "mainpage_carousel")
-public class CounterCarouselDTO {
+@Table(name = "counter_carousel")
+public class CounterCarouselDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Byte mainpageCarouselNo;
-	private Date mainpageCarouselStartTime;
-	private Date mainpageCarouselEndTime;
+	private Integer counterCarouselNo;
+	private Integer counterNo;
+	private String counterCarouselText;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date counterCarouselStartTime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date counterCarouselEndTime;
 	
 	public CounterCarouselDTO() {}
 
-	public CounterCarouselDTO(Byte mainpageCarouselNo, Date mainpageCarouselStartTime, Date mainpageCarouselEndTime) {
+	public CounterCarouselDTO(Integer counterCarouselNo, Integer counterNo, String counterCarouselText,
+			Date counterCarouselStartTime, Date counterCarouselEndTime) {
 		super();
-		this.mainpageCarouselNo = mainpageCarouselNo;
-		this.mainpageCarouselStartTime = mainpageCarouselStartTime;
-		this.mainpageCarouselEndTime = mainpageCarouselEndTime;
+		this.counterCarouselNo = counterCarouselNo;
+		this.counterNo = counterNo;
+		this.counterCarouselText = counterCarouselText;
+		this.counterCarouselStartTime = counterCarouselStartTime;
+		this.counterCarouselEndTime = counterCarouselEndTime;
 	}
 
-	public Byte getMainpageCarouselNo() {
-		return mainpageCarouselNo;
+	public Integer getCounterCarouselNo() {
+		return counterCarouselNo;
 	}
 
-	public void setMainpageCarouselNo(Byte mainpageCarouselNo) {
-		this.mainpageCarouselNo = mainpageCarouselNo;
+	public void setCounterCarouselNo(Integer counterCarouselNo) {
+		this.counterCarouselNo = counterCarouselNo;
 	}
 
-	public Date getMainpageCarouselStartTime() {
-		return mainpageCarouselStartTime;
+	public Integer getCounterNo() {
+		return counterNo;
 	}
 
-	public void setMainpageCarouselStartTime(Date mainpageCarouselStartTime) {
-		this.mainpageCarouselStartTime = mainpageCarouselStartTime;
+	public void setCounterNo(Integer counterNo) {
+		this.counterNo = counterNo;
 	}
 
-	public Date getMainpageCarouselEndTime() {
-		return mainpageCarouselEndTime;
+	public String getCounterCarouselText() {
+		return counterCarouselText;
 	}
 
-	public void setMainpageCarouselEndTime(Date mainpageCarouselEndTime) {
-		this.mainpageCarouselEndTime = mainpageCarouselEndTime;
+	public void setCounterCarouselText(String counterCarouselText) {
+		this.counterCarouselText = counterCarouselText;
+	}
+
+	public Date getCounterCarouselStartTime() {
+		return counterCarouselStartTime;
+	}
+
+	public void setCounterCarouselStartTime(Date counterCarouselStartTime) {
+		this.counterCarouselStartTime = counterCarouselStartTime;
+	}
+
+	public Date getCounterCarouselEndTime() {
+		return counterCarouselEndTime;
+	}
+
+	public void setCounterCarouselEndTime(Date counterCarouselEndTime) {
+		this.counterCarouselEndTime = counterCarouselEndTime;
 	}
 	
 }

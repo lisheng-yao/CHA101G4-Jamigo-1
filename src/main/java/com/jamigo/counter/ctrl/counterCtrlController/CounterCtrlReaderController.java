@@ -15,8 +15,8 @@ import com.jamigo.counter.ctrl.counterCtrlModel.CounterCtrlService;
 @RequestMapping("/counterCtrlImg")
 public class CounterCtrlReaderController{
 
-		@GetMapping("/{counterNo}")
-		public void counterCtrlReader(@PathVariable Integer counterNo, HttpServletResponse resp) {
+	@GetMapping("/{counterNo}")
+	public void counterCtrlReader(@PathVariable Integer counterNo, HttpServletResponse resp) {
 		
 		try {
 			CounterCtrlService CounterCtrlService = new CounterCtrlService();

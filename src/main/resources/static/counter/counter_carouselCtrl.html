@@ -11,11 +11,11 @@
 
     <!-- 新引入的CSS檔案或套件請由此往下放 -->
 
-    <link rel="stylesheet" href="./counter_ctrl/css/all.css">
-    <link rel="stylesheet" href="./counter_ctrl/css/counter_product_edit.css">
+    <link rel="stylesheet" href="./activity_order/css/all.css">
+    <!-- <link rel="stylesheet" href="./activity_order/css/counter_product_edit.css"> -->
 
     <!-- 引入fontawsome -->
-    <link rel="stylesheet" href="./counter_ctrl/assets/fontawsome/css/all.css">
+    <link rel="stylesheet" href="./activity_order/assets/fontawsome/css/all.css">
     <!-- 引入Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -383,11 +383,19 @@
                   <div class="row">
                     <div class=" panel panel-default panel-table filterable">
                       <div class="panel-heading">
-                        <div class="col col-xs-6">
-                          <h4>
-                            <i class="fa-solid fa-user-pen"></i>
-                            輪播圖管理
-                          </h4>
+                        <div class="row align-items-center">
+                          <div class="col col-xs-6">
+                            <h4>
+                              <i class="fa-solid fa-user-pen"></i>
+                              輪播圖管理
+                            </h4>
+                          </div>
+                          <div class="col button-group carousel-img-controll-btnGroup">
+                            <a href="./counter_carouselInsert.html" class="btn add-carousel-img-btn btn-primary">
+                              <i class="fa-solid fa-pen-to-square"></i>
+                              新增輪播圖
+                            </a>
+                          </div> 
                         </div>
                       </div>
                       <div class="panel-body form-content">
@@ -395,14 +403,14 @@
                           <div class="carousel-img-controll-group">
                             <div class="container-fluid">
                               <div class="row">
-                                <div class="carousel-img-controll-item col-12">
+                                <!-- <div class="carousel-img-controll-item col-12">
                                   <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-5">
                                         <div class="carousel-img-controll-pic">
                                             <img src="./counter_carousel/images/01-love-is-a-bouquet_1440_1200.avif" alt="">
                                         </div>
                                     </div>
-                                    <div class="carousel-img-controll-infoBox col-8 py-3">
+                                    <div class="carousel-img-controll-infoBox col-7 py-3">
                                       <div class="carousel-img-controll-infoNo">
                                         <span>編號</span>
                                         <span class="carousel-img-controll-infoNo-num">1</span>
@@ -417,7 +425,46 @@
                                           <span>2023-12-31 00:00:00</span>
                                         </div>
                                       </div>
-                                      <div class="button-group carousel-img-controll-btnGroup">
+                                      <div class="carousel-img-controll-infoText">
+                                        <span>輪播內容</span>
+                                        <span class="carousel-img-controll-infoNo-text">限時特殊折扣優惠，給您帶來更多的節省和超值享受！</span>
+                                      </div>
+                                      <div class="button-group carousel-img-controll-btnGroup pt-3">
+                                        <a href="./counter_carouselInsert.html" class="btn revise-btn btn-primary">
+                                          <i class="fa-solid fa-pen-to-square"></i>
+                                          修改輪播圖
+                                        </a>
+                                        <a href="javaScript:;" class="btn delete-btn btn-danger">
+                                          <i class="fa-solid fa-pen-to-square"></i>
+                                          刪除輪播圖
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="carousel-img-controll-item col-12">
+                                  <div class="row">
+                                    <div class="col-5">
+                                        <div class="carousel-img-controll-pic">
+                                            <img src="./counter_carousel/images/01-love-is-a-bouquet_1440_1200.avif" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="carousel-img-controll-infoBox col-7 py-3">
+                                      <div class="carousel-img-controll-infoNo">
+                                        <span>編號</span>
+                                        <span class="carousel-img-controll-infoNo-num">1</span>
+                                      </div>
+                                      <div class="carousel-img-controll-infoTime mt-3">
+                                        <div class="carousel-img-controll-startTime">
+                                          <span>開始時間</span>
+                                          <span>2023-01-01 00:00:00</span>
+                                        </div>
+                                        <div class="carousel-img-controll-endTime">
+                                          <span>結束時間</span>
+                                          <span>2023-12-31 00:00:00</span>
+                                        </div>
+                                      </div>
+                                      <div class="button-group carousel-img-controll-btnGroup mt-3">
                                         <a href="./counter_carouselInsert.html" class="btn revise-btn btn-primary">
                                           <i class="fa-solid fa-pen-to-square"></i>
                                           修改輪播圖
@@ -425,7 +472,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                           </div>
@@ -440,220 +487,6 @@
               <!-- 引入jquery CDN-->
               <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-              <script>
-                $("div.user-content").each(function () {
-                  $(this).hide();
-                  if ($(this).attr("id") == "main") {
-                    $(this).show();
-                  }
-                });
-
-                $(".user-id").on("click", function (e) {
-                  e.preventDefault();
-                  var id = $(this).attr("data-related");
-                  $("div.user-content").each(function () {
-                    $(this).hide();
-                    if ($(this).attr("id") == id) {
-                      $(this).show();
-                    }
-                  });
-                });
-
-                $(document).ready(function () {
-                  $(".btn-filter").on("click", function () {
-                    var $target = $(this).data("target");
-                    if ($target != "all") {
-                      $("tbody tr").css("display", "none");
-                      $('tbody tr[data-status="' + $target + '"]').fadeIn("slow");
-                    } else {
-                      $("tbody tr").css("display", "none").fadeIn("slow");
-                    }
-                  });
-                });
-
-                // pagination
-
-                $.fn.pageMe = function (opts) {
-                  var $this = this,
-                    defaults = {
-                      perPage: 7,
-                      showPrevNext: false,
-                      hidePageNumbers: false,
-                    },
-                    settings = $.extend(defaults, opts);
-
-                  var listElement = $this;
-                  var perPage = settings.perPage;
-                  var children = listElement.children();
-                  var pager = $(".pager");
-
-                  if (typeof settings.childSelector != "undefined") {
-                    children = listElement.find(settings.childSelector);
-                  }
-
-                  if (typeof settings.pagerSelector != "undefined") {
-                    pager = $(settings.pagerSelector);
-                  }
-
-                  var numItems = children.size();
-                  var numPages = Math.ceil(numItems / perPage);
-
-                  pager.data("curr", 0);
-
-                  if (settings.showPrevNext) {
-                    $('<li><a href="#" class="prev_link">«</a></li>').appendTo(
-                      pager
-                    );
-                  }
-
-                  var curr = 0;
-                  while (numPages > curr && settings.hidePageNumbers == false) {
-                    $(
-                      '<li><a href="#" class="page_link">' +
-                        (curr + 1) +
-                        "</a></li>"
-                    ).appendTo(pager);
-                    curr++;
-                  }
-
-                  if (settings.showPrevNext) {
-                    $('<li><a href="#" class="next_link">»</a></li>').appendTo(
-                      pager
-                    );
-                  }
-
-                  pager.find(".page_link:first").addClass("active");
-                  pager.find(".prev_link").hide();
-                  if (numPages <= 1) {
-                    pager.find(".next_link").hide();
-                  }
-                  pager.children().eq(1).addClass("active");
-
-                  children.hide();
-                  children.slice(0, perPage).show();
-
-                  pager.find("li .page_link").click(function () {
-                    var clickedPage = $(this).html().valueOf() - 1;
-                    goTo(clickedPage, perPage);
-                    return false;
-                  });
-                  pager.find("li .prev_link").click(function () {
-                    previous();
-                    return false;
-                  });
-                  pager.find("li .next_link").click(function () {
-                    next();
-                    return false;
-                  });
-
-                  function previous() {
-                    var goToPage = parseInt(pager.data("curr")) - 1;
-                    goTo(goToPage);
-                  }
-
-                  function next() {
-                    goToPage = parseInt(pager.data("curr")) + 1;
-                    goTo(goToPage);
-                  }
-
-                  function goTo(page) {
-                    var startAt = page * perPage,
-                      endOn = startAt + perPage;
-
-                    children.css("display", "none").slice(startAt, endOn).show();
-
-                    if (page >= 1) {
-                      pager.find(".prev_link").show();
-                    } else {
-                      pager.find(".prev_link").hide();
-                    }
-
-                    if (page < numPages - 1) {
-                      pager.find(".next_link").show();
-                    } else {
-                      pager.find(".next_link").hide();
-                    }
-
-                    pager.data("curr", page);
-                    pager.children().removeClass("active");
-                    pager
-                      .children()
-                      .eq(page + 1)
-                      .addClass("active");
-                  }
-                };
-
-                $(document).ready(function () {
-                  $("#user").pageMe({
-                    pagerSelector: "#myPager",
-                    showPrevNext: true,
-                    hidePageNumbers: false,
-                    perPage: 3,
-                  });
-                });
-
-                //search filter
-
-                /*
-                    Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
-                    */
-                $(document).ready(function () {
-                  $(".filterable .btn-filter1").click(function () {
-                    var $panel = $(this).parents(".filterable"),
-                      $filters = $panel.find(".filters input"),
-                      $tbody = $panel.find(".table tbody");
-                    if ($filters.prop("disabled") == true) {
-                      $filters.prop("disabled", false);
-                      $filters.first().focus();
-                    } else {
-                      $filters.val("").prop("disabled", true);
-                      $tbody.find(".no-result").remove();
-                      $tbody.find("tr").show();
-                    }
-                  });
-
-                  $(".filterable .filters input").keyup(function (e) {
-                    /* Ignore tab key */
-                    var code = e.keyCode || e.which;
-                    if (code == "9") return;
-                    /* Useful DOM data and selectors */
-                    var $input = $(this),
-                      inputContent = $input.val().toLowerCase(),
-                      $panel = $input.parents(".filterable"),
-                      column = $panel
-                        .find(".filters th")
-                        .index($input.parents("th")),
-                      $table = $panel.find(".table"),
-                      $rows = $table.find("tbody tr");
-                    /* Dirtiest filter function ever ;) */
-                    var $filteredRows = $rows.filter(function () {
-                      var value = $(this)
-                        .find("td")
-                        .eq(column)
-                        .text()
-                        .toLowerCase();
-                      return value.indexOf(inputContent) === -1;
-                    });
-                    /* Clean previous no-result if exist */
-                    $table.find("tbody .no-result").remove();
-                    /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
-                    $rows.show();
-                    $filteredRows.hide();
-                    /* Prepend no-result row if all rows are filtered */
-                    if ($filteredRows.length === $rows.length) {
-                      $table
-                        .find("tbody")
-                        .prepend(
-                          $(
-                            '<tr class="no-result text-center"><td colspan="' +
-                              $table.find(".filters th").length +
-                              '">No result found</td></tr>'
-                          )
-                        );
-                    }
-                  });
-                });
-              </script>
             </div>
 
           </div>
@@ -667,8 +500,8 @@
 
     <!-- 新引入的JS檔案或套件請由此往下放 -->
 
-    <script src="./vendors/jquery/jquery-3.6.4.min.js"></script>
-    <script src="/Jamigo/counter/js/counter_product_edit.js"></script>
+    <!-- <script src="./vendors/jquery/jquery-3.6.4.min.js"></script> -->
+    <!-- <script src="/Jamigo/counter/js/counter_product_edit.js"></script> -->
 
     <script>
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
@@ -685,7 +518,7 @@
     <!-- 引入jquery CDN-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-    <script>
+    <!-- <script>
       $("div.user-content").each(function () {
         $(this).hide();
         if ($(this).attr("id") == "main") {
@@ -898,14 +731,14 @@
           }
         });
       });
-    </script>
+    </script> -->
 
 
   <!-- 可可的js -->
   <!-- axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <!-- JSON -->
-  <script src="./counter_carouselCtrl/js/counter_carouselCtrl.js"></script>
+  <script src="./counter_carousel/js/counter_carouselCtrl.js"></script>
 </body>
 
 </html>
