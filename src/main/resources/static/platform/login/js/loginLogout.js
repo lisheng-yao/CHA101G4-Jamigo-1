@@ -30,7 +30,7 @@ login_btn.addEventListener('click', () => {
 		adminPassword : password.value	
 	}
 	console.log(admin)
-	let url = "/Jamigo/administratorCheck/login"
+	let url = "/Jamigo/administrator/login"
 	
 	fetch(url, {
 		method : 'POST',
@@ -42,7 +42,7 @@ login_btn.addEventListener('click', () => {
 	.then(response => {
 		if(response.ok)
 //			console.log('okkkkkkkkk')
-			window.location.href = "/Jamigo//activity/activity_order/activity_orderCtrl.html"
+			window.location.href = "/Jamigo/counter/activity_orderCtrl.html"
 		else
 			console.log('rrrrrrrrrrr')
 	})
