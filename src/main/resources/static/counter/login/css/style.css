@@ -1,0 +1,158 @@
+/* ---------------------------------------------------------整體css設定-------------------------------- */
+/* transition: ease all 0.5s 過渡效果 */
+* {
+    box-sizing: border-box;
+    transition: ease all 0.5s;
+}
+
+html {
+    /* scroll-behavior: smooth  點擊a標籤回當前頁面位置會平滑地滾動回去 */
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* main區域 */
+.main {
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+
+
+/* -----------------------------------------------頁首開始----------------------------------------- */
+
+/* 設定頁首區域 */
+.navbar {
+    background-color: rgb(50, 56, 64);
+}
+
+.navbar-brand {
+    width: 20%;
+    height: 80px;
+}
+
+.LOGO {
+    max-width: 80%;
+    height: auto;
+}
+
+/* CSS  導覽列按鈕美化 */
+.button-01 {
+    all: unset;
+    width: 60px;
+    height: 20px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    position: relative;
+    color: #f0f0f0;
+    cursor: pointer;
+    z-index: 1;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-right: 25px;
+}
+
+.button-01::after,
+.button-01::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -99999;
+    transition: all .4s;
+}
+
+.button-01::before {
+    transform: translate(0%, 0%);
+    width: 100%;
+    height: 100%;
+    background: #28282d;
+    border-radius: 10px;
+}
+
+.button-01::after {
+    transform: translate(10px, 10px);
+    width: 35px;
+    height: 35px;
+    background: #ffffff15;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 50px;
+}
+
+.button-01:hover::before {
+    transform: translate(5%, 20%);
+    width: 110%;
+    height: 110%;
+}
+
+.button-01:hover::after {
+    border-radius: 10px;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100%;
+}
+
+.button-01:active::after {
+    transition: 0s;
+    transform: translate(0, 5%);
+}
+
+/* js判斷是否為當前頁面後套入的css */
+.active {
+    color: yellow !important
+}
+
+/* ------------按鈕美化結束------------------ */
+.nav_icon {
+    margin: 2px;
+    width: auto;
+}
+
+/* ----------------------------------------------頁首結束----------------------------------- */
+/* ----------------------------------------------main開始--------------------------------- */
+
+
+
+
+/* -----------------------------------------------main結束--------------------------------- */
+/* -----------------------------------------------頁尾開始----------------------------------- */
+
+/* 設定頁尾區域 */
+.footer_section {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 100%;
+    float: left;
+    height: auto;
+    background-color: rgb(50, 56, 64) !important;
+}
+
+/* 頁尾大標題 */
+.customer_text {
+    width: 100%;
+    float: left;
+    font-size: 24px;
+    margin-left: 30px;
+}
+
+/* 頁尾小標題 */
+.footer_lorem_text {
+    float: left;
+    font-size: 16px;
+    margin-left: 40px;
+}
+
+/* ------------------------------------------------頁尾結束------------------------------------ */

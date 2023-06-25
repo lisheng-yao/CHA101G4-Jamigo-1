@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 引入bootstrap CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+
+    <!-- 新引入的CSS檔案或套件請由此往下放 -->
+
+    <link rel="stylesheet" href="css/all.css" />
+
+    <!-- 引入櫃位帳號管理CSS -->
+    <link rel="stylesheet" href="./css/counter-controll-style.css" />
+
+    <!-- 引入fontawsome -->
+    <link rel="stylesheet" href="assets/fontawsome/css/all.css" />
+    <!-- 引入Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <title>櫃位帳號資料管理</title>
+  </head>
+
+  <body>
+    <!-- 整頁的容器 -->
+    <div class="container-fluid whole-page">
+      <div class="row">
+        <div class="col my-2">
+          <span class="d-flex align-items-center logo-part">
+            <span class="logo-img mx-3">
+              <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+            </span>
+            <span class="fs-3 fw-bold logo-name"> Jamigo </span>
+            <span class="fs-4 fw-bold counter-page"> 櫃位後臺管理系統 </span>
+            <button
+              type="button"
+              class="btn rounded-circle border-0 nav-btn home-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              style="padding: 12px"
+              data-bs-title="返回首頁"
+            >
+              <i class="fa-solid fa-house fa-lg"></i>
+            </button>
+          </span>
+        </div>
+        <div class="col-auto my-2">
+          <ul class="nav justify-content-end d-flex align-items-center">
+            <li class="nav-item">
+              <!-- 通知訊息 -->
+              <div class="dropdown position-relative">
+                <button
+                  class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-bell"></i>
+                  <span
+                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+                  >
+                    <span class="visually-hidden">New alerts</span>
+                  </span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"> </a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <!-- 頭像 -->
+            <li class="nav-item">
+              <a class="nav-link">
+                <img
+                  src="https://picsum.photos/id/684/600"
+                  class="rounded-circle"
+                  width="40"
+                  height="40"
+                  alt=""
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- 側邊選單列表 -->
+        <div class="col-2 sidebar">
+          <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+          <div class="list-group rounded-bottom-0">
+            <a
+              href="counter_setFrontPage.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-eye me-2"></i>
+              前臺頁面管理
+            </a>
+          </div>
+          <div
+            class="accordion accordion-flush border-start border-end"
+            id="accordionFlushSidebar"
+          >
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  <i class="fa-solid fa-list me-2"></i>
+                  商品與訂單管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0 border-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_product.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      商品資料管理
+                    </a>
+                    <a
+                      href="counter_order.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位訂單管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseTwo"
+                  aria-expanded="true"
+                  aria-controls="flush-collapseTwo"
+                >
+                  <i class="fa-solid fa-circle-info me-2"></i>
+                  櫃位資料專區
+                </button>
+              </h2>
+              <div
+                id="flush-collapseTwo"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="#"
+                      class="list-group-item list-group-item-action sidebar-submenu active"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位帳號資料管理
+                    </a>
+                    <a
+                      href="counter_monthly.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位月結報表查詢
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseThree"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseThree"
+                >
+                  <i class="fa-solid fa-gift me-2"></i>
+                  櫃位優惠管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseThree"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_coupon.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位折價票券管理
+                    </a>
+                    <a
+                      href="counter_discountAct.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位優惠活動管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseFour"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseFour"
+                >
+                  <i class="fa-solid fa-champagne-glasses me-2"></i>
+                  線下活動管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseFour"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_actApply.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      線下活動申請
+                    </a>
+                    <a
+                      href="counter_actContent.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      活動內容管理
+                    </a>
+                    <a
+                      href="counter_actHistory.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      活動歷史紀錄
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-group rounded-top-0">
+            <a
+              href="counter_DM.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-regular fa-message me-2"></i>
+              客戶訊息回覆
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-right-from-bracket me-2"></i>
+              登出
+            </a>
+          </div>
+        </div>
+        <!-- 網頁內容主體 -->
+        <div class="col-10 page-body">
+          <div class="controll-box counter-alter-controll-box">
+            <div class="back-end-box-title counter-alter-controll-title">
+              <h2>櫃位帳號修改</h2>
+            </div>
+            <div class="controll-content counter-alter-controll-content">
+              <form action="">
+                <div class="input-group mt-2">
+                  <label for="counterNo" class="input-group-text" hidden
+                    >櫃位編號</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="counterNo"
+                    disabled
+                    hidden
+                  />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterName" class="input-group-text"
+                    >櫃位名稱</label
+                  >
+                  <input type="text" class="form-control" id="counterName" />
+                </div>
+                <div class="input-group mt-2" hidden>
+                  <label for="cutPercent" class="input-group-text" hidden
+                    >抽成比例</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cutPercent"
+                    disabled
+                    hidden
+                  />
+                </div>
+                <div class="input-group mt-2" hidden>
+                  <label for="account" class="input-group-text" hidden
+                    >櫃位帳號</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="account"
+                    disabled
+                    hidden
+                  />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterPassword" class="input-group-text"
+                    >櫃位密碼</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="counterPassword"
+                  />
+                </div>
+
+                <div class="input-group mt-2">
+                  <label for="counterStat" class="input-group-text"
+                    >櫃位狀態</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="counterStat"
+                    disabled
+                  />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterGui" class="input-group-text">統編</label>
+                  <input type="text" class="form-control" id="counterGui" />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterFloor" class="input-group-text"
+                    >櫃位樓層</label
+                  >
+                  <input type="text" class="form-control" id="counterFloor" />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterTel" class="input-group-text"
+                    >櫃位電話</label
+                  >
+                  <input type="text" class="form-control" id="counterTel" />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterPoc" class="input-group-text"
+                    >聯絡人</label
+                  >
+                  <input type="text" class="form-control" id="counterPoc" />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterPocPhone" class="input-group-text"
+                    >聯絡電話</label
+                  >
+                  <input type="tel" class="form-control" id="counterPocPhone" />
+                </div>
+                <div class="input-group mt-2">
+                  <label for="counterPocAddress" class="input-group-text"
+                    >聯絡地址</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="counterPocAddress"
+                  />
+                </div>
+
+                <div class="input-group mt-2">
+                  <label for="counterEmail" class="input-group-text"
+                    >電子信箱</label
+                  >
+                  <input type="email" class="form-control" id="counterEmail" />
+                </div>
+
+                <div class="input-group mt-2">
+                  <label for="counterBankAccount" class="input-group-text"
+                    >銀行帳號</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="counterBankAccount"
+                  />
+                </div>
+
+                <div class="input-group mt-2">
+                  <label
+                    for="counterReportCount"
+                    class="input-group-text"
+                    hidden
+                    >檢舉次數</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="counterReportCount"
+                    hidden
+                    disabled
+                  />
+                </div>
+
+                <div class="input-group mt-2">
+                  <span class="input-group-text" id="">關於我們</span>
+                  <textarea
+                    class="form-control"
+                    aria-label="With textarea"
+                    id="counterAbout"
+                  ></textarea>
+                </div>
+
+                <div class="input-group mt-2">
+                  <label class="input-group-text" for="inputGroupFile" id=""
+                    >更新櫃位頭貼</label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    accept="image/*"
+                    id="counterPic"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="updatePic()"
+                  >
+                    確認上傳
+                  </button>
+                </div>
+
+                <div class="input-group mt-2">
+                  <label
+                    class="input-group-text"
+                    for="inputGroupFile"
+                    id=""
+                    style="display: flex"
+                    >櫃位頭貼</label
+                  >
+                  <div id="counterPicO" style="display: flex"></div>
+                </div>
+
+                <div class="button-group mt-2">
+                  <button
+                    type="button"
+                    class="btn revise-btn btn-outline-primary"
+                    onclick="updateCounter()"
+                  >
+                    確認修改
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary ml-2"
+                    onclick="location.href='/Jamigo/counter/counter_data.html'"
+                  >
+                    取消
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 引入bootstrap CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- 新引入的JS檔案或套件請由此往下放 -->
+
+    <script>
+      const popoverTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="popover"]'
+      );
+      const popoverList = [...popoverTriggerList].map(
+        (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+      );
+    </script>
+
+    <script>
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      const tooltipList = [...tooltipTriggerList].map(
+        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+      );
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-------------------------------------- 取得所有資訊 ---------------------------------->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("/Jamigo/counter/counterAcc")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // 將獲取的資料填入表單
+            document.getElementById("counterNo").value = data.counterNo;
+            document.getElementById("counterName").value = data.counterName;
+            document.getElementById("cutPercent").value = data.cutPercent;
+            document.getElementById("account").value = data.counterAccount;
+            document.getElementById("counterPassword").value =
+              data.counterPassword;
+            document.getElementById("counterStat").value =
+              data.counterStat === 1 ? "啟用" : "未啟用";
+            document.getElementById("counterGui").value = data.counterGui;
+            document.getElementById("counterFloor").value = data.counterFloor;
+            document.getElementById("counterTel").value = data.counterTel;
+            document.getElementById("counterPoc").value = data.counterPoc;
+            document.getElementById("counterPocPhone").value =
+              data.counterPocPhone;
+            document.getElementById("counterPocAddress").value =
+              data.counterPocAddress;
+            document.getElementById("counterEmail").value = data.counterEmail;
+            document.getElementById("counterBankAccount").value =
+              data.counterBankAccount;
+            document.getElementById("counterReportCount").value =
+              data.counterReportCount;
+            document.getElementById("counterAbout").value = data.counterAbout;
+
+            const img = document.createElement("img");
+            img.src = "/Jamigo/counterPic/" + data.counterNo;
+            img.alt = "";
+            img.classList.add("detail-controll-table-img", "col-2");
+            document.getElementById("counterPicO").appendChild(img);
+          })
+          .catch((error) => {
+            console.error("發生錯誤:", error);
+          });
+      });
+    </script>
+
+    <!------------------------------------- 確認update ------------------------------->
+
+    <script>
+      // 用於將圖片文件轉換為 Base64 字串
+      // function convertImageToBase64(counterPic) {
+      //   return new Promise((resolve, reject) => {
+      //     const reader = new FileReader();
+      //     reader.readAsDataURL(counterPic);
+      //     reader.onload = () => resolve(reader.result);
+      //     reader.onerror = (error) => reject(error);
+      //   });
+      // }
+
+      async function updateCounter() {
+        const counterNo = document.getElementById("counterNo").value;
+        const counterName = document.getElementById("counterName").value;
+        const cutPercent = document.getElementById("cutPercent").value;
+        const account = document.getElementById("account").value;
+        const counterPassword =
+          document.getElementById("counterPassword").value;
+        const counterStat =
+          document.getElementById("counterStat").value === "啟用" ? "1" : "0";
+        const counterGui = document.getElementById("counterGui").value;
+        const counterFloor = document.getElementById("counterFloor").value;
+        const counterTel = document.getElementById("counterTel").value;
+        const counterPoc = document.getElementById("counterPoc").value;
+        const counterPocPhone =
+          document.getElementById("counterPocPhone").value;
+        const counterPocAddress =
+          document.getElementById("counterPocAddress").value;
+        const counterEmail = document.getElementById("counterEmail").value;
+        const counterBankAccount =
+          document.getElementById("counterBankAccount").value;
+        const counterReportCount =
+          document.getElementById("counterReportCount").value;
+        const counterAbout = document.getElementById("counterAbout").value;
+
+        // const counterPicInput = document.getElementById("counterPic");
+        // const counterPic = counterPicInput.files[0];
+
+        // let base64Image = ""; // 預設為空字串
+
+        // if (counterPic) {
+        //   // 如果有選擇圖片，才進行轉
+        //   base64Image = await convertImageToBase64(counterPic);
+        // }
+
+        const data = {
+          counterNo: counterNo,
+          counterName: counterName,
+          cutPercent: cutPercent,
+          account: account,
+          counterPassword: counterPassword,
+          counterStat: counterStat,
+          counterGui: counterGui,
+          counterFloor: counterFloor,
+          counterTel: counterTel,
+          counterPoc: counterPoc,
+          counterPocPhone: counterPocPhone,
+          counterPocAddress: counterPocAddress,
+          counterEmail: counterEmail,
+          counterBankAccount: counterBankAccount,
+          counterReportCount: counterReportCount,
+          counterAbout: counterAbout,
+          // counterPic: base64Image,
+        };
+        console.log(data);
+
+        fetch(`/Jamigo/update/counter/${counterNo}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.text();
+            } else {
+              throw new Error("Level update failed");
+              return;
+            }
+          })
+          .then((responseData) => {
+            console.log(responseData);
+            Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
+              window.location.href = "/Jamigo/counter/counter_data.html";
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+
+    <!------------------------------------- 確認update圖片 ------------------------------->
+    <script>
+      function updatePic() {
+        const counterNo = document.getElementById("counterNo").value;
+        const counterPicInput = document.getElementById("counterPic");
+        const counterPic = counterPicInput.files[0];
+
+        if (!counterPic) {
+        	Swal.fire({
+        		  icon: 'error',
+        		  title: '請選擇填圖片再上傳'
+        		})
+        } else {
+          const formData = new FormData();
+          formData.append("counterPic", counterPic);
+
+          fetch(`/Jamigo/update/counterPic/${counterNo}`, {
+            method: "PUT",
+            body: formData,
+          })
+            .then((response) => {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("圖片更新失敗");
+              }
+            })
+            .then((responseData) => {
+              console.log(responseData);
+              window.location.reload();
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        }
+      }
+    </script>
+  </body>
+</html>
