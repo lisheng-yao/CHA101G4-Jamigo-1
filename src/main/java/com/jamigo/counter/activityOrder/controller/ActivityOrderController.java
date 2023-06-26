@@ -27,7 +27,9 @@ public class ActivityOrderController {
 	ActivityAttendeeService activityAttendeeService;
 	
 	@GetMapping("/insert")
-	public void insert(@RequestBody ActivityOrderVO activityOrderVO){
+	public void insert(@RequestBody ActivityOrderDTO activityOrderDTO){
+		ActivityOrderVO activityOrderVO = activityOrderDTO.getActivityOrderVO();
+		List<ActivityAttendeeVO> activityAttendeeVOList = activityOrderDTO.getActivityAttendeeVOList();
 		
 		activityOrderService.add(activityOrderVO);
 		

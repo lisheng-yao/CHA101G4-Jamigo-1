@@ -1,23 +1,107 @@
-let credit_card_info = document.querySelector('.credit-card-info-box');
+//let credit_card_info = document.querySelector('.credit-card-info-box');
 let mobile_pay = document.querySelector('.mobile-pay-box');
 let pay_way_group = document.querySelectorAll('.pay-way');
 let select_number_of_people = document.querySelector('.select-number-of-people select');
 let activity_attendee_more = document.querySelector('.activity-attendee-more');
 
-let activity_form_submit = document.querySelector('.activity-form-submit');
+// 活動相關資訊欄位
+let activity_name = document.querySelector('#activity-name');
+let activity_date = document.querySelector('#activity-date');
+let activity_time = document.querySelector('#activity-time');
+let activity_price = document.querySelector('#activity-price');
+let activity_address = document.querySelector('#activity-address');
+let activity_memberLevel = document.querySelector('#activity-memberLevel');
+let activity_pic = document.querySelector('.single-item-carousel .image img');
+
+// 表格相關欄位
+let activity_activityNo_input = document.querySelector('#activity-activityNo');
+let activity_attendee_memberNo_input = document.querySelector('#activity-attendee-memberNo');
+let activity_attendee_name_input = document.querySelector('#activity-attendee-name');
+let activity_attendee_email_input = document.querySelector('#activity-attendee-email');
+let activity_attendee_phone_input = document.querySelector('#activity-attendee-phone');
+let activity_attendee_more_num_input = document.querySelector('#activity-attendee-more-num');
+let activity_attendee_coupon = document.querySelector('#activity-attendee-coupon');
+
+let activity_form_submit = document.querySelector('.activity-form-submit button');
+
+// 先拿1號會員的
+getMemberInfo(1);
+// 載入時讀取會員資料，並填入
+function getMemberInfo(id){
+	axios.post('/Jamigo/member/member/getmemberdata', 
+				{memberNo : id}, 
+				{header : {'Content-Type' : 'application/json'}})
+	.then(resp => {return resp.data})
+	.then(data => {
+		activity_attendee_memberNo_input.value = data.memberNo;
+		activity_attendee_name_input.value = data.memberName;
+		activity_attendee_email_input.value = data.memberEmail;
+		activity_attendee_phone_input.value = data.memberPhone;
+	})
+}
+
+// 先抓活動編號為1的
+getActivity(1);
+// 載入時讀取活動資料，並填入
+function getActivity(id) {
+	axios.get(`/Jamigo/activity/getById/${id}`)
+	.then(resp => {return resp.data})
+	.then(data => {
+		let [startDate, startTime] = data.activityStartTime.split(' ');
+		let [endDate, endTime] = data.activityEndTime.split(' ');
+		activity_activityNo_input.value = data.activityNo;
+		activity_name.innerText = data.activityName;
+		activity_date.innerText = `${startDate} ~ ${endDate}`;
+		activity_time.innerText = `${startTime} ~ ${endTime}`;
+		activity_price.innerText = data.activityCost;
+		activity_address.innerText = data.activityPlaceNo;
+		activity_memberLevel.innerText = data.activityLev == 0 ? '一般會員' : 'VIP會員';
+		activity_pic.src = `/Jamigo/activityReader/${data.activityNo}`
+	})
+}
+
+// 傳至後端
+activity_form_submit.addEventListener('click', () => {
+//	if()
+	axios.post('/Jamigo/activityOrder/insert', {
+		activityNo : activity_activityNo_input.value,
+		memberNo : activity_attendee_memberNo_input.value,
+		activityPaymentStat : 0,
+		memberCouponNo : activity_attendee_coupon.value == 'AX' ? 0 : activity_attendee_coupon.value,
+		numberOfAttendee : activity_attendee_more_num_input.value - 1
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// HTML動態生成
 
 // 付款方式選擇，並跑出對應的選項
-document.querySelector('.pay-way-credit-card-box').addEventListener('click', () => {
-    credit_card_info.classList.add('show');
-    mobile_pay.classList.remove('show');
-})
+//document.querySelector('.pay-way-credit-card-box').addEventListener('click', () => {
+//    credit_card_info.classList.add('show');
+//    mobile_pay.classList.remove('show');
+//})
 document.querySelector('.pay-way-mobile-box').addEventListener('click', () => {
     mobile_pay.classList.add('show');
-    credit_card_info.classList.remove('show');
+//    credit_card_info.classList.remove('show');
 })
 document.querySelector('.pay-way-ATM-box').addEventListener('click', () => {
     mobile_pay.classList.remove('show');
-    credit_card_info.classList.remove('show');
+//    credit_card_info.classList.remove('show');
 })
 
 // 選擇人數後更新額外參加人數的欄位
@@ -92,6 +176,10 @@ function autoCreateForm(startIndex) {
                 <input type="text" id="activity-attendee-more-age-input${startIndex}" name="activity-attendee-more-age" placeholder="" required="">
             </div>
         </div>`;
-        activity_attendee_more.lastChild.innerHTML = html;
-
+    activity_attendee_more.lastChild.innerHTML = html;
 }
+
+
+
+
+

@@ -131,7 +131,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                       </figure>
                     </div>
                   </div>
-                  <h4>愛手創日本手作祭 第五回 The 5th ISHANDS x Connect-asia Craft Matsuri</h4>
+                  <h4 id="activity-name">愛手創日本手作祭 第五回 The 5th ISHANDS x Connect-asia Craft Matsuri</h4>
                   <div class="course-widget-price">
                     <h2 class="widget-title">票券資訊</h2>
                     <ul>
@@ -165,6 +165,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                       <li>
                         <div class="course-widget-price-key">
                           <i class="fal fa-location-dot"></i>
+                          <i class="fa-solid fa-location-dot"></i>
                           <span>地址</span>
                         </div>
                         <div class="course-widget-price-value ml-auto">
@@ -192,8 +193,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <form action="#" method="post">
                   <div class="book-form agileits-login signUp-form">
                     <h2 class="book-appointment-title text-start">填寫活動報名資料</h2>
-                    <input id="activity-activityNo" type="hidden" name="Name">
-                    <input id="activity-attendee-memberNo" type="hidden" name="Name">
+                    <input id="activity-activityNo" type="hidden" name="activityNo">
+                    <input id="activity-attendee-memberNo" type="hidden" name="attendee-memberNo">
                     <div class="phone_email">
                       <label>姓名</label>
                       <div class="form-text">
@@ -212,7 +213,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                       <label>手機</label>
                       <div class="form-text">
                         <!-- <i class="fa fa-phone" aria-hidden="true"></i> -->
-                        <input id="activity-attendee-phone" type="text" name="Phone no" placeholder="" required="">
+                        <input id="activity-attendee-phone" type="text" name="phone" placeholder="" required="">
                       </div>
                     </div>
                     <div class="span1_of_1">
@@ -296,19 +297,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="phone_email">
                       <label>付款方式</label>
                       <div class="form-text row">
-                        <div class="form-radio pay-way col-4 pay-way-credit-card-box">
+                        <!-- <div class="form-radio pay-way col-4 pay-way-credit-card-box">
                           <input type="radio" id="pay-way-credit-card" name="pay-way" checked>
                           <label for="pay-way-credit-card">
                             <div class="form-radio-text pay-way-text">線上刷卡</div>
                           </label>
-                        </div>
-                        <div class="form-radio pay-way col-4 pay-way-mobile-box">
+                        </div> -->
+                        <div class="form-radio pay-way col-6 pay-way-mobile-box">
                           <input type="radio" id="pay-way-mobile" name="pay-way">
                           <label for="pay-way-mobile">
                             <div class="form-radio-text pay-way-text">行動支付</div>
                           </label>
                         </div>
-                        <div class="form-radio pay-way col-4 pay-way-ATM-box">
+                        <div class="form-radio pay-way col-6 pay-way-ATM-box">
                           <input type="radio" id="pay-way-ATM" name="pay-way">
                           <label for="pay-way-ATM">
                             <div class="form-radio-text pay-way-text">ATM轉帳</div>
@@ -316,18 +317,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </div>
                       </div>
                     </div>
-                    <div class="credit-card-info-box show">
+                    <!-- <div class="credit-card-info-box show">
                       <div class="phone_email">
                         <label>卡號</label>
                         <div class="form-text">
-                          <!-- <i class="fa fa-phone" aria-hidden="true"></i> -->
                           <input type="text" name="credit-card-num" placeholder="" required="">
                         </div>
                       </div>
                       <div class="phone_email phone_email1">
                         <label>卡片背面後三碼</label>
                         <div class="form-text">
-                          <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
                           <input type="text" name="email" placeholder="" required="">
                         </div>
                       </div>
@@ -339,7 +338,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                           <div class="col-6">
                             <label>到期年分</label>
                             <div class="section_room">
-                              <!-- <i class="fa fa-users" aria-hidden="true"></i> -->
                               <select id="coupon_input" onchange="change_country(this.value)" class="frm-field required sect">
                                 <option value="AX">選擇年分</option>
                                 <option value="23">23</option>
@@ -367,7 +365,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                           <div class="col-6">
                             <label>到期月份</label>
                             <div class="section_room">
-                              <!-- <i class="fa fa-users" aria-hidden="true"></i> -->
                               <select id="coupon_input" onchange="change_country(this.value)" class="frm-field required sect">
                                 <option value="AX">選擇月份</option>
                                 <option value="1">1</option>
@@ -387,7 +384,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="mobile-pay-box">
                       <div class="form-text row">
                         <div class="form-radio col-4 mobile-pay-way mobile-line-pay-box">
@@ -485,10 +482,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div> -->
 		<!--//copyright-->
 	  <!---728x90--->
-		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="./activity_order/js/jquery-2.1.4.min.js"></script>
 		<!-- Calendar -->
-    <link rel="stylesheet" href="./activity_ordercss/jquery-ui.css" />
-    <script src="./activity_orderjs/jquery-ui.js"></script>
+    <link rel="stylesheet" href="./activity_order/css/jquery-ui.css" />
+    <script src="./activity_order/js/jquery-ui.js"></script>
     <script>
         $(function() {
           $( "#datepicker,#datepicker1,#datepicker2,#datepicker3" ).datepicker();
