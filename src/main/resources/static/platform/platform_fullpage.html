@@ -272,7 +272,7 @@
                     <div id="previewArea">
                     </div>
 
-                    <button type="submit">送出</button>
+                    <button onclick="submit();">送出</button>
 
                     <div id="msg" class="error"></div>
 
@@ -280,8 +280,6 @@
                 <!---------------------------- 主體結束----------------------------------->
             </div>
         </div>
-
-
     </div>
 
     <!-- 引入bootstrap CDN -->
@@ -302,65 +300,105 @@
     </script>
 
     <script>
+        const msg = document.querySelector('#msg');
+        const image = document.querySelector('#image');
 
-        // 新增 刪除圖片的按鈕
-        var removebutton = document.getElementById('removebutton')
-        // 設定按鈕的點擊事件處理函式
-        removebutton.addEventListener("click", function () {
-            var imageContainer = document.getElementById('previewArea');
-            imageContainer.parentNode.removeChild(imageContainer);
-        });
 
-        //上傳圖檔 判斷圖檔是不是適合尺寸 
-        function checkImage(event) {
+function submit(){
+    msg.textContent = '';
+    const fileReader = new FileReader();
 
-            // 檢查圖片
-            var fileInput = event.target;
-            var fileList = fileInput.files;
+    fileReader.addEventListener('load', e => {
+			const imageBase64 = btoa(e.target.result);
+			fetch('register', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					username: username.value,
+					password: password.value,
+					nickname: nickname.value,
+					image: imageBase64
+				}),
+			})
+				.then(resp => resp.json())
+				.then(body => {
+					const { successful } = body;
+					if (successful) {
+						for (let input of inputs) {
+							input.disabled = true;
+						}
+						btn1.disabled = true;
+						msg.className = 'info';
+						msg.textContent = '註冊成功';
+					} else {
+						msg.className = 'error';
+						msg.textContent = '註冊失敗';
+					}
+				});
+		});
 
-            if (fileList.length === 0) {
-                alert('請選擇圖片！');
-                return;
-            }
+}
 
-            // 預覽區塊
-            var previewArea = document.getElementById('previewArea');
-            previewArea.innerHTML = '';
 
-            // 迭代多張圖檔
-            for (var i = 0; i < fileList.length; i++) {
-                var file = fileList[i];
 
-                // 創建 FileReader 對象
-                var reader = new FileReader();
 
-                reader.onload = (function (f) {
 
-                    return function (e) {
-                        // 創建預覽圖像元素
-                        var imgElement = document.createElement('img');
-                        imgElement.className = 'preview-image';
-                        imgElement.src = e.target.result;
-                        previewArea.appendChild(imgElement);
 
-                        var image = new Image();
-                        image.src = e.target.result;
+        // // 新增 刪除圖片的按鈕
+        // var removebutton = document.getElementById('removebutton')
+        // // 設定按鈕的點擊事件處理函式
+        // removebutton.addEventListener("click", function () {
+        //     var imageContainer = document.getElementById('previewArea');
+        //     imageContainer.parentNode.removeChild(imageContainer);
+        // });
 
-                        image.onload = function (e) {
+        // //上傳圖檔 判斷圖檔是不是適合尺寸 
+        // function checkImage(event) {
 
-                            if (image.width === 1240 && image.height === 500) {
-                                alert('圖片尺寸正確！');
-                            } else {
-                                alert('圖片尺寸不符！可能會影響視覺效果!');
-                            }
-                        };
-                    };
+        //     // 檢查圖片
+        //     var fileInput = event.target;
+        //     var fileList = fileInput.files;
 
-                })(file);
-                // 讀取文件進行預覽
-                reader.readAsDataURL(file);
-            }
-        }
+        //     if (fileList.length === 0) {
+        //         alert('請選擇圖片！');
+        //         return;
+        //     }
+
+        //     // 預覽區塊
+        //     var previewArea = document.getElementById('previewArea');
+        //     previewArea.innerHTML = '';
+
+        //     // 迭代多張圖檔
+        //     for (var i = 0; i < fileList.length; i++) {
+        //         var file = fileList[i];
+
+        //         // 創建 FileReader 對象
+        //         var reader = new FileReader();
+        //         reader.onload = (function (f) {
+        //             return function (e) {
+        //                 // 創建預覽圖像元素
+        //                 var imgElement = document.createElement('img');
+        //                 imgElement.className = 'preview-image';
+        //                 imgElement.src = e.target.result;
+        //                 previewArea.appendChild(imgElement);
+
+        //                 var image = new Image();
+        //                 image.src = e.target.result;
+
+        //                 image.onload = function (e) {
+
+        //                     if (image.width === 1240 && image.height === 500) {
+        //                         alert('圖片尺寸正確！');
+        //                     } else {
+        //                         alert('圖片尺寸不符！可能會影響視覺效果!');
+        //                     }
+        //                 };
+        //             };
+        //         })(file);
+        //         // 讀取文件進行預覽
+        //         reader.readAsDataURL(file);
+        //     }
+        // }
 
     </script>
 
