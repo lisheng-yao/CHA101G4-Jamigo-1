@@ -2,11 +2,13 @@ package com.jamigo.shop.product.controller;
 
 import com.jamigo.counter.counter.entity.Counter;
 import com.jamigo.shop.product.dto.AddProductDTO;
+import com.jamigo.shop.product.dto.ProductPageDTO;
 import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.entity.ProductCategory;
 import com.jamigo.shop.product.entity.ProductPic;
 import com.jamigo.shop.product.repo.ProductPicRepository;
 import com.jamigo.shop.product.service.ProductCategoryService;
+import com.jamigo.shop.product.service.ProductPicService;
 import com.jamigo.shop.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +26,15 @@ public class ProductController {
 
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
+    private final ProductPicService productPicService;
 
     @Autowired
-    public ProductController(ProductService productService, ProductCategoryService productCategoryService){
+    public ProductController(ProductService productService,
+                             ProductCategoryService productCategoryService,
+                             ProductPicService productPicService){
         this.productService = productService;
         this.productCategoryService = productCategoryService;
+        this.productPicService = productPicService;
     }
 
     @GetMapping("/listAllCounterProducts/{counterNo}")
@@ -63,7 +69,7 @@ public class ProductController {
     }
 
     @PostMapping(path = "/updateProduct/{productNo}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Product updateProductWithPics(@PathVariable Integer productNo,
+    public void updateProductWithPics(@PathVariable Integer productNo,
                                          @RequestParam(value = "productCatNo") Integer productCatNo,
                                          @RequestParam(value = "productName") String productName,
                                          @RequestParam(value = "productPrice") Integer productPrice,
@@ -74,21 +80,13 @@ public class ProductController {
                                          @RequestParam(value = "productPic3") MultipartFile pic3,
                                          @RequestParam(value = "productPic4") MultipartFile pic4){
 
-        try {
-            System.out.println(pic1.getBytes().length);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        List<ProductPic> list = productPicRepository.findByProductNo(productNo);
-
-        productPicRepository.deleteAll(list);
-
-
-       // Product updateProduct = productService.updateProduct(productNo, productCatNo, productName, productPrice, productInfo, productStatus, pic1, pic2, pic3, pic4);
-        return null;
+        productService.updateProductWordsInfo(productNo, productCatNo, productName, productPrice, productInfo, productStatus);
+        productPicService.updateProductPic(productNo, pic1, pic2, pic3, pic4);
     }
 
-    @Autowired
-    private ProductPicRepository productPicRepository;
+    @GetMapping("/getProductForDetailPage/{productNo}")
+    public ProductPageDTO getProductForDetailPage(@PathVariable Integer productNo){
+        System.out.println(productService.getProductWithCounterName(productNo));
+        return productService.getProductWithCounterName(productNo);
+    }
 }

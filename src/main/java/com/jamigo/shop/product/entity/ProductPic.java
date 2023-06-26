@@ -15,18 +15,17 @@ public class ProductPic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "productPicNo")
+    @Column(name = "productPicNo", insertable = false)
     private Integer productPicNo;
 
-  //  @JsonBackReference
-  //  @ManyToOne(fetch = FetchType.EAGER)
-  //  @JoinColumn(name = "productNo")
-//    @JoinColumn(name = "productNo", referencedColumnName = "productNo", nullable = false)
+   //  @JsonBackReference
+   //  @ManyToOne(fetch = FetchType.EAGER)
+   //  @JoinColumn(name = "productNo")
+   //  @JoinColumn(name = "productNo", referencedColumnName = "productNo", nullable = false)
    // private Product product;
 
-  //  @Lob
+    // @Lob
     @Column(name = "productPic")
     private byte[] productPic;
-
 
 }

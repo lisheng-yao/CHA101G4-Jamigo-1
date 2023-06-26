@@ -1,6 +1,7 @@
 package com.jamigo.shop.product.service;
 
 import com.jamigo.shop.product.dto.AddProductDTO;
+import com.jamigo.shop.product.dto.ProductPageDTO;
 import com.jamigo.shop.product.entity.Product;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,5 +16,8 @@ public interface ProductService {
 
     Product getProductByNo(Integer productNo);
 
-    Product updateProduct(Integer productNo, Integer productCatNo, String productName, Integer productPrice, String productInfo, Boolean productStatus, MultipartFile pic1, MultipartFile pic2, MultipartFile pic3, MultipartFile pic4);
+    Product updateProductWordsInfo(Integer productNo, Integer productCatNo, String productName, Integer productPrice, String productInfo, Boolean productStatus);
+
+    ProductPageDTO getProductWithCounterName(Integer productNo);
+
 }
