@@ -24,7 +24,7 @@
     const confirmbtn2 = document.querySelector('#confirmbtn2');
     const cancelbtn2 = document.querySelector('#cancelbtn2');
     const msg = document.querySelector('#msg');
-    const memberId = sessionStorage.getItem('memberNo');
+    const memberId = localStorage.getItem('memberNo');
 
     const inputoldmemberPassword = document.querySelector('#oldmemberPassword')
     const inputnewmemberPassword = document.querySelector('#newmemberPassword')
