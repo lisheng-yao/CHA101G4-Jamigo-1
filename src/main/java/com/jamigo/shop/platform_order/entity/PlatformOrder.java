@@ -51,10 +51,10 @@ public class PlatformOrder {
     private Integer totalPaid;
 
     @Column(nullable = false)
-    private Integer totalCoupon = 0;
+    private Integer totalCoupon;
 
     @Column(nullable = false)
-    private Integer totalPoints = 0;
+    private Integer totalPoints;
 
     @Column(nullable = false)
     private Integer actuallyPaid;
