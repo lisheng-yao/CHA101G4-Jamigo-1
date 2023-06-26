@@ -7,11 +7,11 @@ public class ReportVO implements java.io.Serializable {
 
 	private Integer productNo;
 
-	private String productname;
+	private String productName;
 
 	private Integer memberNo;
 
-	private String membername;
+	private String memberName;
 
 	private String reportContent;
 
@@ -22,6 +22,10 @@ public class ReportVO implements java.io.Serializable {
 	private String reportResponse;
 	
 	private Date responseTime;
+
+	private Integer reportNumber;
+
+
 
 	public Date getReportTime() {
 		return reportTime;
@@ -82,19 +86,28 @@ public class ReportVO implements java.io.Serializable {
 	}
 
 
-	public String getProductname() {
-		return productname;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setProductname(String productname) {
-		this.productname = productname;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public String getMembername() {
-		return membername;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setMembername(String membername) {
-		this.membername = membername;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
+	public Integer getReportNumber() {
+		return reportNumber;
+	}
+
+	public void setReportNumber(Integer reportNumber) {
+		this.reportNumber = reportNumber;
 	}
 }

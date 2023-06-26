@@ -9,23 +9,25 @@ import com.jamigo.shop.report.entity.ReportVO;
 
 public class ReportRowMapper implements RowMapper<ReportVO> {
 
-	
-	
 	@Override
 	public ReportVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
-		ReportVO reportVO = new ReportVO();
-		
-		reportVO.setProductname(rs.getString("productName"));
-		reportVO.setMembername(rs.getString("memberName"));
-		reportVO.setReportContent(rs.getString("reportContent"));
-		reportVO.setReportStat(rs.getInt("reportStat"));
-		reportVO.setReportTime(rs.getTimestamp("reportTime"));
-		reportVO.setReportResponse(rs.getString("reportResponse"));
-		reportVO.setResponseTime(rs.getTimestamp("responseTime"));
-		
-		return reportVO;
+
+			ReportVO reportVO = new ReportVO();
+
+			reportVO.setProductName(rs.getString("productName"));
+			reportVO.setMemberName(rs.getString("memberName"));
+			reportVO.setReportContent(rs.getString("reportContent"));
+			reportVO.setReportStat(rs.getInt("reportStat"));
+			reportVO.setReportTime(rs.getTimestamp("reportTime"));
+			reportVO.setReportResponse(rs.getString("reportResponse"));
+			reportVO.setResponseTime(rs.getTimestamp("responseTime"));
+			reportVO.setReportNumber(rs.getInt("reportNumber"));
+			reportVO.setProductNo(rs.getInt("productNo"));
+			reportVO.setMemberNo(rs.getInt("memberNo"));
+
+			return reportVO;
+
+
+		}
 	}
-	//可能要加上查詢到sql的例外處理 try..catch 或 wasnull()
-	
-}
+

@@ -11,9 +11,12 @@ public interface ReportService {
 
     List<ReportVO> getAllReports();
 
-    ReportVO getReportByPrimaryKey(Integer memberNo, Integer productNo);
+    List<ReportVO> getReportByPrimaryKey(Integer memberNo, Integer productNo);
 
+    String updateResponse(ReportRequest reportRequest);
     List<ReportVO> getReportByMember(Integer memberNo);
+
+
 
 
 }

@@ -11,15 +11,6 @@
 
     <!-- 新引入的CSS檔案或套件請由此往下放 -->
 
-    <!-- jquery  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <!-- datatable  css-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <!-- datatable js -->
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
-    <link rel="stylesheet" href="css/all.css">
-
     <!-- 引入fontawsome -->
     <link rel="stylesheet" href="assets/fontawsome/css/all.css">
     <!-- 引入Google font -->
@@ -28,59 +19,32 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
         rel="stylesheet">
-    <title>商品檢舉審核</title>
+    <title>平臺首頁管理</title>
 
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .remove-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        #previewArea img {
+            width: 100%;
+        }
+
+        form {
+            border: 2px black;
+        }
+    </style>
 </head>
-
-<style>
-    /* 隱藏欄位多餘字 */
-    .text-overflow {
-        display: inline-block;
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    /* 按鈕美化 */
-    .btn1 {
-        display: inline-block;
-        background-color: #4CAF50;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn1:hover {
-        background-color: #45a049;
-    }
-
-    .btn1:active {
-        background-color: #3e8e41;
-    }
-
-    /* 主標題的外觀 */
-    .main-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        text-align: center;
-    }
-
-    /* 主標題的底線效果 */
-    .main-title::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: #333;
-        margin-top: 5px;
-    }
-</style>
 
 <body>
 
@@ -136,6 +100,7 @@
                 </ul>
             </div>
         </div>
+
         <div class="row">
             <!-- 側邊選單列表 -->
             <div class="col-2 sidebar">
@@ -182,14 +147,14 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true"
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
                                 aria-controls="flush-collapseTwo">
                                 <i class="fa-solid fa-list me-2"></i>
                                 商城與訂單管理
                             </button>
                         </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
                             data-bs-parent="#accordionFlushSidebar">
                             <div class="accordion-body p-0">
                                 <div class="list-group rounded-0">
@@ -203,7 +168,8 @@
                                         <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                         商品類別管理
                                     </a>
-                                    <a href="#" class="list-group-item list-group-item-action sidebar-submenu active">
+                                    <a href="report_check.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu">
                                         <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                         商品檢舉審核
                                     </a>
@@ -277,17 +243,16 @@
                     </div>
                 </div>
                 <div class="list-group rounded-top-0">
-                    <a href="robot_settings.html"
-                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                    <a href="robot_settings.html" class="list-group-item list-group-item-action fw-bold side p-3">
                         <i class="fa-solid fa-robot me-2"></i>
                         客服機器人管理
                     </a>
-                    <a href="platform_DM.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                    <a href="platform_DM.html" class="list-group-item list-group-item-action fw-bold sidebar-menu p-3">
                         <i class="fa-regular fa-message me-2"></i>
                         即時客服問答
                     </a>
                     <a href="platform_fullpage.html"
-                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu active">
                         <i class="fa-solid fa-eye me-2"></i>
                         平臺首頁管理
                     </a>
@@ -297,19 +262,22 @@
                     </a>
                 </div>
             </div>
-            <!-- 網頁內容主體 -->
             <div class="col-10 page-body">
+                <!-------------------------- 網頁內容主體---------------------------------->
 
-                <h2 class="main-title">商品檢舉審核系統</h2>
+                    <h2 class="img_upload_title">輪播圖圖片上傳</h2>
 
-                <table id="all" class="display" style="width:100%">
+                    <span><button id="removebutton"><i class="fa-regular fa-trash-can"></i></button></span><br>
+                    <input type="file" name="image" id="imageUpload" accept="image/*" onchange="checkImage(event)">
+                    <div id="previewArea">
+                    </div>
 
-                </table>
+                    <button type="submit">送出</button>
 
-                <table id="finish" class="display" style="width:100%">
+                    <div id="msg" class="error"></div>
 
-                </table>
-                <!---------------------------------主體結束-------------------------------->
+
+                <!---------------------------- 主體結束----------------------------------->
             </div>
         </div>
 
@@ -335,202 +303,67 @@
 
     <script>
 
-        $(document).ready(function () {
-
-
-            //頁面載入查詢表格 資料庫拿到的data是一個物件的陣列
-            $.ajax({
-                type: 'GET',
-                url: '/Jamigo/reports',
-                data: null,
-                dataType: 'json',
-                success: function (response) {
-                    finish(response);
-                },
-                error: function (error) {
-                    fail(error)
-                }
-            });
-
-            function finish(response) {
-                var data1 = [];
-                var data2 = [];
-                for (let i = 0; i < response.length; i++) {
-                    //轉換處理狀態
-                    if (response[i].reportStat == 0) {
-                        response[i].reportStat = "未處理"
-                    } else {
-                        response[i].reportStat = "已處理"
-                    }
-                    //轉換時間格式
-                    var Time1 = new Date(response[i].reportTime);
-                    var reporttime = Time1.toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                    }).replace(',', ' ');
-                    //取出資料 塞入陣列
-                    if (response[i].reportStat == "未處理") {
-                        data1.push({
-                            'reportStat': response[i].reportStat,
-                            'productName': response[i].productName,
-                            'memberName': response[i].memberName,
-                            'reportContent': response[i].reportContent.replace(/\[|\]/g, ''),
-                            'reportTime': reporttime,
-                            'reportNumber': response[i].reportNumber,
-                            'handle': "",
-                            'productNo': response[i].productNo,
-                            'memberNo': response[i].memberNo
-                        })
-                    } else {
-                        data2.push({
-                            'reportStat': response[i].reportStat,
-                            'productName': response[i].productName,
-                            'memberName': response[i].memberName,
-                            'reportContent': response[i].reportContent.replace(/\[|\]/g, ''),
-                            'reportTime': reporttime,
-                            'reportNumber': response[i].reportNumber,
-                            'handle': "",
-                            'productNo': response[i].productNo,
-                            'memberNo': response[i].memberNo
-                        })
-                    }
-
-                }
-
-                //初始化datatable函式 
-                $('#all').DataTable({
-                    scrollY: '200px',
-                    scrollCollapse: true,
-                    paging: false,
-                    pageLength: 10,
-                    info: false,
-                    data: data1,
-                    columns: [
-                        { data: 'reportStat', title: "狀態" },
-                        { data: 'productNo' },
-                        { data: 'productName', title: "商品名稱" },
-                        { data: 'memberNo' },
-                        { data: 'memberName', title: "會員名稱" },
-                        {
-                            data: 'reportContent', title: "檢舉內容",
-                            render: function (data, type, row) {
-                                return '<span class="text-overflow">' + data + '</span>';
-                            }
-                        },
-                        { data: 'reportTime', title: "檢舉日期" },
-                        { data: 'reportNumber', title: "被檢舉次數" },
-                        {
-                            data: 'handle', title: "操作",
-                            render: function (data, type, row) {
-                                return '<button class=\"btn1\" onclick=\"openNewWindow(this);\">回覆</button>'
-                            }
-                        }
-                    ],
-                    columnDefs: [
-                        {
-                            target: 1,
-                            width: 0,
-                            visible: false,
-                            className: 'hidden-column'
-                        },
-                        {
-                            target: 3,
-                            width: 0,
-                            visible: false,
-                            className: 'hidden-column'
-                        }
-                    ]
-
-                });
-
-                $('#finish').DataTable({
-                    scrollY: '200px',
-                    scrollCollapse: true,
-                    paging: false,
-                    info: false,
-                    data: data2,
-                    columns: [
-                        { data: 'reportStat', title: "狀態" },
-                        { data: 'productNo' },
-                        { data: 'productName', title: "商品名稱" },
-                        { data: 'memberNo' },
-                        { data: 'memberName', title: "會員名稱" },
-                        {
-                            data: 'reportContent', title: "檢舉內容",
-                            render: function (data, type, row) {
-                                return '<span class="text-overflow">' + data + '</span>';
-                            }
-                        },
-                        { data: 'reportTime', title: "檢舉日期" },
-                        { data: 'reportNumber', title: "被檢舉次數" },
-                        {
-                            data: 'handle', title: "操作",
-                            render: function (data, type, row) {
-                                return '<button class=\"btn1\" onclick=\"openNewWindow(this);\">回覆</button>'
-                            }
-                        }
-                    ],
-                    columnDefs: [
-                        {
-                            target: 1,
-                            width: 0,
-                            visible: false,
-                            className: 'hidden-column'
-                        },
-                        {
-                            target: 3,
-                            width: 0,
-                            visible: false,
-                            className: 'hidden-column'
-                        }
-                    ]
-                });
-            }
-
-            function error(error) {
-                alert(error.status);
-            }
+        // 新增 刪除圖片的按鈕
+        var removebutton = document.getElementById('removebutton')
+        // 設定按鈕的點擊事件處理函式
+        removebutton.addEventListener("click", function () {
+            var imageContainer = document.getElementById('previewArea');
+            imageContainer.parentNode.removeChild(imageContainer);
         });
 
-        //點選該列 會跳出小視窗 顯示檢舉詳情
+        //上傳圖檔 判斷圖檔是不是適合尺寸 
+        function checkImage(event) {
 
-        function openNewWindow(button) {
-            var row = $(button).closest('tr');
-            var rowData = $(button).closest('table').DataTable().row(row).data();
+            // 檢查圖片
+            var fileInput = event.target;
+            var fileList = fileInput.files;
 
-            url = 'report_response.html?memberNo=' + rowData.memberNo + '&productNo=' + rowData.productNo;
-
-            var width = 800;
-            var height = 400;
-            var left = (window.innerWidth - width) / 2;
-            var top = (window.innerHeight - height) / 2;
-            childWindow = window.open(url, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
-
-            // 監聽子窗口的關閉事件
-            childWindow.addEventListener('beforeunload', function () {
-                sendCloseEvent();
-            });
-        }
-
-        function sendCloseEvent() {
-            // 向子窗口發送關閉事件的消息
-            childWindow.postMessage('closeEvent', '*');
-        }
-
-        // 監聽子窗口的消息事件
-        window.addEventListener('message', function (event) {
-            if (event.data === 'closeEvent') {
-                // 執行重載入的動作
-                location.reload();
+            if (fileList.length === 0) {
+                alert('請選擇圖片！');
+                return;
             }
-        });
+
+            // 預覽區塊
+            var previewArea = document.getElementById('previewArea');
+            previewArea.innerHTML = '';
+
+            // 迭代多張圖檔
+            for (var i = 0; i < fileList.length; i++) {
+                var file = fileList[i];
+
+                // 創建 FileReader 對象
+                var reader = new FileReader();
+
+                reader.onload = (function (f) {
+
+                    return function (e) {
+                        // 創建預覽圖像元素
+                        var imgElement = document.createElement('img');
+                        imgElement.className = 'preview-image';
+                        imgElement.src = e.target.result;
+                        previewArea.appendChild(imgElement);
+
+                        var image = new Image();
+                        image.src = e.target.result;
+
+                        image.onload = function (e) {
+
+                            if (image.width === 1240 && image.height === 500) {
+                                alert('圖片尺寸正確！');
+                            } else {
+                                alert('圖片尺寸不符！可能會影響視覺效果!');
+                            }
+                        };
+                    };
+
+                })(file);
+                // 讀取文件進行預覽
+                reader.readAsDataURL(file);
+            }
+        }
 
     </script>
+
 </body>
 
 </html>

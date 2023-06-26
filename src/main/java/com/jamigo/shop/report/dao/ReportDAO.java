@@ -18,7 +18,7 @@ public interface ReportDAO{
 
 	List<ReportVO> getReportByMember(Integer memberNo);
 
-	ReportVO getReportByPrimaryKey(Integer memberNo, Integer productNo);
+	List<ReportVO> getReportByPrimaryKey(Integer memberNo, Integer productNo);
 
 
 

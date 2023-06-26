@@ -51,24 +51,19 @@
             <label class="form-label" for="report-time">檢舉時間:</label>
             <span id="report-time"></span>
         </div>
-        <!-- 回應內容 -->
+
         <div class="form-field">
-            <label class="form-label" for="additional-comments">平台回覆:</label>
-            <textarea name="responseContent" id="additional-comments" class="form-textarea" cols="100%" rows="20"
-                placeholder="請回應處理內容"></textarea>
+            <label class="form-label" for="report-response">客服回應:</label>
+            <span id="report-response"></span>
         </div>
 
         <div class="form-field">
-            <label class="form-label" for="other-options">其他選項:</label>
-            <select id="other-options" class="form-select" name="otherOptions">
-                <option value="" selected disabled>--------------請選擇--------------</option>
-                <option name="responseContent" value="已收到您的意見，將立即改善">已收到您的意見，將立即改善</option>
-                <option name="responseContent" value="檢舉屬實，將立即處理">檢舉屬實，將立即處理</option>
-                <option name="responseContent" value="謝謝您寶貴的意見">謝謝您寶貴的意見</option>
-            </select>
+            <label class="form-label" for="response-time">回應時間:</label>
+            <span id="response-time"></span>
         </div>
-        <button type="button" onclick="sub()">送出</button>
-        </div>
+        
+        
+        
     </form>
 
 </body>
@@ -110,6 +105,15 @@
         var minutes = ('0' + Time1.getMinutes()).slice(-2);
         var seconds = ('0' + Time1.getSeconds()).slice(-2);
         var reportTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        
+        var Time2 = new Date(response.responseTime);
+        var year = Time2.getFullYear();
+        var month = ('0' + (Time2.getMonth() + 1)).slice(-2);
+        var day = ('0' + Time2.getDay()).slice(-2);
+        var hours = ('0' + Time2.getHours()).slice(-2);
+        var minutes = ('0' + Time2.getMinutes()).slice(-2);
+        var seconds = ('0' + Time2.getSeconds()).slice(-2);
+        var responseTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
         let reportstat = document.getElementById('report-status')
         let productname = document.getElementById('product-name')
@@ -117,6 +121,8 @@
         let membername = document.getElementById('member-name')
         let reportnumber = document.getElementById('report-count')
         let reporttime = document.getElementById('report-time')
+        let reportresponse = document.getElementById('report-response')
+        let responsetime = document.getElementById('response-time')
 
         reportstat.innerText = response.reportStat;
         productname.innerText = response.productName;
@@ -124,61 +130,14 @@
         membername.innerText = response.memberName;
         reportnumber.innerText = response.reportNumber;
         reporttime.innerText = reportTime;
+        reportresponse.innerText = response.reportResponse.replace(/\[|\]/g, '');
+        responsetime.innerText = responseTime;
     }
 
 
-    function sub() {
 
-        var param = new URLSearchParams(window.location.search);
-        var memberNo = param.get('memberNo');
-        var productNo = param.get('productNo');
-        var reportStat = 1;
-
-        var selectoption = $('option[name="responseContent"]:selected')
-        var textarea = $('textarea[name="responseContent"]')
-
-        var responseContentArray = [];
-
-
-        if (selectoption.length === 0 || textarea.val().trim() === '') {
-            alert("請填入回應內容");
-            return;
-        } else {
-            responseContentArray.push($(selectoption).val());
-            responseContentArray.push($(textarea).val());
-        }
-
-        var formdata = {
-            'memberNo': memberNo,
-            'productNo': productNo,
-            'reportStat': reportStat,
-            'reportResponses': responseContentArray
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/Jamigo/updateOne',
-            data: JSON.stringify(formdata),
-            contentType: 'application/json',
-
-            success: function (response) {
-                alert(response.message);
-                sendCloseEvent();
-                window.close();
-            },
-
-            error: function (error) {
-                alert(error.reportContent);
-                window.location.reload();
-            }
-
-        })
-    }
     
-    function sendCloseEvent() {
-        // 向父窗口發送關閉事件的消息
-        window.opener.postMessage('closeEvent', '*');
-    }
+
 
 
 
