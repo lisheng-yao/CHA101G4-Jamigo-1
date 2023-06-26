@@ -152,7 +152,7 @@ function showCartByCounter(){
             <tr>
                 <td class="productNo" style="display: none">${cartItems[i].productNo}</td>
                 <td class="product_thumb">
-                    <img src="/Jamigo/shop/shopping/assets/img/noPic/noPic.jpg" alt="">
+                    <img src="http://localhost:8080/Jamigo/shop/product_picture/${cartItems[i].productNo}/temp" alt="">
                 </td>
                 <td class="product_name"><a href="/Jamigo/shop/shopping/product_detail_page.html?productNo=${cartItems[i].productNo}">${cartItems[i].productName}</a></td>
                 <td class="product_price">${cartItems[i].productPrice}</td>
