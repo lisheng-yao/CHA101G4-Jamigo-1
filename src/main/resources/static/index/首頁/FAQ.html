@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAMIGO MALL</title>
+
+    <!-- bootstrap引用檔案 -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- Font Awesome引用檔案 -->
+    <link rel="stylesheet" href="css/all.css">
+    <!-- css本體 -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <style>
+        .main {
+            margin: 50px;
+        }
+
+        h3 {
+            background-color: rgb(104, 255, 255);
+        }
+
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navbar製作導航欄 bg 背景色 navbar-dark 深色主題 -->
+    <nav class="navbar navbar-dark p-0 navbar-expand-lg">
+        <div class="container">
+            <a href="#" class="navbar-brand"><img src="images/JAMIGO_LOGO.gif" alt="" class="LOGO"></a>
+            <!-- data-bs-toggle = "collapse" 觸發導覽列縮放功能  -->
+            <!-- data-bs-target="#navbarSupportedContent"   導覽列指向的目標 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 將collapse 加入縮放清單  -->
+            <!-- ms-auto 項目自動靠右   me-auto 靠左 -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="index.html">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="https://chat.openai.com/">線上商城</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="https://chat.openai.com/">文藝活動</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="https://chat.openai.com/">折扣快報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="https://chat.openai.com/">客服系統</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="https://chat.openai.com/">會員專區</a>
+                    </li>
+                </ul>
+                <!-- 導覽列右側 -->
+                <form class="form-inline">
+                    <div class="nav_icon">
+                        <div class="search-text ms-auto">
+                            <a href="#"><i class="nav-icon fa-regular fa-bell" style="color: #f5f5f5;"></i></a>
+                            <a href="#"><i class="nav-icon fa-regular fa-user" style="color: #f5f5f5;"></i></a>
+                            <a href="#"><i class="nav-icon fa-solid fa-magnifying-glass"
+                                    style="color: #ffffff;"></i></a>
+                            <input class="serch" type="text" value="Search" onfocus="this.value = ''">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main class="main_before">
+        <!-------------------------------------------- 頁首結束 ------------------------------>
+        <!------------------------------------------ 內文主題 放這 --------------------------->
+        <div class="main">
+
+            <h3>常見問答</h3>
+            <ul class="context">
+                <li class="">Q: 我可以在網上購買百貨公司的商品嗎？ </li>
+                <li class="">A: 是的，大多數百貨公司都提供在網上購物的選項。您可以在官方網站或其他線上零售平台上瀏覽和購買商品，並選擇送貨到家或到店取貨的方式。<br><br> </li>
+                <li class="">Q: 我如何申請成為百貨公司的會員？ </li>
+                <li class="">A: 百貨公司通常提供會員計劃，您可以在店內的客戶服務臺或在網上進行會員申請。填寫相關的個人資訊和聯絡方式後，您將獲得會員卡或會員號碼，享受特定的會員福利和折扣。<br><br>
+                </li>
+                <li class="">Q: 百貨公司是否接受退換貨？ </li>
+                <li class="">A:
+                    是的，百貨公司通常接受商品的退換貨，但具體的退換貨政策可能因公司而異。請備妥購買收據或發票，並在指定的退換貨期限內，將未使用且符合退換貨條件的商品連同原包裝一同退回。<br><br> </li>
+                <li class="">Q: 我可以在百貨公司預訂商品嗎？ </li>
+                <li class="">A: 是的，一些百貨公司提供預訂服務，特別是對於熱門商品或限量發售的商品。您可以前往指定的預訂臺或在網上進行預訂，並在指定的時間內到店取貨或收到配送。<br><br> </li>
+                <li class="">Q: 百貨公司是否提供禮品包裝服務？ </li>
+                <li class="">A:
+                    是的，百貨公司通常提供禮品包裝服務，讓您可以將購買的商品作為禮物送給他人。您可以將需要包裝的商品交給店內的禮品包裝部門，他們會為您精美地包裝，並添加相應的禮物包裝飾品。<br><br> </li>
+            </ul>
+            <h3>聯絡我們</h3>
+            <p class="context">桃園市中壢區復興路46號 010-020-0340 info@company.co</p>
+        </div>
+        <!---------------------------------- 內容主題結束 --------------------------------->
+        <!------------------------------------ 頁尾開始 ----------------------------------->
+    </main>
+    <div class="footer_section bg-dark text-light">
+        <div class="container_footer">
+            <div class="row">
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">合作資訊</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="count_apply.html">櫃位申請</a></p>
+                        <p><a href="site_info.html">場地相關</a></p>
+                        <p><a href="talents_recruit.html">人才招募</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">關於我們</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="shop_info.html">營業資訊</a></p>
+                        <p><a href="FAQ.html">FAQ中心</a></p>
+                        <p><a href="transpotation.html">交通資訊</a></p>
+
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">會員相關</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="pay_info.html">付款方式</a></p>
+                        <p><a href="deliver_info.html">配送流程</a></p>
+                        <p><a href="return_product.html">退換商品</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">聯絡我們</h1>
+                    <div class="footer_lorem_text">
+                        <p>JAMIGO 1234-5678 <br>桃園市中壢區復興路46號</p>
+                        <p>010-020-0340</p>
+                        <p>&copy;info@company.co</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <img src="images/footer_LOGO.png" alt="" class="footer_LOGO">
+                </div>
+            </div>
+        </div>
+        <div class="footer_icon">
+            <a href="#"><i class="footer-icon fa-brands fa-instagram fa-xl"></i></a>
+            <a href="#"><i class="footer-icon fa-brands fa-facebook fa-xl"></i></a>
+            <a href="#"><i class="footer-icon fa-brands fa-square-twitter fa-xl"></i></a>
+            <a href="#"><i class="footer-icon fa-brands fa-line fa-xl"></i></a>
+        </div>
+    </div>
+    <!-------------------------------------  頁尾結束 ---------------------------------->
+</body>
+<!-- bootstrap -->
+<script src="js/bootstrap.js"></script>
+<!-- FontAwesome -->
+<script src="js/all.js"></script>
+<!-- js -->
+<script src="js/script.js"></script>
+
+</html>

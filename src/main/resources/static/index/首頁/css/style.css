@@ -1,0 +1,856 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ---------------------------------------------------------整體css設定-------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    /* scroll-behavior: smooth  點擊a標籤回當前頁面位置會平滑地滾動回去 */
+    scroll-behavior: smooth;
+}
+
+/* main區域 */
+.main_before {
+    padding-top: 5.5%;
+}
+
+/* -----------------------------------------------頁首開始----------------------------------------- */
+
+/* 設定頁首區域 還有畫面比例的頁首RWD調整 */
+.navbar .container {
+    width: 100%;
+    height: 70px;
+
+    max-width: 100%;
+    position: fixed;
+    top: 9px;
+}
+
+@media (min-width: 1422px) {
+    .navbar .container {
+        height: 77px;
+        top: 2px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .navbar .container {
+        height: 88px;
+    }
+}
+
+@media (max-width: 1164px) {
+    .navbar .container {
+        height: 56px;
+    }
+}
+
+@media (max-width:1025px) {
+    .navbar .container {
+        height: 48px;
+    }
+}
+
+.container .navbarimg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    object-fit: contain;
+    z-index: -100;
+}
+
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 100;
+    opacity: 0.95;
+}
+
+
+.navbar-brand {
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    left: 0;
+    bottom: 10px;
+
+}
+
+.LOGO {
+    height: 100%;
+}
+
+.navbar-nav .nav-link {
+    margin-bottom: 10px;
+}
+
+/* CSS  導覽列按鈕美化 */
+.button-01 {
+    all: unset;
+    width: 15%;
+    height: 5%;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    position: relative;
+    color: #f0f0f0;
+    cursor: pointer;
+    z-index: 1;
+    padding: 10px 20px;
+    display: flex;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-right: 1rem;
+}
+
+.button-01::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -99999;
+    transition: all .4s;
+}
+
+.button-01::before {
+    transform: translate(60%, 45%);
+    width: 245%;
+    height: 100%;
+    background: #545489;
+    border-radius: 10px;
+}
+
+.button-01:hover::before {
+    transform: translate(60%, 45%);
+    width: 245%;
+    height: 110%;
+}
+
+.button-01:hover {
+    color: yellow;
+}
+
+/* js判斷是否為當前頁面後套入的css */
+.collapse .active {
+    color: yellow !important
+}
+
+/* 登入區塊 */
+#signin {
+    display: block;
+    position: relative;
+    right: 15%;
+}
+
+.login-button {
+    display: inline-block;
+    background-color: #3e8e41;
+    margin-left: 0%;
+    margin-bottom: 10%;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.login-button:hover {
+    background-color: #7dae55;
+}
+
+.login-button:active {
+    background-color: #45a049;
+}
+
+/* 登入按鈕 */
+.svg-inline--fa {
+    height: 16px;
+}
+
+#memberinfo {
+    display: none;
+    width: 30%;
+    max-width: 30%;
+    justify-content: space-around;
+    gap: 4%;
+}
+
+#imgcontainer {
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: 5%;
+}
+
+.logout-button {
+    padding: 0.5rem 1rem;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+}
+
+.logout-button:focus {
+    outline: none;
+}
+
+#membername {
+    color: #f0f0f0;
+}
+
+#memberimg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.memberinfo_container {
+    position: relative;
+    margin-top: 10px;
+}
+
+/* ----------------------------------------------頁首結束------------------------------------------- */
+/* ----------------------------------------------main開始------------------------------------------- */
+/* -------------------------------------------fullpage01------------------------------------------  */
+/*-- Header-Slider --*/
+
+.w3slideraits {
+    position: relative;
+    height: 707px;
+}
+
+#back_to_fluid_dg {
+    background: rgba(2, 2, 2, .5);
+    clear: both;
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.fluid_container {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 0;
+}
+
+#fluid_dg_wrap_4 {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin-bottom: 0 !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.fluid_dg_bar {
+    z-index: 2;
+}
+
+.fluid_dg_thumbs {
+    display: none;
+}
+
+.fluid_dg_overlayer {
+    opacity: .1;
+}
+
+/*-- //Header-Slider --*/
+
+/* fullpage02 header */
+.advertise-count {
+    background: url(../images/fullpage_header01.jpg) no-repeat center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+}
+
+.order-show-w3ls {
+    padding: 0em 40em 0em 0em;
+    color: rgb(253, 160, 128);
+}
+
+
+.fluid_dg_commands {
+    display: none;
+}
+
+.fluid_dg_prev,
+.fluid_dg_next {
+    opacity: 0.6 !important;
+    background-color: rgb(79, 79, 79) !important;
+}
+
+.fluid_dg_prev :hover,
+.fluid_dg_next:hover {
+    opacity: 1 !important;
+    background-color: rgb(249, 26, 26) !important;
+}
+
+/* ------------------------------------------fullpage02 card--------------------------------- */
+
+.fullpage02container section {
+    height: 470px;
+    align-items: center;
+    justify-content: center;
+    background-color: #defbff;
+}
+
+/* swiperjs */
+
+.swiper {
+    width: 80%;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    opacity: 1;
+}
+
+section .card .image {
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    padding: 3px;
+    background-color: #0077ff;
+}
+
+section .card .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+
+}
+
+.swiper-slide.card {
+    height: 450px;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 20px;
+    margin: 0 0;
+}
+
+/* card背景區 */
+.swiper-slide.card::before {
+    content: "";
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    background-color: #370189;
+    border-radius: 20px 20px 0 0;
+    z-index: -9999;
+}
+
+/* 卡片內元素 */
+.card .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    z-index: 1;
+}
+
+/* icon */
+.card .media-icons {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+
+
+}
+
+.card .media-icons path {
+    margin-top: 10px;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.card .media-icons path:hover {
+    opacity: 1;
+}
+
+/* 內文 */
+.card .productname,
+.card .productcontent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+
+}
+
+.card .productname {
+    font-size: 20;
+    font-weight: 600;
+}
+
+.card .productcontent {
+    font-size: 15;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card .evaluate {
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
+}
+
+.card .evaluate .i {
+    color: #eeff00da;
+    margin: 3px 6px;
+}
+
+.card .button {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.card .button button {
+    background-color: #c855c4;
+    outline: none;
+    border: none;
+    color: #bababa;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 10px;
+    transition: all 0.3s ease;
+}
+
+.card .button button:hover {
+    background-color: #843a88;
+    color: #ffffff;
+}
+
+
+/* fullpage03 header */
+.advertise-count02 {
+    background: url(../images/fullpage_header02.jpg) no-repeat center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+}
+
+.order-show-w3ls {
+    padding: 0em 40em 0em 0em;
+    color: rgb(253, 160, 128);
+}
+
+/* ------------------------------------------fullpage03文藝活動------------------------------------- */
+
+.fullpage03container {
+    width: 100%;
+    height: 390px;
+    background-color: #0077ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Urbanist', sans-serif;
+}
+
+.fullpage03container a {
+    text-decoration: none;
+}
+
+.fullpage03container input {
+    display: none;
+}
+
+.fullpage03container .container1 {
+    width: 100%;
+    height: 390px;
+
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    transform-style: preserve-3d;
+    flex-direction: column;
+
+}
+
+.cards {
+    position: relative;
+    height: 100px;
+    width: 430px;
+    margin-bottom: 20px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.cards label {
+    position: absolute;
+    width: 430px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    cursor: pointer;
+    transition: transform 0.55s ease;
+}
+
+.cards .card1 {
+    position: relative;
+    height: 390px;
+    background-color: #323444;
+    border-radius: 30px;
+    padding: 30px 35px;
+}
+
+.cards image {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cards .image img {
+    border-radius: 50%;
+    box-shadow: 15px 15px 40px rgba(0, 0, 0, 50%);
+    width: 360px;
+    height: 190px;
+    object-fit: cover;
+    transition: all 0.7s;
+}
+
+.cards .image img:hover {
+
+    transform: scale(1.05);
+}
+
+.card1 .info {
+    display: block;
+    text-align: end;
+
+}
+
+.card1 .info span {
+    display: block;
+}
+
+.info .name {
+    font-size: 25px;
+    color: var(--current-color1);
+    letter-spacing: 8px;
+    transition: all 0.6s ease;
+}
+
+.card1 .lorem {
+    font-size: 15.5px;
+    color: #eceaed;
+    letter-spacing: 3px;
+}
+
+.card1 .btn-details {
+    width: 45%;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--current-color1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 10px;
+    font-weight: 700;
+    transition: all 0.7s ease;
+}
+
+.card1 .btn-details:hover {
+    transform: scale(1.08);
+}
+
+.card1 .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+
+}
+.svg-inline--fa{
+    height: 20px;
+}
+.actions path:hover{
+    font-size: 20px;
+    color: white;
+}
+
+#s1:checked~.cards #slide4,
+#s2:checked~.cards #slide5,
+#s3:checked~.cards #slide1,
+#s4:checked~.cards #slide2,
+#s5:checked~.cards #slide3 {
+
+    transform: translate3d(-70%, 0, -220px);
+    --current-color1: #eceaed;
+    --currente-color2: #404457;
+}
+
+#s1:checked~.cards #slide5,
+#s2:checked~.cards #slide1,
+#s3:checked~.cards #slide2,
+#s4:checked~.cards #slide3,
+#s5:checked~.cards #slide4 {
+
+    transform: translate3d(-35%, 0, -120px);
+    --current-color1: #eceaed;
+    --currente-color2: #404457;
+}
+
+#s1:checked~.cards #slide1,
+#s2:checked~.cards #slide2,
+#s3:checked~.cards #slide3,
+#s4:checked~.cards #slide4,
+#s5:checked~.cards #slide5 {
+
+    transform: translate3d(0, 0, 0);
+    --current-color1: yellow;
+    --currente-color2: #eceaed;
+}
+
+#s1:checked~.cards #slide2,
+#s2:checked~.cards #slide3,
+#s3:checked~.cards #slide4,
+#s4:checked~.cards #slide5,
+#s5:checked~.cards #slide1 {
+
+    transform: translate3d(35%, 0, -120px);
+    --current-color1: #eceaed;
+    --currente-color2: #404457;
+}
+
+#s1:checked~.cards #slide3,
+#s2:checked~.cards #slide4,
+#s3:checked~.cards #slide5,
+#s4:checked~.cards #slide1,
+#s5:checked~.cards #slide2 {
+
+    transform: translate3d(70%, 0, -220px);
+    --current-color1: #eceaed;
+    --currente-color2: #404457;
+}
+
+
+
+/* --------------------------------------------fullpage04 精選品牌------------------------------------ */
+
+.fullpage04 {
+    width: 100%;
+    height: 200px;
+    background-color: rgb(248, 247, 242);
+    margin-top: -100px;
+}
+
+/* perspective: 1000px; 可透視的距離1000像素 */
+.container_fullpage04 {
+    position: relative;
+    width: 320px;
+    margin: 100px auto 0 auto;
+    perspective: 8000px;
+}
+
+.carousel_animate {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: rotate360 80s infinite forwards linear;
+}
+
+.carousel__face {
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    top: 20px;
+    left: 10px;
+    right: 10px;
+    background-size: 100% 100%;
+    box-shadow: inset 0 0 0 0 rgba(224, 225, 223, 0.5);
+    display: flex;
+    border-radius: 50%;
+}
+
+.carousel__face a {
+    text-decoration: none;
+    width: inherit;
+    height: inherit;
+
+}
+
+.carousel__face span {
+    margin: auto;
+    font-size: 2rem;
+}
+
+.carousel__face:nth-child(1) {
+    background-image: url("../images/nike.jpg");
+    transform: rotateY(0deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(2) {
+    background-image: url("../images/adidas.jpg");
+    transform: rotateY(40deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(3) {
+    background-image: url("../images/puma.jpg");
+    transform: rotateY(80deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(4) {
+    background-image: url("../images/coach.jpg");
+    transform: rotateY(120deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(5) {
+    background-image: url("../images/lv.jpg");
+    transform: rotateY(160deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(6) {
+    background-image: url("../images/burberry.jpg");
+    transform: rotateY(200deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(7) {
+    background-image: url("../images/agnesb.jpg");
+    transform: rotateY(240deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(8) {
+    background-image: url("../images/chanel.png");
+    transform: rotateY(280deg) translateZ(430px);
+}
+
+.carousel__face:nth-child(9) {
+    background-image: url("../images/montblanc.jpg");
+    transform: rotateY(320deg) translateZ(430px);
+}
+
+
+/* 旋轉木馬動畫效果 */
+@keyframes rotate360 {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(-360deg);
+    }
+}
+
+
+
+/* -----------------------------------------------main結束--------------------------------- */
+/* -----------------------------------------------頁尾開始----------------------------------- */
+
+/* 設定頁尾區域 */
+.footer_section {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 100%;
+    float: left;
+    height: auto;
+    background-color: rgb(50, 56, 64) !important;
+}
+
+/* 頁尾大標題 */
+.customer_text {
+    width: 100%;
+    float: left;
+    font-size: 24px;
+    margin-left: 30px;
+}
+
+/* 頁尾小標題 */
+.footer_lorem_text {
+    float: left;
+    font-size: 16px;
+    margin-left: 40px;
+}
+
+.footer_lorem_text a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer_lorem_text :hover {
+    color: yellow;
+}
+
+.footer_LOGO {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding-left: 0px;
+}
+
+.row {
+    --bs-gutter-x: 0em;
+}
+
+.row .col-lg-3 {
+    width: 23%;
+}
+
+.footer_icon {
+    position: absolute;
+    margin-top: -180px;
+    margin-left: 920px;
+}
+
+.footer-icon {
+    margin-left: 25px;
+    width: 35px;
+    height: 35px;
+}
+
+.footer_icon a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ------------------------------------------------頁尾結束------------------------------------ */

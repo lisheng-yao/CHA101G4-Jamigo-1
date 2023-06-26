@@ -22,7 +22,7 @@ public class IndexDaoimpl implements IndexDao {
 
     @Override
     public String insertOne(IndexVO indexVO) {
-        String sql = "INSERT INTO mainpage_carousel(mainpageCarouselPic,mainpageCarouselStartTime,mainpageCarouselEndTime) VALUES(:mainpageCarouselPic,:mainpageCarouselStartTime,:mainpageCarouselEndTime)"
+        String sql = "INSERT INTO mainpage_carousel(mainpageCarouselPic,mainpageCarouselStartTime,mainpageCarouselEndTime) VALUES(:mainpageCarouselPic,:mainpageCarouselStartTime,:mainpageCarouselEndTime)";
 
 
         Map<String, Object> map = new HashMap<>();
