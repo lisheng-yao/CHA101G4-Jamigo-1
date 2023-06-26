@@ -19,7 +19,7 @@ let activity_attendee_memberNo_input = document.querySelector('#activity-attende
 let activity_attendee_name_input = document.querySelector('#activity-attendee-name');
 let activity_attendee_email_input = document.querySelector('#activity-attendee-email');
 let activity_attendee_phone_input = document.querySelector('#activity-attendee-phone');
-let activity_attendee_more_num_input = document.querySelector('#activity-attendee-more-num');
+let activity_attendee_num_select = document.querySelector('#activity-attendee-more-num');
 let activity_attendee_coupon = document.querySelector('#activity-attendee-coupon');
 
 let activity_form_submit = document.querySelector('.activity-form-submit button');
@@ -62,13 +62,35 @@ function getActivity(id) {
 
 // 傳至後端
 activity_form_submit.addEventListener('click', () => {
-//	if()
+	let more_attendee_num = activity_attendee_num_select.value - 1;
+	
 	axios.post('/Jamigo/activityOrder/insert', {
 		activityNo : activity_activityNo_input.value,
 		memberNo : activity_attendee_memberNo_input.value,
 		activityPaymentStat : 0,
 		memberCouponNo : activity_attendee_coupon.value == 'AX' ? 0 : activity_attendee_coupon.value,
-		numberOfAttendee : activity_attendee_more_num_input.value - 1
+		numberOfAttendee : activity_attendee_more_num_select.value - 1
+	}, {headers : {'Content-Type':'application/json'}})
+	.then(resp => {
+		console.log(resp.data);
+		return resp.data;
+	})
+	.then(data => {
+		if(more_attendee_num > 0) {
+			let more_attendee_arr = [];
+			for(let i = 1; i <= more_attendee; i++) {
+				let more_attendee = {
+					activityOrderNo : data.activityOrderNo,
+					attendeeName : document.querySelect(`#activity-attendee-more-name-input${i + 1}`).value,
+					attendeeGender : document.querySelect(`#activity-attendee-moregender-male-input${i + 1}`).checked ?
+									 1 : 2,
+					attendeeAge : document.querySelect(`#activity-attendee-more-age-input${i + 1}`).value
+				}
+				more_attendee_arr.push(more_attendee);
+			}
+			
+			axios.post('/Jamigo/activityAttendee/insert')
+		}
 	})
 })
 

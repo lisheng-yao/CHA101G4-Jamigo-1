@@ -9,6 +9,10 @@ public class ActivityAttendeeService {
 	@Autowired
 	ActivityAttendeeRepository repository;
 	
+	public void add(ActivityAttendeeVO activityAttendeeVO) {
+		repository.save(activityAttendeeVO);
+	}
+
 	public void update(ActivityAttendeeVO activityAttendeeVO) {
 		repository.save(activityAttendeeVO);
 	}
