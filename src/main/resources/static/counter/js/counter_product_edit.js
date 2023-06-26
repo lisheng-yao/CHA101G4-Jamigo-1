@@ -28,7 +28,6 @@ $(function () {
         type: "GET",
         success: function (productWithPics) {
             console.log(productWithPics);
-            $("#cancel-edit").attr('onclick', `cancelEdit(${productWithPics.counterNo})`);
             // $("#categoryEdit").val(productWithPics.productCategory.productCatNo);
             let categoryEdit = document.getElementById("categoryEdit");
             for (let i = 0; i < categoryEdit.length; i++) {
@@ -76,12 +75,13 @@ $(function () {
     });
 
     sendUpdateData(productNo);
+    cancelEdit();
 });
 
-function getCounterNo() {
-    // return localStorage.getItem("counterNo");
-    return 1;
-}
+// function getCounterNo() {
+//     // return localStorage.getItem("counterNo");
+//     return 1;
+// }
 
 function getProductCatOptions() {
     $.ajax({
@@ -133,7 +133,7 @@ function sendUpdateData(productNo) {
             contentType: false,
             success: function (resp) {
                 alert("更新成功");
-                window.location = `/Jamigo/counter/counter_product.html?counterNo=${getCounterNo()}`;
+                window.location = `/Jamigo/counter/counter_product.html`;
             }
         });
         //-------------------------------------------------
@@ -169,6 +169,9 @@ function sendUpdateData(productNo) {
         return new Blob(byteArrays, {type: 'image/gif'});
     }
 
-    function cancelEdit(counterNo){
-        window.location=`/Jamigo/counter/counter_product.html?counterNo=${getCounterNo()}`;
+    function cancelEdit(){
+        $("#cancel-edit").on('click', function (){
+            window.location=`/Jamigo/counter/counter_product.html`;
+        });
+
     }

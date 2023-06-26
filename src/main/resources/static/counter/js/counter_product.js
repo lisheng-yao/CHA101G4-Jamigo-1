@@ -7,7 +7,7 @@ $(function(){
     //進入頁面需要列出商品清單
     // let counterNo = 1;
     $.ajax({
-        url: `/Jamigo/products/listAllCounterProducts/${getCounterNo()}`,
+        url: `/Jamigo/products/listAllCounterProducts`,
         method: "GET",
         success: function (resp){
             //測試GET資料
@@ -41,14 +41,14 @@ $(function(){
     //商品類別選單
     getProductCatOptions();
     //新增商品品項
-    addProduct(counterNo);
+    addProduct();
 
 });
 
-function getCounterNo() {
-    // return localStorage.getItem("counterNo");
-    return 1;
-}
+// function getCounterNo() {
+//     // return localStorage.getItem("counterNo");
+//     return 1;
+// }
 
 function getProductCatOptions(){
     $("#addProduct-btn").on("click", function (){
@@ -72,7 +72,7 @@ function getProductCatOptions(){
     });
 }
 
-function addProduct(counterNo){
+function addProduct(){
     $("#addProduct-confirm").on("click", function (){
         let productCatNo = $("#categorySelect").val();
         let productName = $("#productName").val();
@@ -85,7 +85,6 @@ function addProduct(counterNo){
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
-                counterNo: counterNo,
                 productCategory: productCatNo,
                 productName: productName,
                 productPrice: productPrice,
