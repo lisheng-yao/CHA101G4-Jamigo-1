@@ -54,7 +54,7 @@ div.canNotUse_counterCoupon {
 }
 
 span.canUseCounterCoupon_area {
-    width: 75%;
+    width: 70%;
     font-size: 15px;
 }
 
@@ -88,7 +88,7 @@ div.used_counterCoupon {
 }
 
 .usedCounterCoupon_description {
-    width: 65%;
+    width: 60%;
     text-align: left;
 }
 
@@ -111,7 +111,7 @@ button.remove_usedCounterCoupon {
 }
 
 span.canNotUseCounterCoupon_area {
-    width: 74%;
+    width: 70%;
     font-size: 15px;
 }
 
@@ -122,7 +122,7 @@ div.toBeUsed_counterCoupon {
 
 
 .toBeUsedCounterCoupon_description {
-    width: 65%;
+    width: 60%;
     text-align: left;
 }
 
@@ -141,7 +141,7 @@ span.platform_promotions {
 }
 
 span.canUsePlatformCoupon_area {
-    width: 75%;
+    width: 70%;
     font-size: 15px;
 }
 
@@ -182,7 +182,7 @@ div.used_platformCoupon {
 }
 
 .usedPlatformCoupon_description {
-    width: 65%;
+    width: 60%;
     text-align: left;
 }
 
@@ -205,7 +205,7 @@ button.remove_usedPlatformCoupon {
 }
 
 span.canNotUsePlatformCoupon_area {
-    width: 74%;
+    width: 70%;
     font-size: 15px;
 }
 
@@ -215,7 +215,7 @@ div.toBeUsed_platformCoupon {
 }
 
 .toBeUsedPlatformCoupon_description {
-    width: 65%;
+    width: 60%;
     text-align: left;
 }
 
@@ -355,4 +355,37 @@ div.use_memberPoints_area{
 .order_finalTotal p.final_total {
     font-size: 18px;
     font-weight: 500;
+}
+
+/*更改小計區塊CSS*/
+.cart_subtotal p {
+    font-weight: 600;
+    font-size: 18px;
+}
+.cart_subtotal p.counterTotal {
+    font-size: 18px;
+    font-weight: 500;
+}
+@media only screen and (max-width: 767px) {
+    .cart_subtotal p.counterTotal {
+        font-size: 14px;
+    }
+}
+.cart_subtotal p.counterDiscount {
+    font-size: 18px;
+    font-weight: 500;
+}
+@media only screen and (max-width: 767px) {
+    .cart_subtotal p.counterDiscount {
+        font-size: 14px;
+    }
+}
+.cart_subtotal p.counterFinalTotal {
+    font-size: 18px;
+    font-weight: 500;
+}
+@media only screen and (max-width: 767px) {
+    .cart_subtotal p.counterFinalTotal {
+        font-size: 14px;
+    }
 }

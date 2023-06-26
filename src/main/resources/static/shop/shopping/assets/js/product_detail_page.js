@@ -78,7 +78,7 @@ function addToCart(productNo){
         let cartData = {
             memberNo: memberNo,
             cartItem: cartItem
-        }
+        };
         $.ajax({
             url: `/Jamigo/cart/addOneToCart`,
             method: "POST",

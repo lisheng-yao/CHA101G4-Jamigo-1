@@ -43,6 +43,34 @@ public class CartController {
         return cartService.addOneToCart(cartDTO, memberNo);
     }
 
+    @PostMapping("/changeOneInCart")
+    public String changeOneInCart(@RequestBody Map<String, Object> cartData){
+
+        //取得前端傳送的會員編號
+        Integer memberNo = (Integer) cartData.get("memberNo");
+        //取得前端傳來變動的購物車項目
+        Gson gson = new Gson();
+        String cartItemJson = gson.toJson(cartData.get("cartItem"));
+        CartDTO cartDTO = gson.fromJson(cartItemJson, CartDTO.class);
+
+        //將前端送來的購物車項目和會員編號放入購物車
+        return cartService.changeOneInCart(cartDTO, memberNo);
+
+    }
+
+    @PostMapping("/deleteOneInCart")
+    public String deleteOneInCart(@RequestBody Map<String, Object> cartData){
+        //取得前端傳送的會員編號
+        Integer memberNo = (Integer) cartData.get("memberNo");
+        //取得前端傳來變動的購物車項目
+        Gson gson = new Gson();
+        String cartItemJson = gson.toJson(cartData.get("cartItem"));
+        CartDTO cartDTO = gson.fromJson(cartItemJson, CartDTO.class);
+
+        //將前端送來的購物車項目和會員編號放入購物車
+        return cartService.deleteOneInCart(cartDTO, memberNo);
+    }
+
     @GetMapping("/getCartList/{memberNo}")
     public List<CartDTO> getCartList(@PathVariable Integer memberNo){
         System.out.println(cartService.findAllCartItem(memberNo));

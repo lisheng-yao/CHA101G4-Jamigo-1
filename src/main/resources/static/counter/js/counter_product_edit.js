@@ -78,6 +78,11 @@ $(function () {
     sendUpdateData(productNo);
 });
 
+function getCounterNo() {
+    // return localStorage.getItem("counterNo");
+    return 1;
+}
+
 function getProductCatOptions() {
     $.ajax({
         url: `/Jamigo/products/getAllCategories`,
@@ -128,7 +133,7 @@ function sendUpdateData(productNo) {
             contentType: false,
             success: function (resp) {
                 alert("更新成功");
-                window.location = `/Jamigo/counter/counter_product.html`;
+                window.location = `/Jamigo/counter/counter_product.html?counterNo=${getCounterNo()}`;
             }
         });
         //-------------------------------------------------
@@ -165,5 +170,5 @@ function sendUpdateData(productNo) {
     }
 
     function cancelEdit(counterNo){
-        window.location=`/Jamigo/counter/counter_product.html?counterNo=${counterNo}`;
+        window.location=`/Jamigo/counter/counter_product.html?counterNo=${getCounterNo()}`;
     }

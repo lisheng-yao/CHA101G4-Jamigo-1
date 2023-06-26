@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface CartService {
 
-    public String addOneToCart(CartDTO cartDTO, Integer memberNo);
+    String addOneToCart(CartDTO cartDTO, Integer memberNo);
 
-    public List<CartDTO> findAllCartItem(Integer memberNo);
+    String changeOneInCart(CartDTO cartDTO, Integer memberNo);
+
+    String deleteOneInCart(CartDTO cartDTO, Integer memberNo);
+
+    List<CartDTO> findAllCartItem(Integer memberNo);
 }
