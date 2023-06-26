@@ -24,52 +24,165 @@
     <form>
         <div class="form-field">
             <label class="form-label" for="report-status">檢舉狀態:</label>
-            <span id="report-status">未處理</span>
+            <span id="report-status"></span>
         </div>
 
         <div class="form-field">
             <label class="form-label" for="product-name">商品名稱:</label>
-            <span id="product-name">xxx</span>
+            <span id="product-name"></span>
         </div>
 
         <div class="form-field">
             <label class="form-label" for="report-content">檢舉內容:</label>
-            <span id="report-content">xxxxxxx</span>
+            <span id="report-content"></span>
         </div>
 
         <div class="form-field">
             <label class="form-label" for="member-name">會員名稱:</label>
-            <span id="member-name">xxxxxx</span>
+            <span id="member-name"></span>
         </div>
 
         <div class="form-field">
-            <label class="form-label" for="report-count">被檢舉次數:</label>
-            <span id="report-count">12</span>
+            <label class="form-label" for="report-count">該商品被檢舉次數:</label>
+            <span id="report-count"></span>
         </div>
 
         <div class="form-field">
             <label class="form-label" for="report-time">檢舉時間:</label>
-            <span id="report-time">yyyy-xx-zz</span>
+            <span id="report-time"></span>
         </div>
         <!-- 回應內容 -->
         <div class="form-field">
             <label class="form-label" for="additional-comments">平台回覆:</label>
-            <textarea id="additional-comments" class="form-textarea" cols="100%" rows="20"></textarea>
+            <textarea name="responseContent" id="additional-comments" class="form-textarea" cols="100%" rows="20"
+                placeholder="請回應處理內容"></textarea>
         </div>
 
         <div class="form-field">
             <label class="form-label" for="other-options">其他選項:</label>
             <select id="other-options" class="form-select" name="otherOptions">
                 <option value="" selected disabled>--------------請選擇--------------</option>
-                <option value="option1">已收到您的意見，將立即改善</option>
-                <option value="option2">檢舉屬實，將立即處理</option>
-                <option value="option3">謝謝您寶貴的意見</option>
+                <option name="responseContent" value="已收到您的意見，將立即改善">已收到您的意見，將立即改善</option>
+                <option name="responseContent" value="檢舉屬實，將立即處理">檢舉屬實，將立即處理</option>
+                <option name="responseContent" value="謝謝您寶貴的意見">謝謝您寶貴的意見</option>
             </select>
         </div>
-        <input type="submit" value="提交">
+        <button type="button" onclick="sub()">送出</button>
         </div>
     </form>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var param = new URLSearchParams(window.location.search);
+        var memberNo = param.get('memberNo');
+        var productNo = param.get('productNo');
+
+        $.ajax({
+            type: 'GET',
+            url: '/Jamigo/report/' + memberNo + '/' + productNo,
+            dataType: 'json',
+            success: function (response) {
+                finish(response);
+            },
+            error: function (error) {
+                alert(error.status);
+            }
+        });
+    });
+    function finish(response) {
+
+        //轉換處理狀態
+        if (response.reportStat == 0) {
+            response.reportStat = "未處理"
+        } else {
+            response.reportStat = "已處理"
+        }
+        //轉換時間格式
+        var Time1 = new Date(response.reportTime);
+        var year = Time1.getFullYear();
+        var month = ('0' + (Time1.getMonth() + 1)).slice(-2);
+        var day = ('0' + Time1.getDay()).slice(-2);
+        var hours = ('0' + Time1.getHours()).slice(-2);
+        var minutes = ('0' + Time1.getMinutes()).slice(-2);
+        var seconds = ('0' + Time1.getSeconds()).slice(-2);
+        var reportTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
+        let reportstat = document.getElementById('report-status')
+        let productname = document.getElementById('product-name')
+        let reportcontent = document.getElementById('report-content')
+        let membername = document.getElementById('member-name')
+        let reportnumber = document.getElementById('report-count')
+        let reporttime = document.getElementById('report-time')
+
+        reportstat.innerText = response.reportStat;
+        productname.innerText = response.productName;
+        reportcontent.innerText = response.reportContent.replace(/\[|\]/g, '');
+        membername.innerText = response.memberName;
+        reportnumber.innerText = response.reportNumber;
+        reporttime.innerText = reportTime;
+    }
+
+
+    function sub() {
+
+        var param = new URLSearchParams(window.location.search);
+        var memberNo = param.get('memberNo');
+        var productNo = param.get('productNo');
+        var reportStat = 1;
+
+        var selectoption = $('option[name="responseContent"]:selected')
+        var textarea = $('textarea[name="responseContent"]')
+
+        var responseContentArray = [];
+
+
+        if (selectoption.length === 0 || textarea.val().trim() === '') {
+            alert("請填入回應內容");
+            return;
+        } else {
+            responseContentArray.push($(selectoption).val());
+            responseContentArray.push($(textarea).val());
+        }
+
+        var formdata = {
+            'memberNo': memberNo,
+            'productNo': productNo,
+            'reportStat': reportStat,
+            'reportResponses': responseContentArray
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/Jamigo/updateOne',
+            data: JSON.stringify(formdata),
+            contentType: 'application/json',
+
+            success: function (response) {
+                alert(response.message);
+                sendCloseEvent();
+                window.close();
+            },
+
+            error: function (error) {
+                alert(error.reportContent);
+                window.location.reload();
+            }
+
+        })
+    }
+    
+    function sendCloseEvent() {
+        // 向父窗口發送關閉事件的消息
+        window.opener.postMessage('closeEvent', '*');
+    }
+
+
+
+
+</script>
 
 </html>

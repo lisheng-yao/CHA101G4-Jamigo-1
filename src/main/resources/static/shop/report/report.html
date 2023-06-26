@@ -190,12 +190,9 @@
 		//執行成功的函式
 		function finish(response){
 				if(response){
-					for(var fieldName in response){
-						var successmessage = response[fieldName];
-						alert(successmessage);
-					}
+					alert(response.message);
 				}
-				location.reload();
+				location.reload(); 
 		}
 		//執行失敗的函式
 		function fail(error) {

@@ -25,13 +25,18 @@ public class ReportServiceimpl implements ReportService {
         return reportDAO.getAllReports();
     }
     @Override
-    public ReportVO getReportByPrimaryKey(Integer memberNo, Integer productNo) {
-        return null;
+    public List<ReportVO> getReportByPrimaryKey(Integer memberNo, Integer productNo) {
+        return reportDAO.getReportByPrimaryKey(memberNo,productNo);
+    }
+
+    @Override
+    public String updateResponse(ReportRequest reportRequest) {
+        return reportDAO.updateOne(reportRequest);
     }
 
     @Override
     public List<ReportVO> getReportByMember(Integer memberNo) {
-        return null;
+        return reportDAO.getReportByMember(memberNo);
     }
 
 

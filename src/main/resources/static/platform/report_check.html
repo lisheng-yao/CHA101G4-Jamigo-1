@@ -63,24 +63,22 @@
         background-color: #3e8e41;
     }
 
-    .btn2 {
-        display: inline-block;
-        background-color: #4c60af;
-        color: white;
+    /* 主標題的外觀 */
+    .main-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
         text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
     }
 
-    .btn2:hover {
-        background-color: #4c45a0;
-    }
-
-    .btn2:active {
-        background-color: #433e8e;
+    /* 主標題的底線效果 */
+    .main-title::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #333;
+        margin-top: 5px;
     }
 </style>
 
@@ -302,6 +300,8 @@
             <!-- 網頁內容主體 -->
             <div class="col-10 page-body">
 
+                <h2 class="main-title">商品檢舉審核系統</h2>
+
                 <table id="all" class="display" style="width:100%">
 
                 </table>
@@ -338,9 +338,7 @@
         $(document).ready(function () {
 
 
-
             //頁面載入查詢表格 資料庫拿到的data是一個物件的陣列
-
             $.ajax({
                 type: 'GET',
                 url: '/Jamigo/reports',
@@ -379,22 +377,26 @@
                     if (response[i].reportStat == "未處理") {
                         data1.push({
                             'reportStat': response[i].reportStat,
-                            'productNo': response[i].productNo,
-                            'memberNo': response[i].memberNo,
+                            'productName': response[i].productName,
+                            'memberName': response[i].memberName,
                             'reportContent': response[i].reportContent.replace(/\[|\]/g, ''),
                             'reportTime': reporttime,
-                            'reportCount': "",
+                            'reportNumber': response[i].reportNumber,
                             'handle': "",
+                            'productNo': response[i].productNo,
+                            'memberNo': response[i].memberNo
                         })
                     } else {
                         data2.push({
                             'reportStat': response[i].reportStat,
-                            'productNo': response[i].productNo,
-                            'memberNo': response[i].memberNo,
+                            'productName': response[i].productName,
+                            'memberName': response[i].memberName,
                             'reportContent': response[i].reportContent.replace(/\[|\]/g, ''),
                             'reportTime': reporttime,
-                            'reportCount': "",
+                            'reportNumber': response[i].reportNumber,
                             'handle': "",
+                            'productNo': response[i].productNo,
+                            'memberNo': response[i].memberNo
                         })
                     }
 
@@ -410,8 +412,10 @@
                     data: data1,
                     columns: [
                         { data: 'reportStat', title: "狀態" },
-                        { data: 'productNo', title: "商品名稱" },
-                        { data: 'memberNo', title: "會員名稱" },
+                        { data: 'productNo' },
+                        { data: 'productName', title: "商品名稱" },
+                        { data: 'memberNo' },
+                        { data: 'memberName', title: "會員名稱" },
                         {
                             data: 'reportContent', title: "檢舉內容",
                             render: function (data, type, row) {
@@ -419,12 +423,26 @@
                             }
                         },
                         { data: 'reportTime', title: "檢舉日期" },
-                        { data: 'reportCount', title: "被檢舉次數" },
+                        { data: 'reportNumber', title: "被檢舉次數" },
                         {
                             data: 'handle', title: "操作",
                             render: function (data, type, row) {
-                                return '<button class=\"btn1\" onclick=\"openNewWindow(\'report_response.html\');\">回覆</button><button class=\"btn2\" onclick=\'toggle(this)\'>變更狀態</button>'
+                                return '<button class=\"btn1\" onclick=\"openNewWindow(this);\">回覆</button>'
                             }
+                        }
+                    ],
+                    columnDefs: [
+                        {
+                            target: 1,
+                            width: 0,
+                            visible: false,
+                            className: 'hidden-column'
+                        },
+                        {
+                            target: 3,
+                            width: 0,
+                            visible: false,
+                            className: 'hidden-column'
                         }
                     ]
 
@@ -438,8 +456,10 @@
                     data: data2,
                     columns: [
                         { data: 'reportStat', title: "狀態" },
-                        { data: 'productNo', title: "商品名稱" },
-                        { data: 'memberNo', title: "會員名稱" },
+                        { data: 'productNo' },
+                        { data: 'productName', title: "商品名稱" },
+                        { data: 'memberNo' },
+                        { data: 'memberName', title: "會員名稱" },
                         {
                             data: 'reportContent', title: "檢舉內容",
                             render: function (data, type, row) {
@@ -447,12 +467,26 @@
                             }
                         },
                         { data: 'reportTime', title: "檢舉日期" },
-                        { data: 'reportCount', title: "被檢舉次數" },
+                        { data: 'reportNumber', title: "被檢舉次數" },
                         {
                             data: 'handle', title: "操作",
                             render: function (data, type, row) {
-                                return '<button class=\"btn1\" onclick=\"openNewWindow(\'report_response.html\');\">回覆</button><button class=\"btn2\" onclick=\'toggle(this)\'>變更狀態</button>'
+                                return '<button class=\"btn1\" onclick=\"openNewWindow(this);\">回覆</button>'
                             }
+                        }
+                    ],
+                    columnDefs: [
+                        {
+                            target: 1,
+                            width: 0,
+                            visible: false,
+                            className: 'hidden-column'
+                        },
+                        {
+                            target: 3,
+                            width: 0,
+                            visible: false,
+                            className: 'hidden-column'
                         }
                     ]
                 });
@@ -461,55 +495,40 @@
             function error(error) {
                 alert(error.status);
             }
-
         });
-
-
-
-
-        // 按變更狀態的button 狀態改變的js
-        function toggle(button) {
-            var row = $(button).closest('tr');
-            var rowData = $(button).closest('table').DataTable().row(row).data(); // 获取点击按钮所在行的数据
-            var dataTable = $(button).closest('table').DataTable(); // 获取当前所在的 DataTable
-            var targetDataTable;
-
-            if (rowData.reportStat === "未處理") {
-                targetDataTable = $('#finish').DataTable();
-                rowData.reportStat = "已處理";
-            } else {
-                targetDataTable = $('#all').DataTable();
-                rowData.reportStat = "未處理";
-            }
-
-            targetDataTable.row.add(rowData).draw(); // 向目标 DataTable 添加行数据并重新绘制
-
-            // rowData.reportStat = targetStatus; // 更新报告状态的值
-
-            dataTable.row(row).remove().draw(); // 从原始 DataTable 中删除行数据并重新绘制
-        }
 
         //點選該列 會跳出小視窗 顯示檢舉詳情
 
-        function openNewWindow(url) {
+        function openNewWindow(button) {
+            var row = $(button).closest('tr');
+            var rowData = $(button).closest('table').DataTable().row(row).data();
+
+            url = 'report_response.html?memberNo=' + rowData.memberNo + '&productNo=' + rowData.productNo;
+
             var width = 800;
             var height = 400;
             var left = (window.innerWidth - width) / 2;
             var top = (window.innerHeight - height) / 2;
-            window.open(url, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+            childWindow = window.open(url, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+
+            // 監聽子窗口的關閉事件
+            childWindow.addEventListener('beforeunload', function () {
+                sendCloseEvent();
+            });
         }
 
+        function sendCloseEvent() {
+            // 向子窗口發送關閉事件的消息
+            childWindow.postMessage('closeEvent', '*');
+        }
 
-
-
-
-
-
-
-
-
-
-
+        // 監聽子窗口的消息事件
+        window.addEventListener('message', function (event) {
+            if (event.data === 'closeEvent') {
+                // 執行重載入的動作
+                location.reload();
+            }
+        });
 
     </script>
 </body>
