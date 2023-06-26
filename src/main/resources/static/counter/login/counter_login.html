@@ -183,11 +183,11 @@
         .then((response) => {
           if (response.ok)
             window.location.href = "/Jamigo/counter/counter_data.html";
-          else document.getElementById("login-error").style.display = "block";
+          else {document.getElementById("login-error").style.display = "block";
           Swal.fire({
             icon: "error",
             title: "帳號密碼有誤，請重確認",
-          });
+          })};
         })
         .catch((error) => console.log("錯誤"));
     }
