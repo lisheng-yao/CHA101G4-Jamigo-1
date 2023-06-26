@@ -7,6 +7,8 @@
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
     let dataaccount = 0;
     let PromotionType = [];
+    let promotionName4 = [];
+    let couponTypeNo4 = [];
 
     function getAllPromotionCoupon() {
         console.log('進入getAllPromotionCoupon()')
@@ -31,7 +33,9 @@
                         const promotionCouponNo = row.promotionCouponNo;
                         const promotionCouponName = row.promotionCouponName;
                         const promotionName = row.promotionName;
+                        promotionName4.push(promotionName);
                         const couponTypeNo = row.couponTypeNo;
+                        couponTypeNo4.push(couponTypeNo);
                         //     處理日期格式
                         const originalDate = new Date(row.promotionEffectiveDate);
                         const year = originalDate.getFullYear();
@@ -42,13 +46,35 @@
                         const promotionEffectiveDate = formattedDate;
                         //     處理日期格式
                         const originalDate2 = new Date(row.promotionExpireDate);
-                        const year2 = originalDate.getFullYear();
-                        const month2 = originalDate.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
-                        const day2 = originalDate.getDate();
+                        const year2 = originalDate2.getFullYear();
+                        const month2 = originalDate2.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
+                        const day2 = originalDate2.getDate();
                         const formattedDate2 = year2 + '-' + ('0' + month2).slice(-2) + '-' + ('0' + day2).slice(-2);
                         //     處理日期格式
                         const promotionExpireDate = formattedDate2;
-                        dataTable.row.add([promotionCouponNo, promotionCouponName, promotionName, couponTypeNo, promotionEffectiveDate, promotionExpireDate, `<a href="#"><button type="button" class="btn btn-outline-primary">詳情</button></a>`, `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        const amountOfCoupon = row.amountOfCoupon;
+                        const getCouponLimitLevel = row.getCouponLimitLevel;
+                        const getCouponLimitAmount = row.getCouponLimitAmount;
+
+                        const promotionPic = row.promotionPic;
+                        const getAmount = row.getAmount;
+
+                        //     處理日期格式
+                        const originalDate3 = new Date(row.promotionCreateDate);
+                        const year3 = originalDate3.getFullYear();
+                        const month3 = originalDate3.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
+                        const day3 = originalDate3.getDate();
+                        const formattedDate3 = year3 + '-' + ('0' + month3).slice(-2) + '-' + ('0' + day3).slice(-2);
+                        const promotionCreateDate = formattedDate3;
+
+                        dataTable.row.add([promotionCouponNo,
+                            promotionCouponName,
+                            promotionName,
+                            couponTypeNo,
+                            promotionEffectiveDate,
+                            promotionExpireDate,
+                            `<a href="#"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
+                            `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
             </button>
             <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
@@ -79,7 +105,7 @@
                                 <div class="mb-3">
                                     <label for="promotionName${i}"
                                            class="col-form-label">活動類別:</label>
-                                    <select name="" id="promotionName${i}"  class="form-control">
+                                    <select name="" id="promotionName${i}" value="${promotionName}" class="form-control">
 <!--                                    動態生成-->
                                     </select>
                                     <div id="dynamicSpanspromotionName${i}" style="display: flex;">
@@ -89,7 +115,7 @@
                                 <div class="mb-3">
                                     <label for="couponTypeNo${i}"
                                            class="col-form-label">折價券種類:</label>
-                                    <select name="" id="couponTypeNo${i}"  class="form-control">
+                                    <select name="" id="couponTypeNo${i}" value="${couponTypeNo}" class="form-control">
                                     </select>
                                     <div id="dynamicSpanscouponTypeNo${i}" style="display: flex;">
                                             </div>
@@ -99,49 +125,49 @@
                                     <label for="amountOfCoupon${i}"
                                            class="col-form-label">發放數量:</label>
                                     <input type="text" class="form-control"
-                                           id="amountOfCoupon${i}" value="" >
+                                           id="amountOfCoupon${i}" value="${amountOfCoupon}" >
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label for="getCouponLimitLevel${i}"
                                            class="col-form-label">會員等級限制:</label>
                                     <input type="text" class="form-control"
-                                           id="getCouponLimitLevel${i}" value="" >
+                                           id="getCouponLimitLevel${i}" value="${getCouponLimitLevel}" >
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label for="getCouponLimitAmount${i}"
                                            class="col-form-label">領取量限制:</label>
                                     <input type="text" class="form-control"
-                                           id="getCouponLimitAmount${i}" value="" >
+                                           id="getCouponLimitAmount${i}" value="${getCouponLimitAmount}" >
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label for="promotionEffectiveDate${i}"
                                            class="col-form-label">活動生效日期:</label>
                                     <input type="date" class="form-control"
-                                           id="promotionEffectiveDate${i}" value="" >
+                                           id="promotionEffectiveDate${i}" value="${promotionEffectiveDate}" >
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label for="promotionExpireDate${i}"
                                            class="col-form-label">活動結束日期:</label>
                                     <input type="date" class="form-control"
-                                           id="promotionExpireDate${i}" value="" >
+                                           id="promotionExpireDate${i}" value="${promotionExpireDate}" >
                                 </div>
                                 <div class="mb-3">
                                             <label for="promotionCreateDate${i}" class="col-form-label">建立時間:</label>
-                                            <input type="text" class="form-control" id="promotionCreateDate${i}"  readonly>
+                                            <input type="text" class="form-control" id="promotionCreateDate${i}" value="${promotionCreateDate}" readonly>
                                         </div>
                                 <div class="mb-3">
                                             <label for="getAmount${i}" class="col-form-label">已領取數量:</label>
-                                            <input type="text" class="form-control" id="getAmount${i}" readonly>
+                                            <input type="text" class="form-control" id="getAmount${i}" value="${getAmount}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
-                                           id="promotionPic${i}" value="" accept="image/gif">
+                                           id="promotionPic${i}" value="${promotionPic}" accept="image/gif">
                                 </div>
                                 <span id="msg"> </span>
                             </form>
@@ -256,9 +282,9 @@
         const promotionExpireDate4json = promotionExpireDateinputs[i].value;
         const getAmount4json = getAmountinputs[i].value;
         const promotionPic4json = promotionPicinputs[i];
-        let Pic4json= "";
+        let Pic4json = "";
         promotionPic4json.addEventListener("change", function (event) {
-            Pic4json =readPic(event);
+            Pic4json = readPic(event);
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -347,9 +373,9 @@
         const promotionEffectiveDate4new = document.querySelector('#promotionEffectiveDate').value;
         const promotionExpireDate4new = document.querySelector('#promotionExpireDate').value;
         const promotionPic4new = document.querySelector('#promotionPic');
-        let Pic4new= "";
+        let Pic4new = "";
         promotionPic4new.addEventListener("change", function (event) {
-            Pic4new =readPic(event);
+            Pic4new = readPic(event);
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -456,6 +482,7 @@
     const select4CouponType = document.querySelector('#couponTypeNo');
     const dynamicSpansCouponTypeNo = document.querySelector('#dynamicSpansCouponTypeNo');
     let CouponTypelength = 0;
+    let x = 0;
 
     function getAllCouponType() {
         console.log('進入getAllCouponType()')
@@ -476,9 +503,67 @@
                     CouponTypelength = lastData.couponTypeNo;
                     let str = ' <option selected disabled>請選擇折價券種類</option>';
                     let str2 = '';
+                    let str3 = [];
+                    let str4 = [];
+                    let str3_0 = '';
+                    let str4_0 = '';
+                    for (let x = 0; x <= dataaccount; x++) {
+                        for (let u = 0; u < CouponType.length; u++) {
+                            let row = CouponType[u];
+                            const couponTypeNo2 = row.couponTypeNo;
+                            const couponTypeName = row.couponTypeName;
+                            let adminNod = "";
+                            if (row.adminNo != null) {
+                                adminNod = row.adminNo;
+                            }
+                            let counterNo = "";
+                            if (row.counterNo != null) {
+                                counterNo = row.counterNo;
+                            }
+                            // 處理日期格式
+                            const originalDate = new Date(row.couponCreateDate);
+                            const year = originalDate.getFullYear();
+                            const month = originalDate.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
+                            const day = originalDate.getDate();
+                            const formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
+                            // 處理日期格式
+                            const couponCreateDate = formattedDate;
+                            // 處理日期格式
+                            const originalDatea = new Date(row.couponExpireDate);
+                            const yeara = originalDatea.getFullYear();
+                            const montha = originalDatea.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
+                            const daya = originalDatea.getDate();
+                            const formattedDatea = yeara + '-' + ('0' + montha).slice(-2) + '-' + ('0' + daya).slice(-2);
+                            // 處理日期格式
+                            const couponExpireDate = formattedDatea;
+
+                            const couponConditions = row.couponConditions;
+                            const couponPrice = row.couponPrice;
+                            const couponLowest = row.couponLowest;
+
+                            str4_0 += `<option value="${couponTypeNo2}" ${couponTypeNo2 === couponTypeNo4[x] ? 'selected' : ''}>${couponTypeNo2} : ${couponTypeName}</option>`
+                            str3_0 += `<div id="span4CouponType${couponTypeNo2}${x}" class="hiddenyee">
+                                <span>管理員編號： ${adminNod}</span>
+                                <span>欄位編號: ${counterNo}</span>
+                                <br>
+                                <span>建立日期: ${couponCreateDate}</span>
+                                <span>失效日期: ${couponExpireDate}</span>
+                                <br>
+                                <span>折扣金額: ${couponPrice}</span>
+                                <span>使用門檻: ${couponLowest}</span>
+                                <br>
+                                <span>使用說明: ${couponConditions}</span>
+                                </div>`
+                        }
+                        str3.push(str3_0);
+                        str3_0 = '';
+                        str4.push(str4_0);
+                        str4_0 = '';
+                    }
+
                     for (let i = 0; i < CouponType.length; i++) {
                         let row = CouponType[i];
-                        const couponTypeNo = row.couponTypeNo;
+                        const couponTypeNo2 = row.couponTypeNo;
                         const couponTypeName = row.couponTypeName;
                         let adminNod = "";
                         if (row.adminNo != null) {
@@ -488,8 +573,6 @@
                         if (row.counterNo != null) {
                             counterNo = row.counterNo;
                         }
-
-
                         // 處理日期格式
                         const originalDate = new Date(row.couponCreateDate);
                         const year = originalDate.getFullYear();
@@ -510,8 +593,8 @@
                         const couponConditions = row.couponConditions;
                         const couponPrice = row.couponPrice;
                         const couponLowest = row.couponLowest;
-                        str += `<option value="${couponTypeNo}">${couponTypeNo} : ${couponTypeName}</option>`
-                        str2 += `<div id="span4CouponType${couponTypeNo}" class="hiddenyee">
+                        str += `<option value="${couponTypeNo2}" >${couponTypeNo2} : ${couponTypeName}</option>`
+                        str2 += `<div id="span4CouponType${couponTypeNo2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNod}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
@@ -529,14 +612,15 @@
                     select4CouponType.innerHTML = str;
                     for (let i = 0; i <= CouponTypelength; i++) {
                         if (typeof dynamicSpanscouponTypeNoinputs[i] !== 'undefined') {
-                            dynamicSpanscouponTypeNoinputs[i].innerHTML = str2;
+                            dynamicSpanscouponTypeNoinputs[i].innerHTML = str3[i];
                         }
                         if (typeof couponTypeNoinputs[i] !== 'undefined') {
-                            couponTypeNoinputs[i].innerHTML = str;
+                            couponTypeNoinputs[i].innerHTML = str4[i];
                         }
                     }
                     setdiv4CouponType();
                     Listener4SelectCoupontype()
+                    setdiv4div4CouponType2()
 
                 });
             })
@@ -557,7 +641,36 @@
         }
     }
 
+    let div4CouponType2 = [];
+    let div4CouponType3 = []
+
+    function setdiv4div4CouponType2() {//ok
+        for (let p = 0; p <= dataaccount; p++) {
+            for (let i = 0; i < CouponTypelength; i++) {
+                const div4CouponTypea = document.getElementById('span4CouponType' + i + p);
+                if (div4CouponTypea) {
+                    div4CouponType2.push(div4CouponTypea);
+                }
+            }
+            div4CouponType3.push(div4CouponType2);
+            div4CouponType2 = [];
+        }
+    }
+
     function Listener4SelectCoupontype() {
+        for (let i = 0; i <= dataaccount; i++) {
+            couponTypeNoinputs[i].addEventListener('change', () => {
+                const selectedValue2 = couponTypeNoinputs[i].value;
+                div4CouponType3[i].forEach(function (div) {
+                    if (div.id === "span4CouponType" + selectedValue2 + i) {
+                        div.classList.remove("hiddenyee");
+                    } else {
+                        div.classList.add("hiddenyee");
+                    }
+                });
+
+            })
+        }
         select4CouponType.addEventListener('change', () => {
             const selectedValue = select4CouponType.value;
             div4CouponType.forEach(function (div) {
@@ -575,7 +688,6 @@
     const dynamicSpanPromotionName = document.querySelector('#dynamicSpanPromotionName');
     let promotionNamelength = 0;
     let promotionname = [];
-    console.log(select4promotionName);
 
     function getAllPromotion() {
         console.log('進入getAllPromotion()')
@@ -595,9 +707,44 @@
                     promotionNamelength = PromotionType.length;
                     let str = ' <option selected disabled>請選擇活動種類</option>';
                     let str2 = '';
+                    let str3_0 = '';
+                    let str4_0  = '';
+                    let str3 = [];
+                    let str4 = [];
+
+
+                    for (let h = 0; h <= dataaccount; h++) {
+                        for (let u = 0; u < promotionNamelength; u++) {
+                            let row = PromotionType[u];
+                            const promotionName2 = row.promotionName;
+                            promotionname.push(promotionName2);
+                            const promotionType = row.promotionType;
+                            const promotionMethod = row.promotionMethod;
+                            let adminNo = '';
+                            if (row.adminNo != null) {
+                                adminNo = row.adminNo;
+                            }
+                            let counterNo = '';
+                            if (row.counterNo != null) {
+                                counterNo = row.counterNo
+                            }
+                            str4_0 += `<option value="${promotionName2}" ${promotionName2 === promotionName4[h] ? 'selected' : ''}>${promotionName2}</option>`
+                            str3_0 += `<div id="span4Promotion${promotionName2}${h}" class="hiddenyee">
+                                <span>管理員編號： ${adminNo}</span>
+                                <span>欄位編號: ${counterNo}</span>
+                                <br>
+                                <span>發放種類: ${promotionType}</span>
+                                <span>發放方式: ${promotionMethod}</span>
+                                </div>`
+                        }
+                        str3.push(str3_0);
+                        str3_0 = '';
+                        str4.push(str4_0);
+                        str4_0 = '';
+                    }
                     for (let i = 0; i < promotionNamelength; i++) {
                         let row = PromotionType[i];
-                        const promotionName = row.promotionName;
+                        const promotionName2 = row.promotionName;
                         promotionname.push(promotionName);
                         const promotionType = row.promotionType;
                         const promotionMethod = row.promotionMethod;
@@ -611,8 +758,8 @@
                             counterNo = row.counterNo
                         }
 
-                        str += `<option value="${promotionName}">${promotionName}</option>`
-                        str2 += `<div id="span4Promotion${promotionName}" class="hiddenyee">
+                        str += `<option value="${promotionName2}" >${promotionName2}</option>`
+                        str2 += `<div id="span4Promotion${promotionName2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNo}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
@@ -625,13 +772,14 @@
                     select4promotionName.innerHTML = str;
                     for (let i = 0; i < promotionNamelength; i++) {
                         if (typeof dynamicSpanspromotionNameinputs[i] !== 'undefined') {
-                            dynamicSpanspromotionNameinputs[i].innerHTML = str2;
+                            dynamicSpanspromotionNameinputs[i].innerHTML = str3[i];
                         }
                         if (typeof promotionNameinputs[i] !== 'undefined') {
-                            promotionNameinputs[i].innerHTML = str;
+                            promotionNameinputs[i].innerHTML = str4[i];
                         }
                     }
                     setdiv4Promotion();
+                    setdiv4Promotion2()
                     Listener4SelectPromotion();
 
                 });
@@ -645,7 +793,7 @@
     let div4Promotion = [];
 
     function setdiv4Promotion() {
-        for (let i = 0; i <= promotionNamelength; i++) {
+        for (let i = 0; i < promotionNamelength; i++) {
             const div4Promotiona = document.getElementById('span4Promotion' + promotionname[i]);
             if (div4Promotiona) {
                 div4Promotion.push(div4Promotiona);
@@ -653,7 +801,37 @@
         }
     }
 
+    let div4Promotion2 = [];
+    let div4promotion3 = []
+
+    function setdiv4Promotion2() {
+        for (let p = 0; p <= dataaccount; p++) {
+            for (let i = 0; i < promotionNamelength; i++) {
+                const div4Promotiona = document.getElementById('span4Promotion' + promotionname[i] + p);
+                if (div4Promotiona) {
+                    div4Promotion2.push(div4Promotiona);
+                }
+            }
+            div4promotion3.push(div4Promotion2);
+            div4Promotion2 = [];
+        }
+    }
+
+
     function Listener4SelectPromotion() {
+        for (let i = 0; i <= dataaccount; i++) {
+            promotionNameinputs[i].addEventListener('change', () => {
+                const selectedValue = promotionNameinputs[i].value;
+                div4promotion3[i].forEach(function (div) {
+
+                    if (div.id === "span4Promotion" + selectedValue + i) {
+                        div.classList.remove("hiddenyee");
+                    } else {
+                        div.classList.add("hiddenyee");
+                    }
+                });
+            })
+        }
         select4promotionName.addEventListener('change', () => {
             const selectedValue = select4promotionName.value;
             div4Promotion.forEach(function (div) {
@@ -682,6 +860,7 @@
             return base64Image;
         }
     }
+
     // ===============================^^^方法區^^^====================================
 
     // ===============================VVV使用方法區VVV================================
@@ -697,7 +876,6 @@
         newAPromotion();
     })
 //=================================3. 圖片檔案上傳按鈕=============================
-
 
 
     // ===============================^^^使用方法區^^^==============================
