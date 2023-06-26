@@ -72,6 +72,20 @@ public class MemberDataDaoImpl implements MemberDataDAO {
                     .uniqueResult();
     }
 
+
+    @Override
+    @Transactional
+    public MemberData selectBymemberEmail(String memberEmail) {
+        CriteriaBuilder cBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<MemberData> cQuery = cBuilder.createQuery(MemberData.class);
+        Root<MemberData> root = cQuery.from(MemberData.class);
+        cQuery.where(cBuilder.equal(root.get("memberEmail"), memberEmail));
+        return session
+                .createQuery(cQuery)
+                .uniqueResult();
+    }
+
+
     @Override
     @Transactional
     public MemberData selectForLogin(String memberAccount, String memberPassword) {

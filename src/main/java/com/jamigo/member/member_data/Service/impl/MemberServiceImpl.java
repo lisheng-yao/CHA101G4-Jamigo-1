@@ -43,34 +43,42 @@ public class MemberServiceImpl implements MemberService {
             memberData.setSuccessful(false);
             return memberData;
         }
-//try {//
-//	beginTransaction();//
         if (dao.selectBymemberAccount(memberData.getMemberAccount()) != null) {
             memberData.setMessage("帳號重複");
             memberData.setSuccessful(false);
-//			rollback();//
             return memberData;
         }
 
-//		memberData.setMemberStat(0);
         final int resultCount = dao.insert(memberData);//執行insert
         if (resultCount < 1) {
             memberData.setMessage("註冊錯誤，請聯絡管理員!");
             memberData.setSuccessful(false);
-//			rollback();//
             return memberData;
         }
 
         memberData.setMessage("註冊成功");
         memberData.setSuccessful(true);
-//		commit();//
         return memberData;
-//	}catch(Exception e){//
-//		rollback();//
-//		e.printStackTrace();//
-//		return null;//
-//	}//
     }
+
+    @Override
+    public String forgot(MemberData memberData) {
+        MemberData selectr=dao.selectBymemberEmail(memberData.getMemberEmail());
+        if (selectr == null) {
+            memberData.setMessage("查無此信箱");
+            memberData.setSuccessful(false);
+            return  null;
+        }
+
+
+            String password = selectr.getMemberPassword();
+            return password;
+
+    }
+
+
+
+
 
     @Override
     public MemberData login(MemberData memberData) {
