@@ -69,6 +69,7 @@
                   type="text"
                   placeholder="請輸入帳號"
                   style="border: 1px solid"
+                  onkeydown="checkEnter(event)"
                 />
               </div>
             </div>
@@ -80,6 +81,7 @@
                   type="Password"
                   placeholder="請輸入密碼"
                   style="border: 1px solid"
+                  onkeydown="checkEnter(event)"
                 />
               </div>
             </div>
@@ -157,6 +159,8 @@
   <script src="js/all.js"></script>
   <!-- js -->
   <script src="js/script.js"></script>
+  <!-- sweetalert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!---------------------------------- 送出登入請求 --------------------------------->
   <script>
@@ -180,8 +184,21 @@
           if (response.ok)
             window.location.href = "/Jamigo/counter/counter_data.html";
           else document.getElementById("login-error").style.display = "block";
+          Swal.fire({
+            icon: "error",
+            title: "帳號密碼有誤，請重確認",
+          });
         })
         .catch((error) => console.log("錯誤"));
+    }
+  </script>
+
+  <script>
+    function checkEnter(event) {
+      if (event.keyCode === 13) {
+        // 觸發登入按鈕的點擊事件
+        login();
+      }
     }
   </script>
 </html>
