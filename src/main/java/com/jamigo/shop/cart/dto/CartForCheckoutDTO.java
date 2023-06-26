@@ -9,6 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CartForCheckoutDTO {
+
+    // 櫃位編號
+    private Integer counterNo;
     // 櫃位名稱
     private String counterName;
     // 商品編號
@@ -20,7 +23,8 @@ public class CartForCheckoutDTO {
     // 商品購買數量
     private Integer amount;
 
-    public CartForCheckoutDTO(String counterName, Integer productNo, String productName, Integer productPrice, Integer amount) {
+    public CartForCheckoutDTO(Integer counterNo, String counterName, Integer productNo, String productName, Integer productPrice, Integer amount) {
+        this.counterNo = counterNo;
         this.counterName = counterName;
         this.productNo = productNo;
         this.productName = productName;

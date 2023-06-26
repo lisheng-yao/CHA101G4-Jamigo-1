@@ -2,6 +2,8 @@ package com.jamigo.shop.platform_order.controller;
 
 import com.jamigo.member.member_data.dto.MemberDataForCheckoutDTO;
 import com.jamigo.shop.cart.dto.CartForCheckoutDTO;
+import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
+import com.jamigo.shop.platform_order.dto.PlatformOrderDetailDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import com.jamigo.shop.platform_order.service.PlatformOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,28 +52,28 @@ public class PlatformOrderController {
     // 完整說明：取得 shop/platform_order 底下，會員編號為 XXX 的購物車資料
     //
     // 目前僅為測試，日後可能會改為使用詒婷寫的 購物車 的 Controller
-//    @GetMapping("/shop/platform_order/cart/{memberNo}")
-//    public ResponseEntity<?> getCartInfo(
-//            @PathVariable("memberNo") Integer memberNo) {
-//
-//        Map<String, List<CartForCheckoutDTO>> cartMap = platformOrderService.getCartInfo(memberNo);
-//
-//        if (cartMap != null)
-//            return ResponseEntity.status(HttpStatus.OK).body(cartMap);
-//        else
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//    }
+    @GetMapping("/shop/platform_order/cart/{memberNo}")
+    public ResponseEntity<?> getCartInfo(
+            @PathVariable("memberNo") Integer memberNo) {
+
+        Map<String, List<CartForCheckoutDTO>> cartMap = platformOrderService.getCartItemByMemberNo(memberNo);
+
+        if (cartMap != null)
+            return ResponseEntity.status(HttpStatus.OK).body(cartMap);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 
     // HTTP Method：GET
     // URL：http://localhost:8080/Jamigo/shop/product_picture/{productNo}/temp
     //
     // 目前僅為測試，日後將會改為使用詒婷寫的 商品圖片 的 Controller
-    @GetMapping("/shop/product_picture/{productNo}/temp")
+    @GetMapping("/shop/platform_order/product_picture/{productNo}")
     public ResponseEntity<?> getFirstProductPic(
             @PathVariable("productNo") Integer productNo) {
 
         // 取得商品編號為 productNo 的商品的首張圖片
-        byte[] image = platformOrderService.getFirstProductPic(productNo);
+        byte[] image = platformOrderService.getFirstProductPicByProductNo(productNo);
 
         // 建立 HttpHeaders 物件來設置 HTTP 回應的 headers
         HttpHeaders headers = new HttpHeaders();
@@ -110,10 +112,25 @@ public class PlatformOrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @GetMapping("/shop/platform_order/detail/{platformOrderNo}")
+    public ResponseEntity<?> getOrderDetail(
+            @PathVariable("platformOrderNo") Integer platformOrderNo) {
+
+        List<PlatformOrderDetailDTO> orderDetail = platformOrderService.getOrderDetailById(platformOrderNo);
+
+        if (orderDetail != null) {
+            Map<String, CounterOrderForPlatformOrderDTO> orderDetailMap = platformOrderService.convertToCounterOrderMap(orderDetail);
+            return ResponseEntity.status(HttpStatus.OK).body(orderDetailMap);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
     @PostMapping("/shop/platform_order")
     public void createPlatformOrder(
-            @RequestBody PlatformOrder platformOrder) {
+            @RequestBody PlatformOrder newPlatformOrder) {
 
-        platformOrderService.createOrder(platformOrder);
+        platformOrderService.createOrder(newPlatformOrder);
     }
 }

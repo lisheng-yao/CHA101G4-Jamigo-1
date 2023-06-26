@@ -1,19 +1,9 @@
 const memberNo = 1;
 
-let memberAddress;
+const totalCoupon = 0;
+const totalPoints = 1000;
 
-let buyerName;
-let buyerPhone;
-let buyerEmail;
-let paymentMethod;
-let pickupMethod;
-let deliveryCountry;
-let deliveryAddress;
-let invoiceMethod;
-let invoiceGui;
-let totalPaid;
-let actuallyPaid;
-let rewardPoints;
+let memberAddress;
 
 $(document).ready(function () {
 
@@ -21,9 +11,10 @@ $(document).ready(function () {
     setupRadioButtons('shipping_method', 'shipping');
     setupRadioButtons('invoice_method', 'invoice');
 
-
     autoFillMemberData(memberNo);
     getCartInfo(memberNo);
+
+    check_buyer_data();
 });
 
 function setupRadioButtons(name, id) {
@@ -57,15 +48,12 @@ function autoFillMemberData(memberNo) {
 
     $.ajax({
         type: "GET",
-        url: `http://localhost:8080/Jamigo/shop/platform_order/memberData/${memberNo}`, // 設定與後端相同的 url
+        url: `http://localhost:8080/Jamigo/shop/platform_order/memberData/${memberNo}`,
         success: function (response) {
-            $("input#memberName").val(response.memberName);
-            $("input#memberPhone").val(response.memberPhone);
-            $("input#memberEmail").val(response.memberEmail);
+            $("input#buyerName").val(response.memberName);
+            $("input#buyerPhone").val(response.memberPhone);
+            $("input#buyerEmail").val(response.memberEmail);
 
-            buyerName = response.memberName;
-            buyerPhone = response.memberPhone;
-            buyerEmail = response.memberEmail;
             memberAddress = response.memberAddress;
         }
     });
@@ -74,10 +62,10 @@ function autoFillMemberData(memberNo) {
 function getCartInfo(memberNo) {
     $.ajax({
         type: "GET",
-        url: `http://localhost:8080/Jamigo/shop/platform_order/cart/${memberNo}`, // 設定與後端相同的 url
+        url: `http://localhost:8080/Jamigo/shop/platform_order/cart/${memberNo}`,
         success: function (response) {
 
-            let total_price = 0;
+            let totalPaid = 0;
             let html_str = '<table>';
 
             for (let counter_name in response) {
@@ -90,12 +78,12 @@ function getCartInfo(memberNo) {
 
                 for (let item of response[counter_name]) {
 
-                    total_price += item["productPrice"] * item["amount"];
+                    totalPaid += item["productPrice"] * item["amount"];
 
                     html_str +=
                         `<tr>
                             <td class="cart_img">
-                                <img src="http://localhost:8080/Jamigo/shop/product_picture/${item['productNo']}/temp" alt="">
+                                <img src="http://localhost:8080/Jamigo/shop/platform_order/product_picture/${item['productNo']}" alt="">
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>
@@ -107,29 +95,32 @@ function getCartInfo(memberNo) {
                 html_str += `</tbody>`;
             }
 
+            let actuallyPaid = totalPaid - totalCoupon - totalPoints;
+            let rewardPoints = Math.round(actuallyPaid / 10);
+
             html_str +=
                 `<tfoot>
                         <tr>
                             <th colspan="2">原總金額</th>
-                            <th>$${total_price}</th>
+                            <th>$${totalPaid}</th>
                         </tr>
                         <tr>
                             <th colspan="2"><i class="fa fa-ticket" aria-hidden="true"></i> 折價券折抵</th>
-                            <th>-$0</th>
+                            <th style="color: red">-$${totalCoupon}</th>
                         </tr>
                         <tr>
                             <th colspan="2"><i class="fa-solid fa-coins fa-lg"></i> 點數折抵</th>
-                            <th>-$0</th>
+                            <th style="color: red">-$${totalPoints}</th>
                         </tr>
                         <tr class="order_total">
                             <th colspan="2">訂單實付金額</th>
-                            <th>$${total_price}</th>
+                            <th>$${actuallyPaid}</th>
                         </tr>
                         <tr class="order_total">
                             <th colspan="2">回饋點數</th>
                             <th>
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-                                <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${total_price / 10}
+                                <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${rewardPoints}
                             </th>
                         </tr>
                     </tfoot>
@@ -139,11 +130,6 @@ function getCartInfo(memberNo) {
                 </div>`;
 
             $("div.order_table").html(html_str);
-
-
-            totalPaid = total_price;
-            actuallyPaid = total_price;
-            rewardPoints = total_price / 10;
         }
     });
 }
@@ -178,6 +164,9 @@ $("div.order_table").on("click", "div.create_order button",function() {
 
         if (result.isConfirmed) {
 
+            let buyerName = $("input#buyerName").val();
+            let buyerPhone = $("input#buyerPhone").val();
+            let buyerEmail = $("input#buyerEmail").val();
             let paymentMethod = $("input[name='payment_method']:checked").val();
             let pickupMethod = $("input[name='shipping_method']:checked").val();
             let deliveryCountry = $("div.country ul li.selected").attr("data-value");
@@ -196,9 +185,8 @@ $("div.order_table").on("click", "div.create_order button",function() {
                 deliveryAddress: deliveryAddress,
                 invoiceMethod: invoiceMethod,
                 invoiceGui: invoiceGui,
-                totalPaid: totalPaid,
-                actuallyPaid: actuallyPaid,
-                rewardPoints: rewardPoints
+                totalCoupon: totalCoupon,
+                totalPoints: totalPoints
             }
 
             $.ajax({
@@ -206,65 +194,116 @@ $("div.order_table").on("click", "div.create_order button",function() {
                 url: "http://localhost:8080/Jamigo/shop/platform_order",
                 data: JSON.stringify(platform_order_data),
                 contentType: "application/json",
-                success: function(res) {
-                    console.log(res);
-                }
-            })
 
-            Swal.fire({
-                title: '你的訂單已成功送出',
-                icon: 'success',
-                confirmButtonText: "回到商城首頁"
-            }).then(function () {
-                window.location.href = "商城首頁.html"
+                success: function(res) {
+                    Swal.fire({
+                        title: '你的訂單已成功送出',
+                        icon: 'success',
+                        confirmButtonText: "回到商城首頁"
+                    }).then(function () {
+                        window.location.href = "商城首頁.html"
+                    })
+                },
+
+                error: function (err) {
+                    Swal.fire({
+                        title: '訂單送出失敗',
+                        icon: 'error',
+                        confirmButtonText: "關閉"
+                    })
+                }
             })
         }
     })
 });
 
+function check_buyer_data() {
+
+    $("input#buyerName").on("blur", function () {
+
+        let span_text = "*";
+
+        if($(this).val() === "")
+            span_text += " 不得為空！";
+
+        $(this).prev("label").children("span").text(span_text);
+    })
+
+    $("input#buyerPhone").on("blur", function () {
+
+        let span_text = "*";
+
+        if(!$(this).val().match("^09\\d{8}$"))
+            span_text += " 不符合格式！";
+
+        $(this).prev("label").children("span").text(span_text);
+    })
+
+    $("input#buyerEmail").on("blur", function () {
+
+        let span_text = "*";
+
+        if(!$(this).val().match("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"))
+            span_text += " 不符合格式！";
+
+        $(this).prev("label").children("span").text(span_text);
+    })
+}
+
 function check_all_fill_in() {
+
+    if ($("input#buyerName").val() === "" ||
+        !$("input#buyerPhone").val().match("^09\\d{8}$") ||
+        !$("input#buyerEmail").val().match("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
+
+        Swal.fire({
+            icon: 'error',
+            title: '訂購人資料輸入錯誤！'
+        })
+
+        return false;
+    }
 
     if(!$("input[name='payment_method']:checked").length) {
         Swal.fire({
             icon: 'error',
-            title: '錯誤',
-            text: '您必須選擇一種付款方式！'
+            title: '必須選擇一種付款方式！'
         })
 
         return false;
     }
-    else if(!$("input[name='shipping_method']:checked").length) {
+
+    if(!$("input[name='shipping_method']:checked").length) {
         Swal.fire({
             icon: 'error',
-            title: '錯誤',
-            text: '您必須選擇一種取貨方式！'
+            title: '必須選擇一種取貨方式！'
         })
 
         return false;
     }
-    else if($("#shipping2").prop("checked") && $("input.address").val() === "") {
+
+    if($("#shipping2").prop("checked") && $("input.address").val() === "") {
         Swal.fire({
             icon: 'error',
-            title: '錯誤',
-            text: '住址不得為空！'
+            title: '住址不得為空！'
         })
 
         return false;
     }
-    else if(!$("input[name='invoice_method']:checked").length) {
+
+    if(!$("input[name='invoice_method']:checked").length) {
         Swal.fire({
             icon: 'error',
-            title: '錯誤',
-            text: '您必須選擇一種開立發票方式！'
+            title: '必須選擇一種開立發票方式！'
         })
 
         return false;
     }
-    else if($("#invoice2").prop("checked") && $("input.invoice_gui").val() === "") {
+
+    if($("#invoice2").prop("checked") && $("input.invoice_gui").val() === "") {
         Swal.fire({
             icon: 'error',
-            title: '錯誤',
-            text: '統一編號不得為空！'
+            title: '統一編號不得為空！'
         })
 
         return false;

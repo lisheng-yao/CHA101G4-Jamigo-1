@@ -2,6 +2,8 @@ package com.jamigo.shop.platform_order.service;
 
 import com.jamigo.member.member_data.dto.MemberDataForCheckoutDTO;
 import com.jamigo.shop.cart.dto.CartForCheckoutDTO;
+import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
+import com.jamigo.shop.platform_order.dto.PlatformOrderDetailDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 
 import java.util.List;
@@ -20,18 +22,22 @@ public interface PlatformOrderService {
      * @param memberNo 會員編號
      * @return { "櫃位A名稱": ["商品a", "商品b"], "櫃位B名稱": ["商品c"] } 類型的資料
      */
-//    Map<String, List<CartForCheckoutDTO>> getCartInfo(Integer memberNo);
+    Map<String, List<CartForCheckoutDTO>> getCartItemByMemberNo(Integer memberNo);
 
     /**
      * 根據商品編號，取得該商品的第一張圖片
      * @param productNo 商品編號
      * @return 以 byte 陣列儲存的圖片
      */
-    byte[] getFirstProductPic(Integer productNo);
+    byte[] getFirstProductPicByProductNo(Integer productNo);
 
     List<PlatformOrder> getAllPlatformOrder();
 
     PlatformOrder getPlatformOrderById(Integer platformOrderNo);
 
-    void createOrder(PlatformOrder platformOrder);
+    List<PlatformOrderDetailDTO> getOrderDetailById(Integer platformOrderNo);
+
+    Map<String, CounterOrderForPlatformOrderDTO> convertToCounterOrderMap(List<PlatformOrderDetailDTO> orderDetails);
+
+    void createOrder(PlatformOrder newPlatformOrder);
 }

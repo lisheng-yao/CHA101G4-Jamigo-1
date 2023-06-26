@@ -18,7 +18,7 @@ $(function () {
                 title: '訂單狀態',
                 align: 'center',
                 valign: 'middle',
-                width: 100,
+                width: 120,
                 formatter: platformOrderStatFormatter
             },
             {
@@ -63,7 +63,7 @@ $(function () {
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
-                formatter: '<button type="button" class="btn btn-primary full-info" data-bs-toggle="modal" data-bs-target="#orderDetailModal" data-bs-whatever="@mdo">顯示完整資訊</button>' +
+                formatter: '<button type="button" class="btn btn-primary full-info" data-bs-toggle="modal" data-bs-target="#orderDetailModal" data-bs-whatever="@mdo">顯示其他資訊</button>' +
                     '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderEditModal" data-bs-whatever="@mdo">編輯</button>'
             }
         ],
@@ -78,25 +78,28 @@ function platformOrderStatFormatter(value) {
     if (value === 0) {
         return '<span class="badge rounded-pill text-bg-secondary">訂單取消</span>'
     }
-    else if (value === 1) {
+    else if (value === 10) {
         return '<span class="badge rounded-pill text-bg-warning">等待付款</span>'
     }
-    else if (value === 2) {
+    else if (value === 20) {
         return '<span class="badge rounded-pill text-bg-warning">揀貨中</span>'
     }
-    else if (value === 3) {
+    else if (value === 30) {
+        return '<span class="badge rounded-pill text-bg-danger">等待包裝</span>'
+    }
+    else if (value === 40) {
         return '<span class="badge rounded-pill text-bg-warning">配送中</span>'
     }
-    else if (value === 4) {
+    else if (value === 50) {
         return '<span class="badge rounded-pill text-bg-warning">等待取貨</span>'
     }
-    else if (value === 5) {
+    else if (value === 60) {
         return '<span class="badge rounded-pill text-bg-warning">等待訂單完成</span>'
     }
-    else if (value === 6) {
+    else if (value === 70) {
         return '<span class="badge rounded-pill text-bg-success">訂單完成</span>'
     }
-    else if (value === 7) {
+    else if (value === 80) {
         return '<span class="badge rounded-pill text-bg-danger">訂單異常</span>'
     }
 }
@@ -123,7 +126,7 @@ function paymentMethodFormatter(value) {
 }
 
 function actuallyPaidFormatter(value) {
-    return '<b>NT$' + value + '</b>';
+    return '<b>$' + value + '</b>';
 }
 
 function pickupMethodFormatter(value) {
@@ -140,19 +143,31 @@ $table.on("click", "button.full-info", function () {
     // 獲得平台訂單編號
     platformOrderNo = parseInt($(this).closest("td").siblings().eq(0).text().substring(1));
 
+    // 找到燈箱內容元素
+    let modal_body = document.querySelector("div#orderDetailModal div.modal-body");
+
+    let totalPaid;
+    let totalCoupon;
+    let totalPoints;
+    let actuallyPaid;
+    let rewardPoints;
+
     $.ajax({
         method: "GET",
         url: `http://localhost:8080/Jamigo/shop/platform_order/${platformOrderNo}`,
         success: function(res) {
 
-            // 找到燈箱內容元素
-            let modal_body = document.querySelector("div#orderDetailModal div.modal-body");
+            totalPaid = res.totalPaid;
+            totalCoupon = res.totalCoupon;
+            totalPoints = res.totalPoints;
+            actuallyPaid = res.actuallyPaid;
+            rewardPoints = res.rewardPoints;
 
             // 動態新增訂購人資訊
             modal_body.innerHTML = `
                <div>
                    <p><b>訂購人姓名：</b>${res.buyerName}</p>
-                   <p><b>訂購人手機：</b>${res.buyerPhone}</p>
+                   <p><b>訂購人手機號碼：</b>${res.buyerPhone}</p>
                    <p><b>訂購人Email：</b>${res.buyerEmail}</p>
                </div>
             `;
@@ -210,6 +225,180 @@ $table.on("click", "button.full-info", function () {
                     </div>
                 `;
             }
+
+
+
+            $.ajax({
+                method: "GET",
+                url: `http://localhost:8080/Jamigo/shop/platform_order/detail/${platformOrderNo}`,
+                success: function(response) {
+
+                    tableContent  = `
+                        <div class="order_table table-responsive">
+                            <table>
+                    `;
+
+                    for (let counter_name in response) {
+                        tableContent += `
+                            <tbody>
+                                <tr>
+                                    <td class="counter" colspan="3">
+                                        ${counter_name}
+                        `;
+
+                        if (response[counter_name]["disbursementStat"] === 0) {
+                            tableContent += `
+                                <span class="badge rounded-pill text-bg-danger">尚未撥款</span>
+                            `;
+                        }
+                        else if (response[counter_name]["disbursementStat"] === 1) {
+                            tableContent += `
+                                <span class="badge rounded-pill text-bg-success">已撥款</span>
+                            `;
+                        }
+
+                        for (let item of response[counter_name]["product"]) {
+                            tableContent += `
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="cart_img">
+                                        <img src="http://localhost:8080/Jamigo/shop/platform_order/product_picture/${item['productNo']}" alt="">
+                                    </td>
+                                    <td class="orderDetailStat">
+                            `;
+
+                            if (item['orderDetailStat'] === 20) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-warning">揀貨中</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 30) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-danger">等待包裝</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 40) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-warning">配送中</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 50) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-warning">等待取貨</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 60) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-warning">等待訂單完成</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 70) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-success">訂單完成</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 81) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-danger">申請換貨</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 82) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-danger">換貨中</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 83) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-danger">申請退貨退款</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 84) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-danger">退款中</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 85) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-danger">已退款</span>
+                                `;
+                            }
+
+                            tableContent += `
+                                </td>
+                                    <td class="cart_info">
+                                        <h5>${item["productName"]}</h5>
+                                        <p>單價: $${item["productPrice"]} / 數量: ${item["amount"]}</p>
+                                    </td>
+                                </tr>
+                            `;
+                        }
+
+                        tableContent += `
+                            </tbody>
+                        `;
+                    }
+
+                    tableContent += `
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">原總金額</th>
+                                    <th>$${totalPaid}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">折價券折抵</th>
+                                    <th>$${totalCoupon}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">點數折抵</th>
+                                    <th>$${totalPoints}</th>
+                                </tr>
+                                <tr class="order_total">
+                                    <th colspan="2">訂單實付金額</th>
+                                    <th>$${actuallyPaid}</th>
+                                </tr>
+                                <tr class="order_total">
+                                    <th colspan="2">回饋點數</th>
+                                    <th>
+                                        <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${rewardPoints}
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    `;
+
+                    modal_body.innerHTML += tableContent;
+                }
+            })
         }
     })
 });
+
+/*
+                    modal_body.innerHTML += `
+
+
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="2">原總金額</th>
+                                        <th>$1000</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">折價券折抵</th>
+                                        <th>$-100</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">點數折抵</th>
+                                        <th>$-100</th>
+                                    </tr>
+                                    <tr class="order_total">
+                                        <th colspan="2">訂單實付金額</th>
+                                        <th>$800</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    `;
+
+                     */
