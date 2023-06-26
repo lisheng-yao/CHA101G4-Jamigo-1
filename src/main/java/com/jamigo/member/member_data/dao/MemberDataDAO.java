@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface MemberDataDAO {
     MemberData selectBymemberAccount(String memberAccount);
+    MemberData selectBymemberEmail(String memberAccount);
 
     MemberData selectForLogin(String username, String password);
     int insert(MemberData memberData);

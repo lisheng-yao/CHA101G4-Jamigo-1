@@ -1,27 +1,24 @@
 package com.jamigo.member.member_data.util;
 
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import com.jamigo.member.member_data.util.CommonUtil2;
+import com.jamigo.member.member_data.Service.MemberService;
+import com.jamigo.member.member_data.entity.MemberData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
+
 @Component
-public class SendEmail {
+public class SendEmail4forgot {
+    @Autowired
+    private MemberService memberService;
 
 
-    public void sendMail(String email) {
+    public void sendMail(MemberData memberData) {
 
         try {
-            CommonUtil2 redisutil = new CommonUtil2();
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
             props.put("mail.smtp.socketFactory.port", "465");
@@ -37,14 +34,14 @@ public class SendEmail {
                 }
             });
 
-            String randoncode4email = redisutil.RandonCode();
-            redisutil.saveRandonCode(email, randoncode4email);
+            String password4forgot = memberService.forgot(memberData);
 
+            String email = memberData.getMemberEmail();
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myGmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject("註冊驗證碼");//標題
-            message.setText("感謝您的註冊，以下是您的驗證碼，請在兩分鐘內輸入。" + randoncode4email);//內容
+            message.setSubject("Jamigo忘記密碼");//標題
+            message.setText("這是您的密碼 ：" + password4forgot);//內容
 
             Transport.send(message);
 //			mailSender.send(message);
