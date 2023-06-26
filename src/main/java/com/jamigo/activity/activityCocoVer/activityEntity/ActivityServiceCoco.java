@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ActivityService {
+public class ActivityServiceCoco {
 	
 	@Autowired
-	ActivityRepository repository;
+	ActivityRepositoryCoco repository;
 	
-	public ActivityEntity getById(Integer activityNo) {
-		Optional<ActivityEntity> optional = repository.findById(activityNo);
+	public ActivityEntityCoco getById(Integer activityNo) {
+		Optional<ActivityEntityCoco> optional = repository.findById(activityNo);
 		return optional.get();
 	}
 }

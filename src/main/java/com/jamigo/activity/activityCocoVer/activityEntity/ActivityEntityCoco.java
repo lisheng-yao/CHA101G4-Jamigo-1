@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "activity")
-public class ActivityEntity implements Serializable {
+public class ActivityEntityCoco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -49,9 +49,9 @@ public class ActivityEntity implements Serializable {
 	byte[] activityPic;
 	Byte activityLev;
 	
-	public ActivityEntity() {}
+	public ActivityEntityCoco() {}
 
-	public ActivityEntity(Integer activityNo, Integer counterNo, Integer activityPlaceNo, Date activityStartTime,
+	public ActivityEntityCoco(Integer activityNo, Integer counterNo, Integer activityPlaceNo, Date activityStartTime,
 			Date activityEndTime, String activityName, String activityDetail, Integer activityLimit,
 			Integer activityNumber, Integer activityCost, Integer adminNo, Byte activityApprovalStat,
 			Date activityRegStartTime, Date activityRegEndTime, Integer activityEvalTotalNumber,

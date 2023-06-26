@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jamigo.activity.activityCocoVer.activityEntity.ActivityEntity;
-import com.jamigo.activity.activityCocoVer.activityEntity.ActivityService;
+import com.jamigo.activity.activityCocoVer.activityEntity.ActivityEntityCoco;
+import com.jamigo.activity.activityCocoVer.activityEntity.ActivityServiceCoco;
 
 @RestController
 @RequestMapping("/activity")
-public class ActivityController {
+public class ActivityControllerCoco {
 	
 	@Autowired
-	ActivityService service;
+	ActivityServiceCoco service;
 	
 	@GetMapping("/getById/{activityNo}")
-	public ActivityEntity getById(@PathVariable Integer activityNo) {
+	public ActivityEntityCoco getById(@PathVariable Integer activityNo) {
 		return service.getById(activityNo);
 	}
 }

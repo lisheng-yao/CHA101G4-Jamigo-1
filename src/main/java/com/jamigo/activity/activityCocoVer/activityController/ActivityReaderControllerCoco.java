@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jamigo.activity.activityCocoVer.activityEntity.ActivityService;
+import com.jamigo.activity.activityCocoVer.activityEntity.ActivityServiceCoco;
 
 @Controller
 @RequestMapping("/activityReader")
-public class ActivityReaderController {
+public class ActivityReaderControllerCoco {
 	
 	@Autowired
-	ActivityService srvice;
+	ActivityServiceCoco srvice;
 	
 	@GetMapping("/{activityNo}")
 	public void activityReader(@PathVariable Integer activityNo, HttpServletResponse resp) {
