@@ -21,8 +21,8 @@
                 const {successful, message} = body;
                 if (successful) {
                     const {memberNo, memberAccount} = body;
-                    sessionStorage.setItem('memberNo', memberNo);
-                    sessionStorage.setItem('memberAccount', memberAccount);
+                    localStorage.setItem('memberNo', memberNo);
+                    localStorage.setItem('memberAccount', memberAccount);
                     Swal.fire({
                         position: 'center',
                         icon: 'success',

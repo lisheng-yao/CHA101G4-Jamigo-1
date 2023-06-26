@@ -7,8 +7,8 @@
     const memberName = document.querySelector('#memberName');
     const memberPhone = document.querySelector('#memberPhone');
     const memberEmail = document.querySelector('#memberEmail');
+    const sendEmailButton = document.querySelector('#verification')
     const email_verification = document.querySelector('#email_verification')
-    const inputs = document.querySelectorAll('input');
     console.log("register.js啟動");
 
     btn2.addEventListener('click', () => {
@@ -51,6 +51,7 @@
 
         }
 
+        const email_verificationValue=email_verification.value;
         msg.textContent = '';
         fetch('register', {
             method: 'POST',
@@ -63,6 +64,7 @@
                 memberName: memberName.value,
                 memberPhone: memberPhone.value,
                 memberEmail: memberEmail.value,
+                email_verificationValue :email_verificationValue
             }),
         })
             .then(resp => resp.json())// .then(function (resp) {resp.json();)})
@@ -70,9 +72,6 @@
                 console.log(body);
                 const {successful} = body;//const successful = body.successful;
                 if (successful) {
-                    // for (let input of inputs) {
-                    //     input.disabled = true;
-                    // }
 
                     btn2.disabled = true;
                     msg.className = 'info';
@@ -101,6 +100,39 @@
             });
 
     });
+    sendEmailButton.addEventListener('click', function() {
+        fetch(`memberemail`, {
+            method: 'Post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                memberEmail :memberEmail.value
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '寄信成功!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: ' 寄信失敗!',
+                        footer: '<a href=""></a>'
+                    })
+                }
+            })
+            .catch(error => {
+                console.error('發生錯誤', error);
+            });
+    });
+
 
 
 

@@ -2,8 +2,6 @@ package com.jamigo.promotion.CouponType.controller;
 
 import com.jamigo.promotion.CouponType.Entity.CouponType;
 import com.jamigo.promotion.CouponType.Service.CouponTypeService;
-import com.jamigo.promotion.PromotionType.Entity.Promotion;
-import com.jamigo.promotion.PromotionType.Service.PromotionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class PromotionCouponController {
+public class PromotionCouponTypeController {
     private static final long serialVersionUID = 1L;
     @Autowired
     private CouponTypeService SERVICE;

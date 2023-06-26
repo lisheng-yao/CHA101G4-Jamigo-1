@@ -131,7 +131,7 @@
                                  <div class="mb-3">
                                     <label for="recipientaCond${i}"
                                            class="col-form-label"> 使用說明:</label>
-                                    <input type="text" class="form-control"
+                                    <input type="text" class="form-control "
                                            id="recipientaCond${i}" value="${couponConditions}" >
                                 </div>
                                 <span id="msg"> </span>
@@ -175,6 +175,14 @@
         pageLength: 10,
         info: false,
         destroy: true,
+        columnDefs: [
+            {
+                target: 8,
+                width:5,
+                className: "hiddenyes"
+            }
+        ]
+
 
     });
 
