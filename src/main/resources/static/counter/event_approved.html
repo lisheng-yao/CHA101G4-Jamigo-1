@@ -1,34 +1,32 @@
-f<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="UTF-8">
 
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 引入bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
 
-  <title>活動內容管理</title>
+  <!-- 引入fontawsome -->
+  <link rel="stylesheet" href="/Jamigo/counter/assets/fontawsome/css/all.css">
+
+  <!-- 新引入的CSS檔案或套件請由此往下放 -->
+
+  <link rel="stylesheet" href="/Jamigo/counter/css/all.css">
+
+  <!-- 引入Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+    rel="stylesheet" />
+  <title>員工資料管理</title>
 </head>
 
 <body>
   <div class="詒婷版">
-    <!-- 引入bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
-
-    <!-- 引入fontawsome -->
-    <link rel="stylesheet" href="front-end/core/backstage/assets/fontawsome/css/all.css" />
-
-    <!-- 新引入的CSS檔案或套件請由此往下放 -->
-
-    <link rel="stylesheet" href="front-end/core/backstage/assets/fontawsome/css/all.css" />
-
-    <!-- 引入Google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
-      rel="stylesheet" />
-
     <!-- 整頁的容器 -->
     <div class="container-fluid whole-page">
       <div class="row">
@@ -36,7 +34,7 @@ f<!DOCTYPE html>
           <span class="d-flex align-items-center logo-part"> <span class="logo-img mx-3"> <i
                 class="fa-solid fa-hat-cowboy-side fa-xl" style="font-size: 20px"></i>
             </span> <span class="fw-bold logo-name" style="font-size: 28px">
-              Jamigo </span> <span class="fw-bold platform-page" style="font-size: 24px"> 櫃位後臺管理系統 </span>
+              Jamigo </span> <span class="fw-bold platform-page" style="font-size: 24px"> 平臺後臺管理系統 </span>
             <button type="button" class="btn rounded-circle border-0 nav-btn home-btn" data-bs-toggle="tooltip"
               data-bs-placement="right" style="padding: 12px" data-bs-title="返回首頁">
               <i class="fa-solid fa-house fa-lg"></i>
@@ -204,7 +202,7 @@ f<!DOCTYPE html>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js"></script>
 
             <!-- 引入可可css -->
-            <link rel="stylesheet" href="./front-end/core/activityappr/css/backend.css">
+            <link rel="stylesheet" href="/Jamigo/counter/activity/css/backend.css">
             <style>
               /* -------------------------------------------- */
               html {
@@ -412,8 +410,7 @@ f<!DOCTYPE html>
                           <th><input type="text" class="form-control" placeholder="活動詳情" disabled /></th>
                         </tr>
                       </thead>
-
-                      <!--                      <-- 遍歷每個Activity欄位並顯示指定欄位 -->
+                      <!-- 活動管理頁面 -->
                       <tbody id="actlist">
                         <tr data-status="not-verifed">
                           <!-- <td><a href="#">20160824-1</a></td>
@@ -572,35 +569,35 @@ f<!DOCTYPE html>
                               <tbody>
                                 <!-- 活動詳情內容 -->
                                 <th scope="row">活動名稱</th>
-                                <td>Dior</td>
+                                <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">活動費用</th>
-                                  <td>0.3</td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">活動名額</th>
-                                  <td>a001</td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">活動內容</th>
-                                  <td>1</td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">報名開始時間</th>
-                                  <td>034251108</td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">報名截止時間</th>
-                                  <td>小吳</td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">活動開始時間</th>
-                                  <td>034251108</td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">活動結束時間</th>
-                                  <td>320桃園市中壢區復興路46號1樓</td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <th scope="row">活動照片</th>
@@ -622,14 +619,16 @@ f<!DOCTYPE html>
                         新增櫃位
                       </button> -->
                     </div>
+
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
 
           <!-- 引入jquery CDN-->
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
           <!-- axios CDN -->
           <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
@@ -642,50 +641,9 @@ f<!DOCTYPE html>
               cell.textContent = item[fieldName];
               return cell;
             }
-            axios.get('/demo/backend/applist')
+            axios.get('/Jamigo/backend/applist')
               .then(response => {
                 const data = response.data; //抓取伺服器的數據
-                //抓取Id為 'activitiesTable' table            
-                //                 let activitiesTable = document.getElementById('activitiesTable');
-                //                 console.log(response.data);
-
-                //遍歷數據並動態新增至表格
-                // const actlist = document.getElementById('actlist');//<tbody id="">
-                // data.forEach(item => {
-                //   const row = document.createElement('tr');
-                //   row.setAttribute('data-status', item.status);// data- 開頭的自定義屬性
-                //   //添加第一欄欄位
-                //   row.appendChild(createTableCell(item, 'activityNo'));
-                //   //添加第二欄欄位
-                //   row.appendChild(createTableCell(item, 'counterNo'));
-                //   //添加第三欄欄位
-                //   row.appendChild(createTableCell(item, 'activityLev'));
-                //   //添加第四欄欄位，活動批准
-                //   const cel1 = document.createElement('td');
-                //   const butappr = document.createElement('button');
-                //   butappr.textContent = '通過';
-                //   butappr.className = 'app btn btn-appr';
-                //   btnappr.onclick = function () {
-                //     alert("通過");
-                //   };
-                //   cel1.appendChild(btnappr);
-                //   const butrej = document.createElement('button');
-                //   butrej.textContent = '通過';
-                //   butrej.className = 'app btn btn-rej';
-                //   butrej.onclick = function () {
-                //     alert("退單");
-                //   };
-                //   cel1.appendChild(butrej);
-                //   row.appendChild(cel1);
-                //   //添加第五欄欄位
-                //   row.appendChild(createTableCell(item, 'activityApprovalStat'));
-                //   //添加第六欄欄位
-                //   row.appendChild(createTableCell(item, 'activityPlaceNo'));
-                //   //添加第七欄欄位，活動詳情
-                //   const cel2 = document.createElement('td');
-                //   row.appendChild(cel2);
-                //   // 最後，把這一行添加到表格中
-                //   activitiesTable.appendChild(row);
 
                 response.data.forEach(activity => {
                   let row = actlist.insertRow();
@@ -709,27 +667,64 @@ f<!DOCTYPE html>
                   btnAppr.className = 'app btn btn-appr';
                   btnAppr.textContent = '通過';
                   btnSpan.appendChild(btnAppr);
-                  //alert('申請通過!');
 
                   let btnRej = document.createElement('button');
                   btnRej.className = 'app1 btn btn-rej';
                   btnRej.textContent = '退單';
                   btnSpan.appendChild(btnRej);
                   btnCell.appendChild(btnSpan);
-                  //alert('退單!');
-
 
                   //添加判斷式依 activity.activityApprovalStat 的值(0.1.2)插入不同的 HTML
                   let approvalStatusCell = row.insertCell(4);
                   if (activity.activityApprovalStat === 1) {
                     // If it's 1, add the specified span element
                     approvalStatusCell.innerHTML = '<span class="label label-success"><i class="fa-solid fa-circle-check"></i>通過</span>';
+                  } else if (activity.activityApprovalStat === 0) {
+                    approvalStatusCell.innerHTML = ' <span class="label label-reject"><i class="fa-solid fa-circle-exclamation"></i>未通過</span>';
                   } else if (activity.activityApprovalStat === 2) {
                     approvalStatusCell.innerHTML = ' <span class="label label-danger"><i class="fa-solid fa-circle-exclamation"></i>待審核</span>';
-                  } else {
-                    approvalStatusCell.innerHTML = ' <span class="label label-reject"><i class="fa-solid fa-circle-exclamation"></i>未通過</span>'
                   }
                   row.insertCell(5).innerHTML = activity.activityPlaceNo;
+
+                  //活動批准按鈕設定(使用createElement動態生成的按鈕元素,要用addEventListener來添加點擊事件)
+                  btnAppr.addEventListener('click', function () {
+
+                    Swal.fire({
+                      text: "已批准活動！!"
+                    });
+                    // 更新activity.activityApprovalStat的值
+                    activity.activityApprovalStat = 1;
+                    location.reload();
+
+                    // 向後端發送請求以更新數據庫
+                    axios.post('/Jamigo/backend/appstatus', activity)
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+
+                  });
+
+                  btnRej.addEventListener('click', function () {
+                    Swal.fire({
+                      text: "申請已退回！!"
+                    });
+                    // 更新activity.activityApprovalStat的值
+                    activity.activityApprovalStat = 0;
+                    location.reload();
+
+                    // 向後端發送請求以更新數據庫
+                    axios.post('/Jamigo/backend/appstatus', activity)
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  });
+
                   //添加預設燈箱於活動詳情欄位
                   let btnDetail = row.insertCell(6);
                   let btnLink = document.createElement('a');
@@ -737,8 +732,8 @@ f<!DOCTYPE html>
                   btnLink.setAttribute('class', 'btn')
                   btnLink.setAttribute('data-bs-toggle', 'modal');
                   btnLink.setAttribute('data-bs-target', '#exampleModal');
+                  btnLink.dataset.activityNo = activity.activityNo; // 將活動編號儲存到按鈕的 dataset 中
                   btnLink.textContent = '詳細資訊';
-
                   // 創建 icon
                   let btnIcon = document.createElement('i');
                   btnIcon.setAttribute('class', 'fa-solid fa-circle-info');
@@ -749,74 +744,76 @@ f<!DOCTYPE html>
                   // 添加 button link 到 cell
                   btnDetail.appendChild(btnLink);
 
-
-                  //定義活動詳情(btnDetail)觸發事件
-                  //table布局(垂直列表)
-                  let activityNo = document.getElementById('activityNoInput').value;  // 或者使用某個已知的值
-
-                  btnLink.addEventListener('click', function () {
-                    axios.get(`/demo/backend/appdetail/${activityNo}`)
+                  //活動詳情燈箱開始
+                  //函數從觸發該事件點擊的元素 'dataset' 屬性獲取 'activityNo' 數據    
+                  btnDetail.addEventListener('click', function (event) {
+                    event.preventDefault(); // 防止 a 標籤的默認動作（跳轉到 href 屬性指定的鏈接）
+                    let activityNo = event.target.dataset.activityNo;
+                    let table = document.getElementById('appdetail');
+                    // 發送 GET 請求， URL 中包含前面獲取的 'activityNo'
+                    axios.get(`/Jamigo/backend/appdetail/${activityNo}`)
                       .then(response => {
-                        const data = response.data;
-                        const table = document.getElementById('appdetail');
-                        table.innerHTML = ''; // 清空表格內容
+                        if (response.data) {
+                          console.log('成功');
+                          const activity = response.data; // Assuming response.data contains the returned SQL data
+                          const field = [
+                            { name: '活動名稱', key: 'activityName' },
+                            { name: '活動費用', key: 'activityCost' },
+                            { name: '活動名額', key: 'activityLimit' },
+                            { name: '活動內容', key: 'activityDetail' },
+                            { name: '報名開始時間', key: 'activityRegStartTime' },
+                            { name: '報名截止時間', key: 'activityRegEndTime' },
+                            { name: '活動開始時間', key: 'activityStartTime' },
+                            { name: '活動結束時間', key: 'activityEndTime' },
+                            { name: '活動照片', key: 'activityPic' }
+                          ];
+                          //遍歷field陣列的每個項目,如果其key屬性在activity對象中存在,就將對應的值添加到指定的表格單元格中
+                          field.forEach((field, index) => {
+                            if (field.key in activity) {
+                              //該鍵若是activityPic,則將其值視為圖片的base64編碼，並創建新的img元素來顯示圖片
+                              if (field.key === 'activityPic') {
+                                let img = document.createElement('img');
+                                img.src = 'data:image/jpeg;base64,' + activity[field.key]; // replace this line if your image is not base64 encoded
+                                img.alt = '活動照片';
+                                img.width = 150;  // 可以根據需要設定圖片寬度
 
-                        const field = [
-                          { name: '活動名稱', key: 'activityName' },
-                          { name: '活動費用', key: 'activityCost' },
-                          { name: '活動名額', key: 'activityLimit' },
-                          { name: '活動內容', key: 'activityDetail' },
-                          { name: '報名開始時間', key: 'activityRegStartTime' },
-                          { name: '報名截止時間', key: 'activityRegEndTime' },
-                          { name: '活動開始時間', key: 'activityStartTime' },
-                          { name: '活動結束時間', key: 'activityEndTime' },
-                          { name: '活動照片', key: 'activityPic' }
-                        ];
-
-                        const actdata = data[0]; // 假設後端只回傳一筆資料
-
-                        field.forEach((field, fieldIndex) => {
-                          if (field.key in actdata) {
-                            const row = table.insertRow();
-                            const cell1 = row.insertCell();
-                            const cell2 = row.insertCell();
-
-                            cell1.textContent = field.name;
-
-                            if (field.key === 'activityPic') {
-                              // 圖片處理
-                              let img = document.createElement('img');
-                              img.src = `data:image/jpeg;base64,${actdata[field.key]}`; // 如果圖片是 base64 編碼
-                              img.alt = '活動照片';
-                              cell2.appendChild(img);
-                            } else {
-                              // 其他欄位直接賦值
-                              cell2.textContent = actdata[field.key];
+                                table.rows[index].cells[1].innerHTML = '';  // 先清空該單元格
+                                table.rows[index].cells[1].appendChild(img);
+                              } else {
+                                table.rows[index].cells[1].innerText = activity[field.key];
+                              }
                             }
-                          }
-                        });
+                          });
+                          //請求失敗，那麼將在控制台打印出相應的信息
+                        } else {
+                          console.log('null');
+                        }
+                      })
+                      .catch(error => {
+                        console.log('傳送失敗', error);
                       });
                   });
+                });
+                // 活動詳情燈箱結束
 
+                $("div.user-content").each(function () {
+                  $(this).hide();
+                  if ($(this).attr("id") == "main") {
+                    $(this).show();
+                  }
+                });
 
+                $(".user-id").on("click", function (e) {
+                  e.preventDefault();
+                  var id = $(this).attr("data-related");
                   $("div.user-content").each(function () {
                     $(this).hide();
-                    if ($(this).attr("id") == "main") {
+                    if ($(this).attr("id") == id) {
                       $(this).show();
                     }
                   });
-
-                  $(".user-id").on("click", function (e) {
-                    e.preventDefault();
-                    var id = $(this).attr("data-related");
-                    $("div.user-content").each(function () {
-                      $(this).hide();
-                      if ($(this).attr("id") == id) {
-                        $(this).show();
-                      }
-                    });
-                  });
                 });
+
                 $(document).ready(function () {
                   $(".btn-filter").on("click", function () {
                     var $target = $(this).data("target");
@@ -828,190 +825,189 @@ f<!DOCTYPE html>
                     }
                   });
                 });
-              });
+                // pagination
+                $.fn.pageMe = function (opts) {
+                  var $this = this,
+                    defaults = {
+                      perPage: 7,
+                      showPrevNext: false,
+                      hidePageNumbers: false,
+                    },
+                    settings = $.extend(defaults, opts);
 
-            // pagination
+                  var listElement = $this;
+                  var perPage = settings.perPage;
+                  var children = listElement.children();
+                  var pager = $(".pager");
 
-            $.fn.pageMe = function (opts) {
-              var $this = this,
-                defaults = {
-                  perPage: 7,
-                  showPrevNext: false,
-                  hidePageNumbers: false,
-                },
-                settings = $.extend(defaults, opts);
+                  if (typeof settings.childSelector != "undefined") {
+                    children = listElement.find(settings.childSelector);
+                  }
 
-              var listElement = $this;
-              var perPage = settings.perPage;
-              var children = listElement.children();
-              var pager = $(".pager");
+                  if (typeof settings.pagerSelector != "undefined") {
+                    pager = $(settings.pagerSelector);
+                  }
 
-              if (typeof settings.childSelector != "undefined") {
-                children = listElement.find(settings.childSelector);
-              }
+                  var numItems = children.length;
+                  var numPages = Math.ceil(numItems / perPage);
 
-              if (typeof settings.pagerSelector != "undefined") {
-                pager = $(settings.pagerSelector);
-              }
 
-              var numItems = children.size();
-              var numPages = Math.ceil(numItems / perPage);
+                  pager.data("curr", 0);
 
-              pager.data("curr", 0);
-
-              if (settings.showPrevNext) {
-                $('<li><a href="#" class="prev_link">«</a></li>').appendTo(
-                  pager
-                );
-              }
-
-              var curr = 0;
-              while (numPages > curr && settings.hidePageNumbers == false) {
-                $(
-                  '<li><a href="#" class="page_link">' +
-                  (curr + 1) +
-                  "</a></li>"
-                ).appendTo(pager);
-                curr++;
-              }
-
-              if (settings.showPrevNext) {
-                $('<li><a href="#" class="next_link">»</a></li>').appendTo(
-                  pager
-                );
-              }
-
-              pager.find(".page_link:first").addClass("active");
-              pager.find(".prev_link").hide();
-              if (numPages <= 1) {
-                pager.find(".next_link").hide();
-              }
-              pager.children().eq(1).addClass("active");
-
-              children.hide();
-              children.slice(0, perPage).show();
-
-              pager.find("li .page_link").click(function () {
-                var clickedPage = $(this).html().valueOf() - 1;
-                goTo(clickedPage, perPage);
-                return false;
-              });
-              pager.find("li .prev_link").click(function () {
-                previous();
-                return false;
-              });
-              pager.find("li .next_link").click(function () {
-                next();
-                return false;
-              });
-
-              function previous() {
-                var goToPage = parseInt(pager.data("curr")) - 1;
-                goTo(goToPage);
-              }
-
-              function next() {
-                goToPage = parseInt(pager.data("curr")) + 1;
-                goTo(goToPage);
-              }
-
-              function goTo(page) {
-                var startAt = page * perPage,
-                  endOn = startAt + perPage;
-
-                children.css("display", "none").slice(startAt, endOn).show();
-
-                if (page >= 1) {
-                  pager.find(".prev_link").show();
-                } else {
-                  pager.find(".prev_link").hide();
-                }
-
-                if (page < numPages - 1) {
-                  pager.find(".next_link").show();
-                } else {
-                  pager.find(".next_link").hide();
-                }
-
-                pager.data("curr", page);
-                pager.children().removeClass("active");
-                pager
-                  .children()
-                  .eq(page + 1)
-                  .addClass("active");
-              }
-            };
-
-            $(document).ready(function () {
-              $("#user").pageMe({
-                pagerSelector: "#myPager",
-                showPrevNext: true,
-                hidePageNumbers: false,
-                perPage: 3,
-              });
-            });
-
-            //search filter
-
-            /*
-                Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
-                */
-            $(document).ready(function () {
-              $(".filterable .btn-filter1").click(function () {
-                var $panel = $(this).parents(".filterable"),
-                  $filters = $panel.find(".filters input"),
-                  $tbody = $panel.find(".table tbody");
-                if ($filters.prop("disabled") == true) {
-                  $filters.prop("disabled", false);
-                  $filters.first().focus();
-                } else {
-                  $filters.val("").prop("disabled", true);
-                  $tbody.find(".no-result").remove();
-                  $tbody.find("tr").show();
-                }
-              });
-
-              $(".filterable .filters input").keyup(function (e) {
-                /* Ignore tab key */
-                var code = e.keyCode || e.which;
-                if (code == "9") return;
-                /* Useful DOM data and selectors */
-                var $input = $(this),
-                  inputContent = $input.val().toLowerCase(),
-                  $panel = $input.parents(".filterable"),
-                  column = $panel
-                    .find(".filters th")
-                    .index($input.parents("th")),
-                  $table = $panel.find(".table"),
-                  $rows = $table.find("tbody tr");
-                /* Dirtiest filter function ever ;) */
-                var $filteredRows = $rows.filter(function () {
-                  var value = $(this)
-                    .find("td")
-                    .eq(column)
-                    .text()
-                    .toLowerCase();
-                  return value.indexOf(inputContent) === -1;
-                });
-                /* Clean previous no-result if exist */
-                $table.find("tbody .no-result").remove();
-                /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
-                $rows.show();
-                $filteredRows.hide();
-                /* Prepend no-result row if all rows are filtered */
-                if ($filteredRows.length === $rows.length) {
-                  $table
-                    .find("tbody")
-                    .prepend(
-                      $(
-                        '<tr class="no-result text-center"><td colspan="' +
-                        $table.find(".filters th").length +
-                        '">No result found</td></tr>'
-                      )
+                  if (settings.showPrevNext) {
+                    $('<li><a href="#" class="prev_link">«</a></li>').appendTo(
+                      pager
                     );
-                }
+                  }
+
+                  var curr = 0;
+                  while (numPages > curr && settings.hidePageNumbers == false) {
+                    $(
+                      '<li><a href="#" class="page_link">' +
+                      (curr + 1) +
+                      "</a></li>"
+                    ).appendTo(pager);
+                    curr++;
+                  }
+
+                  if (settings.showPrevNext) {
+                    $('<li><a href="#" class="next_link">»</a></li>').appendTo(
+                      pager
+                    );
+                  }
+
+                  pager.find(".page_link:first").addClass("active");
+                  pager.find(".prev_link").hide();
+                  if (numPages <= 1) {
+                    pager.find(".next_link").hide();
+                  }
+                  pager.children().eq(1).addClass("active");
+
+                  children.hide();
+                  children.slice(0, perPage).show();
+
+                  pager.find("li .page_link").click(function () {
+                    var clickedPage = $(this).html().valueOf() - 1;
+                    goTo(clickedPage, perPage);
+                    return false;
+                  });
+                  pager.find("li .prev_link").click(function () {
+                    previous();
+                    return false;
+                  });
+                  pager.find("li .next_link").click(function () {
+                    next();
+                    return false;
+                  });
+
+                  function previous() {
+                    var goToPage = parseInt(pager.data("curr")) - 1;
+                    goTo(goToPage);
+                  }
+
+                  function next() {
+                    goToPage = parseInt(pager.data("curr")) + 1;
+                    goTo(goToPage);
+                  }
+
+                  function goTo(page) {
+                    var startAt = page * perPage,
+                      endOn = startAt + perPage;
+
+                    children.css("display", "none").slice(startAt, endOn).show();
+
+                    if (page >= 1) {
+                      pager.find(".prev_link").show();
+                    } else {
+                      pager.find(".prev_link").hide();
+                    }
+
+                    if (page < numPages - 1) {
+                      pager.find(".next_link").show();
+                    } else {
+                      pager.find(".next_link").hide();
+                    }
+
+                    pager.data("curr", page);
+                    pager.children().removeClass("active");
+                    pager
+                      .children()
+                      .eq(page + 1)
+                      .addClass("active");
+                  }
+                };
+
+                $(document).ready(function () {
+                  $("#user").pageMe({
+                    pagerSelector: "#myPager",
+                    showPrevNext: true,
+                    hidePageNumbers: false,
+                    perPage: 3,
+                  });
+                });
+
+                //search filter
+
+                /*
+                    Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
+                    */
+                $(document).ready(function () {
+                  $(".filterable .btn-filter1").click(function () {
+                    var $panel = $(this).parents(".filterable"),
+                      $filters = $panel.find(".filters input"),
+                      $tbody = $panel.find(".table tbody");
+                    if ($filters.prop("disabled") == true) {
+                      $filters.prop("disabled", false);
+                      $filters.first().focus();
+                    } else {
+                      $filters.val("").prop("disabled", true);
+                      $tbody.find(".no-result").remove();
+                      $tbody.find("tr").show();
+                    }
+                  });
+
+                  $(".filterable .filters input").keyup(function (e) {
+                    /* Ignore tab key */
+                    var code = e.keyCode || e.which;
+                    if (code == "9") return;
+                    /* Useful DOM data and selectors */
+                    var $input = $(this),
+                      inputContent = $input.val().toLowerCase(),
+                      $panel = $input.parents(".filterable"),
+                      column = $panel
+                        .find(".filters th")
+                        .index($input.parents("th")),
+                      $table = $panel.find(".table"),
+                      $rows = $table.find("tbody tr");
+                    /* Dirtiest filter function ever ;) */
+                    var $filteredRows = $rows.filter(function () {
+                      var value = $(this)
+                        .find("td")
+                        .eq(column)
+                        .text()
+                        .toLowerCase();
+                      return value.indexOf(inputContent) === -1;
+                    });
+                    /* Clean previous no-result if exist */
+                    $table.find("tbody .no-result").remove();
+                    /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+                    $rows.show();
+                    $filteredRows.hide();
+                    /* Prepend no-result row if all rows are filtered */
+                    if ($filteredRows.length === $rows.length) {
+                      $table
+                        .find("tbody")
+                        .prepend(
+                          $(
+                            '<tr class="no-result text-center"><td colspan="' +
+                            $table.find(".filters th").length +
+                            '">No result found</td></tr>'
+                          )
+                        );
+                    }
+                  });
+                });
               });
-            });
 
           </script>
         </div>
