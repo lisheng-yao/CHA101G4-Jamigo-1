@@ -1,0 +1,22 @@
+.form-item-activity-score-title::before{
+    content: "\f005";
+    font-family: 'Font Awesome 6 Free';
+    position: relative;
+    top: -1px;
+}
+.form-item-activity-score + .form-item{
+    width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+#inputExp{
+    padding: 4px 20px 9px;
+}
+.form-item-exp label::before{
+    content: "\f4be";
+    font-family: 'Font Awesome 6 Free';
+}
