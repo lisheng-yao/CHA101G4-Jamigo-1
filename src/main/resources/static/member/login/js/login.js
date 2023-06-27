@@ -32,7 +32,7 @@
                     })
                     setTimeout(function() {
                         console.log("等1.5秒");
-                        location = '../member/edit.html';
+                        location = '../../frontEnd/前台會員管理首頁.html';
                     }, 1600);
 
                 } else {
