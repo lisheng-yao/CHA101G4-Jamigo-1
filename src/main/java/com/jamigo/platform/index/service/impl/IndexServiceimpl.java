@@ -7,6 +7,8 @@ import com.jamigo.platform.index.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class IndexServiceimpl implements IndexService {
 
@@ -17,4 +19,14 @@ public class IndexServiceimpl implements IndexService {
     public String insertOne(IndexVO indexVO) {
         return indexDao.insertOne(indexVO);
     }
+
+    @Override
+    public List<IndexVO> getAll() {
+        return indexDao.getAll();
+    }
+
+//    @Override
+//    public String deleteOne(Integer mainpageCarouselNo) {
+//        return indexDao.?;
+//    }
 }
