@@ -10,7 +10,7 @@
 
     function getAllPromotion() {
         console.log('進入getAllPromotion()')
-        fetch("http://localhost:8080/Jamigo/Promotion/GetAllPromotionType")
+        fetch("/Jamigo/Promotion/GetAllPromotionType")
             .then(function (response) {
                 // 檢查 API 响應的狀態碼
                 if (response.status !== 200) {
