@@ -153,7 +153,7 @@ html {
 
 .login-button {
     display: inline-block;
-    background-color: #3e8e41;
+    background-color: #201e6b;
     margin-left: 0%;
     margin-bottom: 10%;
     color: rgb(255, 255, 255);
@@ -164,11 +164,7 @@ html {
 }
 
 .login-button:hover {
-    background-color: #7dae55;
-}
-
-.login-button:active {
-    background-color: #45a049;
+    background-color: #141132;
 }
 
 /* 登入按鈕 */

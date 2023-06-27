@@ -1,0 +1,304 @@
+/* ---------------------------------------------------------整體css設定-------------------------------- */
+/* transition: ease all 0.5s 過渡效果 */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    /* scroll-behavior: smooth  點擊a標籤回當前頁面位置會平滑地滾動回去 */
+    scroll-behavior: smooth;
+}
+
+/* main區域 */
+.main_before {
+    padding-top: 80px;
+}
+
+/* -----------------------------------------------頁首開始----------------------------------------- */
+
+/* 設定頁首區域 還有畫面比例的頁首RWD調整 */
+.navbar .container {
+    width: 100%;
+    height: 70px;
+
+    max-width: 100%;
+    position: fixed;
+    top: 9px;
+}
+
+@media (min-width: 1422px) {
+    .navbar .container {
+        height: 77px;
+        top: 2px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .navbar .container {
+        height: 88px;
+    }
+}
+
+@media (max-width: 1164px) {
+    .navbar .container {
+        height: 56px;
+    }
+}
+
+@media (max-width:1025px) {
+    .navbar .container {
+        height: 48px;
+    }
+}
+
+.container .navbarimg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    object-fit: contain;
+    z-index: -100;
+}
+
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 100;
+    opacity: 0.95;
+}
+
+
+.navbar-brand {
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    left: 0;
+    bottom: 10px;
+
+}
+
+.LOGO {
+    height: 100%;
+}
+
+.navbar-nav .nav-link {
+    margin-bottom: 10px;
+}
+
+/* CSS  導覽列按鈕美化 */
+.button-01 {
+    all: unset;
+    width: 15%;
+    height: 5%;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    position: relative;
+    color: #f0f0f0;
+    cursor: pointer;
+    z-index: 1;
+    padding: 10px 20px;
+    display: flex;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-right: 1rem;
+}
+
+.button-01::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -99999;
+    transition: all .4s;
+}
+
+.button-01::before {
+    transform: translate(60%, 45%);
+    width: 245%;
+    height: 100%;
+    background: #545489;
+    border-radius: 10px;
+}
+
+.button-01:hover::before {
+    transform: translate(60%, 45%);
+    width: 245%;
+    height: 110%;
+}
+
+.button-01:hover {
+    color: yellow;
+}
+
+/* js判斷是否為當前頁面後套入的css */
+.collapse .active {
+    color: yellow !important
+}
+
+/* 登入區塊 */
+#signin {
+    display: block;
+    position: relative;
+    right: 15%;
+}
+#signininfo {
+    display: block;
+    position: relative;
+    right: 15%;
+}
+
+.login-button {
+    display: inline-block;
+    background-color: #3e8e41;
+    margin-left: 0%;
+    margin-bottom: 10%;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.login-button:hover {
+    background-color: #7dae55;
+}
+
+.login-button:active {
+    background-color: #45a049;
+}
+
+/* 登入按鈕 */
+.svg-inline--fa {
+    height: 16px;
+}
+
+#memberinfo {
+    display: none;
+    width: 30%;
+    max-width: 30%;
+    justify-content: space-around;
+    gap: 4%;
+}
+
+#imgcontainer {
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: 5%;
+}
+
+.logout-button {
+    padding: 0.5rem 1rem;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+}
+
+.logout-button:focus {
+    outline: none;
+}
+
+#membername {
+    color: #f0f0f0;
+}
+
+#memberimg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.memberinfo_container {
+    position: relative;
+    margin-top: 10px;
+}
+
+
+/* ----------------------------------------------頁首結束----------------------------------- */
+/* ----------------------------------------------main開始可以放這 可能要注意共同關鍵字--------------------------------- */
+
+
+
+
+/* -----------------------------------------------main結束 --------------------------------- */
+/* -----------------------------------------------頁尾開始----------------------------------- */
+
+/* 設定頁尾區域 */
+.footer_section {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    width: 100%;
+    float: left;
+    height: auto;
+    background-color: rgb(50, 56, 64) !important;
+}
+
+/* 頁尾大標題 */
+.customer_text {
+    width: 100%;
+    float: left;
+    font-size: 24px;
+    margin-left: 30px;
+}
+
+/* 頁尾小標題 */
+.footer_lorem_text {
+    float: left;
+    font-size: 16px;
+    margin-left: 40px;
+}
+
+.footer_lorem_text a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer_lorem_text :hover {
+    color: yellow;
+}
+
+.footer_LOGO {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding-left: 0px;
+}
+
+.row {
+    --bs-gutter-x: 0em;
+}
+
+.row .col-lg-3 {
+    width: 23%;
+}
+
+.footer_icon {
+    position: absolute;
+    margin-top: -180px;
+    margin-left: 920px;
+}
+
+.footer-icon {
+    margin-left: 25px;
+    width: 35px;
+    height: 35px;
+}
+
+.footer_icon a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ------------------------------------------------頁尾結束------------------------------------ */
