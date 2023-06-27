@@ -183,51 +183,7 @@
                                 <div class="canUse_platformCoupon d-flex">
                                     <i class="fa fa-check p-2"></i>
                                     <span class="canUsePlatformCoupon_area">已符合使用門檻</span>
-                                    <div class="dropdown">
-                                        <button class="btn dropdown-toggle" type="button"
-                                                id="canUse_platformCouponDropdown" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                            選擇折價券
-                                        </button>
-                                        <div class="dropdown-menu canUse_platformCoupon p-2"
-                                             aria-labelledby="canUse_platformCouponDropdown">
-                                            <div class="choose_platformCoupon">
-                                                請選擇欲使用折價券
-                                            </div>
-                                            <div class="card platformCoupon_card my-2">
-                                                <div class="card-body platform_coupon">
-                                                    <span class="card-text platformCoupon_description">節慶折百</span>
-                                                    <span class="platformCoupon_minus">-</span>
-                                                    <span class="platformCoupon_discount">100</span>
-                                                    <button type="button" class="use_platformCoupon">使用折價券</button>
-                                                </div>
-                                            </div>
-                                            <div class="card platformCoupon_card my-2">
-                                                <div class="card-body platform_coupon">
-                                                    <span class="card-text platformCoupon_description">周年促銷</span>
-                                                    <span class="platformCoupon_minus">-</span>
-                                                    <span class="platformCoupon_discount">100</span>
-                                                    <button type="button" class="use_platformCoupon">使用折價券</button>
-                                                </div>
-                                            </div>
-                                            <div class="card platformCoupon_card my-2">
-                                                <div class="card-body platform_coupon">
-                                                    <span class="card-text platformCoupon_description">暑期促銷</span>
-                                                    <span class="platformCoupon_minus">-</span>
-                                                    <span class="platformCoupon_discount">100</span>
-                                                    <button type="button" class="use_platformCoupon">使用折價券</button>
-                                                </div>
-                                            </div>
-                                            <div class="card platformCoupon_card my-2">
-                                                <div class="card-body platform_coupon">
-                                                    <span class="card-text platformCoupon_description">暑期促銷</span>
-                                                    <span class="platformCoupon_minus">-</span>
-                                                    <span class="platformCoupon_discount">100</span>
-                                                    <button type="button" class="use_platformCoupon">使用折價券</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <select class="available_platformCoupon"></select>
                                 </div>
                                 <!-- 預留使用折價券預覽位置 -->
                                 <div class="used_platformCoupon"></div>
@@ -241,16 +197,17 @@
                                         <i class="fa-solid fa-bag-shopping"></i>
                                     </button>
                                 </div>
-                                <div class="toBeUsed_platformCoupon">
-                                    <div class="toBeUsed_coupon_item d-flex align-items-center my-1">
-                                        <div class="toBeUsedPlatformCoupon_description">節慶折百</div>
-                                        <span class="toBeUsedPlatformCoupon_minus">-</span>
-                                        <span class="toBeUsedPlatformCoupon_discount">100</span>
-                                    </div>
-                                </div>
+<!--                                <div class="toBeUsed_platformCoupon">-->
+<!--                                    <div class="toBeUsed_coupon_item d-flex align-items-center my-1">-->
+<!--                                        <div class="toBeUsedPlatformCoupon_description">節慶折百</div>-->
+<!--                                        <span class="toBeUsedPlatformCoupon_minus">-</span>-->
+<!--                                        <span class="toBeUsedPlatformCoupon_discount">100</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="show_memberPoints d-flex mt-3">
                                     <i class="fa-solid fa-sack-dollar fa-xl p-2"></i>
                                     <span class="canUse_memberPoints">會員可使用點數</span>
+                                    <span class="memberOwnPoints"></span>
                                 </div>
                                 <div class="use_memberPoints_area my-2">
                                     欲使用會員點數：
@@ -269,9 +226,8 @@
                                     <p class="original_total">1000</p>
                                 </div>
                                 <div class="order_counterUsedDiscount my-3">
-                                    <p class="checkout_title">櫃位折價券折抵</p>
-                                    <p>-</p>
-                                    <p class="counter_usedDiscount">100</p>
+                                    <p class="checkout_title">全櫃位折價後金額</p>
+                                    <p class="totalAfterCounterDiscount">100</p>
                                 </div>
                                 <div class="order_platformUsedDiscount my-3">
                                     <p class="checkout_title">全館折價券折抵</p>
@@ -288,7 +244,7 @@
                                     <p class="final_total">650</p>
                                 </div>
                                 <div class="checkout_btn">
-                                    <a href="#">確認結帳</a>
+                                    <a href="#" id="checkout_confirm">確認結帳</a>
                                 </div>
                             </div>
                         </div>

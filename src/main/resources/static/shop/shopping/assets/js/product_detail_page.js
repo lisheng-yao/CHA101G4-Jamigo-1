@@ -55,7 +55,7 @@ $(function (){
 //取得會員編號
 function getMemberNo(){
     // return localStorage.getItem("memberNo");
-    return 3;
+    return 1;
 }
 
 //放入購物車

@@ -26,7 +26,7 @@ $(function(){
                             <span class="${productStatusColor}">${productStatusString}</span>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" id="${resp[e].productNo}"  onclick="gotoEditPage(this.id)">查看/修改</button>
+                            <button type="button" class="btn btn-primary" id="${resp[e].productNo}" onclick="gotoEditPage(this.id)">查看/修改</button>
                         </td>
                     </tr>
                 `;

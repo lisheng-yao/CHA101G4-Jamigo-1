@@ -3,6 +3,7 @@ package com.jamigo.shop.cart.controller;
 import com.google.gson.Gson;
 import com.jamigo.member.member_data.entity.MemberData;
 import com.jamigo.shop.cart.dto.CartDTO;
+import com.jamigo.shop.cart.dto.CouponInfoDTO;
 import com.jamigo.shop.cart.service.CartService;
 import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.service.ProductPicService;
@@ -77,5 +78,16 @@ public class CartController {
         return cartService.findAllCartItem(memberNo);
     }
 
+    @GetMapping("/getMemberCoupons/{memberNo}")
+    public List<CouponInfoDTO> getMemberCoupons(@PathVariable Integer memberNo){
+        System.out.println(cartService.getCouponsByMemberNo(memberNo));
+        return cartService.getCouponsByMemberNo(memberNo);
+    }
+
+    @GetMapping("/getMemberPoints/{memberNo}")
+    public Integer getMemberPoints(@PathVariable Integer memberNo){
+        System.out.println(cartService.getMemberPointsByNo(memberNo));
+        return cartService.getMemberPointsByNo(memberNo);
+    }
 
 }

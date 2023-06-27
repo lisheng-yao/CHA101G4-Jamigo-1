@@ -4,15 +4,29 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.jamigo.member.member_data.dao.MemberDataDAO;
+import com.jamigo.member.member_data.entity.MemberData;
 import com.jamigo.shop.cart.dto.CartDTO;
+import com.jamigo.shop.cart.dto.CouponInfoDTO;
 import com.jamigo.shop.cart.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CartServiceImpl implements CartService {
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    private MemberDataDAO memberDataDAO;
 
     @Override
     public String addOneToCart(CartDTO cartItem, Integer memberNo) {
@@ -249,6 +263,35 @@ public class CartServiceImpl implements CartService {
             }
         }
         return cartDTOList;
+    }
+
+    @Override
+    public List<CouponInfoDTO> getCouponsByMemberNo(Integer memberNo) {
+        String sql = "SELECT mc.memberCouponNo, mc.couponTypeNo, ct.couponTypeName, ct.couponPrice, ct.couponLowest, ct.counterNo " +
+                     "FROM member_coupon mc " +
+                     "JOIN coupon_type ct ON mc.couponTypeNo = ct.couponTypeNo " +
+                     "WHERE mc.memberNo = :memberNo AND mc.couponUsedStat = 0 AND ct.couponExpireDate > current_timestamp();";
+        Map<String , Object> map = new HashMap<>();
+        map.put("memberNo", memberNo);
+        List<CouponInfoDTO> memberCouponsList = namedParameterJdbcTemplate.query(sql, map, (rs, rowNum) -> {
+            CouponInfoDTO couponInfoDTO = new CouponInfoDTO();
+            couponInfoDTO.setMemberCouponNo(rs.getInt("memberCouponNo"));
+            couponInfoDTO.setCounterNo(rs.getInt("counterNo"));
+            couponInfoDTO.setCouponTypeNo(rs.getInt("couponTypeNo"));
+            couponInfoDTO.setCouponTypeName(rs.getString("couponTypeName"));
+            couponInfoDTO.setCouponPrice(rs.getInt("couponPrice"));
+            couponInfoDTO.setCouponLowest(rs.getInt("couponLowest"));
+            return couponInfoDTO;
+        });
+        return memberCouponsList;
+    }
+
+    @Override
+    public Integer getMemberPointsByNo(Integer memberNo) {
+        MemberData member = memberDataDAO.selectById(memberNo);
+        Integer memberPoints = member.getMemberPoints();
+        System.out.println(memberPoints);
+        return memberPoints;
     }
 
 }

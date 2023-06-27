@@ -245,6 +245,20 @@ div.use_memberPoints_area{
     font-size: 15px;
 }
 
+/*櫃位折價券下拉選單*/
+div.counterCoupon_placeholder{
+    margin-left: 70px;
+}
+
+select.available_counterCoupon{
+    padding: 8px;
+    margin-top: 3px;
+}
+
+select.selectsOfCounterCoupon option{
+    padding: 5px;
+}
+
 .memberPoints_input {
     border-radius: 5px;
     width: 100px;
