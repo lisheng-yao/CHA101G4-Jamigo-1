@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,8 +35,7 @@ public class ActivityController {
 	public Activity addActivity(@RequestParam("counterNo") Integer counterNo,
 
 			@RequestParam("activityName") String activityName, @RequestParam("activityCost") Integer activityCost,
-			@RequestParam("activityLimit") Integer activityLimit,
-			@RequestParam("activityPlaceNo") Byte activityPlaceNo,
+			@RequestParam("activityLimit") Integer activityLimit, @RequestParam("activityPlaceNo") Byte activityPlaceNo,
 			@RequestParam("activityDetail") String activityDetail,
 			@RequestParam("activityPic") MultipartFile activityPic,
 			@RequestParam("activityRegStartTime") String activityRegStartTimeStr,
@@ -76,39 +77,38 @@ public class ActivityController {
 		return activityService.getAllActivities();
 
 	}
-	
-	//依照活動編號映出相對應的活動詳情
+
+	// 依照活動編號映出相對應的活動詳情
 	@GetMapping("/backend/appdetail/{activityNo}")
 	public Activity getActDetail(@PathVariable("activityNo") Integer activityNo) {
 		return activityService.getActDetail(activityNo);
 	}
-	
-	//列出申請單中審查通過的活動
-	 @GetMapping("/backend/actapprove")
-	    public List<Activity> getApprovedActivities() {
-	        return activityService.findByActApprStat((byte) 1);
-	    }
-	 
-	 @GetMapping("/backend/appinfo/{activityId}")
-	 //依照點選之活動編號映出相對應的活動資訊
-	 public Activity getActInfo(@PathVariable("activityId")Integer activityNo) {
-		 return activityService.getActDetail(activityNo);//抓出sql相對之Id
-	 }
-	 
-	 @PostMapping("/backend/appstatus")
-	 //更新審查狀態數據
-	 //代表整個HTTP響應
-	 public ResponseEntity<?> updateActStatus(@RequestBody Activity activity)throws Exception{
-		 Activity updatedActivity =activityService.updateActStatus(activity);
-		 return new ResponseEntity<>(updatedActivity,HttpStatus.OK);
-	 }
-	 
-		
-		//依照活動編號映出相對應的活動資料
-		 @GetMapping("/backend/conresult/{counterNo}")
-		    public List<Activity> getActivityByCounterNo(Integer counterNo) {
-		        return activityService.getActivityByCounterNo(counterNo);
-		    }
- 	
-	 
+
+	// 列出申請單中審查通過的活動
+	@GetMapping("/backend/actapprove")
+	public List<Activity> getApprovedActivities() {
+		return activityService.findByActApprStat((byte) 1);
+	}
+
+	@GetMapping("/backend/appinfo/{activityId}")
+	// 依照點選之活動編號映出相對應的活動資訊
+	public Activity getActInfo(@PathVariable("activityId") Integer activityNo) {
+		return activityService.getActDetail(activityNo);// 抓出sql相對之Id
+	}
+
+	@PostMapping("/backend/appstatus")
+	// 更新審查狀態數據
+	// 代表整個HTTP響應
+	public ResponseEntity<?> updateActStatus(@RequestBody Activity activity) throws Exception {
+		Activity updatedActivity = activityService.updateActStatus(activity);
+		return new ResponseEntity<>(updatedActivity, HttpStatus.OK);
+	}
+
+	// 依照活動編號映出相對應的活動資料
+	@GetMapping("/backend/couresult/{counterNo}")
+	public List<Activity> getConResultById(@PathVariable("counterNo") Integer counterNo, HttpSession session) {
+		session.setAttribute("counterSession",counterNo); // store the counterNo into the session
+		return activityService.getConResultById(counterNo);
+	}
+
 }

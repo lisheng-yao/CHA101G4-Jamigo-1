@@ -3,6 +3,8 @@ package com.jamigo.activity.activity_approve.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +60,12 @@ public class ActivityService {
 	    }
 	}
 	//透過櫃位Id查詢申請的活動狀態
-	public List<Activity> getActivityByCounterNo(Integer counterNo) {
-		return activityDAO.findByCounterNo(counterNo);
+	public List<Activity> getConResultById(Integer counterNo) {
+		List<Activity> activities =activityDAO.findByCounterNo(counterNo);
+		if(activities==null) {
+			throw new EntityNotFoundException("not found activity"+counterNo);
+		}
+		return activities;
 	}
 	
 }
