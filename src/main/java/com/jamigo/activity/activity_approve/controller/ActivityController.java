@@ -104,11 +104,17 @@ public class ActivityController {
 		return new ResponseEntity<>(updatedActivity, HttpStatus.OK);
 	}
 
-	// 依照活動編號映出相對應的活動資料
+	// 依照活動編號映出相對應的活動資料[櫃位後台]
 	@GetMapping("/backend/couresult/{counterNo}")
 	public List<Activity> getConResultById(@PathVariable("counterNo") Integer counterNo, HttpSession session) {
 		session.setAttribute("counterSession",counterNo); // store the counterNo into the session
 		return activityService.getConResultById(counterNo);
+	}
+	
+	// 依照點選之活動編號映出相對應的活動資訊[櫃位後台]
+	@GetMapping("/backend/couninfo/{activityNo}")	
+	public Activity getCouInfo(@PathVariable("activityNo") Integer activityNo) {
+		return activityService.getActDetail(activityNo);// 抓出sql相對之Id
 	}
 
 }
