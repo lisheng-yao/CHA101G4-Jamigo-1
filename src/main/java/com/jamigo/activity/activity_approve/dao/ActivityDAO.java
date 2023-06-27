@@ -15,4 +15,8 @@ public interface ActivityDAO extends JpaRepository<Activity, Integer> {
 
 	// 查找ActivityApprovalStat欄位值為指定值的所有Activity實體,並在ActivityService中調用方法
 	List<Activity> findByActivityApprovalStat(Byte activityApprovalStat);
+
+	List<Activity> findByCounterNo(Integer counterNo);
+	
+	//Activity findByActivityByCounterNo(Integer counterNo);
 }

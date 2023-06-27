@@ -57,4 +57,9 @@ public class ActivityService {
 	        throw new Exception("活動未找到");
 	    }
 	}
+	//透過櫃位Id查詢申請的活動狀態
+	public List<Activity> getActivityByCounterNo(Integer counterNo) {
+		return activityDAO.findByCounterNo(counterNo);
+	}
+	
 }

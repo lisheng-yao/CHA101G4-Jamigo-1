@@ -76,30 +76,39 @@ public class ActivityController {
 		return activityService.getAllActivities();
 
 	}
-
-	// 依照活動編號映出相對應的活動詳情
+	
+	//依照活動編號映出相對應的活動詳情
 	@GetMapping("/backend/appdetail/{activityNo}")
 	public Activity getActDetail(@PathVariable("activityNo") Integer activityNo) {
 		return activityService.getActDetail(activityNo);
 	}
-
-	// 列出申請單中審查通過的活動
-	@GetMapping("/backend/actapprove")
-	public List<Activity> getApprovedActivities() {
-		return activityService.findByActApprStat((byte) 1);
-	}
-
-	// 依照點選之活動編號映出相對應的活動資訊
-	@GetMapping("/backend/appinfo/{activityId}")
-	public Activity getActInfo(@PathVariable("activityId") Integer activityNo) {// 獲取這個變量的值，並將其作為參數傳遞給你的控制器方法
-		return activityService.getActDetail(activityNo);// 抓出sql相對的Id
-	}
-
-	// 更新審查狀態數據
-	@PostMapping("/backend/appstatus")
-	//ResponseEntity<?>代表整個HTTP響應：狀態碼、頭部資訊，以及體(body)。
-	public ResponseEntity<?> updateActStatus(@RequestBody Activity activity) throws Exception {
-		Activity updatedActivity = activityService.updateActStatus(activity);
-		return new ResponseEntity<>(updatedActivity, HttpStatus.OK);
-	}
+	
+	//列出申請單中審查通過的活動
+	 @GetMapping("/backend/actapprove")
+	    public List<Activity> getApprovedActivities() {
+	        return activityService.findByActApprStat((byte) 1);
+	    }
+	 
+	 @GetMapping("/backend/appinfo/{activityId}")
+	 //依照點選之活動編號映出相對應的活動資訊
+	 public Activity getActInfo(@PathVariable("activityId")Integer activityNo) {
+		 return activityService.getActDetail(activityNo);//抓出sql相對之Id
+	 }
+	 
+	 @PostMapping("/backend/appstatus")
+	 //更新審查狀態數據
+	 //代表整個HTTP響應
+	 public ResponseEntity<?> updateActStatus(@RequestBody Activity activity)throws Exception{
+		 Activity updatedActivity =activityService.updateActStatus(activity);
+		 return new ResponseEntity<>(updatedActivity,HttpStatus.OK);
+	 }
+	 
+		
+		//依照活動編號映出相對應的活動資料
+		 @GetMapping("/backend/conresult/{counterNo}")
+		    public List<Activity> getActivityByCounterNo(Integer counterNo) {
+		        return activityService.getActivityByCounterNo(counterNo);
+		    }
+ 	
+	 
 }
