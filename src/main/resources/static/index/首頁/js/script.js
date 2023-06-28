@@ -56,3 +56,41 @@ function check(event) {
     }
 
 }
+
+//  fullpage01 
+
+// 初始化輪播
+$(document).ready(function () {
+
+$.ajax
+
+    $(function () {
+        $('#fluid_dg_wrap_4').fluid_dg({
+            height: 'auto',
+            loader: 'bar',
+            pagination: false,
+            thumbnails: true,
+            hover: false,
+            opacityOnGrid: false,
+            imagePath: '',
+            time: 6000,
+            transPeriod: 2000,
+        });
+    });
+})
+
+// <!-- fullpage02 Initialize Swiper -->
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        slidesPerGroupWithBlank: true,
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });

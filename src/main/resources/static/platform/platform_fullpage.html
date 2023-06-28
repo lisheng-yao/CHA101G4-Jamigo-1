@@ -82,10 +82,12 @@
         .custom-file-upload:hover {
             background-color: #30366f;
         }
-        .uploadbuttons{
+
+        .uploadbuttons {
             display: inline-block;
-            margin: 10px 0 25px 25px ;
+            margin: 10px 0 25px 25px;
         }
+
         #delete,
         #removebutton {
             background-color: red;
@@ -686,23 +688,31 @@
                         <p id="querystartime">${response[i].mainpageCarouselStartTime}</p>
                         <p id="queryendtime">${response[i].mainpageCarouselEndTime}</p>
                         <div id="forbutton" value="${response[i].mainpageCarouselNo}" style="display:none;"></div>
-                        <button id="delete" onclick='deleteoone();'><i class="fa-regular fa-trash-can">刪除</i></button>
+                        <button id="delete" onclick='deleteone(event);'><i class="fa-regular fa-trash-can">刪除</i></button>
                         </div>`)
                 }
             }
         })
         //刪除按鈕 
-        function deleteone(){
+        function deleteone(event) {
+            var button = event.target;
+            var mainpageCarouselNo = button.previousElementSibling.getAttribute("value");
+alert(mainpageCarouselNo);
+            $.ajax({
+                type: 'GET',
+                url: '/Jamigo/index/delete/' + mainpageCarouselNo,
+                success: function (response) {
+                    success(response);
+                },
+                error: function (error) {
+                    alert(error.status);
+                }
+            })
 
-var 
-
-$.ajax({
-type:'GET',
-url:'Jamigo/'
-
-
-
-})
+            function success(response) {
+                alert(response.message);
+                window.location.reload();
+            }
 
 
 

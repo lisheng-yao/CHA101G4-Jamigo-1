@@ -12,6 +12,6 @@ String insertOne(IndexVO indexVO);
 
 List<IndexVO> getAll();
 
-//String deleteOne(Integer mainpageCarouselNo);
+String deleteOne(Integer mainpageCarouselNo);
 
 }

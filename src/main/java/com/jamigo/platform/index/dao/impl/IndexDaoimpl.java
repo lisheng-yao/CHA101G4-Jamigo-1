@@ -53,16 +53,16 @@ public class IndexDaoimpl implements IndexDao {
         return list;
     }
 
-//    @Override
-//    public String deleteOne(Integer mainpageCarouselNo) {
-//        String sql = "DELETE FROM mainpage_carousel WHERE mainpageCarouselNo=:mainpageCarouselNo";
-//
-//Map<String,Object> map = new HashMap<>();
-//
-//map.put("")
-//
-//
-//
-//        return "刪除成功";
-//    }
+    @Override
+    public String deleteOne(Integer mainpageCarouselNo) {
+        String sql = "DELETE FROM mainpage_carousel WHERE mainpageCarouselNo=:mainpageCarouselNo";
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("mainpageCarouselNo", mainpageCarouselNo);
+
+        namedParameterdbcTemplate.update(sql, map);
+
+        return "刪除成功";
+    }
 }
