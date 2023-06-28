@@ -8,4 +8,6 @@ import java.util.List;
 public interface CounterOrderRepository extends JpaRepository<CounterOrder, Integer> {
 
     List<CounterOrder> findAllByPlatformOrderNo(Integer platformOrderNo);
+
+    List<CounterOrder> findAllByCounterNo(Integer counterNo);
 }

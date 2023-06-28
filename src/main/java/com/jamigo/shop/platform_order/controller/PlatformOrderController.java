@@ -6,6 +6,7 @@ import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.dto.PlatformOrderDetailDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import com.jamigo.shop.platform_order.service.PlatformOrderService;
+import com.jamigo.shop.platform_order.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,6 @@ public class PlatformOrderController {
     private PlatformOrderService platformOrderService;
 
     // HTTP Method：GET
-    // URL：http://localhost:8080/Jamigo/shop/platform_order/memberData/{memberNo}
     // URL 階層關係：
     //     - "/shop/platform_order"：表示這個資源在 shop/platform_order 資料夾底下
     //     - "/memberData"：會員 (資源名稱)
@@ -34,7 +34,7 @@ public class PlatformOrderController {
     public ResponseEntity<?> autoFillMemberData(
             @PathVariable Integer memberNo) {
 
-        MemberDataForCheckoutDTO memberDataForCheckoutDTO= platformOrderService.getMemberData(memberNo);
+        MemberDataForCheckoutDTO memberDataForCheckoutDTO = platformOrderService.getMemberData(memberNo);
 
         if (memberDataForCheckoutDTO != null)
             return ResponseEntity.status(HttpStatus.OK).body(memberDataForCheckoutDTO);
@@ -43,7 +43,6 @@ public class PlatformOrderController {
     }
 
     // HTTP Method：GET
-    // URL：http://localhost:8080/Jamigo/shop/platform_order/cart/{memberNo}
     // URL 階層關係：
     //     - "/shop/platform_order"：表示這個資源在 shop/platform_order 資料夾底下
     //     - "/cart"：購物車 (資源名稱)
@@ -65,9 +64,6 @@ public class PlatformOrderController {
     }
 
     // HTTP Method：GET
-    // URL：http://localhost:8080/Jamigo/shop/product_picture/{productNo}/temp
-    //
-    // 目前僅為測試，日後將會改為使用詒婷寫的 商品圖片 的 Controller
     @GetMapping("/shop/platform_order/product_picture/{productNo}")
     public ResponseEntity<?> getFirstProductPic(
             @PathVariable("productNo") Integer productNo) {
@@ -126,11 +122,16 @@ public class PlatformOrderController {
         }
     }
 
-
     @PostMapping("/shop/platform_order")
     public void createPlatformOrder(
             @RequestBody PlatformOrder newPlatformOrder) {
 
         platformOrderService.createOrder(newPlatformOrder);
+    }
+
+    @PostMapping("/test/register")
+    public String register(@RequestBody UserInfo userInfo) throws Exception {
+        platformOrderService.sendEmail();
+        return "Email Sent..!";
     }
 }

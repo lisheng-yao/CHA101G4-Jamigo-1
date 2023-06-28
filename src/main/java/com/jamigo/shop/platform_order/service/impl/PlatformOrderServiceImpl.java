@@ -3,6 +3,8 @@ package com.jamigo.shop.platform_order.service.impl;
 import com.jamigo.member.member_data.dao.MemberDataDAO;
 import com.jamigo.member.member_data.dto.MemberDataForCheckoutDTO;
 import com.jamigo.member.member_data.entity.MemberData;
+import com.jamigo.member.member_level.dao.MemberLevelDetailRepository;
+import com.jamigo.member.member_level.model.MemberLevelDetail;
 import com.jamigo.shop.cart.dto.CartForCheckoutDTO;
 import com.jamigo.shop.counter_order.entity.CounterOrder;
 import com.jamigo.shop.counter_order.repo.CounterOrderRepository;
@@ -17,9 +19,17 @@ import com.jamigo.shop.platform_order.repo.PlatformOrderRepository;
 import com.jamigo.shop.platform_order.service.PlatformOrderService;
 import com.jamigo.shop.product_picture.entity.ProductPicture;
 import com.jamigo.shop.product_picture.repo.ProductPictureRepository;
+import com.jamigo.shop.platform_order.entity.UserInfo;
+import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.MimeMessage;
+import java.io.StringWriter;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +48,14 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
     private CounterOrderRepository counterOrderRepository;
     @Autowired
     private CounterOrderDetailRepository counterOrderDetailRepository;
+    @Autowired
+    private MemberLevelDetailRepository memberLevelDetailRepository;
+
+    @Autowired
+    private Configuration configuration;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Override
     public MemberDataForCheckoutDTO getMemberData(Integer memberNo) {
@@ -45,15 +63,23 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         MemberData memberData = memberDataDAO.selectById(memberNo);  // 取得會員的全部資料
 
         if (memberData != null) {
-            // 將結帳會用到的資料封裝起來
-            MemberDataForCheckoutDTO memberDataForCheckoutDTO = new MemberDataForCheckoutDTO();
 
-            memberDataForCheckoutDTO.setMemberName(memberData.getMemberName());
-            memberDataForCheckoutDTO.setMemberPhone(memberData.getMemberPhone());
-            memberDataForCheckoutDTO.setMemberEmail(memberData.getMemberEmail());
-            memberDataForCheckoutDTO.setMemberAddress(memberData.getMemberAddress());
+            MemberLevelDetail memberLevelDetail = memberLevelDetailRepository.findById(Integer.valueOf(memberData.getLevelNo())).orElse(null);
 
-            return memberDataForCheckoutDTO;
+            if (memberLevelDetail != null) {
+                // 將結帳會用到的資料封裝起來
+                MemberDataForCheckoutDTO memberDataForCheckoutDTO = new MemberDataForCheckoutDTO();
+
+                memberDataForCheckoutDTO.setMemberName(memberData.getMemberName());
+                memberDataForCheckoutDTO.setMemberPhone(memberData.getMemberPhone());
+                memberDataForCheckoutDTO.setMemberEmail(memberData.getMemberEmail());
+                memberDataForCheckoutDTO.setMemberAddress(memberData.getMemberAddress());
+                memberDataForCheckoutDTO.setMemberLevelDetail(memberLevelDetail);
+
+                return memberDataForCheckoutDTO;
+            }
+            else
+                return null;
         }
         else
             return null;
@@ -96,6 +122,7 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
 
     @Override
     public Map<String, CounterOrderForPlatformOrderDTO> convertToCounterOrderMap(List<PlatformOrderDetailDTO> orderDetails) {
+
         Map<String, CounterOrderForPlatformOrderDTO> map = new HashMap<>();
 
         for (PlatformOrderDetailDTO detail : orderDetails) {
@@ -133,7 +160,15 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         }
 
         int actuallyPaid = totalPaid - newPlatformOrder.getTotalCoupon() - newPlatformOrder.getTotalPoints();
-        int rewardPoints = Math.round(actuallyPaid / 10.0f);
+
+        MemberData memberData = memberDataDAO.selectById(newPlatformOrder.getMemberNo());
+        MemberLevelDetail memberLevelDetail = memberLevelDetailRepository.findById(Integer.valueOf(memberData.getLevelNo())).orElse(null);
+        int levelFeedback = 1;
+
+        if (memberLevelDetail != null)
+            levelFeedback = memberLevelDetail.getLevelFeedback();
+
+        int rewardPoints = Math.round(actuallyPaid / 10.0f * levelFeedback);
 
         newPlatformOrder.setTotalPaid(totalPaid);
         newPlatformOrder.setActuallyPaid(actuallyPaid);
@@ -152,10 +187,18 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
                 newPlatformOrder.setPaymentStat((byte) 0);
         }
 
+        newPlatformOrder.setOrderTime(new Timestamp(System.currentTimeMillis()));
+
         PlatformOrder savedPlatformOrder = platformOrderRepository.save(newPlatformOrder);
-        Integer platformOrderNo = savedPlatformOrder.getPlatformOrderNo();
 
         // 拆單
+        splitOrder(cartList, savedPlatformOrder);
+    }
+
+    public void splitOrder(List<CartForCheckoutDTO> cartList, PlatformOrder savedPlatformOrder) {
+
+        Integer platformOrderNo = savedPlatformOrder.getPlatformOrderNo();
+
         Map<Integer, List<CartForCheckoutDTO>> cartMap = cartList.stream()
                 .collect(Collectors.groupingBy(CartForCheckoutDTO::getCounterNo));
 
@@ -166,7 +209,7 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
             CounterOrder newCounterOrder = new CounterOrder();
             newCounterOrder.setPlatformOrderNo(platformOrderNo);
             newCounterOrder.setCounterNo(counterNo);
-            newCounterOrder.setTotalPaid(0);
+            newCounterOrder.setTotalPaid(0);  // 先設定櫃位訂單的 totalPaid 為 0，等等再更新
             newCounterOrder.setActuallyPaid(0);
             newCounterOrder.setCounterOrderStat((byte) 20);
             newCounterOrder.setDisbursementStat((byte) 0);
@@ -198,6 +241,37 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
             counterOrderRepository.save(savedCounterOrder);
         }
 
+        try {
+            sendEmail();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         // TODO: 清空購物車
+    }
+
+    public void sendEmail() throws Exception {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);  // 注意，我們現在需要使用支持 "multipart" 的 MimeMessageHelper
+        helper.setSubject("Welcome To SpringHow.com");
+        helper.setTo("hao.4f31702@gmail.com");
+        String emailContent = getEmailContent();
+        helper.setText(emailContent, true);
+
+        // 取得商品編號為1的商品的首張圖片
+        byte[] image = getFirstProductPicByProductNo(1);
+        if (image != null && image.length > 0) {
+            // 添加內嵌的圖片
+            helper.addInline("productPicture", new ByteArrayResource(image), "image/gif");
+        }
+        javaMailSender.send(mimeMessage);
+    }
+
+    public String getEmailContent() throws Exception {
+        StringWriter stringWriter = new StringWriter();
+        Map<String, Object> model = new HashMap<>();
+//        model.put("user", user);
+        configuration.getTemplate("order_confirm.ftlh").process(model, stringWriter);
+        return stringWriter.getBuffer().toString();
     }
 }

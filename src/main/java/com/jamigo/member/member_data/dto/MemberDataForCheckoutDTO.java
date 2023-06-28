@@ -1,11 +1,14 @@
 package com.jamigo.member.member_data.dto;
 
+import com.jamigo.member.member_level.model.MemberLevelDetail;
+
 // 用於結帳頁面的 DTO
 public class MemberDataForCheckoutDTO {
     private String memberName;
     private String memberPhone;
     private String memberEmail;
     private String memberAddress;
+    private MemberLevelDetail memberLevelDetail;
 
     // getters and setters
     public String getMemberName() {
@@ -38,5 +41,13 @@ public class MemberDataForCheckoutDTO {
 
     public void setMemberAddress(String memberAddress) {
         this.memberAddress = memberAddress;
+    }
+
+    public MemberLevelDetail getMemberLevelDetail() {
+        return memberLevelDetail;
+    }
+
+    public void setMemberLevelDetail(MemberLevelDetail memberLevelDetail) {
+        this.memberLevelDetail = memberLevelDetail;
     }
 }

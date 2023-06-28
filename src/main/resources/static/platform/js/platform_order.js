@@ -63,8 +63,8 @@ $(function () {
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
-                formatter: '<button type="button" class="btn btn-primary full-info" data-bs-toggle="modal" data-bs-target="#orderDetailModal" data-bs-whatever="@mdo">顯示其他資訊</button>' +
-                    '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderEditModal" data-bs-whatever="@mdo">編輯</button>'
+                formatter: '<button type="button" class="btn btn-primary full-info" data-bs-toggle="modal" data-bs-target="#orderDetailModal" data-bs-whatever="@mdo">其他資訊</button>' +
+                    '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderEditModal" data-bs-whatever="@mdo">更改狀態</button>'
             }
         ],
     });
