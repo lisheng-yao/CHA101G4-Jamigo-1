@@ -8,8 +8,8 @@ public class ActivityOrderDTO implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	ActivityOrderVO activityOrderVO;
-	List<ActivityAttendeeVO> activityAttendeeVOList;
+	private ActivityOrderVO activityOrderVO;
+	private List<ActivityAttendeeVO> activityAttendeeVOList;
 	
 	public ActivityOrderDTO() {}
 

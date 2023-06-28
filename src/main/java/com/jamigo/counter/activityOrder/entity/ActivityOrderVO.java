@@ -1,6 +1,6 @@
 package com.jamigo.counter.activityOrder.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,9 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.jamigo.activity.activity_approve.model.Activity;
 import com.jamigo.activity.attendee.entity.ActivityAttendeeVO;
 import com.jamigo.member.member_data.entity.MemberData;
 
@@ -31,7 +34,9 @@ public class ActivityOrderVO implements java.io.Serializable {
 	private Integer activityOrderNo;
 	private Integer activityNo;
 	private Integer memberNo;
-	@CreatedDate
+	@CreationTimestamp
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date activityEnrollmentTime;
 	private Byte activityPaymentStat;
 	private Integer memberCouponNo;
@@ -43,6 +48,11 @@ public class ActivityOrderVO implements java.io.Serializable {
 	@JoinColumn(name = "memberNo",
 				insertable = false, updatable = false)
 	private MemberData memberData;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "activityNo",
+				insertable = false, updatable = false)
+	private Activity activity;
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "activityOrderNo",
@@ -149,6 +159,16 @@ public class ActivityOrderVO implements java.io.Serializable {
 
 	public void setMemberData(MemberData memberData) {
 		this.memberData = memberData;
+	}
+
+	
+	public Activity getActivity() {
+		return activity;
+	}
+
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
 	}
 
 
