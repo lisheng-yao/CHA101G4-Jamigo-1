@@ -25,8 +25,8 @@ public class IndexServiceimpl implements IndexService {
         return indexDao.getAll();
     }
 
-//    @Override
-//    public String deleteOne(Integer mainpageCarouselNo) {
-//        return indexDao.?;
-//    }
+    @Override
+    public String deleteOne(Integer mainpageCarouselNo) {
+        return indexDao.deleteOne(mainpageCarouselNo);
+    }
 }

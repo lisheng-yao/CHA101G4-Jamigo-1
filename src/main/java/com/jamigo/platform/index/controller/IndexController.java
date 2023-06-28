@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class IndexController {
@@ -38,13 +40,13 @@ public class IndexController {
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
-//    @GetMapping("/index/delete/{mainpageCarouselNo}")
-//    public String delete(@PathVariable Integer mainpageCarouselNo){
-//
-//
-//
-//
-//        return
-//    }
+    @GetMapping("/index/delete/{mainpageCarouselNo}")
+    public ResponseEntity<Map> delete(@PathVariable Integer mainpageCarouselNo){
+        System.out.println("近來");
+        Map<String,Object> map = new HashMap<>();
+        map.put("message",indexService.deleteOne(mainpageCarouselNo));
+
+        return ResponseEntity.status(HttpStatus.OK).body(map);
+    }
 
 }
