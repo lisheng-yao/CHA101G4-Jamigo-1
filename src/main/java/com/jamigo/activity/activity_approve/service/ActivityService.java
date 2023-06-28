@@ -14,7 +14,6 @@ import com.jamigo.activity.activity_approve.model.Activity;
 @Service
 public class ActivityService {
 
-	@Autowired
 	private ActivityDAO activityDAO;
 
 //存取申請表單
@@ -69,11 +68,28 @@ public class ActivityService {
 		return activities;
 	}
 
+
 	// 依照點選之活動編號映出相對應的活動資訊[櫃位後台]
 	public Activity getCouInfo(Integer activityNo) {
 		// TODO Auto-generated method stub
 		return activityDAO.findById(activityNo).orElse(null);
 	}
+	
 
+	@Autowired
+	public ActivityService(ActivityDAO activityDAO) {
+		this.activityDAO = activityDAO;
+	}
 
+	// 修改櫃位申請活動的資料
+	  public Activity getActUpdate(Integer activityNo) {
+	        return activityDAO.findById(activityNo)//數據庫中搜尋PK對應的Activity記錄並會返回Optional<Activity>對象
+	                .orElseThrow(() -> new IllegalArgumentException("Activity with id " + activityNo + " not found"));
+	        //找不到就拋出異常
+	    }
+	  //存取櫃位修改的資料
+	  public Activity saveActivity(Activity activity) {
+		    // 使用 ActivityDAO 的 save 方法保存 Activity
+		    return activityDAO.save(activity);
+		}
 }

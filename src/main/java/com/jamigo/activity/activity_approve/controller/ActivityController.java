@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,6 @@ import com.jamigo.activity.activity_approve.service.ActivityService;
 @RestController
 public class ActivityController {
 
-	@Autowired // 注入實例
 	private ActivityService activityService;
 
 	// 新增線下活動申請表
@@ -107,14 +107,41 @@ public class ActivityController {
 	// 依照活動編號映出相對應的活動資料[櫃位後台]
 	@GetMapping("/backend/couresult/{counterNo}")
 	public List<Activity> getConResultById(@PathVariable("counterNo") Integer counterNo, HttpSession session) {
-		session.setAttribute("counterSession",counterNo); // store the counterNo into the session
+		session.setAttribute("counterSession", counterNo); // store the counterNo into the session
 		return activityService.getConResultById(counterNo);
 	}
-	
+
 	// 依照點選之活動編號映出相對應的活動資訊[櫃位後台]
-	@GetMapping("/backend/couninfo/{activityNo}")	
+	@GetMapping("/backend/couninfo/{activityNo}")
 	public Activity getCouInfo(@PathVariable("activityNo") Integer activityNo) {
 		return activityService.getActDetail(activityNo);// 抓出sql相對之Id
+	}
+
+	@Autowired
+	public ActivityController(ActivityService activityService) {
+		this.activityService = activityService;
+	}
+
+//修改活動申請單[櫃位後台]
+	@PutMapping("/backend/applyupdate/{activityNo}")
+	public ResponseEntity<Activity> updateActivity(@PathVariable Integer activityNo,
+			@RequestBody Activity updatedActivity) {
+		Activity activity = activityService.getActUpdate(activityNo);
+
+		// 用 updatedActivity 的資訊來更新找到的 Activity
+		activity.setActivityName(updatedActivity.getActivityName());
+		activity.setActivityCost(updatedActivity.getActivityCost());
+		activity.setActivityLimit(updatedActivity.getActivityLimit());
+		activity.setActivityDetail(updatedActivity.getActivityDetail());
+		activity.setActivityRegStartTime(updatedActivity.getActivityRegStartTime());
+		activity.setActivityRegEndTime(updatedActivity.getActivityRegEndTime());
+		activity.setActivityStartTime(updatedActivity.getActivityStartTime());
+		activity.setActivityEndTime(updatedActivity.getActivityEndTime());
+		activity.setActivityPic(updatedActivity.getActivityPic());
+
+		// 把更新過的 Activity 儲存回資料庫
+		Activity savedActivity = activityService.saveActivity(activity);
+		return new ResponseEntity<>(savedActivity, HttpStatus.OK);
 	}
 
 }
