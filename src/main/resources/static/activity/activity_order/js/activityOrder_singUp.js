@@ -24,6 +24,9 @@ let activity_attendee_coupon = document.querySelector('#activity-attendee-coupon
 
 let activity_form_submit = document.querySelector('.activity-form-submit button');
 
+// 總金額
+let total_pay_money = document.querySelector('.total-pay .total-pay-money');
+
 // 先拿1號會員的
 getMemberInfo(1);
 // 載入時讀取會員資料，並填入
@@ -44,7 +47,8 @@ function getMemberInfo(id){
 getActivity(1);
 // 載入時讀取活動資料，並填入
 function getActivity(id) {
-	axios.get(`/Jamigo/activity/getById/${id}`)
+//	axios.get(`/Jamigo/activity/getById/${id}`)
+	axios.get(`/Jamigo/backend/appdetail/${id}`)
 	.then(resp => {return resp.data})
 	.then(data => {
 		let [startDate, startTime] = data.activityStartTime.split(' ');
@@ -57,6 +61,7 @@ function getActivity(id) {
 		activity_address.innerText = data.activityPlaceNo;
 		activity_memberLevel.innerText = data.activityLev == 0 ? '一般會員' : 'VIP會員';
 		activity_pic.src = `/Jamigo/activityReader/${data.activityNo}`
+		total_pay_money.innerText = data.activityCost;
 	})
 }
 
@@ -68,47 +73,35 @@ activity_form_submit.addEventListener('click', () => {
 		activityNo : activity_activityNo_input.value,
 		memberNo : activity_attendee_memberNo_input.value,
 		activityPaymentStat : 0,
-		memberCouponNo : activity_attendee_coupon.value == 'AX' ? 0 : activity_attendee_coupon.value,
-		numberOfAttendee : activity_attendee_more_num_select.value - 1
+		memberCouponNo : activity_attendee_coupon.value,
+		numberOfAttendee : more_attendee_num
 	}, {headers : {'Content-Type':'application/json'}})
 	.then(resp => {
-		console.log(resp.data);
+//		console.log('activityOrderNo' + resp.data);
 		return resp.data;
 	})
 	.then(data => {
 		if(more_attendee_num > 0) {
 			let more_attendee_arr = [];
-			for(let i = 1; i <= more_attendee; i++) {
+			for(let i = 1; i <= more_attendee_num; i++) {
 				let more_attendee = {
-					activityOrderNo : data.activityOrderNo,
-					attendeeName : document.querySelect(`#activity-attendee-more-name-input${i + 1}`).value,
-					attendeeGender : document.querySelect(`#activity-attendee-moregender-male-input${i + 1}`).checked ?
+					activityOrderNo : data,
+					attendeeName : document.querySelector(`#activity-attendee-more-name-input${i}`).value,
+					attendeeGender : document.querySelector(`#activity-attendee-more-gender-male-input${i}`).checked ?
 									 1 : 2,
-					attendeeAge : document.querySelect(`#activity-attendee-more-age-input${i + 1}`).value
+					attendeeAge : document.querySelector(`#activity-attendee-more-age-input${i}`).value
 				}
 				more_attendee_arr.push(more_attendee);
+//				console.log(more_attendee_arr);
 			}
 			
-			axios.post('/Jamigo/activityAttendee/insert')
+			axios.post('/Jamigo/activityAttendee/insert', more_attendee_arr, {headers : {'Content-Type':'application/json'}})
+			.then(data => console.log(data))
+			.catch(err => console.log(err))
 		}
 	})
+	.catch(err => console.log(err))
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // HTML動態生成
 
@@ -143,24 +136,6 @@ select_number_of_people.addEventListener('change', () => {
 })
 
 
-// 新增線下活動訂單
-activity_form_submit.addEventListener('click', () => {
-	axios.post("/Jamigo/counterCtrl/insert", {
-			activityOrderNo : null,
-			activityNo : document.querySelector('#activity-activityNo').value,
-			memberNo : document.querySelector('#activity-attendee-memberNo').value,
-			activityEnrollmentTime : null,
-			activityPaymentStat : 0,
-			memberCouponNo : document.querySelector('#activity-attendee-coupon').value,activity_attendee_more,
-			numberOfAttendee : document.querySelector('#activity-attendee-more-num').vlaue - 1,
-			commentDetail : null,
-			activityScore : null
-	})
-	.then(response => console.log(response.data))
-	
-})
-
-
 // 自動生成額外參加人數的欄位
 function autoCreateForm(startIndex) {
     let element =  document.createElement('div');
@@ -179,13 +154,13 @@ function autoCreateForm(startIndex) {
         <div class="phone_email">
             <div class="row">
                 <div class="form-radio col-3 attendee-gender mt-3">
-                <input type="radio" id="activity-attendee-moregender-male-input${startIndex}" name="activity-attendee-more-gender-male${startIndex}" checked>
+                <input type="radio" id="activity-attendee-more-gender-male-input${startIndex}" name="activity-attendee-more-gender${startIndex}" checked>
                     <label for="activity-attendee-more-gender-male-input${startIndex}" class="attendee-gender-male">
                         <div class="form-radio-text">男</div>
                     </label>
                 </div>
                 <div class="form-radio col-3 attendee-gender mt-3">
-                    <input type="radio" id="activity-attendee-more-gender-female-input${startIndex}" name="activity-attendee-moregender-female${startIndex}">
+                    <input type="radio" id="activity-attendee-more-gender-female-input${startIndex}" name="activity-attendee-more-gender${startIndex}">
                     <label for="activity-attendee-more-gender-female-input${startIndex}" class="attendee-gender-female"> 
                         <div class="form-radio-text">女</div>
                     </label>
@@ -199,6 +174,22 @@ function autoCreateForm(startIndex) {
             </div>
         </div>`;
     activity_attendee_more.lastChild.innerHTML = html;
+}
+
+// 動態生成selecrt欄位
+getCouponSelect();
+function getCouponSelect(){
+	axios.get("/Jamigo/promotion/promotion/getAllPromotionCoupon")
+	.then(resp => {return resp.data})
+	.then(datas => {
+		for(let i = 0; i < datas.length; i++) {
+			let element = document.createElement('option');
+			element.setAttribute('value', datas[i].promotionCouponNo);
+			element.innerText = datas[i].promotionCouponName;
+			activity_attendee_coupon.append(element);
+		}
+	})
+	.catch(err => console.log(err))
 }
 
 
