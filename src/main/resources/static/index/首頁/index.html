@@ -28,9 +28,11 @@
 
     <nav class="navbar navbar-dark p-0 navbar-expand-lg">
         <div class="container">
-            <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img src="images/找百貨.png" alt="" class="LOGO"></a>
+            <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img src="images/找百貨.png" alt=""
+                    class="LOGO"></a>
             <img src="./images/頁首背景.gif" alt="" class="navbarimg">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,13 +47,15 @@
                         <a class="button-01 nav-link" href="/Jamigo/activity/event_space.html">文藝活動</a>
                     </li>
                     <li class="nav-item">
-                        <a class="button-01 nav-link" href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
+                        <a class="button-01 nav-link"
+                            href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
                     </li>
                     <!--                <li class="nav-item">-->
                     <!--                    <a class="button-01 nav-link" href="*">客服系統</a>-->
                     <!--                </li>-->
                     <li class="nav-item">
-                        <a class="button-01 nav-link" href="/Jamigo/frontend/前台會員管理首頁.html" onclick="check(event);">會員專區</a>
+                        <a class="button-01 nav-link" href="/Jamigo/frontend/前台會員管理首頁.html"
+                            onclick="check(event);">會員專區</a>
                     </li>
                 </ul>
             </div>
@@ -79,15 +83,16 @@
     <main class="main_before">
         <!-------------------------------------------- 頁首結束 ------------------------------>
         <!------------------------------------------fullpage01優惠輪播資訊--------------------------------->
-        <div class="w3slideraits">
-            <div class="fluid_dg_wrap fluid_dg_emboss pattern_1 fluid_dg_white_skin" id="fluid_dg_wrap_4">
-                <div data-src="images/fullpage01.png"></div>
-                <div data-src="images/fullpage02.png"></div>
-                <div data-src="images/fullpage03.png"></div>
-                <div data-src="images/fullpage04.png"></div>
-                <div data-src="images/fullpage05.png"></div>
+        <div class="fullpagecontainer" style="width: 100%;height: 900px;">
+            <div class="swiper mySwiper1">
+                <div id="imgeditcontainer" class="swiper-wrapper">
+                </div>
             </div>
+
         </div>
+        <div class="fu01background">
+        </div>
+
         <!-----------------------------------------fullpage02---------------------------------------->
         <!-- fullpage02 header -->
         <section class="advertise-count py-lg-4 py-md-3 py-sm-3 py-3">
@@ -407,8 +412,6 @@
             </div>
 
         </div>
-
-
         <!-------------------------------------------fullpage04品牌資訊----------------------------------->
         <div class="fullpage04">
             <div class="container_fullpage04">
@@ -483,6 +486,8 @@
 </body>
 <!-- bootstrap -->
 <script src="js/bootstrap.js"></script>
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- FontAwesome -->
 <script src="js/all.js"></script>
 <!-- owlcarouel -->
@@ -491,11 +496,9 @@
 <!-- js -->
 <script src="js/script.js"></script>
 
-<!-- fullpage01  -->
-<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
-<script type='text/javascript' src='js/fluid_dg.min.js'></script>
-
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+
 
 </html>
