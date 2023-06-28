@@ -111,8 +111,11 @@
                 inputmemberStat.value = memberStat;
                 inputmemberAccount.value = memberAccount;
 
+
+
+
                 if (memberPic4json ==="有圖") {
-                    avatarpreview.src = `http://localhost:8080/Jamigo/member/member_data/${memberNo}`;
+                    avatarpreview.src = `/Jamigo/member/member_data/${memberNo}`;
                     avatarPreview.style.display = "block";
                     avatarPlaceholder.style.display = "none";
                 } else {
@@ -128,6 +131,8 @@
             });
 
     };
+
+
 
     // ============================2. 修改資料進去 editmemberdata()========================
     function editmemberdata() {
@@ -184,7 +189,6 @@
             }
         }
         // 檢查結束
-
         msg.textContent = '';
         fetch('edit', {
             method: 'POST',

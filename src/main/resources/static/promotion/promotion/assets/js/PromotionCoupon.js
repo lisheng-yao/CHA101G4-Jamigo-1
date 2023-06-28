@@ -6,6 +6,7 @@
 
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
     let dataaccount = 0;
+    console.log(dataaccount)
     let PromotionType = [];
     let promotionName4 = [];
     let couponTypeNo4 = [];
@@ -167,7 +168,7 @@
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
-                                           id="promotionPic${i}" value="${promotionPic}" accept="image/gif">
+                                           id="promotionPic${i}" value="${promotionPic}" >
                                 </div>
                                 <span id="msg"> </span>
                             </form>
@@ -281,18 +282,6 @@
         const promotionEffectiveDate4json = promotionEffectiveDateinputs[i].value;
         const promotionExpireDate4json = promotionExpireDateinputs[i].value;
         const getAmount4json = getAmountinputs[i].value;
-        const promotionPic4json = promotionPicinputs[i];
-        let Pic4json = "";
-        promotionPic4json.addEventListener("change", function (event) {
-            Pic4json = readPic(event);
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '上傳成功!',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        });
 
         msg.textContent = '';
         const promotionNameLength = promotionName4json.length;
@@ -316,7 +305,7 @@
                 promotionEffectiveDate: promotionEffectiveDate4json,
                 promotionExpireDate: promotionExpireDate4json,
                 getAmount: getAmount4json,
-                promotionPic: Pic4json
+                promotionPic4json: base64Image
             }),
         })
             .then(resp => resp.json())
@@ -345,6 +334,7 @@
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
             editbuttons[i].addEventListener('click', () => {
+                console.log("修改按鈕啟動")
                 editPromotion(i);
             })
             promotionPicinputs[i].addEventListener("change", function (event) {
@@ -373,9 +363,8 @@
         const promotionEffectiveDate4new = document.querySelector('#promotionEffectiveDate').value;
         const promotionExpireDate4new = document.querySelector('#promotionExpireDate').value;
         const promotionPic4new = document.querySelector('#promotionPic');
-        let Pic4new = "";
         promotionPic4new.addEventListener("change", function (event) {
-            Pic4new = readPic(event);
+           readPic(event);
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -402,7 +391,7 @@
                 getCouponLimitAmount: getCouponLimitAmount4new,
                 promotionEffectiveDate: promotionEffectiveDate4new,
                 promotionExpireDate: promotionExpireDate4new,
-                promotionPic: Pic4new,
+                promotionPic4json: base64Image
             }),
         })
             .then(resp => resp.json())
@@ -610,7 +599,7 @@
                     }
                     dynamicSpansCouponTypeNo.innerHTML = str2;
                     select4CouponType.innerHTML = str;
-                    for (let i = 0; i <= CouponTypelength; i++) {
+                    for (let i = 0; i <= dataaccount; i++) {
                         if (typeof dynamicSpanscouponTypeNoinputs[i] !== 'undefined') {
                             dynamicSpanscouponTypeNoinputs[i].innerHTML = str3[i];
                         }
@@ -770,7 +759,7 @@
                     }
                     dynamicSpanPromotionName.innerHTML = str2;
                     select4promotionName.innerHTML = str;
-                    for (let i = 0; i < promotionNamelength; i++) {
+                    for (let i = 0; i <= dataaccount; i++) {
                         if (typeof dynamicSpanspromotionNameinputs[i] !== 'undefined') {
                             dynamicSpanspromotionNameinputs[i].innerHTML = str3[i];
                         }
