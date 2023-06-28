@@ -64,7 +64,7 @@ public class PlatformOrder {
 
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp orderTime = new Timestamp(System.currentTimeMillis());
+    private Timestamp orderTime;
 
     @Column(nullable = false)
     private Byte platformOrderStat;

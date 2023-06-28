@@ -5,6 +5,7 @@ import com.jamigo.shop.cart.dto.CartForCheckoutDTO;
 import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.dto.PlatformOrderDetailDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
+import com.jamigo.shop.platform_order.entity.UserInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -40,4 +41,8 @@ public interface PlatformOrderService {
     Map<String, CounterOrderForPlatformOrderDTO> convertToCounterOrderMap(List<PlatformOrderDetailDTO> orderDetails);
 
     void createOrder(PlatformOrder newPlatformOrder);
+
+    void sendEmail() throws Exception;
+
+    String getEmailContent() throws Exception;
 }
