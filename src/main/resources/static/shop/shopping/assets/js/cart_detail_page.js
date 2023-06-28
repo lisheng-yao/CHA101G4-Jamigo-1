@@ -38,6 +38,7 @@ $(function () {
     counterSelectChange();
     platformSelectChange();
     memberPointChange();
+    packToSessionStorage();
 
 });
 
@@ -440,21 +441,26 @@ function putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal) 
 function packToSessionStorage() {
     $("#checkout_confirm").on("click", function (e) {
         e.preventDefault();
-        let package={};
+        let discountInfo={};
         //------打包折價卷
-        let usedCounterCoupons = [];
+        let usedCoupons = [];
         //-----1.counter
         let counterCoupons = $(".available_counterCoupon");
         for (let i = 0; i < counterCoupons.length; i++) {
-            if (counterCoupons.eq(i).val() != "") {
-                usedCounterCoupons.push(counterCoupons.eq(i).val());
+            if (counterCoupons.eq(i).val() != 0) {
+                usedCoupons.push(counterCoupons.eq(i).val());
             }
         }
-        //-----1.platform
-        
+        //-----2.platform
+        let platformCoupon = $(".available_platformCoupon");
+        if(platformCoupon.val() != 0){
+            usedCoupons.push(platformCoupon.val());
+        }
+        discountInfo.usedCoupons = usedCoupons;
         //------打包點數
-
-        sessionStorage["usedCounterCoupon"] = JSON.stringify(usedCounterCoupons);
+        let memberUsedPoints = $(".memberPoint_usedDiscount").text();
+        discountInfo.memberUsedPoints = memberUsedPoints;
+        sessionStorage["discountInfo"] = JSON.stringify(discountInfo);
     });
 }
 
