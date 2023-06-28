@@ -11,12 +11,14 @@ let memberCoupons;
 let availableCounterCoupons;
 let originalTotal = 0;
 let counterFinalTotal;
-let memberOwnPoints = 100;
+let memberOwnPoints;
 
 $(function () {
     let memberNo = getMemberNo();
     //取回所有會員折價券
     getMemberCoupons();
+    //取回會員點數
+    getMemberPoints();
     $.ajax({
         url: `/Jamigo/cart/getCartList/${memberNo}`,
         method: "GET",
@@ -419,6 +421,21 @@ function getMemberCoupons() {
     });
 }
 
+//取得會員點數
+function getMemberPoints(){
+    let memberNo = getMemberNo();
+    $.ajax({
+        url: `/Jamigo/cart/getMemberPoints/${memberNo}`,
+        method: "GET",
+        async: false,
+        success: function (resp){
+            console.log(resp);
+            memberOwnPoints = resp;
+            $(".memberPoints_input").attr("max", memberOwnPoints);
+        }
+    });
+}
+
 //把櫃位折價券放入各櫃位區塊
 function putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal) {
     console.log(memberCoupons);
@@ -521,16 +538,28 @@ function platformSelectChange(){
 function memberPointChange(){
     console.log("============memberPointChange" )
     $(".memberPoints_input").on("input", function (){
+        let pointsMax = parseInt($(this).attr("max"));
         //取得會員點數折抵金額
         let memberPoint_usedDiscount = $(this).val();
+        //取得館內折抵金碩
+        let platformDiscount = parseInt($(".platform_usedDiscount").text());
         if(memberPoint_usedDiscount == ""){
             memberPoint_usedDiscount = 0;
+        }
+        //阻止使用者輸入超過擁有的點數
+        if(memberPoint_usedDiscount > pointsMax){
+            $(this).val(pointsMax);
+            memberPoint_usedDiscount = pointsMax;
+        }
+        //阻止使用者輸入超過折抵金額的點數
+        if(memberPoint_usedDiscount > parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount){
+            $(this).val(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount);
+            memberPoint_usedDiscount = parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount;
         }
         memberPoint_usedDiscount = parseInt(memberPoint_usedDiscount);
         $(".memberPoint_usedDiscount").text(memberPoint_usedDiscount); //放入span標籤
         console.log("memberPoint_usedDiscount:", memberPoint_usedDiscount);
-        //取得館內折抵金碩
-        let platformDiscount = parseInt($(".platform_usedDiscount").text());
+
         $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount - memberPoint_usedDiscount);
     });
 }

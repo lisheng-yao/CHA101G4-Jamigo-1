@@ -253,10 +253,17 @@ div.counterCoupon_placeholder{
 select.available_counterCoupon{
     padding: 8px;
     margin-top: 3px;
+    width: 450px;
 }
 
-select.selectsOfCounterCoupon option{
-    padding: 5px;
+select.available_counterCoupon option{
+    padding: 10px;
+}
+
+select.available_platformCoupon{
+    padding: 8px;
+    margin-top: 3px;
+    width: 250px;
 }
 
 .memberPoints_input {
@@ -313,7 +320,7 @@ select.selectsOfCounterCoupon option{
 }
 
 .order_counterUsedDiscount p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     margin: 0;
 }
@@ -329,7 +336,7 @@ select.selectsOfCounterCoupon option{
 }
 
 .order_platformUsedDiscount p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     margin: 0;
 }
@@ -345,7 +352,7 @@ select.selectsOfCounterCoupon option{
 }
 
 .order_memberPointUsedDiscount p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     margin: 0;
 }
@@ -361,7 +368,7 @@ select.selectsOfCounterCoupon option{
 }
 
 .order_finalTotal p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     margin: 0;
 }
@@ -373,7 +380,7 @@ select.selectsOfCounterCoupon option{
 
 /*更改小計區塊CSS*/
 .cart_subtotal p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
 }
 .cart_subtotal p.counterTotal {
@@ -402,4 +409,9 @@ select.selectsOfCounterCoupon option{
     .cart_subtotal p.counterFinalTotal {
         font-size: 14px;
     }
+}
+
+span.memberOwnPoints{
+    font-size: 18px;
+    font-weight: 500;
 }

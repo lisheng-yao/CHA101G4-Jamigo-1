@@ -1,9 +1,10 @@
 let product;
+let cartItems = [];
 $(function (){
     //從網址上獲取productNo
     let urlParams = new URLSearchParams(window.location.search);
     let productNo = urlParams.get(`productNo`);
-
+    printCartItemsCount();
     $.ajax({
         url: `/Jamigo/products/getProductForDetailPage/${productNo}`,
         type: "GET",
@@ -86,10 +87,24 @@ function addToCart(productNo){
             data: JSON.stringify(cartData),
             success: function (resp){
                 alert("商品已加入購物車" + resp);
+                location.reload();
             },
             error: function (){
                 alert("商品加入購物車失敗");
             }
         });
+    });
+}
+
+function printCartItemsCount(){
+    let memberNo = getMemberNo();
+    $.ajax({
+        url: `/Jamigo/cart/getCartList/${memberNo}`,
+        method: "GET",
+        async: false,
+        success: function (respCartItems){
+            cartItems = respCartItems;
+            $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+        }
     });
 }

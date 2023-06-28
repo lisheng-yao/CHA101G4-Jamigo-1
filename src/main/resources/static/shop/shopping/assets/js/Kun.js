@@ -9,7 +9,7 @@ function updateCart() {
     let excessItems = $cartItems.length - maxItems;
 
     // 將購物車右上角的商品數量文字更新為目前購物車內的商品數量
-    $(".main_header .mini_cart_wrapper .item_count").text($cartItems.length);
+    // $(".main_header .mini_cart_wrapper .item_count").text($cartItems.length);
 
     // 先移除上一次更新購物車時添加的 "還有其他 X 件商品" 元素
     $(".cart_gallery .excess_items").remove();
