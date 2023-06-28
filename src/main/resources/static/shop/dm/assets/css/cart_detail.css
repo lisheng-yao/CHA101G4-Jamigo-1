@@ -1,0 +1,417 @@
+.coupon_inner {
+    padding: 20px;
+}
+
+.fa-solid.fa-house:hover {
+    color: #F53737;
+}
+
+.coupon_inner .show_counterCoupon i.fa-ticket {
+    color: #E06A3B;
+}
+
+.coupon_inner i.fa-xmark {
+    color: #D04255;
+}
+
+.coupon_inner i.fa-check {
+    color: #81D674;
+}
+
+div.show_counterCoupon {
+    align-items: center;
+}
+
+span.counter_promotions {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 5px;
+}
+
+div.canUse_counterCoupon {
+    align-items: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 40px;
+}
+
+div.canNotUse_counterCoupon {
+    align-items: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 40px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+}
+
+span.canUseCounterCoupon_area {
+    width: 70%;
+    font-size: 15px;
+}
+
+div.choose_counterCoupon {
+    width: 300px;
+}
+
+.card-body.counter_coupon {
+    width: 300px;
+}
+
+.card-body.counter_coupon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-body.counter_coupon .use_counterCoupon {
+    margin-left: auto;
+}
+
+div.used_counterCoupon {
+    margin-left: 70px;
+    color: #5EC84E;
+}
+
+.used_counterCoupon_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.usedCounterCoupon_description {
+    width: 60%;
+    text-align: left;
+}
+
+button.remove_usedCounterCoupon {
+    margin-left: auto;
+    background: #5EC84E;
+    border: 0;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 400;
+    height: 30px;
+    line-height: 10px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+span.canNotUseCounterCoupon_area {
+    width: 70%;
+    font-size: 15px;
+}
+
+div.toBeUsed_counterCoupon {
+    margin-left: 70px;
+    color: #D04255;
+}
+
+
+.toBeUsedCounterCoupon_description {
+    width: 60%;
+    text-align: left;
+}
+
+div.show_platformCoupon {
+    align-items: center;
+}
+
+span.platform_promotions {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 5px;
+}
+
+.coupon_inner .show_platformCoupon i.fa-ticket {
+    color: #CA3C6E;
+}
+
+span.canUsePlatformCoupon_area {
+    width: 70%;
+    font-size: 15px;
+}
+
+div.canUse_platformCoupon {
+    align-items: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 40px;
+}
+
+div.choose_platformCoupon {
+    width: 300px;
+}
+
+.card-body.platform_coupon {
+    width: 300px;
+}
+
+.card-body.platform_coupon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-body.platform_coupon .use_platformCoupon {
+    margin-left: auto;
+}
+
+div.used_platformCoupon {
+    margin-left: 70px;
+    color: #5EC84E;
+}
+
+.used_platformCoupon_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.usedPlatformCoupon_description {
+    width: 60%;
+    text-align: left;
+}
+
+button.remove_usedPlatformCoupon {
+    margin-left: auto;
+    background: #5EC84E;
+    border: 0;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 400;
+    height: 30px;
+    line-height: 10px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+span.canNotUsePlatformCoupon_area {
+    width: 70%;
+    font-size: 15px;
+}
+
+div.toBeUsed_platformCoupon {
+    margin-left: 70px;
+    color: #D04255;
+}
+
+.toBeUsedPlatformCoupon_description {
+    width: 60%;
+    text-align: left;
+}
+
+div.canNotUse_platformCoupon {
+    align-items: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 40px;
+}
+
+div.show_memberPoints {
+    align-items: center;
+}
+
+div.show_memberPoints i.fa-sack-dollar{
+    color: #EDAD0B;
+}
+
+span.canUse_memberPoints {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 5px;
+}
+
+div.use_memberPoints_area{
+    margin-left: 70px;
+    font-size: 15px;
+}
+
+/*櫃位折價券下拉選單*/
+div.counterCoupon_placeholder{
+    margin-left: 70px;
+}
+
+select.available_counterCoupon{
+    padding: 8px;
+    margin-top: 3px;
+    width: 450px;
+}
+
+select.available_counterCoupon option{
+    padding: 10px;
+}
+
+select.available_platformCoupon{
+    padding: 8px;
+    margin-top: 3px;
+    width: 250px;
+}
+
+.memberPoints_input {
+    border-radius: 5px;
+    width: 100px;
+}
+
+.checkout_inner button {
+    background: #222222;
+    border: 0;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 35px;
+    line-height: 15px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+.checkout_inner button:hover {
+    background: #F53737;
+    color: #ffffff;
+}
+
+.checkout_title {
+    width: 94%;
+}
+
+.order_originalTotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order_originalTotal p {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+}
+
+.order_originalTotal p.original_total {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.order_counterUsedDiscount {
+    display: flex;
+    align-items: center;
+}
+
+.order_counterUsedDiscount p {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+}
+
+.order_counterUsedDiscount p.counter_usedDiscount {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.order_platformUsedDiscount {
+    display: flex;
+    align-items: center;
+}
+
+.order_platformUsedDiscount p {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+}
+
+.order_platformUsedDiscount p.platform_usedDiscount {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.order_memberPointUsedDiscount {
+    display: flex;
+    align-items: center;
+}
+
+.order_memberPointUsedDiscount p {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+}
+
+.order_memberPointUsedDiscount p.memberPoint_usedDiscount {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.order_finalTotal {
+    display: flex;
+    align-items: center;
+}
+
+.order_finalTotal p {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+}
+
+.order_finalTotal p.final_total {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/*更改小計區塊CSS*/
+.cart_subtotal p {
+    font-weight: 500;
+    font-size: 18px;
+}
+.cart_subtotal p.counterTotal {
+    font-size: 18px;
+    font-weight: 500;
+}
+@media only screen and (max-width: 767px) {
+    .cart_subtotal p.counterTotal {
+        font-size: 14px;
+    }
+}
+.cart_subtotal p.counterDiscount {
+    font-size: 18px;
+    font-weight: 500;
+}
+@media only screen and (max-width: 767px) {
+    .cart_subtotal p.counterDiscount {
+        font-size: 14px;
+    }
+}
+.cart_subtotal p.counterFinalTotal {
+    font-size: 18px;
+    font-weight: 500;
+}
+@media only screen and (max-width: 767px) {
+    .cart_subtotal p.counterFinalTotal {
+        font-size: 14px;
+    }
+}
+
+span.memberOwnPoints{
+    font-size: 18px;
+    font-weight: 500;
+}
