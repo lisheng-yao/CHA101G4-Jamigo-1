@@ -276,7 +276,7 @@
         <div class="col-10 page-body">
             <div class="controll-box activity-order-controll-box">
                 <div class="back-end-box-title activity-order-controll-title">
-                    <h2 class="h2">折價券活動管理</h2>
+                    <h2 class="h2">點數活動管理</h2>
                     <!-- 燈箱 -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal" data-bs-whatever="@mdo">新增
@@ -286,7 +286,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">折價券活動新增
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">點數活動新增
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
@@ -294,13 +294,9 @@
                                 <div class="modal-body">
 
                                     <form>
-                                        <div class="mb-3" style="display: none;">
-                                            <label for="promotionCouponNo" class="col-form-label">折價券活動編號:</label>
-                                            <input type="text" class="form-control" id="promotionCouponNo" readonly>
-                                        </div>
                                         <div class="mb-3">
-                                            <label for="promotionCouponName" class="col-form-label">折價券活動名稱:</label>
-                                            <input type="text" class="form-control" id="promotionCouponName">
+                                            <label for="promotionPointName" class="col-form-label">點數活動名稱:</label>
+                                            <input type="text" class="form-control" id="promotionPointName">
                                         </div>
                                         <div class="mb-3">
                                             <label for="promotionName" class="col-form-label">活動類別:</label>
@@ -311,42 +307,31 @@
                                                 <!--                                                動態生成-->
                                             </div>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="couponTypeNo" class="col-form-label">折價券種類:</label>
-                                            <select name="" id="couponTypeNo" class="form-control">
-                                                <!--                                                動態生成-->
-                                            </select>
-                                            <div id="dynamicSpansCouponTypeNo" style="display: flex;">
-                                                <!--                                                動態生成-->
-                                            </div>
-                                        </div>
+
 
                                         <div class="mb-3">
-                                            <label for="amountOfCoupon" class="col-form-label">發放數量:</label>
-                                            <input type="text" class="form-control" id="amountOfCoupon" >
-                                        </div>
-                                        <div class="mb-3" >
-                                            <label for="getCouponLimitLevel" class="col-form-label">會員等級限制:</label>
-                                            <input type="text" class="form-control" id="getCouponLimitLevel" >
+                                            <label for="getPointMag" class="col-form-label">取得點數倍率:</label>
+                                            <input type="text" class="form-control" id="getPointMag" >
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label for="getCouponLimitAmount" class="col-form-label">領取量限制:</label>
-                                            <input type="text" class="form-control" id="getCouponLimitAmount" >
-                                        </div>
 
                                         <div class="mb-3">
-                                            <label for="promotionEffectiveDate" class="col-form-label">活動生效日期:</label>
+                                            <label for="promotionEffectiveDate" class="col-form-label">生效日期:</label>
                                             <input type="date" class="form-control" id="promotionEffectiveDate" >
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="promotionExpireDate" class="col-form-label">活動結束日期:</label>
+                                        <div class="mb-3" >
+                                            <label for="promotionExpireDate" class="col-form-label">截止日期:</label>
                                             <input type="date" class="form-control" id="promotionExpireDate" >
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="promotionPic" class="col-form-label">活動圖片:</label>
-                                            <input type="file" class="form-control" id="promotionPic" accept="image/jpeg, image/png">
+                                            <label for="getPointConditions" class="col-form-label">領取條件:</label>
+                                            <input type="text" class="form-control" id="getPointConditions" >
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="promotionPica" class="col-form-label">活動圖片:</label>
+                                            <input type="file" class="form-control" id="promotionPica" accept="image/jpeg, image/png"  >
                                         </div>
 
                                     </form>
@@ -365,12 +350,12 @@
                     <table id="all" class="display" style="width:100%">
                         <thead>
                         <tr>
-                            <th>編號</th>
                             <th>活動名稱</th>
                             <th>活動類別</th>
-                            <th>折價券類別</th>
                             <th>活動生效日</th>
                             <th>活動結束日</th>
+                            <th>點數倍率</th>
+                            <th>領取條件</th>
                             <th>詳情</th>
                             <th>修改</th>
                             <th>刪除</th>
@@ -399,7 +384,7 @@
         crossorigin="anonymous"></script>
 
 <!-- 新引入的JS檔案或套件請由此往下放 -->
-<script src="assets/js/PromotionCoupon.js"></script>
+<script src="assets/js/PromotionPoint.js"></script>
 <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))

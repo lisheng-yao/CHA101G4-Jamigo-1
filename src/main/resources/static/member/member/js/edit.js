@@ -189,7 +189,6 @@
             }
         }
         // 檢查結束
-
         msg.textContent = '';
         fetch('edit', {
             method: 'POST',

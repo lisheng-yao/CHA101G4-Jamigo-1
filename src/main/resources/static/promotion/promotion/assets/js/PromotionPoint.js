@@ -6,14 +6,12 @@
 
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
     let dataaccount = 0;
-    console.log(dataaccount)
     let PromotionType = [];
     let promotionName4 = [];
-    let couponTypeNo4 = [];
 
-    function getAllPromotionCoupon() {
-        console.log('進入getAllPromotionCoupon()')
-        fetch("getAllPromotionCoupon")
+    function getAllPromotionPoint() {
+        console.log('進入getAllPromotionPoint()')
+        fetch("getAllPromotionPoint")
             .then(function (response) {
                 // 檢查 API 响應的狀態碼
                 if (response.status !== 200) {
@@ -24,42 +22,35 @@
                 // 解析 JSON 格式的數據
                 response.json().then(function (data) {
                     // 在此處可以處理從 API 獲取的數據
-                    PromotionCoupon = data;
-                    console.log('獲取的折價券活動：', PromotionCoupon);
+                    PromotionPoint = data;
+                    console.log('獲取的折價券活動：', PromotionPoint);
 
 
-                    for (let i = 0; i < PromotionCoupon.length; i++) {
+                    for (let i = 0; i < PromotionPoint.length; i++) {
                         dataaccount = i;
-                        let row = PromotionCoupon[i];
-                        const promotionCouponNo = row.promotionCouponNo;
-                        const promotionCouponName = row.promotionCouponName;
+                        let row = PromotionPoint[i];
+                        const promotionPointNo = row.promotionPointNo;
+                        const promotionPointName = row.promotionPointName;
                         const promotionName = row.promotionName;
                         promotionName4.push(promotionName);
-                        const couponTypeNo = row.couponTypeNo;
-                        couponTypeNo4.push(couponTypeNo);
+                        const getPointConditions = row.getPointConditions;
+                        const getPointMag = row.getPointMag;
                         //     處理日期格式
-                        const originalDate = new Date(row.promotionEffectiveDate);
+                        const originalDate = new Date(row.promotionExpireDate);
                         const year = originalDate.getFullYear();
                         const month = originalDate.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
                         const day = originalDate.getDate();
                         const formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
                         //     處理日期格式
-                        const promotionEffectiveDate = formattedDate;
+                        const promotionExpireDate = formattedDate;
                         //     處理日期格式
-                        const originalDate2 = new Date(row.promotionExpireDate);
+                        const originalDate2 = new Date(row.promotionEffectiveDate);
                         const year2 = originalDate2.getFullYear();
                         const month2 = originalDate2.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
                         const day2 = originalDate2.getDate();
                         const formattedDate2 = year2 + '-' + ('0' + month2).slice(-2) + '-' + ('0' + day2).slice(-2);
                         //     處理日期格式
-                        const promotionExpireDate = formattedDate2;
-                        const amountOfCoupon = row.amountOfCoupon;
-                        const getCouponLimitLevel = row.getCouponLimitLevel;
-                        const getCouponLimitAmount = row.getCouponLimitAmount;
-
-                        const promotionPic = row.promotionPic;
-                        const getAmount = row.getAmount;
-
+                        const promotionEffectiveDate = formattedDate2;
                         //     處理日期格式
                         const originalDate3 = new Date(row.promotionCreateDate);
                         const year3 = originalDate3.getFullYear();
@@ -67,13 +58,15 @@
                         const day3 = originalDate3.getDate();
                         const formattedDate3 = year3 + '-' + ('0' + month3).slice(-2) + '-' + ('0' + day3).slice(-2);
                         const promotionCreateDate = formattedDate3;
+                        const promotionPic = row.promotionPic;
 
-                        dataTable.row.add([promotionCouponNo,
-                            promotionCouponName,
+                        dataTable.row.add([
+                            promotionPointName,
                             promotionName,
-                            couponTypeNo,
                             promotionEffectiveDate,
                             promotionExpireDate,
+                            getPointMag,
+                            getPointConditions,
                             `<a href="#"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
@@ -92,17 +85,18 @@
 
                             <form>
                                 <div class="mb-3">
-                                    <label for="promotionCouponNo${i}"
-                                           class="col-form-label">折價券活動編號:</label>
+                                    <label for="promotionPointNo${i}"
+                                           class="col-form-label">點數活動編號:</label>
                                     <input type="text" class="form-control"
-                                           id="promotionCouponNo${i}" value="${promotionCouponNo}" readonly>
+                                           id="promotionPointNo${i}" value="${promotionPointNo}" readonly>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="promotionCouponName${i}"
-                                           class="col-form-label">折價券活動名稱:</label>
+                                    <label for="promotionPointName${i}"
+                                           class="col-form-label">點數活動名稱:</label>
                                     <input type="text" class="form-control"
-                                           id="promotionCouponName${i}" value="${promotionCouponName}" >
+                                           id="promotionPointName${i}" value="${promotionPointName}" >
                                 </div>
+                                
                                 <div class="mb-3">
                                     <label for="promotionName${i}"
                                            class="col-form-label">活動類別:</label>
@@ -112,37 +106,6 @@
                                     <div id="dynamicSpanspromotionName${i}" style="display: flex;">
                                             </div>
                                 </div>
-                                
-                                <div class="mb-3">
-                                    <label for="couponTypeNo${i}"
-                                           class="col-form-label">折價券種類:</label>
-                                    <select name="" id="couponTypeNo${i}" value="${couponTypeNo}" class="form-control">
-                                    </select>
-                                    <div id="dynamicSpanscouponTypeNo${i}" style="display: flex;">
-                                            </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="amountOfCoupon${i}"
-                                           class="col-form-label">發放數量:</label>
-                                    <input type="text" class="form-control"
-                                           id="amountOfCoupon${i}" value="${amountOfCoupon}" >
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="getCouponLimitLevel${i}"
-                                           class="col-form-label">會員等級限制:</label>
-                                    <input type="text" class="form-control"
-                                           id="getCouponLimitLevel${i}" value="${getCouponLimitLevel}" >
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="getCouponLimitAmount${i}"
-                                           class="col-form-label">領取量限制:</label>
-                                    <input type="text" class="form-control"
-                                           id="getCouponLimitAmount${i}" value="${getCouponLimitAmount}" >
-                                </div>
-                                
                                 <div class="mb-3">
                                     <label for="promotionEffectiveDate${i}"
                                            class="col-form-label">活動生效日期:</label>
@@ -156,19 +119,32 @@
                                     <input type="date" class="form-control"
                                            id="promotionExpireDate${i}" value="${promotionExpireDate}" >
                                 </div>
+                               
+                                
+                                <div class="mb-3">
+                                    <label for="getPointMag${i}"
+                                           class="col-form-label">點數倍率:</label>
+                                    <input type="text" class="form-control"
+                                           id="getPointMag${i}" value="${getPointMag}" >
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="getPointConditions${i}"
+                                           class="col-form-label">領取條件:</label>
+                                    <input type="text" class="form-control"
+                                           id="getPointConditions${i}" value="${getPointConditions}" >
+                                </div>
+                                
                                 <div class="mb-3">
                                             <label for="promotionCreateDate${i}" class="col-form-label">建立時間:</label>
                                             <input type="text" class="form-control" id="promotionCreateDate${i}" value="${promotionCreateDate}" readonly>
                                         </div>
-                                <div class="mb-3">
-                                            <label for="getAmount${i}" class="col-form-label">已領取數量:</label>
-                                            <input type="text" class="form-control" id="getAmount${i}" value="${getAmount}" readonly>
-                                </div>
+                                
                                 <div class="mb-3">
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
-                                           id="promotionPic${i}" value="${promotionPic}" >
+                                           id="promotionPic${i}" value="${promotionPic}" accept="image/jpeg, image/png">
                                 </div>
                                 <span id="msg"> </span>
                             </form>
@@ -192,7 +168,6 @@
                     addeventlistener4editbutton();
                     setdeletebutton();
                     addeventlistener4deletebutton();
-                    getAllCouponType();
                     getAllPromotion();
                     const msg = document.querySelector('#msg');
                 });
@@ -206,7 +181,19 @@
     // ============================2.  初始化datatable函式========================
 
     let dataTable = $('#all').DataTable({
-        scrollY: '600px', scrollCollapse: true, paging: false, pageLength: 10, info: false, destroy: true,
+        scrollY: '600px',
+        scrollCollapse: true,
+        paging: false,
+        pageLength: 10,
+        info: false,
+        destroy: true,
+        columnDefs: [
+            {
+                target: 6,
+                width: 5,
+                className: "hiddenyes"
+            }
+        ]
     });
 
     // ============================３. 抓取所有修改的燈箱按鈕 ========================
@@ -220,98 +207,103 @@
     }
 
     // ============================4. 抓取所有燈箱的input ========================
-
-    let promotionCouponNoinputs = [];
-    let promotionCouponNameinputs = [];
+    let promotionPointNoinputs = [];
+    let promotionPointNameinputs = [];
     let promotionNameinputs = [];
-    let dynamicSpanspromotionNameinputs = [];
-    let couponTypeNoinputs = [];
-    let dynamicSpanscouponTypeNoinputs = [];
-    let amountOfCouponinputs = [];
-    let getCouponLimitLevelinputs = [];
-    let getCouponLimitAmountinputs = [];
     let promotionEffectiveDateinputs = [];
     let promotionExpireDateinputs = [];
     let promotionCreateDateinputs = [];
-    let getAmountinputs = [];
+    let getPointMaginputs = [];
+    let getPointConditionsinputs = [];
+    let dynamicSpanspromotionNameinputs = [];
     let promotionPicinputs = [];
 
     function setinputinbox() {
         for (let i = 0; i <= dataaccount; i++) {
-            const promotionCouponNoinput = document.querySelector('#promotionCouponNo' + i);
-            const promotionCouponNameinput = document.querySelector('#promotionCouponName' + i);
             const promotionNameinput = document.querySelector('#promotionName' + i);
             const dynamicSpanspromotionNameinput = document.querySelector('#dynamicSpanspromotionName' + i);
-            const couponTypeNoinput = document.querySelector('#couponTypeNo' + i);
-            const dynamicSpanscouponTypeNoinput = document.querySelector('#dynamicSpanscouponTypeNo' + i);
-            const amountOfCouponinput = document.querySelector('#amountOfCoupon' + i);
-            const getCouponLimitLevelinput = document.querySelector('#getCouponLimitLevel' + i);
-            const getCouponLimitAmountinput = document.querySelector('#getCouponLimitAmount' + i);
             const promotionEffectiveDateinput = document.querySelector('#promotionEffectiveDate' + i);
             const promotionExpireDateinput = document.querySelector('#promotionExpireDate' + i);
             const promotionCreateDateinput = document.querySelector('#promotionCreateDate' + i);
-            const getAmountinput = document.querySelector('#getAmount' + i);
             const promotionPicinput = document.querySelector('#promotionPic' + i);
-            promotionCouponNoinputs.push(promotionCouponNoinput);
-            promotionCouponNameinputs.push(promotionCouponNameinput);
+            const promotionPointNoinput = document.querySelector('#promotionPointNo' + i);
+            const promotionPointNameinput = document.querySelector('#promotionPointName' + i);
+            const getPointMaginput = document.querySelector('#getPointMag' + i);
+            const getPointConditionsinput = document.querySelector('#getPointConditions' + i);
             promotionNameinputs.push(promotionNameinput);
             dynamicSpanspromotionNameinputs.push(dynamicSpanspromotionNameinput);
-            couponTypeNoinputs.push(couponTypeNoinput);
-            dynamicSpanscouponTypeNoinputs.push(dynamicSpanscouponTypeNoinput);
-            amountOfCouponinputs.push(amountOfCouponinput);
-            getCouponLimitLevelinputs.push(getCouponLimitLevelinput);
-            getCouponLimitAmountinputs.push(getCouponLimitAmountinput);
             promotionEffectiveDateinputs.push(promotionEffectiveDateinput);
             promotionExpireDateinputs.push(promotionExpireDateinput);
             promotionCreateDateinputs.push(promotionCreateDateinput);
-            getAmountinputs.push(getAmountinput);
+            promotionPointNoinputs.push(promotionPointNoinput);
             promotionPicinputs.push(promotionPicinput);
+            promotionPointNameinputs.push(promotionPointNameinput);
+            getPointMaginputs.push(getPointMaginput);
+            getPointConditionsinputs.push(getPointConditionsinput);
         }
     }
 
+    // promotionPointNo
+    // promotionPointName
+    // promotionName
+    // promotionEffectiveDate
+    // promotionExpireDate
+    // promotionCreateDate
+    // getPointMag
+    // getPointConditions
+    // dynamicSpanspromotionName
+    // promotionPic
 
     // ============================4. 修改資料進去 editPromotion()========================
+
     function editPromotion(i) {
-        const promotionCouponNo4json = promotionCouponNoinputs[i].value;
-        const promotionCouponName4json = promotionCouponNameinputs[i].value;
+        const promotionPointNo4json = promotionPointNoinputs[i].value;
+        const promotionPointName4json = promotionPointNameinputs[i].value;
         const promotionName4json = promotionNameinputs[i].value;
-        const couponTypeNo4json = couponTypeNoinputs[i].value;
-        const amountOfCoupon4json = amountOfCouponinputs[i].value;
-        const getCouponLimitLevel4json = getCouponLimitLevelinputs[i].value;
-        const getCouponLimitAmount4json = getCouponLimitAmountinputs[i].value;
         const promotionEffectiveDate4json = promotionEffectiveDateinputs[i].value;
         const promotionExpireDate4json = promotionExpireDateinputs[i].value;
-        const getAmount4json = getAmountinputs[i].value;
+        const getPointMag4json = getPointMaginputs[i].value;
+        const getPointConditions4json = getPointConditionsinputs[i].value;
+        const promotionPic4json = promotionPicinputs[i];
+        const msg = document.querySelector('#msg');
+
+        promotionPic4json.addEventListener("change", function (event) {
+            readPic(event);
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '上傳成功!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        });
 
         msg.textContent = '';
-        const promotionNameLength = promotionName4json.length;
+        const promotionNameLength = promotionPointName4json.length;
         if (promotionNameLength < 1 || promotionNameLength > 10) {
             msg.textContent = '名稱長度須介於1~10字元';
             return;
         }
         // 檢查結束
 
-        fetch('editPromotionCoupon', {
+        fetch('editPromotionPoint', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify({
-                promotionCouponNo: promotionCouponNo4json,
-                promotionCouponName: promotionCouponName4json,
+                promotionPointNo: promotionPointNo4json,
+                promotionPointName: promotionPointName4json,
+                getPointMag: getPointMag4json,
+                getPointConditions: getPointConditions4json,
                 promotionName: promotionName4json,
-                couponTypeNo: couponTypeNo4json,
-                amountOfCoupon: amountOfCoupon4json,
-                getCouponLimitLevel: getCouponLimitLevel4json,
-                getCouponLimitAmount: getCouponLimitAmount4json,
                 promotionEffectiveDate: promotionEffectiveDate4json,
                 promotionExpireDate: promotionExpireDate4json,
-                getAmount: getAmount4json,
                 promotionPic4json: base64Image
             }),
         })
             .then(resp => resp.json())
             .then(body => {
                 console.log(body);
-                const {successful} = body;
+                const {successful, message} = body;
                 if (successful) {
                     msg.className = 'info';
                     msg.textContent = '修改成功';
@@ -323,7 +315,7 @@
                 } else {
                     msg.className = 'error';
                     Swal.fire({
-                        icon: 'error', title: 'Oops...', text: '修改失敗!', footer: '<a href=""></a>'
+                        icon: 'error', title: 'Oops...', text: `${message}`, footer: '<a href=""></a>'
                     })
                 }
             });
@@ -334,7 +326,6 @@
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
             editbuttons[i].addEventListener('click', () => {
-                console.log("修改按鈕啟動")
                 editPromotion(i);
             })
             promotionPicinputs[i].addEventListener("change", function (event) {
@@ -352,43 +343,38 @@
 
     // ============================6.   newAPromotion()新增promotion========================
     const msg2 = document.querySelector('#msg2');
-
+    const promotionPic4new = document.querySelector('#promotionPica');
+    promotionPic4new.addEventListener("change", function (event) {
+        readPic(event);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '上傳成功!',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    });
     function newAPromotion() {
-        const promotionCouponName4new = document.querySelector('#promotionCouponName').value;
+        const promotionPointName4new = document.querySelector('#promotionPointName').value;
+        const getPointMag4new = document.querySelector('#getPointMag').value;
+        const getPointConditions4new = document.querySelector('#getPointConditions').value;
         const promotionName4new = document.querySelector('#promotionName').value;
-        const couponTypeNo4new = document.querySelector('#couponTypeNo').value;
-        const amountOfCoupon4new = document.querySelector('#amountOfCoupon').value;
-        const getCouponLimitLevel4new = document.querySelector('#getCouponLimitLevel').value;
-        const getCouponLimitAmount4new = document.querySelector('#getCouponLimitAmount').value;
         const promotionEffectiveDate4new = document.querySelector('#promotionEffectiveDate').value;
         const promotionExpireDate4new = document.querySelector('#promotionExpireDate').value;
-        const promotionPic4new = document.querySelector('#promotionPic');
-        promotionPic4new.addEventListener("change", function (event) {
-           readPic(event);
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '上傳成功!',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        });
 
-        const promotionNameLength = promotionName4new.length;
+        const promotionNameLength = promotionPointName.length;
         if (promotionNameLength < 1 || promotionNameLength > 10) {
             msg2.textContent = '名稱長度須介於1~10字元';
             return;
         }
-        fetch('newPromotionCoupon', {
+        fetch('newPromotionPoint', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify({
-                promotionCouponName: promotionCouponName4new,
+                promotionPointName: promotionPointName4new,
+                getPointMag: getPointMag4new,
+                getPointConditions: getPointConditions4new,
                 promotionName: promotionName4new,
-                couponTypeNo: couponTypeNo4new,
-                amountOfCoupon: amountOfCoupon4new,
-                getCouponLimitLevel: getCouponLimitLevel4new,
-                getCouponLimitAmount: getCouponLimitAmount4new,
                 promotionEffectiveDate: promotionEffectiveDate4new,
                 promotionExpireDate: promotionExpireDate4new,
                 promotionPic4json: base64Image
@@ -397,7 +383,7 @@
             .then(resp => resp.json())
             .then(body => {
                 console.log(body);
-                const {successful, Message} = body;
+                const {successful, message} = body;
                 if (successful) {
 
                     Swal.fire({
@@ -407,7 +393,7 @@
                     })
                 } else {
                     Swal.fire({
-                        icon: 'error', title: 'Oops...', text: Message, footer: '<a href=""></a>'
+                        icon: 'error', title: 'Oops...', text: `${message}`, footer: '<a href=""></a>'
                     })
                 }
                 ;
@@ -430,21 +416,21 @@
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
             deletebuttons[i].addEventListener('click', () => {
-                const inputvalue = promotionCouponNoinputs[i].value;
+                const inputvalue = promotionPointNoinputs[i].value;
                 deledtbyPK(inputvalue);
             })
         }
     }
 
     // ============================9. 刪除方法========================
-    function deledtbyPK(promotionCouponNo) {
+    function deledtbyPK(promotionPointNo) {
         const confirmed = confirm("確定要刪除嗎？");
         if (confirmed) {
-            fetch('deletePromotionCoupon', {
+            fetch('deletePromotionPoint', {
                 method: 'POST', headers: {
                     'Content-Type': 'application/json',
                 }, body: JSON.stringify({
-                    promotionCouponNo: promotionCouponNo
+                    promotionPointNo: promotionPointNo
                 }),
             })
                 .then((resp) => {
@@ -467,210 +453,6 @@
         }
     };
 
-    // ============================10.查詢折價券種類========================
-    const select4CouponType = document.querySelector('#couponTypeNo');
-    const dynamicSpansCouponTypeNo = document.querySelector('#dynamicSpansCouponTypeNo');
-    let CouponTypelength = 0;
-    let x = 0;
-
-    function getAllCouponType() {
-        console.log('進入getAllCouponType()')
-        fetch("getAllCouponType")
-            .then(function (response) {
-                // 檢查 API 响應的狀態碼
-                if (response.status !== 200) {
-                    console.log('發生錯誤，狀態碼：' + response.status);
-                    return;
-                }
-
-                // 解析 JSON 格式的數據
-                response.json().then(function (data) {
-                    // 在此處可以處理從 API 獲取的數據
-                    CouponType = data;
-                    console.log('獲取的折價券種類資訊：', CouponType);
-                    const lastData = CouponType[CouponType.length - 1];
-                    CouponTypelength = lastData.couponTypeNo;
-                    let str = ' <option selected disabled>請選擇折價券種類</option>';
-                    let str2 = '';
-                    let str3 = [];
-                    let str4 = [];
-                    let str3_0 = '';
-                    let str4_0 = '';
-                    for (let x = 0; x <= dataaccount; x++) {
-                        for (let u = 0; u < CouponType.length; u++) {
-                            let row = CouponType[u];
-                            const couponTypeNo2 = row.couponTypeNo;
-                            const couponTypeName = row.couponTypeName;
-                            let adminNod = "";
-                            if (row.adminNo != null) {
-                                adminNod = row.adminNo;
-                            }
-                            let counterNo = "";
-                            if (row.counterNo != null) {
-                                counterNo = row.counterNo;
-                            }
-                            // 處理日期格式
-                            const originalDate = new Date(row.couponCreateDate);
-                            const year = originalDate.getFullYear();
-                            const month = originalDate.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
-                            const day = originalDate.getDate();
-                            const formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
-                            // 處理日期格式
-                            const couponCreateDate = formattedDate;
-                            // 處理日期格式
-                            const originalDatea = new Date(row.couponExpireDate);
-                            const yeara = originalDatea.getFullYear();
-                            const montha = originalDatea.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
-                            const daya = originalDatea.getDate();
-                            const formattedDatea = yeara + '-' + ('0' + montha).slice(-2) + '-' + ('0' + daya).slice(-2);
-                            // 處理日期格式
-                            const couponExpireDate = formattedDatea;
-
-                            const couponConditions = row.couponConditions;
-                            const couponPrice = row.couponPrice;
-                            const couponLowest = row.couponLowest;
-
-                            str4_0 += `<option value="${couponTypeNo2}" ${couponTypeNo2 === couponTypeNo4[x] ? 'selected' : ''}>${couponTypeNo2} : ${couponTypeName}</option>`
-                            str3_0 += `<div id="span4CouponType${couponTypeNo2}${x}" class="hiddenyee">
-                                <span>管理員編號： ${adminNod}</span>
-                                <span>欄位編號: ${counterNo}</span>
-                                <br>
-                                <span>建立日期: ${couponCreateDate}</span>
-                                <span>失效日期: ${couponExpireDate}</span>
-                                <br>
-                                <span>折扣金額: ${couponPrice}</span>
-                                <span>使用門檻: ${couponLowest}</span>
-                                <br>
-                                <span>使用說明: ${couponConditions}</span>
-                                </div>`
-                        }
-                        str3.push(str3_0);
-                        str3_0 = '';
-                        str4.push(str4_0);
-                        str4_0 = '';
-                    }
-
-                    for (let i = 0; i < CouponType.length; i++) {
-                        let row = CouponType[i];
-                        const couponTypeNo2 = row.couponTypeNo;
-                        const couponTypeName = row.couponTypeName;
-                        let adminNod = "";
-                        if (row.adminNo != null) {
-                            adminNod = row.adminNo;
-                        }
-                        let counterNo = "";
-                        if (row.counterNo != null) {
-                            counterNo = row.counterNo;
-                        }
-                        // 處理日期格式
-                        const originalDate = new Date(row.couponCreateDate);
-                        const year = originalDate.getFullYear();
-                        const month = originalDate.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
-                        const day = originalDate.getDate();
-                        const formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
-                        // 處理日期格式
-                        const couponCreateDate = formattedDate;
-                        // 處理日期格式
-                        const originalDatea = new Date(row.couponExpireDate);
-                        const yeara = originalDatea.getFullYear();
-                        const montha = originalDatea.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
-                        const daya = originalDatea.getDate();
-                        const formattedDatea = yeara + '-' + ('0' + montha).slice(-2) + '-' + ('0' + daya).slice(-2);
-                        // 處理日期格式
-                        const couponExpireDate = formattedDatea;
-
-                        const couponConditions = row.couponConditions;
-                        const couponPrice = row.couponPrice;
-                        const couponLowest = row.couponLowest;
-                        str += `<option value="${couponTypeNo2}" >${couponTypeNo2} : ${couponTypeName}</option>`
-                        str2 += `<div id="span4CouponType${couponTypeNo2}" class="hiddenyee">
-                                <span>管理員編號： ${adminNod}</span>
-                                <span>欄位編號: ${counterNo}</span>
-                                <br>
-                                <span>建立日期: ${couponCreateDate}</span>
-                                <span>失效日期: ${couponExpireDate}</span>
-                                <br>
-                                <span>折扣金額: ${couponPrice}</span>
-                                <span>使用門檻: ${couponLowest}</span>
-                                <br>
-                                <span>使用說明: ${couponConditions}</span>
-                                </div>`
-
-                    }
-                    dynamicSpansCouponTypeNo.innerHTML = str2;
-                    select4CouponType.innerHTML = str;
-                    for (let i = 0; i <= dataaccount; i++) {
-                        if (typeof dynamicSpanscouponTypeNoinputs[i] !== 'undefined') {
-                            dynamicSpanscouponTypeNoinputs[i].innerHTML = str3[i];
-                        }
-                        if (typeof couponTypeNoinputs[i] !== 'undefined') {
-                            couponTypeNoinputs[i].innerHTML = str4[i];
-                        }
-                    }
-                    setdiv4CouponType();
-                    Listener4SelectCoupontype()
-                    setdiv4div4CouponType2()
-
-                });
-            })
-            .catch(function (err) {
-                console.log('錯誤：', err);
-            });
-    }
-
-    // ============================11.抓到選項下div並綁定select========================
-    let div4CouponType = [];
-
-    function setdiv4CouponType() {
-        for (let i = 0; i <= CouponTypelength; i++) {
-            const div4CouponTypea = document.getElementById('span4CouponType' + i);
-            if (div4CouponTypea) {
-                div4CouponType.push(div4CouponTypea);
-            }
-        }
-    }
-
-    let div4CouponType2 = [];
-    let div4CouponType3 = []
-
-    function setdiv4div4CouponType2() {//ok
-        for (let p = 0; p <= dataaccount; p++) {
-            for (let i = 0; i < CouponTypelength; i++) {
-                const div4CouponTypea = document.getElementById('span4CouponType' + i + p);
-                if (div4CouponTypea) {
-                    div4CouponType2.push(div4CouponTypea);
-                }
-            }
-            div4CouponType3.push(div4CouponType2);
-            div4CouponType2 = [];
-        }
-    }
-
-    function Listener4SelectCoupontype() {
-        for (let i = 0; i <= dataaccount; i++) {
-            couponTypeNoinputs[i].addEventListener('change', () => {
-                const selectedValue2 = couponTypeNoinputs[i].value;
-                div4CouponType3[i].forEach(function (div) {
-                    if (div.id === "span4CouponType" + selectedValue2 + i) {
-                        div.classList.remove("hiddenyee");
-                    } else {
-                        div.classList.add("hiddenyee");
-                    }
-                });
-
-            })
-        }
-        select4CouponType.addEventListener('change', () => {
-            const selectedValue = select4CouponType.value;
-            div4CouponType.forEach(function (div) {
-                if (div.id === "span4CouponType" + selectedValue) {
-                    div.classList.remove("hiddenyee");
-                } else {
-                    div.classList.add("hiddenyee");
-                }
-            });
-        })
-    };
 
     // ============================12.查詢活動種類========================
     const select4promotionName = document.querySelector('#promotionName');
@@ -680,7 +462,7 @@
 
     function getAllPromotion() {
         console.log('進入getAllPromotion()')
-        fetch("getAllPromotion")
+        fetch("getAllPromotion2")
             .then(function (response) {
                 // 檢查 API 响應的狀態碼
                 if (response.status !== 200) {
@@ -697,7 +479,7 @@
                     let str = ' <option selected disabled>請選擇活動種類</option>';
                     let str2 = '';
                     let str3_0 = '';
-                    let str4_0  = '';
+                    let str4_0 = '';
                     let str3 = [];
                     let str4 = [];
 
@@ -759,7 +541,7 @@
                     }
                     dynamicSpanPromotionName.innerHTML = str2;
                     select4promotionName.innerHTML = str;
-                    for (let i = 0; i <= dataaccount; i++) {
+                    for (let i = 0; i < promotionNamelength; i++) {
                         if (typeof dynamicSpanspromotionNameinputs[i] !== 'undefined') {
                             dynamicSpanspromotionNameinputs[i].innerHTML = str3[i];
                         }
@@ -843,10 +625,8 @@
             reader.onload = function (e) {
                 const imageSrc = e.target.result; // 獲取數據
                 base64Image = imageSrc.split(",")[1];// 轉成base64
-
             };
             reader.readAsDataURL(file); // 讀取成url
-            return base64Image;
         }
     }
 
@@ -855,7 +635,7 @@
     // ===============================VVV使用方法區VVV================================
 
     //=================================1. 總之先查一次=================================
-    getAllPromotionCoupon();
+    getAllPromotionPoint();
 
 
     // ===============================2. 確認新增按鈕================================

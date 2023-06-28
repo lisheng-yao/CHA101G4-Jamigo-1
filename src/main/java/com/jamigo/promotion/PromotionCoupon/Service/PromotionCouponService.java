@@ -1,6 +1,7 @@
 package com.jamigo.promotion.PromotionCoupon.Service;
 
 import com.jamigo.promotion.PromotionCoupon.Entity.PromotionCoupon;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

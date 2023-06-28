@@ -40,7 +40,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: '登入失敗',
-                        text: message,
+                        text: `${message}`,
                         footer: '<a href="">Why do I have this issue?</a>'
                     })
                 }
