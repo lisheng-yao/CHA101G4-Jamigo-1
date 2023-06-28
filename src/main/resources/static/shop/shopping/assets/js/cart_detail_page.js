@@ -11,6 +11,7 @@ let memberCoupons;
 let availableCounterCoupons;
 let originalTotal = 0;
 let counterFinalTotal;
+let memberOwnPoints = 100;
 
 $(function () {
     let memberNo = getMemberNo();
@@ -35,7 +36,9 @@ $(function () {
     registerInputEvent();
     trashCanRemove();
     counterSelectChange();
-    //platformSelectChange();
+    platformSelectChange();
+    memberPointChange();
+
 });
 
 //取得會員編號
@@ -159,10 +162,10 @@ function showCartByCounter() {
             cart_html += replaced_counterArea_head;
             //紀錄新櫃位編號
             currentCounterNo = cartItems[i].counterNo;
-            //累加櫃位金額到整筆訂單總額
-            originalTotal += counterTotal;
-            //櫃位未折扣總額
-            $(".counterFinalTotal").text(originalTotal);
+            // //累加櫃位金額到整筆訂單總額 ---------------> 抽成寒是使用
+            // originalTotal += counterTotal;
+            // //櫃位未折扣總額
+            // $(".original_total").text(originalTotal);
             //重設櫃位總和給新櫃位
             counterTotal = 0;
         }
@@ -195,14 +198,16 @@ function showCartByCounter() {
     // replaced_counterArea_foot = replaced_counterArea_foot.replace("foot_counterTotalDiscount",counterTotalDiscount);
     cart_html += replaced_counterArea_foot; //結束前一個櫃位的table
     $("#cartPanel").html(cart_html);
+    //--------------------------------------------------------------------------------
+    printCartTail();
 
     //累加櫃位金額到整筆訂單總額
-    originalTotal += counterTotal;
-    $(".original_total").text(originalTotal);
-    let availablePlatformCoupons = putCanUseCounterCoupons(memberCoupons, 0, originalTotal);
-    $(".available_platformCoupon").html(availablePlatformCoupons);
-    $(".totalAfterCounterDiscount").text(originalTotal);
-    $(".final_total").text(originalTotal);  //最後結帳金額
+    // originalTotal += counterTotal;
+    // $(".original_total").text(originalTotal);
+    // let availablePlatformCoupons = putCanUseCounterCoupons(memberCoupons, 0, originalTotal);
+    // $(".available_platformCoupon").html(availablePlatformCoupons);
+    // $(".totalAfterCounterDiscount").text(originalTotal);
+    // $(".final_total").text(originalTotal);  //最後結帳金額
 }
 
 //註冊商品數量改變事件
@@ -215,8 +220,6 @@ function registerInputEvent() {
     quantities = $(".quantity");
     subtotals = $(".product_total");
     for (let i = 0; i < btnMinus.length; i++) {
-        //限制blur事件在點擊+按鈕時不要被觸發
-        let btnClicked = false; //追蹤按鈕被點擊狀態
         btnMinus.eq(i).on("click", function () {
             if (quantities.eq(i).val() > 1) { //數量為0時,不給減
                 quantities.eq(i).val(parseInt(quantities.eq(i).val()) - 1);
@@ -225,8 +228,6 @@ function registerInputEvent() {
         });
 
         btnPlus.eq(i).on("click", function (e) {
-            e.stopPropagation(); //阻止bubble
-            btnClicked = true; //設為被點擊
             quantities.eq(i).val(parseInt(quantities.eq(i).val()) + 1);
             quantities.eq(i).trigger("input");
         });
@@ -239,10 +240,6 @@ function registerInputEvent() {
         });
 
         quantities.eq(i).on("blur", function (e) {
-            if (btnClicked) {
-                btnClicked = false; //將按鈕追蹤flag reset
-                return; //+按鈕點擊時不觸發blur事件限制
-            }
             if (quantities.eq(i).val() == "") {
                 quantities.eq(i).val(1);
                 //加是否移除sweet alert
@@ -322,14 +319,17 @@ function registerInputEvent() {
             }
             //即時更新櫃位原始總計
             table.parent().next().find(".counterTotal").eq(0).text(table_counterTotal);
+            table.parent().next().find(".counterFinalTotal").eq(0).text(table_counterTotal);
+            table.parent().next().find(".counterDiscount").eq(0).text("-0");
             table.parent().next().find(".available_counterCoupon").eq(0).html(putCanUseCounterCoupons(memberCoupons, cartItems[i].counterNo, table_counterTotal));
             //------更新累加櫃位金額到整筆訂單總額
-            counterTotals = $(".counterTotal");
-            originalTotal = 0;
-            for (let i = 0; i < counterTotals.length; i++){
-                originalTotal += parseInt(counterTotals.eq(i).text());
-            }
-            $(".original_total").text(originalTotal);   //平台原總額
+            printCartTail();
+            // counterTotals = $(".counterTotal");
+            // originalTotal = 0;
+            // for (let i = 0; i < counterTotals.length; i++){
+            //     originalTotal += parseInt(counterTotals.eq(i).text());
+            // }
+            // $(".original_total").text(originalTotal);   //平台原總額
             if (quantities.eq(i).val() == "") {
                 return;
             }
@@ -436,17 +436,24 @@ function putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal) 
 }
 
 
-//把被選擇的折價券存入sessionStorage
-function couponToSessionStorage() {
+//-----------------------------------把被選擇的折價券存入sessionStorage
+function packToSessionStorage() {
     $("#checkout_confirm").on("click", function (e) {
         e.preventDefault();
+        let package={};
+        //------打包折價卷
         let usedCounterCoupons = [];
+        //-----1.counter
         let counterCoupons = $(".available_counterCoupon");
         for (let i = 0; i < counterCoupons.length; i++) {
             if (counterCoupons.eq(i).val() != "") {
                 usedCounterCoupons.push(counterCoupons.eq(i).val());
             }
         }
+        //-----1.platform
+        
+        //------打包點數
+
         sessionStorage["usedCounterCoupon"] = JSON.stringify(usedCounterCoupons);
     });
 }
@@ -465,8 +472,11 @@ function counterSelectChange(){
             let counterDiscountElement = $(this).closest(".coupon_code").parent().next().find(".counterDiscount");
             // console.log("test", counterDiscountElement);
             counterDiscountElement.text("-" + counterDiscount);
+
             counterFinalTotal = parseInt($(this).closest(".coupon_code").parent().next().find(".counterTotal").text()) - counterDiscount;
-            $(".counterFinalTotal").text(counterFinalTotal);
+            let counterFinalElement = $(this).closest(".coupon_code").parent().next().find(".counterFinalTotal");
+            counterFinalElement.text(counterFinalTotal);
+            printCartTail();
 
             //計算所有櫃位折價後總額
             // let counterFinalTotals = $(".counterFinalTotal");
@@ -481,6 +491,79 @@ function counterSelectChange(){
     }
 }
 
+function platformSelectChange(){
+    $(".available_platformCoupon").eq(0).on("change", function (){
+        //取得館內折抵金碩
+        let usedPlatformCoupon = $(this);
+        let platformDiscount = usedPlatformCoupon.find("option:selected").text().split("-")[1];
+        if (platformDiscount == undefined){
+            platformDiscount = 0;
+        }
+        platformDiscount = parseInt(platformDiscount);
+        $(".platform_usedDiscount").text(platformDiscount);
+        //取得會員點數折抵金額
+        let memberPoint_usedDiscount = parseInt($(".memberPoint_usedDiscount").text());
+        // let memberUsedPoint = $(".memberPoints_input").val();
+        // if(memberUsedPoint == ""){
+        //     memberUsedPoint = 0;
+        // }
+
+        $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount - memberPoint_usedDiscount);
+    });
+}
+
+function memberPointChange(){
+    console.log("============memberPointChange" )
+    $(".memberPoints_input").on("input", function (){
+        //取得會員點數折抵金額
+        let memberPoint_usedDiscount = $(this).val();
+        if(memberPoint_usedDiscount == ""){
+            memberPoint_usedDiscount = 0;
+        }
+        memberPoint_usedDiscount = parseInt(memberPoint_usedDiscount);
+        $(".memberPoint_usedDiscount").text(memberPoint_usedDiscount); //放入span標籤
+        console.log("memberPoint_usedDiscount:", memberPoint_usedDiscount);
+        //取得館內折抵金碩
+        let platformDiscount = parseInt($(".platform_usedDiscount").text());
+        $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount - memberPoint_usedDiscount);
+    });
+}
+//================================列印購物車尾端=====================
+function printCartTail() {
+    let counterTotals = $(".counterTotal");
+    let counterFinalTotals = $(".counterFinalTotal");
+    originalTotal = 0;                          //各櫃位折抵前總額
+    for(let i = 0; i < counterTotals.length; i++){
+        originalTotal += parseInt(counterTotals.eq(i).text());
+    }
+    $(".original_total").text(originalTotal);
+
+    let afterCounterDiscountTotal = 0;  //各櫃位折抵後總額
+    for(let i = 0; i < counterFinalTotals.length; i++){
+        afterCounterDiscountTotal += parseInt(counterFinalTotals.eq(i).text());
+    }
+    $(".totalAfterCounterDiscount").text(afterCounterDiscountTotal);
+
+    $(".platform_usedDiscount").text(0);    //重置全館折抵
+
+    $(".final_total").text(afterCounterDiscountTotal);  //最後結帳金額
+
+    //產生全館折價券
+    let availablePlatformCoupons = putCanUseCounterCoupons(memberCoupons, 0, afterCounterDiscountTotal);
+    $(".available_platformCoupon").html(availablePlatformCoupons);
+
+    $(".memberOwnPoints").text(memberOwnPoints);
+    // $(".memberPoints_input").on("input", function (){
+    //     let memberUsedPoint = $(".memberPoint_usedDiscount").text($(this).val());
+    //     if(memberUsedPoint == ""){
+    //         memberUsedPoint = 0;
+    //     }
+    //     $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - parseInt($(".platform_usedDiscount").text()) - memberUsedPoint);
+    // });
+
+
+}
+
 function putCanUsePlatformCoupons(memberCoupons, currentCounterNo, counterTotal) {
     console.log(memberCoupons);
     //篩選可以用的櫃位折價券
@@ -493,6 +576,5 @@ function putCanUsePlatformCoupons(memberCoupons, currentCounterNo, counterTotal)
             <option value="${canUseCounterCoupons[i].memberCouponNo}">${canUseCounterCoupons[i].couponTypeName}, 折抵金額-${canUseCounterCoupons[i].couponPrice}</option>
         `;
     }
-
     return canUseCounterCouponHtml;
 }
