@@ -71,6 +71,12 @@ public class CouponTypeServiceImpl implements CouponTypeService {
     }
 
     @Override
+    public CouponType findByCouponTypeNo(CouponType couponType) {
+        final CouponType ocouponType = Dao.selectById(couponType.getCouponTypeNo());
+        return ocouponType;
+    }
+
+    @Override
     public List<CouponType> findAll() {
         return Dao.selectAll();
     }

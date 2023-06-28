@@ -5,6 +5,7 @@
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
     let dataaccount = 0;
     let memberCoupon = [];
+    let couponTypeNos = []
 
     function getAllPromotion() {
         console.log('進入getAllPromotion()')
@@ -34,7 +35,7 @@
                         let row = memberCoupon[i];
                         const memberCouponNo = row.memberCouponId.memberCouponNo;
                         const couponTypeNo = row.memberCouponId.couponTypeNo;
-                        const memberNo = row.memberNo;
+                        couponTypeNos.push(couponTypeNo);
                         const couponUsedStat = row.couponUsedStat;
                         let couponUsedTime = '';
                         if (row.couponUsedTime !== null) {
@@ -45,18 +46,43 @@
                             const day = originalDate.getDate();
                             const formattedDate2 = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
                             //     處理日期格式
-                             couponUsedTime = formattedDate2;
+                            couponUsedTime = formattedDate2;
                         }
                         const orderDetailCouponNo = row.orderDetailCouponNo;
                         dataTable.row.add([
                             memberCouponNo,
-                            couponTypeNo,
+                            `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">詳情
+            </button>
+            <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel${i}">折價券詳情
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="memberCoupon${i}">
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary editbutton"
+                                    data-bs-dismiss="modal" id="cancle${i}">確定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>`,
                             couponUsedStat,
                             orderDetailCouponNo,
                             couponUsedTime,
                         ]);
                     }
                     dataTable.draw();
+                    getbodydiv();
+                    selectbycouponTypeNo();
                 });
             })
             .catch(function (err) {
@@ -75,6 +101,85 @@
         info: false,
         destroy: true,
     });
+    // ============================3.   抓全部的詳情內的body========================
+    const bodydiv = [];
+
+    function getbodydiv() {
+        for (let i = 0; i <= dataaccount; i++) {
+            const bodyi = document.querySelector('#memberCoupon' + i)
+            bodydiv.push(bodyi);
+        }
+    }
+
+
+    // ============================4.   把資料放進詳情========================
+    function selectbycouponTypeNo() {
+        for (let i = 0; i <= dataaccount; i++) {
+            fetch('getcoupontype', {
+                method: 'POST', headers: {
+                    'Content-Type': 'application/json',
+                }, body: JSON.stringify({
+                    couponTypeNo: couponTypeNos[i]
+                }),
+            })
+                .then(response => response.json())
+                .then(body => {
+                    console.log(body);
+                    const {
+                        couponTypeNo,
+                        couponTypeName,
+                        couponExpireDate,
+                        couponConditions,
+                        couponPrice,
+                    } = body;
+                    // 處理日期格式
+                    const originalDate = new Date(couponExpireDate);
+                    const year = originalDate.getFullYear();
+                    const month = originalDate.getMonth() + 1; // 月份是從 0 開始計算，所以需要加 1
+                    const day = originalDate.getDate();
+                    const formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
+                    const couponExpireDatea = formattedDate;
+                    // 處理日期格式
+                    let str = `
+                            <form>
+                                <div class="mb-3">
+                                    <label for="couponTypeNo${i}"
+                                           class="col-form-label">折價券編號:</label>
+                                    <input type="text" class="form-control"
+                                           id="couponTypeNo${i}" value="${couponTypeNo}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="couponTypeName${i}"
+                                           class="col-form-label">折價券名稱:</label>
+                                    <input type="text" class="form-control"
+                                           id="couponTypeNameo${i}" value="${couponTypeName}" readonly>
+                                </div>
+                                
+                                 <div class="mb-3">
+                                    <label for="couponExpireDate${i}"
+                                           class="col-form-label">失效日:</label>
+                                    <input type="text" class="form-control"
+                                           id="couponExpireDate${i}" value="${couponExpireDatea}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="couponPrice${i}"
+                                           class="col-form-label">折扣金額:</label>
+                                    <input type="text" class="form-control"
+                                           id="couponPrice${i}" value="${couponPrice}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="couponConditions${i}"
+                                           class="col-form-label">使用說明:</label>
+                                    <input type="text" class="form-control"
+                                           id="couponConditions${i}" value="${couponConditions}" readonly>
+                                </div>
+                            </form>
+                    `;
+                    bodydiv[i].innerHTML = str;
+                });
+        }
+    }
+
 
     // ===============================^^^方法區^^^====================================
 
