@@ -13,8 +13,9 @@ public class ActivityOrderService {
 	@Autowired
 	ActivityOrderRepository repository;
 	
-	public void add(ActivityOrderVO activityOrderVO) {
-		repository.save(activityOrderVO);
+	public Integer add(ActivityOrderVO activityOrderVO) {
+		ActivityOrderVO saveVO = repository.save(activityOrderVO);
+		return saveVO.getActivityOrderNo();
 	}
 	
 	public void update(ActivityOrderVO activityOrderVO) {

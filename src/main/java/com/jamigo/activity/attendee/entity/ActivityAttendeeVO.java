@@ -33,6 +33,13 @@ public class ActivityAttendeeVO implements Serializable {
 		this.attendeeGender = attendeeGender;
 		this.attendeeAge = attendeeAge;
 	}
+	
+	@Override
+	public String toString() {
+		return "ActivityAttendeeVO [attendeeNo=" + attendeeNo + ", activityOrderNo=" + activityOrderNo
+				+ ", attendeeName=" + attendeeName + ", attendeeGender=" + attendeeGender + ", attendeeAge="
+				+ attendeeAge + "]";
+	}
 
 	public Integer getAttendeeNo() {
 		return attendeeNo;

@@ -3,8 +3,10 @@ package com.jamigo.counter.activityOrder.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +28,23 @@ public class ActivityOrderController {
 	@Autowired
 	ActivityAttendeeService activityAttendeeService;
 	
-	@GetMapping("/insert")
-	public void insert(@RequestBody ActivityOrderDTO activityOrderDTO){
-		ActivityOrderVO activityOrderVO = activityOrderDTO.getActivityOrderVO();
-		List<ActivityAttendeeVO> activityAttendeeVOList = activityOrderDTO.getActivityAttendeeVOList();
+	@PostMapping("/insert")
+	public ResponseEntity<?> insert(@RequestBody ActivityOrderVO activityOrderVO){
 		
-		activityOrderService.add(activityOrderVO);
+		Integer activityOrderNo = activityOrderService.add(activityOrderVO);
+		return ResponseEntity.ok(activityOrderNo);
 		
 	}
+	
+	@PostMapping("/insertExp")
+	public ResponseEntity<?> updateExp(@RequestBody ActivityOrderVO activityOrderVOTemp) {
+		ActivityOrderVO activityOrderVO = activityOrderService.getById(activityOrderVOTemp.getActivityOrderNo());
+		activityOrderVO.setActivityScore(activityOrderVOTemp.getActivityScore());
+		activityOrderVO.setCommentDetail(activityOrderVOTemp.getCommentDetail());
+		activityOrderService.update(activityOrderVO);
+		return ResponseEntity.ok("新增成功");
+	}
+	
 	@PutMapping("/updatePart")
 	public void updatePart(@RequestBody ActivityOrderDTO activityOrderDTO){
 		// 先查找DB物件原始的值，將從前端更新的值(Temp)賦值到新的物件上(VO)

@@ -10,6 +10,7 @@ function getAllactivityOrder() {
   
   xhr.addEventListener("load", () => {
     let activityOrders = JSON.parse(xhr.responseText);
+    console.log(activityOrders);
     render(activityOrders);
   })
   xhr.open("get", url, true);
