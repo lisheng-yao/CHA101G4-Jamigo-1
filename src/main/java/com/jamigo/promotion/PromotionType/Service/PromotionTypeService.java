@@ -11,6 +11,7 @@ public interface PromotionTypeService {
     Promotion edit(Promotion promotion);
 
     List<Promotion> findAll();
+    List<Promotion> findbycounterNo(Integer counterNo);
 
     boolean remove(String promotionName);
 

@@ -9,9 +9,12 @@ public interface PromotionCouponService {
     PromotionCoupon add(PromotionCoupon promotionCoupon);
 
 
-    PromotionCoupon  edit(PromotionCoupon promotionCoupon);
+    PromotionCoupon edit(PromotionCoupon promotionCoupon);
 
-    List<PromotionCoupon > findAll();
+    List<PromotionCoupon> findAll();
+    List<PromotionCoupon> findbcounterNo(Integer counterNo);
+
+
 
     boolean remove(Integer promotionCouponNo);
 

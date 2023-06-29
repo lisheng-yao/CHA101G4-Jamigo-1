@@ -82,7 +82,12 @@ public class PromotionCouponServiceImpl implements PromotionCouponService {
         return Dao.findAll();
     }
 
-
+    @Override
+    public List<PromotionCoupon> findbcounterNo(Integer counterNo){
+        List<Integer> promotionCoupons=Dao.findCouponTypeNosByCounterNo(counterNo);
+        List<PromotionCoupon> promotionCoupons2=Dao.findByCouponTypeNoIn(promotionCoupons);
+        return promotionCoupons2;
+    };
     @Override
     public boolean remove(Integer promotionCouponNo) {
         try {

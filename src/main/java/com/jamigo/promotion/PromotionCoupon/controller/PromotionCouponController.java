@@ -58,10 +58,63 @@ public class PromotionCouponController {
         }
     }
 
+    @PostMapping("promotion/promotion4counter/editPromotionCoupon")
+    public PromotionCoupon editPromotion2(@RequestBody String PromotionCouponRequest) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {//這段是要把利用json傳進來但是 不是key：vlaue取出並刪除
+            JsonNode jsonNode = objectMapper.readTree(PromotionCouponRequest);//先拿到jsonnode
+            String promotionPic4json = jsonNode.get("promotionPic4json").asText();//拿到 想取出的欄位
+            byte[] PromotionPic = null;
+            if (promotionPic4json != null) { //轉回byte[]
+                PromotionPic = Base64.getDecoder().decode(promotionPic4json);
+            }
+
+            ObjectNode objectNode = (ObjectNode) jsonNode;//轉型 才能刪除
+            objectNode.remove("promotionPic4json");//刪除
+            objectNode.put("promotionPic", PromotionPic);
+            PromotionCoupon promotionCoupona = objectMapper.convertValue(objectNode, PromotionCoupon.class);//刪完後再包裝回去成PromotionPoint物件
+
+            PromotionCoupon promotionCoupon = PromotionCouponService.edit(promotionCoupona);
+            System.out.println("修改controller");
+            return promotionCoupon;
+        } catch (IOException e) {
+            // 處理 JSON 解析錯誤
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     ;
 
     @PostMapping("promotion/promotion/newPromotionCoupon")
     public PromotionCoupon newPromotion(@RequestBody String PromotionCouponRequest) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {//這段是要把利用json傳進來但是 不是key：vlaue取出並刪除
+            JsonNode jsonNode = objectMapper.readTree(PromotionCouponRequest);//先拿到jsonnode
+            String promotionPic4json = jsonNode.get("promotionPic4json").asText();//拿到 想取出的欄位
+            byte[] PromotionPic = null;
+            if (promotionPic4json != null) { //轉回byte[]
+                PromotionPic = Base64.getDecoder().decode(promotionPic4json);
+            }
+
+            ObjectNode objectNode = (ObjectNode) jsonNode;//轉型 才能刪除
+            objectNode.remove("promotionPic4json");//刪除
+            objectNode.put("promotionPic", PromotionPic);
+            PromotionCoupon promotionCoupona = objectMapper.convertValue(objectNode, PromotionCoupon.class);//刪完後再包裝回去成PromotionPoint物件
+
+
+            PromotionCoupon promotionCoupon = PromotionCouponService.add(promotionCoupona);
+            System.out.println("新增controller");
+            return promotionCoupon;
+        } catch (IOException e) {
+            // 處理 JSON 解析錯誤
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @PostMapping("promotion/promotion4counter/newPromotionCoupon")
+    public PromotionCoupon newPromotion2(@RequestBody String PromotionCouponRequest) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {//這段是要把利用json傳進來但是 不是key：vlaue取出並刪除
             JsonNode jsonNode = objectMapper.readTree(PromotionCouponRequest);//先拿到jsonnode
@@ -98,14 +151,40 @@ public class PromotionCouponController {
     public List<CouponType> findAllCouponType() {
         return CouponTypeSERVICE.findAll();
     }
+    @PostMapping("promotion/promotion4counter/getAllCouponType")
+    public List<CouponType> findAllCouponType2(@RequestBody CouponType couponTypeRequest) {
+       Integer counterNoa=couponTypeRequest.getCounterNo();
+        return CouponTypeSERVICE.findBycounterNo(counterNoa);
+    }
 
     @GetMapping("promotion/promotion/getAllPromotion")
     public List<Promotion> findAllPromotion() {
         return promotionTypeService.findAll();
     }
+    @PostMapping("promotion/promotion4counter/getAllPromotion")
+    public List<Promotion> findAllPromotion2(@RequestBody CouponType couponTypeRequest) {
+        Integer counterNoa=couponTypeRequest.getCounterNo();
+        return promotionTypeService.findbycounterNo(counterNoa);
+    }
+
+    @PostMapping("promotion/promotion4counter/getcounterPromotionCoupon")
+    public List<PromotionCoupon>  findPromotionbycounterNo(@RequestBody CouponType couponTypeRequest) {
+        System.out.println(couponTypeRequest);
+        Integer counterNo = couponTypeRequest.getCounterNo();
+        System.out.println("counterNo"+counterNo);
+        List<PromotionCoupon>  counterPromotion = PromotionCouponService.findbcounterNo(counterNo);
+        return counterPromotion;
+    }
 
     @PostMapping("promotion/promotion/deletePromotionCoupon")
     public Boolean deletePromotion(@RequestBody PromotionCoupon PromotionCouponRequest) {
+        Integer promotionCouponNo = PromotionCouponRequest.getPromotionCouponNo();
+        Boolean deletesucceed = PromotionCouponService.remove(promotionCouponNo);
+        return deletesucceed;
+    }
+
+    @PostMapping("promotion/promotion4counter/deletePromotionCoupon")
+    public Boolean deletePromotion2(@RequestBody PromotionCoupon PromotionCouponRequest) {
         Integer promotionCouponNo = PromotionCouponRequest.getPromotionCouponNo();
         Boolean deletesucceed = PromotionCouponService.remove(promotionCouponNo);
         return deletesucceed;
