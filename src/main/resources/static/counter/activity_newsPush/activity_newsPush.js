@@ -1,13 +1,15 @@
-
+let inputExp = document.querySelector('.input-group-carousel-text #inputExp');
+let submitBtn = document.querySelector('.upload-btn');
 
 var webSocket;
 connect(1);
 function connect(memberNo) {
 	// 創建websocket連線
 	webSocket = new WebSocket(`ws://localhost:8080/Jamigo/websocket?userId=${memberNo}`);
-//	webSocket = new WebSocket(`ws://localhost:8080/Jamigo/newWebsocket/${memberNo}`);
+	// webSocket = new WebSocket(`ws://localhost:8080/Jamigo/websocket`);
 
 	webSocket.onopen = function(event) {
+		console.log("okkkkkkkkkkkkkkkkkkkkk");
 //		updateStatus("WebSocket Connected");
 //		document.getElementById('sendMessage').disabled = false;
 //		document.getElementById('connect').disabled = true;
@@ -30,6 +32,12 @@ function connect(memberNo) {
 //		updateStatus("WebSocket Disconnected");
 //	};
 }
+
+submitBtn.addEventListener('click', () => {
+	console.log(inputExp.value);
+	let jsonObj = {message : inputExp.value};
+	webSocket.send(JSON.stringify(jsonObj));
+})
 
 //var inputUserName = document.getElementById("userName");
 //inputUserName.focus();

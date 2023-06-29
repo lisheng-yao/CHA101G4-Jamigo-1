@@ -60,7 +60,6 @@ public class AdministratorController {
 		if(adminCheck != null) {
 			HttpSession session = req.getSession();
 			session.setAttribute("user", adminCheck);
-			session.getAttribute("user");
 			// 添加cookie
 			Cookie cookieId = new Cookie("JuserId", String.valueOf(adminCheck.getAdminNo()));
 			Cookie cookieName = new Cookie("JuserName", adminCheck.getAdminName());
@@ -70,7 +69,8 @@ public class AdministratorController {
 //			cookieName.setPath("/Jamigo/platform/*");
 			resp.addCookie(cookieId);
 			resp.addCookie(cookieName);
-			 return new ResponseEntity<>("登入成功", HttpStatus.OK);
+			String currentUrl = (String)req.getSession().getAttribute("currentUrl");
+			 return new ResponseEntity<>(currentUrl, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("登入失敗", HttpStatus.UNAUTHORIZED);
 		}
@@ -90,15 +90,4 @@ public class AdministratorController {
 		return new ResponseEntity<>("登出", HttpStatus.OK);
 	}
 	
-	
-	// 未完
-	@GetMapping("*/counter/*")
-	public String checkSession(@CookieValue("JSESSIONID") String sessionId) {
-		
-		if(sessionId == null) {
-			return "redirect:admin_login";
-		}
-		return "redirect:/activity/activity_order/activity_orderCtrl.html";
-		
-	}
 }

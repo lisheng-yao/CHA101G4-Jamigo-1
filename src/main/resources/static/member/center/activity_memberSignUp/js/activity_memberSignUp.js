@@ -1,58 +1,56 @@
-window.addEventListener("DOMContentLoaded", () =>{
-  // 先查出所有櫃位
-  getAllactivityOrder();
+let activityPace = document.querySelector('.form-content-edit .row');
 
-})
 
-function getAllactivityOrder() {
-  let xhr = new XMLHttpRequest();
-  let url = "/Jamigo/activityOrder/getAll";
-  
-  xhr.addEventListener("load", () => {
-    let activityOrders = JSON.parse(xhr.responseText);
-    console.log(activityOrders);
-    render(activityOrders);
-  })
-  xhr.open("get", url, true);
-  xhr.setRequestHeader('Header-Action', 'getPatrInfo');
-  xhr.send(null);
-
+getActivityOrder(1);
+function getActivityOrder(memberNo){
+    axios.get(`/Jamigo/activityOrder/getActivityOrderByMemberNo/${memberNo}`)
+    .then(resp => {
+        console.log(resp);
+        return resp.data;
+    })
+    .then(datas => {
+        for(let data of datas) {
+            createCardItem(data);
+        }
+    })
+    .catch(err => console.log(err))
 }
 
-// 渲出頁面
-function render(activityOrders) {
-  let html = '';
-  let stateHtml = '';
-  for(let activityOrder of activityOrders){
-	let result = stateSwitch(activityOrder);
-	stateHtml = result[0];
-	let data_status = result[1];
-    html += `
-    <tr data-status="${data_status}">
-      <td>${activityOrder.activityOrderNo}</td>
-      <td>${activityOrder.activityNo}</td>
-      <td>${activityOrder.activityEnrollmentTime}</td>
-      <td>${activityOrder.numberOfAttendee ? activityOrder.numberOfAttendee + 1 : 1}</td>
-      <td>${stateHtml}</td>
-      <td>
-        <a href="./activity_orderEdit.html?activityOrderNo=${activityOrder.activityOrderNo}" class="btn btn-edit">
-          <i class="fa fa-edit"></i>
-          修改
-        </a>
-      </td>
-      <td>
-        <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <i class="fa-solid fa-circle-info"></i>
-          詳細資訊
-        </a>
-      </td>
-    </tr>
-    `;
-    document.querySelector('#user').innerHTML = html;
-  }
+function createCardItem(data){
+    let ele = document.createElement('div');
+    ele.classList.add('card-item');
+    ele.classList.add('track');
+    ele.classList.add('col-3');
+    ele.classList.add('d-flex');
+    ele.classList.add('flex-column');
+    activityPace.append(ele);
+
+    let [startDate, startTime] = data.activity.activityRegStartTime.split('T');
+    let [endDate, endTime] = data.activity.activityRegEndTime.split('T');
+
+    let html = 
+        `<div class="card-img-top">
+            <img src="data:image/jpeg;base64, ${data.activity.activityPic}" class="card-img-top" alt="...">
+        </div>
+        <div class="card-content">
+            <div class="card-title">
+            <h5>${data.activity.activityName}</h5>
+            </div>
+            <div class="card-text">
+            <i class="fa-regular fa-clock"></i>
+            <p class="card-text-startTime">${startDate}</p>
+            <i class="fa-solid fa-chevron-right"></i>
+            <p class="card-text-endTime">${endDate}</p>
+            </div>
+        </div>
+        <div class="button-group mt-auto">
+            <a href="#" class="btn btn-outline-primary mt-3">活動詳情</a>
+            <a href="#" class="btn btn-primary mt-3">填寫評論</a>
+        </div>`;
+
+    activityPace.lastElementChild.innerHTML = html;
 }
 
-// 彈窗，抓出單一櫃欸的詳細資料
 document.querySelector('.panel-table').addEventListener('click', e => {
   if(e.target.matches('.btn-info')) {
     let activityOrder = "";
@@ -125,36 +123,3 @@ document.querySelector('.panel-table').addEventListener('click', e => {
     document.querySelector("#exampleModal .modal-body tbody").innerHTML = html;
   } 
 })
-
-
-function stateSwitch(item) {
-	let stateHtml = '';
-	let data_status = '';
-	switch(item.activityPaymentStat){
-      case 0:
-        stateHtml = `<span class="label label-notEnabled">
-          <i class="fa-solid fa-hourglass-half"></i>
-          未付款
-          </span>`;
-        data_status = 'notEnabled';
-        break;
-      case 1:
-        stateHtml = `<span class="label label-success">
-          <i class="fa-solid fa-circle-check"></i>
-          已完成付款
-          </span>`;
-        data_status = 'success';
-        break;
-      case 2:
-        stateHtml = `<span class="label label-danger">
-          <i class="fa-solid fa-circle-exclamation"></i>
-          已取消
-          </span>`;
-        data_status = 'danger';
-        break;
-      default:
-        stateHtml = '111';
-        break
-    }
-    return [stateHtml, data_status];
-}
