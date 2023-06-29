@@ -72,6 +72,9 @@ nav {
             height: 48px;
             top: 8px
         }
+        .main_before {
+            padding-top: 0.5%;
+        }
     }
 
     .navbarimg {
