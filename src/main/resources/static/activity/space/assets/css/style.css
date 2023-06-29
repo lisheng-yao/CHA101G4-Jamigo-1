@@ -1,164 +1,339 @@
-/* ---------------------------------------------------------整體css設定-------------------------------- */
-/* transition: ease all 0.5s 過渡效果 */
-* {
-    box-sizing: border-box;
-    transition: ease all 0.5s;
-}
-
-html {
-    /* scroll-behavior: smooth  點擊a標籤回當前頁面位置會平滑地滾動回去 */
-    scroll-behavior: smooth;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* main區域 */
-.main {
-    position: relative;
-    top: 0px;
-    left: 0px;
-}
-
 /* -----------------------------------------------頁首開始----------------------------------------- */
+/* 設定頁首區域 還有畫面比例的頁首RWD調整 */
+/* 隔開main區域 */
 
-/* 設定頁首區域 */
-.navbar {
-    background-color: rgb(50, 56, 64);
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    z-index: 100;
-    opacity: 0.95;
+.main_before {
+    padding-top: 5.5%;
+}
+nav{
+    .container {
+        width: 100%;
+        height: 70px;
+        max-width: 100%;
+        position: fixed;
+        top: 9px;
+        z-index: 1000;
+    }
+
+    @media (max-width: 1921px) {
+        .container {
+            height: 95px;
+            top: 9px;
+        }
+    }
+
+    @media (max-width: 1600px) {
+        .container {
+            height: 88px;
+            top: 5px
+        }
+    }
+
+    @media (max-width: 1397px) {
+        .container {
+            height: 77px;
+            top: 0px;
+        }
+    }
+
+    @media (max-width: 1229px) {
+        .container {
+            height: 67px;
+            top: 8px
+        }
+    }
+
+    @media (max-width:1025px) {
+        .container {
+            height: 48px;
+            top: 8px
+        }
+    }
+
+    .navbarimg {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        object-fit: contain;
+        z-index: -100;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        z-index: 100;
+        opacity: 0.95;
+    }
+
+
+    .navbar-brand {
+        height: 100%;
+        object-fit: cover;
+        position: relative;
+        left: 0;
+        bottom: 10px;
+
+    }
+
+    .LOGO {
+        height: 100%;
+    }
+
+    .nav-link {
+        margin-bottom: 10px;
+    }
+
+    /* CSS  導覽列按鈕美化 */
+    .button-01 {
+        all: unset;
+        width: 15%;
+        height: 5%;
+        font-size: 1rem;
+        background: transparent;
+        border: none;
+        position: relative;
+        color: #f0f0f0;
+        cursor: pointer;
+        z-index: 1;
+        padding: 10px 20px;
+        display: flex;
+        white-space: nowrap;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        margin-right: 1rem;
+    }
+
+    .button-01::before {
+        content: ''!important;
+        position: absolute !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        z-index: -99999 !important;
+        transition: all .4s !important;
+    }
+
+    .button-01::before {
+        transform: translate(60%, 45%) !important;
+        width: 245% !important;
+        height: 100% !important;
+        background: #545489 !important;
+        border-radius: 10px !important;
+    }
+
+    .button-01:hover::before {
+        transform: translate(60%, 45%) !important;
+        width: 245% !important;
+        height: 110% !important;
+    }
+
+    .button-01:hover {
+        color: yellow !important;
+    }
+
+    /* js判斷是否為當前頁面後套入的css */
+    .active {
+        color: yellow !important;
+    }
+
+    /* 登入區塊 */
+    #signin {
+        display: block !important;
+        position: relative !important;
+        right: 15% !important;
+    }
+
+    .login-button {
+        display: inline-block;
+        background-color: #201e6b;
+        margin-left: 0%;
+        margin-bottom: 10%;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    .login-button:hover {
+        background-color: #141132 !important;
+    }
+
+    /* 登入按鈕 */
+    .svg-inline--fa {
+        height: 16px;
+    }
+
+    #memberinfo {
+        display: none;
+        width: 30%;
+        max-width: 30%;
+        justify-content: center;
+        padding-right: 60px;
+    }
+
+    #imgcontainer {
+        width: 3rem;
+        height: 3rem;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-bottom: 5%;
+    }
+
+    .logout-button {
+        padding: 0.5rem 1rem;
+        background-color: #ff0000;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .logout-button:hover {
+        background-color: #cc0000 !important;
+    }
+
+    .logout-button:focus {
+        outline: none !important;
+    }
+
+    #membername {
+        color: #f0f0f0;
+    }
+
+    #memberimg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .memberinfo_container {
+        position: relative;
+        margin-top: 10px;
+    }
 }
 
-.navbar-brand {
-    width: 20%;
-    height: 80px;
-}
-
-.LOGO {
-    max-width: 80%;
-    height: auto;
-}
-
-/* CSS  導覽列按鈕美化 */
-.button-01 {
-    all: unset;
-    width: 60px;
-    height: 20px;
-    font-size: 16px;
-    background: transparent;
-    border: none;
-    position: relative;
-    color: #f0f0f0;
-    cursor: pointer;
-    z-index: 1;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    margin-right: 25px;
-}
-
-.button-01::after,
-.button-01::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: -99999;
-    transition: all .4s;
-}
-
-.button-01::before {
-    transform: translate(0%, 0%);
-    width: 100%;
-    height: 100%;
-    background: #28282d;
-    border-radius: 10px;
-}
-
-.button-01::after {
-    transform: translate(10px, 10px);
-    width: 35px;
-    height: 35px;
-    background: #ffffff15;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 50px;
-}
-
-.button-01:hover::before {
-    transform: translate(5%, 20%);
-    width: 110%;
-    height: 110%;
-}
-
-.button-01:hover::after {
-    border-radius: 10px;
-    transform: translate(0, 0);
-    width: 100%;
-    height: 100%;
-}
-
-.button-01:active::after {
-    transition: 0s;
-    transform: translate(0, 5%);
-}
-
-/* js判斷是否為當前頁面後套入的css */
-.active {
-    color: yellow !important
-}
-
-/* ------------按鈕美化結束------------------ */
-.nav_icon {
-    margin: 2px;
-    width: auto;
-}
 
 /* ----------------------------------------------頁首結束----------------------------------- */
-/* ----------------------------------------------main開始--------------------------------- */
-.main {
-    padding-top: 112px;
-}
+/* ----------------------------------------------main開始可以放這 可能要注意共同關鍵字--------------------------------- */
 
 
-
-
-/* -----------------------------------------------main結束--------------------------------- */
+/* -----------------------------------------------main結束 --------------------------------- */
 /* -----------------------------------------------頁尾開始----------------------------------- */
 
-/* 設定頁尾區域 */
-.footer_section {
-    padding-top: 30px;
-    padding-bottom: 10px;
-    width: 100%;
-    float: left;
-    height: auto;
-    background-color: rgb(50, 56, 64) !important;
-}
 
-/* 頁尾大標題 */
-.customer_text {
-    width: 100%;
-    float: left;
-    font-size: 24px;
-    margin-left: 30px;
-}
+    /* 設定頁尾區域 */
+    .footer_section {
+        padding-top: 30px;
+        padding-bottom: 10px;
+        width: 100%;
+        float: left;
+        height: auto;
+        background-color: rgb(50, 56, 64) !important;
+    }
 
-/* 頁尾小標題 */
-.footer_lorem_text {
-    float: left;
-    font-size: 16px;
-    margin-left: 40px;
-}
+    /* 頁尾大標題 */
+    .customer_text {
+        width: 100%;
+        float: left;
+        font-size: 24px;
+        margin-left: 30px;
+    }
+
+    /* 頁尾小標題 */
+    .footer_lorem_text {
+        float: left;
+        font-size: 16px;
+        margin-left: 40px;
+    }
+
+    .footer_lorem_text a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .footer_lorem_text :hover {
+        color: yellow;
+    }
+
+    .footer_LOGO {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding-left: 0px;
+    }
+
+    .row {
+        --bs-gutter-x: 0em;
+    }
+
+    .row .col-lg-3 {
+        width: 23%;
+    }
+
+    .footer_icon {
+        position: absolute;
+        margin-top: -180px;
+        margin-left: 920px;
+    }
+
+    @media (max-width:1921px) {
+        .footer_icon {
+            margin-top: -12%;
+            margin-left: 71%;
+        }
+
+    }
+
+    @media (max-width: 1537px) {
+        .footer_icon {
+            margin-top: -12%;
+            margin-left: 73%;
+        }
+    }
+
+    @media (max-width: 1707px) {
+        .footer_icon {
+            margin-top: -12%;
+            margin-left: 70%;
+        }
+    }
+
+    @media (max-width: 1397px) {
+        .footer_icon {
+            margin-top: -13%;
+            margin-left: 68%;
+        }
+
+    }
+
+    @media (max-width: 1229px) {
+        .footer_icon {
+            margin-top: -15%;
+            margin-left: 68%;
+        }
+    }
+
+    @media (max-width: 1025px) {
+        .footer_icon {
+            margin-top: -18%;
+            margin-left: 68%;
+        }
+    }
+
+    .footer-icon {
+        margin-left: 25px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .footer_icon a {
+        text-decoration: none;
+        color: inherit;
+    }
+
 
 /* ------------------------------------------------頁尾結束------------------------------------ */
