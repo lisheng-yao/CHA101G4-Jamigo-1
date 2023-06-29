@@ -134,11 +134,12 @@
                                     <input type="text" class="form-control "
                                            id="recipientaCond${i}" value="${couponConditions}" >
                                 </div>
-                                <span id="msg"> </span>
+                               
                             </form>
 
                         </div>
                         <div class="modal-footer">
+                         <span id="msg${i}"> </span>
                             <button type="button" class="btn btn-secondary editbutton"
                                     data-bs-dismiss="modal" id="cancle${i}">取消
                             </button>
@@ -178,7 +179,7 @@
         columnDefs: [
             {
                 target: 8,
-                width:5,
+                width: 5,
                 className: "hiddenyes"
             }
         ]
@@ -206,6 +207,7 @@
     let recipientaPriceinputs = [];
     let recipientaLowinputs = [];
     let recipientaCondinputs = [];
+    let msgs = [];
 
     function setinputinbox() {
         for (let i = 0; i <= dataaccount; i++) {
@@ -218,7 +220,7 @@
             const recipientaPriceinput = document.querySelector('#recipientaPrice' + i);
             const recipientaLowinput = document.querySelector('#recipientaLow' + i);
             const recipientaCondinput = document.querySelector('#recipientaCond' + i);
-
+            const msg = document.querySelector('#msg' + i);
             recipientNoinputs.push(recipientNoinput);
             recipientnameinputs.push(recipientnameinput);
             recipientcNoinputs.push(recipientcNoinput);
@@ -228,6 +230,7 @@
             recipientaPriceinputs.push(recipientaPriceinput);
             recipientaLowinputs.push(recipientaLowinput);
             recipientaCondinputs.push(recipientaCondinput);
+            msgs.push(msg);
         }
     }
 
@@ -238,12 +241,34 @@
         const recipientnameinputs4json = recipientnameinputs[i].value;
         const recipientcNoinputs4json = recipientcNoinputs[i].value;
         const recipientaNoinputs4json = recipientaNoinputs[i].value;
-        const recipientaDateainputs4json = recipientaDateainputs[i].value;
+        // const recipientaDateainputs4json = recipientaDateainputs[i].value;
         const recipientaDatebinputs4json = recipientaDatebinputs[i].value;
         const recipientaPriceinputs4json = recipientaPriceinputs[i].value;
         const recipientaLowinputs4json = recipientaLowinputs[i].value;
         const recipientaCondinputs4json = recipientaCondinputs[i].value;
 
+        const promotionNameLength = recipientnameinputs4json.length;
+        if (promotionNameLength < 1 || promotionNameLength > 20) {
+            msgs[i].textContent = '名稱長度須介於1~20字元';
+            return;
+        }
+        if (recipientaDatebinputs4json === '') {
+            msgs[i].textContent = '失效日期不可為空';
+            return;
+        }
+        if (recipientaPriceinputs4json === '') {
+            msgs[i].textContent = '價格不可為空';
+            return;
+        }
+        if (recipientaLowinputs4json === '') {
+            msgs[i].textContent = '門檻不可為空';
+            return;
+        }
+
+        if (recipientaCondinputs4json === '') {
+            msgs[i].textContent = '使用說明不可為空';
+            return;
+        }
 
         msg.textContent = '';
         // 檢查結束
@@ -258,7 +283,7 @@
                 couponTypeName: recipientnameinputs4json,
                 adminNo: recipientcNoinputs4json,
                 counterNo: recipientaNoinputs4json,
-                couponCreateDate: recipientaDateainputs4json,
+                // couponCreateDate: recipientaDateainputs4json,
                 couponExpireDate: recipientaDatebinputs4json,
                 couponPrice: recipientaPriceinputs4json,
                 couponLowest: recipientaLowinputs4json,
@@ -315,6 +340,33 @@
         const coupontypePrice4new = document.querySelector('#coupontypePrice').value;
         const coupontypeLowest4new = document.querySelector('#coupontypeLowest').value;
         const coupontypeConditions4new = document.querySelector('#coupontypeConditions').value;
+        const msg=document.querySelector('#msg');
+        //檢查
+        const promotionNameLength = coupontypeName4new.length;
+        if (promotionNameLength < 1 || promotionNameLength > 20) {
+            msg.textContent = '名稱長度須介於1~20字元';
+            return;
+        }
+        console.log(coupontypeExpireDate4new)
+        if (coupontypeExpireDate4new === '') {
+            msg.textContent = '失效日期不可為空';
+            return;
+        }
+        if (coupontypePrice4new === '') {
+            msg.textContent = '折扣金額不可為空';
+            return;
+        }
+        if (coupontypeLowest4new === '') {
+            msg.textContent = '門檻不可為空';
+            return;
+        }
+
+        if (coupontypeConditions4new === '') {
+            msg.textContent = '使用說明不可為空';
+            return;
+        }
+
+
         fetch('newcouponType', {
             method: 'POST',
             headers: {

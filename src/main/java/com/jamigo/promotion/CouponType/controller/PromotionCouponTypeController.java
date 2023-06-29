@@ -28,6 +28,12 @@ public class PromotionCouponTypeController {
         return couponType;
     };
 
+    @PostMapping ("member/member/getcoupontype")
+    public CouponType selectbyid(@RequestBody CouponType couponTypeRequest) {
+        CouponType  couponType= SERVICE.findByCouponTypeNo(couponTypeRequest);
+        return couponType;
+    };
+
     @GetMapping("Promotion/GetAllcouponType")
     public List<CouponType> findAll() {
         return SERVICE.findAll();
