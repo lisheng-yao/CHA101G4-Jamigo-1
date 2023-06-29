@@ -48,6 +48,7 @@
                             //     處理日期格式
                             couponUsedTime = formattedDate2;
                         }
+                        let usedStat=(couponUsedStat===0)?'未使用':'已使用';
                         const orderDetailCouponNo = row.orderDetailCouponNo;
                         dataTable.row.add([
                             memberCouponNo,
@@ -75,7 +76,7 @@
                     </div>
                 </div>
             </div>`,
-                            couponUsedStat,
+                            usedStat,
                             orderDetailCouponNo,
                             couponUsedTime,
                         ]);
@@ -126,7 +127,6 @@
                 .then(body => {
                     console.log(body);
                     const {
-                        couponTypeNo,
                         couponTypeName,
                         couponExpireDate,
                         couponConditions,
@@ -139,15 +139,13 @@
                     const day = originalDate.getDate();
                     const formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2);
                     const couponExpireDatea = formattedDate;
+
+
+
                     // 處理日期格式
                     let str = `
                             <form>
-                                <div class="mb-3">
-                                    <label for="couponTypeNo${i}"
-                                           class="col-form-label">折價券編號:</label>
-                                    <input type="text" class="form-control"
-                                           id="couponTypeNo${i}" value="${couponTypeNo}" readonly>
-                                </div>
+                                
                                 <div class="mb-3">
                                     <label for="couponTypeName${i}"
                                            class="col-form-label">折價券名稱:</label>
