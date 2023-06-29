@@ -80,6 +80,13 @@ public class ActivityOrderController {
 		return activityOrderService.getById(activityOrderNo);
 		
 	}
+
+	@GetMapping("/getActivityOrderByMemberNo/{memberNo}")
+	public List<ActivityOrderVO> getActivityOrderByMemberNo(@PathVariable Integer memberNo){
+		
+		return activityOrderService.getByMemberNo(memberNo);
+		
+	}
 	
 	@GetMapping("/getAll")
 	public List<ActivityOrderVO> getAll(){

@@ -27,6 +27,10 @@ public class ActivityOrderService {
 		return optional.get();
 	}
 	
+	public List<ActivityOrderVO> getByMemberNo(Integer memberNo) {
+		return repository.findByMemberNo(memberNo);
+	}
+	
 	public List<ActivityOrderVO> getAll() {
 		return repository.findAll();
 	}
