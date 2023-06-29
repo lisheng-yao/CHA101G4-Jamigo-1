@@ -12,7 +12,7 @@ public interface ProductService {
 
     List<Product> getProductsByCounterNo(Integer counterNo);
 
-    void addProduct(AddProductDTO addProductDTO);
+    void addProduct(AddProductDTO addProductDTO, Integer counterNo);
 
     Product getProductByNo(Integer productNo);
 
