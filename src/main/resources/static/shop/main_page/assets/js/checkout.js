@@ -1,4 +1,4 @@
-const memberNo = 2;
+const memberNo = 1;
 
 const totalCoupon = 0;
 const totalPoints = 1000;
@@ -88,7 +88,7 @@ function getCartInfo(memberNo) {
                     html_str +=
                         `<tr>
                             <td class="cart_img">
-                                <img src="http://localhost:8080/Jamigo/shop/platform_order/product_picture/${item['productNo']}" alt="">
+                                <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${item['productNo']}" alt="">
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>
