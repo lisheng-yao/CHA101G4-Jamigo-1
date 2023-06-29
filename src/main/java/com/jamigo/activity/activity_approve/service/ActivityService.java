@@ -3,6 +3,8 @@ package com.jamigo.activity.activity_approve.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,6 @@ import com.jamigo.activity.activity_approve.model.Activity;
 @Service
 public class ActivityService {
 
-	@Autowired
 	private ActivityDAO activityDAO;
 
 //存取申請表單
@@ -45,16 +46,50 @@ public class ActivityService {
 
 	// 更新審查狀態數據
 	public Activity updateActStatus(Activity activity) throws Exception {
-	    // 查找到需要更新的活動
-	    Optional<Activity> existingActivity = activityDAO.findById(activity.getActivityNo());
+		// 查找到需要更新的活動
+		Optional<Activity> existingActivity = activityDAO.findById(activity.getActivityNo());
 
-	    // 如果找到了活動，則更新它
-	    if (existingActivity.isPresent()) {
-	        Activity updateActStatus = existingActivity.get();
-	        updateActStatus.setActivityApprovalStat(activity.getActivityApprovalStat());
-	        return activityDAO.save(updateActStatus);
-	    } else {
-	        throw new Exception("活動未找到");
-	    }
+		// 如果找到了活動，則更新它
+		if (existingActivity.isPresent()) {
+			Activity updateActStatus = existingActivity.get();
+			updateActStatus.setActivityApprovalStat(activity.getActivityApprovalStat());
+			return activityDAO.save(updateActStatus);
+		} else {
+			throw new Exception("活動未找到");
+		}
 	}
+
+	// 透過櫃位Id查詢申請的活動狀態
+	public List<Activity> getConResultById(Integer counterNo) {
+		List<Activity> activities = activityDAO.findByCounterNo(counterNo);
+		if (activities == null) {
+			throw new EntityNotFoundException("not found activity" + counterNo);
+		}
+		return activities;
+	}
+
+
+	// 依照點選之活動編號映出相對應的活動資訊[櫃位後台]
+	public Activity getCouInfo(Integer activityNo) {
+		// TODO Auto-generated method stub
+		return activityDAO.findById(activityNo).orElse(null);
+	}
+	
+
+	@Autowired
+	public ActivityService(ActivityDAO activityDAO) {
+		this.activityDAO = activityDAO;
+	}
+
+	// 修改櫃位申請活動的資料
+	  public Activity getActUpdate(Integer activityNo) {
+	        return activityDAO.findById(activityNo)//數據庫中搜尋PK對應的Activity記錄並會返回Optional<Activity>對象
+	                .orElseThrow(() -> new IllegalArgumentException("Activity with id " + activityNo + " not found"));
+	        //找不到就拋出異常
+	    }
+	  //存取櫃位修改的資料
+	  public Activity saveActivity(Activity activity) {
+		    // 使用 ActivityDAO 的 save 方法保存 Activity
+		    return activityDAO.save(activity);
+		}
 }

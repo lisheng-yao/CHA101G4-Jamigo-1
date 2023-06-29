@@ -33,6 +33,8 @@ public class Activity {
 	    private Integer activityNo;
 
 	    @Column(name = "counterNo")
+	    //@OneToOne
+	    //@JoinColumn(name = "counterNo")
 	    private Integer counterNo;
 
 	    @Column(name = "activityPlaceNo", nullable = false)
