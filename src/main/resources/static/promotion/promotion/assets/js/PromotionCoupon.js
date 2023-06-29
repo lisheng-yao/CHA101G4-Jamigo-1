@@ -168,7 +168,7 @@
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
-                                           id="promotionPic${i}" value="${promotionPic}" >
+                                           id="promotionPic${i}" value="${promotionPic}" accept="image/jpeg, image/png">
                                 </div>
                                 
                             </form>
@@ -455,7 +455,7 @@
             .then(resp => resp.json())
             .then(body => {
                 console.log(body);
-                const {successful, Message} = body;
+                const {successful, message} = body;
                 if (successful) {
 
                     Swal.fire({
@@ -465,7 +465,7 @@
                     })
                 } else {
                     Swal.fire({
-                        icon: 'error', title: 'Oops...', text: Message, footer: '<a href=""></a>'
+                        icon: 'error', title: 'Oops...', text:`${message}`, footer: '<a href=""></a>'
                     })
                 }
                 ;

@@ -458,7 +458,7 @@
             .then(resp => resp.json())
             .then(body => {
                 console.log(body);
-                const {successful, Message} = body;
+                const {successful, message} = body;
                 if (successful) {
 
                     Swal.fire({
@@ -468,7 +468,7 @@
                     })
                 } else {
                     Swal.fire({
-                        icon: 'error', title: 'Oops...', text: Message, footer: '<a href=""></a>'
+                        icon: 'error', title: 'Oops...', text: `${message}`, footer: '<a href=""></a>'
                     })
                 }
                 ;

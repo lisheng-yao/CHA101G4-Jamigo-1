@@ -327,6 +327,7 @@
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
             editbuttons[i].addEventListener('click', () => {
+                console.log('有綁到')
                 editPromotion(i);
             })
             promotionPicinputs[i].addEventListener("change", function (event) {
