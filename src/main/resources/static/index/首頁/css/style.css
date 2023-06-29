@@ -16,8 +16,9 @@ html {
 
 /* main區域 */
 .main_before {
-    padding-top: 5.5%;
+    padding-top: 2.5%;
 }
+
 
 /* -----------------------------------------------頁首開始----------------------------------------- */
 
@@ -44,12 +45,18 @@ nav {
             height: 88px;
             top: 5px
         }
+        .main_before {
+            padding-top: 2.5%;
+        }
     }
 
     @media (max-width: 1397px) {
         .container {
             height: 77px;
             top: 0px;
+        }
+        .main_before {
+            padding-top: 1.5%;
         }
     }
 
@@ -64,6 +71,9 @@ nav {
         .container {
             height: 48px;
             top: 8px
+        }
+        .main_before {
+            padding-top: 0.5%;
         }
     }
 
@@ -237,55 +247,30 @@ nav {
 /* ----------------------------------------------頁首結束------------------------------------------- */
 /* ----------------------------------------------main開始------------------------------------------- */
 /* -------------------------------------------fullpage01------------------------------------------  */
-/*-- Header-Slider --*/
 
-.w3slideraits {
-    position: relative;
-    height: 707px;
+
+/* swiper輪播 */
+.fullpagecontainer {
+    .swiper {
+        width: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
 }
 
-#back_to_fluid_dg {
-    background: rgba(2, 2, 2, .5);
-    clear: both;
-    display: block;
-    height: 20px;
-    line-height: 20px;
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-}
 
-.fluid_container {
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 0;
-}
-
-#fluid_dg_wrap_4 {
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    margin-bottom: 0 !important;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-.fluid_dg_bar {
-    z-index: 2;
-}
-
-.fluid_dg_thumbs {
-    display: none;
-}
-
-.fluid_dg_overlayer {
-    opacity: .1;
-}
 
 /*-- //Header-Slider --*/
 
@@ -331,150 +316,152 @@ nav {
 }
 
 /* swiperjs */
+.fullpage02container {
 
-.swiper {
-    width: 80%;
+    .swiper {
+        width: 80%;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        opacity: 0.6;
+        transition: all 0.3s ease;
+    }
+
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+        opacity: 1;
+    }
+
+    .image {
+        height: 180px;
+        width: 180px;
+        border-radius: 50%;
+        padding: 3px;
+        background-color: #0077ff;
+    }
+
+    .image img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid white;
+
+    }
+
+    .swiper-slide.card {
+        height: 450px;
+        position: relative;
+        background-color: #ffffff;
+        border-radius: 20px;
+        margin: 0 0;
+    }
+
+    /* card背景區 */
+    .swiper-slide.card::before {
+        content: "";
+        position: absolute;
+        height: 50%;
+        width: 100%;
+        background-color: #370189;
+        border-radius: 20px 20px 0 0;
+        z-index: -9999;
+    }
+
+    /* 卡片內元素 */
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 25px;
+        z-index: 1;
+    }
+
+    /* icon */
+    .media-icons {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+
+
+    }
+
+    .media-icons path {
+        margin-top: 10px;
+        opacity: 0.6;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .media-icons path:hover {
+        opacity: 1;
+    }
+
+    /* 內文 */
+    .productname,
+    .productcontent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+
+    }
+
+    .productname {
+        font-size: 20;
+        font-weight: 600;
+    }
+
+    .productcontent {
+        font-size: 15;
+        font-weight: 500;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .evaluate {
+        display: flex;
+        align-items: center;
+        margin-top: 1px;
+    }
+
+    .evaluate .i {
+        color: #eeff00da;
+        margin: 3px 6px;
+    }
+
+    .button {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .button button {
+        background-color: #c855c4;
+        outline: none;
+        border: none;
+        color: #bababa;
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .button button:hover {
+        background-color: #843a88;
+        color: #ffffff;
+    }
+
 }
-
-.swiper-button-prev,
-.swiper-button-next {
-    opacity: 0.6;
-    transition: all 0.3s ease;
-}
-
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-    opacity: 1;
-}
-
-section .card .image {
-    height: 180px;
-    width: 180px;
-    border-radius: 50%;
-    padding: 3px;
-    background-color: #0077ff;
-}
-
-section .card .image img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid white;
-
-}
-
-.swiper-slide.card {
-    height: 450px;
-    position: relative;
-    background-color: #ffffff;
-    border-radius: 20px;
-    margin: 0 0;
-}
-
-/* card背景區 */
-.swiper-slide.card::before {
-    content: "";
-    position: absolute;
-    height: 50%;
-    width: 100%;
-    background-color: #370189;
-    border-radius: 20px 20px 0 0;
-    z-index: -9999;
-}
-
-/* 卡片內元素 */
-.card .card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px;
-    z-index: 1;
-}
-
-/* icon */
-.card .media-icons {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    align-items: center;
-
-
-}
-
-.card .media-icons path {
-    margin-top: 10px;
-    opacity: 0.6;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.card .media-icons path:hover {
-    opacity: 1;
-}
-
-/* 內文 */
-.card .productname,
-.card .productcontent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-
-}
-
-.card .productname {
-    font-size: 20;
-    font-weight: 600;
-}
-
-.card .productcontent {
-    font-size: 15;
-    font-weight: 500;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.card .evaluate {
-    display: flex;
-    align-items: center;
-    margin-top: 1px;
-}
-
-.card .evaluate .i {
-    color: #eeff00da;
-    margin: 3px 6px;
-}
-
-.card .button {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-
-.card .button button {
-    background-color: #c855c4;
-    outline: none;
-    border: none;
-    color: #bababa;
-    padding: 6px 12px;
-    border-radius: 30px;
-    font-size: 10px;
-    transition: all 0.3s ease;
-}
-
-.card .button button:hover {
-    background-color: #843a88;
-    color: #ffffff;
-}
-
 
 /* fullpage03 header */
 .advertise-count02 {
@@ -619,10 +606,12 @@ section .card .image img {
     padding-top: 20px;
 
 }
-.svg-inline--fa{
+
+.svg-inline--fa {
     height: 20px;
 }
-.actions path:hover{
+
+.actions path:hover {
     font-size: 20px;
     color: white;
 }
@@ -850,41 +839,46 @@ section .card .image img {
     margin-top: -180px;
     margin-left: 920px;
 }
+
 @media (max-width:1921px) {
-    .footer_icon{
+    .footer_icon {
         margin-top: -12%;
         margin-left: 71%;
     }
-    
+
 }
+
 @media (max-width: 1537px) {
-    .footer_icon{
+    .footer_icon {
         margin-top: -12%;
         margin-left: 73%;
     }
 }
+
 @media (max-width: 1707px) {
-    .footer_icon{
+    .footer_icon {
         margin-top: -12%;
         margin-left: 70%;
     }
 }
 
 @media (max-width: 1397px) {
-    .footer_icon{
+    .footer_icon {
         margin-top: -13%;
         margin-left: 68%;
     }
-    
+
 }
+
 @media (max-width: 1229px) {
-    .footer_icon{
+    .footer_icon {
         margin-top: -15%;
         margin-left: 68%;
     }
 }
+
 @media (max-width: 1025px) {
-    .footer_icon{
+    .footer_icon {
         margin-top: -18%;
         margin-left: 68%;
     }
@@ -900,4 +894,5 @@ section .card .image img {
     text-decoration: none;
     color: inherit;
 }
+
 /* ------------------------------------------------頁尾結束------------------------------------ */

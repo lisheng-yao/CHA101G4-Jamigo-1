@@ -42,7 +42,6 @@ public class IndexController {
 
     @GetMapping("/index/delete/{mainpageCarouselNo}")
     public ResponseEntity<Map> delete(@PathVariable Integer mainpageCarouselNo){
-        System.out.println("近來");
         Map<String,Object> map = new HashMap<>();
         map.put("message",indexService.deleteOne(mainpageCarouselNo));
 
