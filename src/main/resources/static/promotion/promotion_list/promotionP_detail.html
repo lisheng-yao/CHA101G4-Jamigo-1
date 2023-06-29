@@ -34,11 +34,12 @@
     <link rel="stylesheet" href="./space/footer/css/bootstrap.css" />
     <!-- Font Awesome引用檔案 -->
     <link rel="stylesheet" href="./space/footer/css/all.css" />
-    <!-- css本體 -->
+    <!-- css本體，套用頁首頁尾 -->
+
     <link
       rel="stylesheet"
       type="text/css"
-      href="./space/footer/css/style.css"
+      href="/Jamigo/activity/space/assets/css/style.css"
     />
     <style>
       .btn1 {
@@ -115,14 +116,19 @@
   </head>
 
   <body>
-    <!-- navbar製作導航欄 bg 背景色 navbar-dark 深色主題 -->
     <nav class="navbar navbar-dark p-0 navbar-expand-lg">
       <div class="container">
-        <a href="#" class="navbar-brand"
-          ><img src="./space/footer/images/JAMIGO_LOGO.gif" alt="" class="LOGO"
+        <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"
+          ><img
+            src="/Jamigo/index/頁首頁尾_final/images/找百貨.png"
+            alt=""
+            class="LOGO"
         /></a>
-        <!-- data-bs-toggle = "collapse" 觸發導覽列縮放功能  -->
-        <!-- data-bs-target="#navbarSupportedContent"   導覽列指向的目標 -->
+        <img
+          src="/Jamigo/index/頁首頁尾_final/images/頁首背景.gif"
+          alt=""
+          class="navbarimg"
+        />
         <button
           class="navbar-toggler"
           type="button"
@@ -131,70 +137,73 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- 將collapse 加入縮放清單  -->
-        <!-- ms-auto 項目自動靠右   me-auto 靠左 -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
+          <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="button-01 nav-link" href="index.html">首頁</a>
+              <a
+                class="button-01 nav-link"
+                href="/Jamigo/index/首頁/index.html"
+              >
+                回首頁</a
+              >
             </li>
             <li class="nav-item">
-              <a class="button-01 nav-link" href="https://chat.openai.com/"
+              <a
+                class="button-01 nav-link"
+                href="/Jamigo/shop/main_page/商城首頁.html"
                 >線上商城</a
               >
             </li>
             <li class="nav-item">
-              <a class="button-01 nav-link" href="https://chat.openai.com/"
+              <a
+                class="button-01 nav-link"
+                href="/Jamigo/activity/event_space.html"
                 >文藝活動</a
               >
             </li>
             <li class="nav-item">
-              <a class="button-01 nav-link" href="https://chat.openai.com/"
+              <a
+                class="button-01 nav-link"
+                href="/Jamigo/promotion/promotion_list/promotion_space.html"
                 >折扣快報</a
               >
             </li>
+            <!--                                <li class="nav-item"> -->
+            <!--                                    <a class="button-01 nav-link" href="*">客服系統</a> -->
+            <!--                                </li> -->
             <li class="nav-item">
-              <a class="button-01 nav-link" href="https://chat.openai.com/"
-                >客服系統</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="button-01 nav-link" href="https://chat.openai.com/"
+              <a
+                class="button-01 nav-link"
+                href="/Jamigo/frontend/前台會員管理首頁.html"
+                onclick="check(event);"
                 >會員專區</a
               >
             </li>
           </ul>
-          <!-- 導覽列右側 -->
-          <form class="form-inline">
-            <div class="nav_icon">
-              <div class="search-text ms-auto">
-                <a href="#"
-                  ><i
-                    class="nav-icon fa-regular fa-bell"
-                    style="color: #f5f5f5"
-                  ></i
-                ></a>
-                <a href="#"
-                  ><i
-                    class="nav-icon fa-regular fa-user"
-                    style="color: #f5f5f5"
-                  ></i
-                ></a>
-                <a href="#"
-                  ><i
-                    class="nav-icon fa-solid fa-magnifying-glass"
-                    style="color: #ffffff"
-                  ></i
-                ></a>
-                <input
-                  class="serch"
-                  type="text"
-                  value="Search"
-                  onfocus="this.value = ''"
-                />
-              </div>
-            </div>
-          </form>
+        </div>
+        <!--         導覽列右側 -->
+        <div id="signin">
+          <a href="/Jamigo/member/login/login.html">
+            <button class="login-button">
+              <i class="nav-icon fa-regular fa-user" style="color: #f5f5f5"></i>
+              會員登入/註冊
+            </button>
+          </a>
+        </div>
+        <div id="memberinfo">
+          <div id="imgcontainer">
+            <img src="#" alt="" id="memberimg" />
+          </div>
+          <div class="memberinfo_container" id="signininfo">
+            <span id="membername">HI! </span>
+            <button
+              id="logoutbutton"
+              class="logout-button"
+              onclick="opensignin();"
+            >
+              登出
+            </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -485,6 +494,6 @@
     <!-- FontAwesome -->
     <script src="./space/footer/js/all.js"></script>
     <!-- js -->
-    <script src="./space/footer/js/script.js"></script>
+    <script src="/Jamigo/index/頁首頁尾_final/js/script.js"></script>
   </body>
 </html>
