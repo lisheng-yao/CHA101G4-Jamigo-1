@@ -154,9 +154,9 @@ function showCartByCounter() {
         if (cartItems[i].counterNo != currentCounterNo) { //有新櫃位出現
             if (i > 0) {  //第一個出現的櫃位不需要結束前一個櫃位的table
                 let replaced_counterArea_foot = counterArea_foot
-                                                        .replace("foot_canUseCounterCouponOptions", putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal))
-                                                        .replace("foot_counterTotal", counterTotal)
-                                                        .replace("foot_counterFinalTotal", counterTotal);
+                    .replace("foot_canUseCounterCouponOptions", putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal))
+                    .replace("foot_counterTotal", counterTotal)
+                    .replace("foot_counterFinalTotal", counterTotal);
                 // replaced_counterArea_foot = replaced_counterArea_foot.replace("foot_counterTotalDiscount",counterTotalDiscount);
                 cart_html += replaced_counterArea_foot; //結束前一個櫃位的table
             }
@@ -178,7 +178,7 @@ function showCartByCounter() {
             <tr>
                 <td class="productNo" style="display: none">${cartItems[i].productNo}</td>
                 <td class="product_thumb">
-                    <img src="http://localhost:8080/Jamigo/shop/platform_order/product_picture/${cartItems[i].productNo}" alt="">
+                    <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${cartItems[i].productNo}" alt="">
                 </td>
                 <td class="product_name"><a href="/Jamigo/shop/shopping/product_detail_page.html?productNo=${cartItems[i].productNo}">${cartItems[i].productName}</a></td>
                 <td class="product_price">${cartItems[i].productPrice}</td>
@@ -195,9 +195,9 @@ function showCartByCounter() {
         `;
     }
     let replaced_counterArea_foot = counterArea_foot
-                                            .replace("foot_canUseCounterCouponOptions", putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal))
-                                            .replace("foot_counterTotal", counterTotal)
-                                            .replace("foot_counterFinalTotal", counterTotal);
+        .replace("foot_canUseCounterCouponOptions", putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal))
+        .replace("foot_counterTotal", counterTotal)
+        .replace("foot_counterFinalTotal", counterTotal);
     // replaced_counterArea_foot = replaced_counterArea_foot.replace("foot_counterTotalDiscount",counterTotalDiscount);
     cart_html += replaced_counterArea_foot; //結束前一個櫃位的table
     $("#cartPanel").html(cart_html);
@@ -377,30 +377,53 @@ function trashCanRemove() {
     for (let i = 0; i < btnTrash.length; i++) {
         btnTrash.eq(i).on("click", function (e) {
             e.preventDefault();
-            let memberNo = getMemberNo();
-            let cartItem = {
-                counterNo: parseInt(cartItems[i].counterNo),
-                counterName: cartItems[i].counterName,
-                productNo: parseInt(cartItems[i].productNo),
-                productName: cartItems[i].productName,
-                productPrice: parseInt(cartItems[i].productPrice),
-                // image: productImages.eq(i).attr("src"),
-                quantity: parseInt(quantities.eq(i).val())
-            };
-            let cartData = {
-                memberNo: memberNo,
-                cartItem: cartItem
-            };
-            $.ajax({
-                url: `/Jamigo/cart/deleteOneInCart`,
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(cartData),
-                success: function (resp) {
-                    alert("商品刪除成功" + resp);
-                },
-                error: function () {
-                    alert("商品刪除失敗");
+            //加是否移除sweet alert
+            Swal.fire({
+                title: '確定要移除此商品?',
+                text: "部分優惠將有可能無法使用",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DA6272',
+                cancelButtonColor: '#6A8CC7',
+                confirmButtonText: '確認移除',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        '移除成功！',
+                        '商品已從購物車內移除',
+                        'success'
+                    );
+                    //將商品從購物車移除
+                    let memberNo = getMemberNo();
+                    let cartItem = {
+                        counterNo: parseInt(cartItems[i].counterNo),
+                        counterName: cartItems[i].counterName,
+                        productNo: parseInt(cartItems[i].productNo),
+                        productName: cartItems[i].productName,
+                        productPrice: parseInt(cartItems[i].productPrice),
+                        // image: productImages.eq(i).attr("src"),
+                        quantity: parseInt(quantities.eq(i).val())
+                    };
+                    let cartData = {
+                        memberNo: memberNo,
+                        cartItem: cartItem
+                    };
+                    $.ajax({
+                        url: `/Jamigo/cart/deleteOneInCart`,
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(cartData),
+                        success: function (resp) {
+                            alert("商品刪除成功" + resp);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000); // 延遲2秒重新整理頁面
+                        },
+                        error: function () {
+                            alert("商品刪除失敗");
+                        }
+                    });
                 }
             });
         });
@@ -422,13 +445,13 @@ function getMemberCoupons() {
 }
 
 //取得會員點數
-function getMemberPoints(){
+function getMemberPoints() {
     let memberNo = getMemberNo();
     $.ajax({
         url: `/Jamigo/cart/getMemberPoints/${memberNo}`,
         method: "GET",
         async: false,
-        success: function (resp){
+        success: function (resp) {
             console.log(resp);
             memberOwnPoints = resp;
             $(".memberPoints_input").attr("max", memberOwnPoints);
@@ -446,7 +469,9 @@ function putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal) 
     let canUseCounterCouponHtml = "<option value='0'>請選擇欲使用的折價券</option>";
     for (let i = 0; i < canUseCounterCoupons.length; i++) {
         canUseCounterCouponHtml += `
-            <option value="${canUseCounterCoupons[i].memberCouponNo}">${canUseCounterCoupons[i].couponTypeName}, 折抵金額-${canUseCounterCoupons[i].couponPrice}</option>
+            <option value="memberCouponNo=${canUseCounterCoupons[i].memberCouponNo},couponTypeNo=${canUseCounterCoupons[i].couponTypeNo}">
+            ${canUseCounterCoupons[i].couponTypeName}, 折抵金額-${canUseCounterCoupons[i].couponPrice}
+            </option>
         `;
     }
 
@@ -458,7 +483,7 @@ function putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal) 
 function packToSessionStorage() {
     $("#checkout_confirm").on("click", function (e) {
         e.preventDefault();
-        let discountInfo={};
+        let discountInfo = {};
         //------打包折價卷
         let usedCoupons = [];
         //-----1.counter
@@ -470,7 +495,7 @@ function packToSessionStorage() {
         }
         //-----2.platform
         let platformCoupon = $(".available_platformCoupon");
-        if(platformCoupon.val() != 0){
+        if (platformCoupon.val() != 0) {
             usedCoupons.push(platformCoupon.val());
         }
         discountInfo.usedCoupons = usedCoupons;
@@ -482,13 +507,13 @@ function packToSessionStorage() {
 }
 
 //櫃位折價券下拉選單change(選用折價券)
-function counterSelectChange(){
+function counterSelectChange() {
     availableCounterCoupons = $(".available_counterCoupon");
-    for(let i = 0; i < availableCounterCoupons.length; i++){
-        availableCounterCoupons.eq(i).on("change", function (e){
+    for (let i = 0; i < availableCounterCoupons.length; i++) {
+        availableCounterCoupons.eq(i).on("change", function (e) {
             let usedCounterCoupon = $(this);
             let counterDiscount = usedCounterCoupon.find("option:selected").text().split("-")[1];
-            if (counterDiscount == undefined){
+            if (counterDiscount == undefined) {
                 counterDiscount = 0;
             }
             // console.log(counterDiscount);
@@ -514,12 +539,12 @@ function counterSelectChange(){
     }
 }
 
-function platformSelectChange(){
-    $(".available_platformCoupon").eq(0).on("change", function (){
+function platformSelectChange() {
+    $(".available_platformCoupon").eq(0).on("change", function () {
         //取得館內折抵金碩
         let usedPlatformCoupon = $(this);
         let platformDiscount = usedPlatformCoupon.find("option:selected").text().split("-")[1];
-        if (platformDiscount == undefined){
+        if (platformDiscount == undefined) {
             platformDiscount = 0;
         }
         platformDiscount = parseInt(platformDiscount);
@@ -535,24 +560,25 @@ function platformSelectChange(){
     });
 }
 
-function memberPointChange(){
-    console.log("============memberPointChange" )
-    $(".memberPoints_input").on("input", function (){
+function memberPointChange() {
+
+    $(".memberPoints_input").on("input", function () {
         let pointsMax = parseInt($(this).attr("max"));
         //取得會員點數折抵金額
         let memberPoint_usedDiscount = $(this).val();
         //取得館內折抵金碩
         let platformDiscount = parseInt($(".platform_usedDiscount").text());
-        if(memberPoint_usedDiscount == ""){
+
+        if (memberPoint_usedDiscount == "") {
             memberPoint_usedDiscount = 0;
         }
         //阻止使用者輸入超過擁有的點數
-        if(memberPoint_usedDiscount > pointsMax){
+        if (memberPoint_usedDiscount > pointsMax) {
             $(this).val(pointsMax);
             memberPoint_usedDiscount = pointsMax;
         }
         //阻止使用者輸入超過折抵金額的點數
-        if(memberPoint_usedDiscount > parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount){
+        if (memberPoint_usedDiscount > parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount) {
             $(this).val(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount);
             memberPoint_usedDiscount = parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount;
         }
@@ -563,18 +589,19 @@ function memberPointChange(){
         $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount - memberPoint_usedDiscount);
     });
 }
+
 //================================列印購物車尾端=====================
 function printCartTail() {
     let counterTotals = $(".counterTotal");
     let counterFinalTotals = $(".counterFinalTotal");
     originalTotal = 0;                          //各櫃位折抵前總額
-    for(let i = 0; i < counterTotals.length; i++){
+    for (let i = 0; i < counterTotals.length; i++) {
         originalTotal += parseInt(counterTotals.eq(i).text());
     }
     $(".original_total").text(originalTotal);
 
     let afterCounterDiscountTotal = 0;  //各櫃位折抵後總額
-    for(let i = 0; i < counterFinalTotals.length; i++){
+    for (let i = 0; i < counterFinalTotals.length; i++) {
         afterCounterDiscountTotal += parseInt(counterFinalTotals.eq(i).text());
     }
     $(".totalAfterCounterDiscount").text(afterCounterDiscountTotal);
@@ -596,19 +623,21 @@ function printCartTail() {
     //     $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - parseInt($(".platform_usedDiscount").text()) - memberUsedPoint);
     // });
 
-
 }
 
 function putCanUsePlatformCoupons(memberCoupons, currentCounterNo, counterTotal) {
     console.log(memberCoupons);
-    //篩選可以用的櫃位折價券
+
+    //篩選可以用的平台折價券
     let canUseCounterCoupons = memberCoupons.filter(function (coupon) {
         return coupon.counterNo == currentCounterNo && counterTotal > coupon.couponLowest;
     });
     let canUseCounterCouponHtml = "<option value='0'>請選擇欲使用的折價券</option>";
     for (let i = 0; i < canUseCounterCoupons.length; i++) {
         canUseCounterCouponHtml += `
-            <option value="${canUseCounterCoupons[i].memberCouponNo}">${canUseCounterCoupons[i].couponTypeName}, 折抵金額-${canUseCounterCoupons[i].couponPrice}</option>
+            <option value="memberCouponNo=${canUseCounterCoupons[i].memberCouponNo},couponTypeNo=${canUseCounterCoupons[i].couponTypeNo}">
+            ${canUseCounterCoupons[i].couponTypeName}, 折抵金額-${canUseCounterCoupons[i].couponPrice}
+            </option>
         `;
     }
     return canUseCounterCouponHtml;
