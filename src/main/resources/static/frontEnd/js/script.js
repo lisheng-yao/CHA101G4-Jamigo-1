@@ -12,12 +12,12 @@ links.forEach(link => {
 
 //登入登出
 function openmemberinfo(){
-document.getElementById('signin').style.display = 'none';
-document.getElementById('memberinfo').style.display = 'flex';
+    document.getElementById('signin').style.display = 'none';
+    document.getElementById('memberinfo').style.display = 'flex';
 }
 function opensignin(){
-document.getElementById('signin').style.display = 'flex';
-document.getElementById('memberinfo').style.display = 'none';
+    document.getElementById('signin').style.display = 'flex';
+    document.getElementById('memberinfo').style.display = 'none';
 
 }
 ( ()=> {
@@ -29,9 +29,9 @@ document.getElementById('memberinfo').style.display = 'none';
 
     function checklogin(){
         if(memberid){
-        openmemberinfo();
-        memberimg.src= `/Jamigo/member/member_data/${memberid}`;
-        membername.innerText='HI!  ' +  memberaccount;
+            openmemberinfo();
+            memberimg.src= `/Jamigo/member/member_data/${memberid}`;
+            membername.innerText='HI!  ' +  memberaccount;
         }
     }
 
@@ -40,6 +40,19 @@ document.getElementById('memberinfo').style.display = 'none';
         opensignin();
         localStorage.setItem('memberNo','');
         localStorage.setItem('memberAccount','');
+        window.location.href = "/Jamigo/index/首頁/index.html";
     })
 
 })();
+
+function check(event) {
+
+    const memberNo = localStorage.getItem('memberNo');
+    if (memberNo) {
+        return;
+    } else {
+        event.preventDefault();
+        window.location.href = '/Jamigo/member/login/login.html';
+    }
+
+}

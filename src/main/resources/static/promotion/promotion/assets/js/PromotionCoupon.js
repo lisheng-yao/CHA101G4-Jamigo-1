@@ -236,7 +236,7 @@
     let promotionCreateDateinputs = [];
     let getAmountinputs = [];
     let promotionPicinputs = [];
-    let msgs=[];
+    let msgs = [];
 
     function setinputinbox() {
         for (let i = 0; i <= dataaccount; i++) {
@@ -254,7 +254,7 @@
             const promotionCreateDateinput = document.querySelector('#promotionCreateDate' + i);
             const getAmountinput = document.querySelector('#getAmount' + i);
             const promotionPicinput = document.querySelector('#promotionPic' + i);
-            const msg=document.querySelector('#msg'+i);
+            const msg = document.querySelector('#msg' + i);
             promotionCouponNoinputs.push(promotionCouponNoinput);
             promotionCouponNameinputs.push(promotionCouponNameinput);
             promotionNameinputs.push(promotionNameinput);
@@ -269,7 +269,7 @@
             promotionCreateDateinputs.push(promotionCreateDateinput);
             getAmountinputs.push(getAmountinput);
             promotionPicinputs.push(promotionPicinput);
-           msgs.push(msg);
+            msgs.push(msg);
         }
     }
 
@@ -293,23 +293,23 @@
             msgs[i].textContent = '名稱長度須介於1~100字元';
             return;
         }
-        if(amountOfCoupon4json===''){
+        if (amountOfCoupon4json === '') {
             msgs[i].textContent = '發放數量不可為空';
             return;
         }
-        if(getCouponLimitLevel4json===''){
+        if (getCouponLimitLevel4json === '') {
             msgs[i].textContent = '等級限制不可為空';
             return;
         }
-        if(getCouponLimitAmount4json===''){
+        if (getCouponLimitAmount4json === '') {
             msgs[i].textContent = '數量限制不可為空';
             return;
         }
-        if(promotionEffectiveDate4json===''){
+        if (promotionEffectiveDate4json === '') {
             msgs[i].textContent = '開始日期不可為空';
             return;
         }
-        if(promotionExpireDate4json===''){
+        if (promotionExpireDate4json === '') {
             msgs[i].textContent = '結束日期不可為空';
             return;
         }
@@ -375,6 +375,22 @@
 
     // ============================6.   newAPromotion()新增promotion========================
     const msg2 = document.querySelector('#msga');
+    getpicinput()
+    function getpicinput() {
+        const promotionPic4new = document.querySelector('#promotionPic');
+        promotionPic4new.addEventListener("change", function (event) {
+            readPic(event);
+            console.log("有圖")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '上傳成功!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        });
+    };
+
 
     function newAPromotion() {
         const promotionCouponName4new = document.querySelector('#promotionCouponName').value;
@@ -385,52 +401,40 @@
         const getCouponLimitAmount4new = document.querySelector('#getCouponLimitAmount').value;
         const promotionEffectiveDate4new = document.querySelector('#promotionEffectiveDate').value;
         const promotionExpireDate4new = document.querySelector('#promotionExpireDate').value;
-        const promotionPic4new = document.querySelector('#promotionPic');
-        promotionPic4new.addEventListener("change", function (event) {
-           readPic(event);
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '上傳成功!',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        });
 
         const promotionNameLength = promotionCouponName4new.length;
         if (promotionNameLength < 1 || promotionNameLength > 100) {
             msg2.textContent = '名稱長度須介於1~100字元';
             return;
         }
-        if(promotionName4new ==='請選擇活動種類'){
+        if (promotionName4new === '請選擇活動種類') {
             msg2.textContent = '活動種類為必選';
             return;
         }
-        if(couponTypeNo4new ==='請選擇折價券種類'){
+        if (couponTypeNo4new === '請選擇折價券種類') {
             msg2.textContent = '折價券種類為必選';
             return;
         }
-        if(amountOfCoupon4new ===''){
+        if (amountOfCoupon4new === '') {
             msg2.textContent = '發放數量不可為空';
             return;
         }
-        if(getCouponLimitLevel4new===''){
+        if (getCouponLimitLevel4new === '') {
             msg2.textContent = '等級限制不可為空';
             return;
         }
-        if(getCouponLimitAmount4new===''){
+        if (getCouponLimitAmount4new === '') {
             msg2.textContent = '數量限制不可為空';
             return;
         }
-        if(promotionEffectiveDate4new===''){
+        if (promotionEffectiveDate4new === '') {
             msg2.textContent = '開始日期不可為空';
             return;
         }
-        if(promotionExpireDate4new===''){
+        if (promotionExpireDate4new === '') {
             msg2.textContent = '結束日期不可為空';
             return;
         }
-
 
 
         fetch('newPromotionCoupon', {
@@ -751,7 +755,7 @@
                     let str = ' <option selected disabled>請選擇活動種類</option>';
                     let str2 = '';
                     let str3_0 = '';
-                    let str4_0  = '';
+                    let str4_0 = '';
                     let str3 = [];
                     let str4 = [];
 
