@@ -4,6 +4,7 @@ import java.io.IOException;
 //import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jamigo.activity.activity_approve.dao.ActivityDAO;
 import com.jamigo.activity.activity_approve.model.Activity;
 import com.jamigo.activity.activity_approve.service.ActivityService;
 
@@ -127,7 +129,6 @@ public class ActivityController {
 	public ResponseEntity<Activity> updateActivity(@PathVariable Integer activityNo,
 			@RequestBody Activity updatedActivity) {
 		Activity activity = activityService.getActUpdate(activityNo);
-
 		// 用 updatedActivity 的資訊來更新找到的 Activity
 		activity.setActivityName(updatedActivity.getActivityName());
 		activity.setActivityCost(updatedActivity.getActivityCost());
@@ -143,5 +144,18 @@ public class ActivityController {
 		Activity savedActivity = activityService.saveActivity(activity);
 		return new ResponseEntity<>(savedActivity, HttpStatus.OK);
 	}
-
+	
+	//上傳修改圖片與存放
+////	 @PostMapping("/Jamigo/backend/couninfo/{activityNo}/uploadImage")
+////	    public ResponseEntity<String> uploadImage(@PathVariable String activityNo, @RequestBody byte[] imageBytes) {
+////	        Optional<Activity> optionalActivity = activityService.findById(activityNo);
+////	        if (optionalActivity.isPresent()) {
+////	            Activity activity = optionalActivity.get();
+////	            activity.setActivityPic(imageBytes);
+////	            activityService.save(activity);
+////	            return ResponseEntity.ok().body("Image upload success");
+////	        } else {
+////	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activity not found");
+////	        }
+//	    }
 }

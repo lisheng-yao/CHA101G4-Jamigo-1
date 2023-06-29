@@ -1,6 +1,9 @@
 package com.jamigo.activity.activity_approve.dao;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,6 +20,11 @@ public interface ActivityDAO extends JpaRepository<Activity, Integer> {
 	List<Activity> findByActivityApprovalStat(Byte activityApprovalStat);
 
 	List<Activity> findByCounterNo(Integer counterNo);
-	
+
+	static Optional<Activity> findById(String activityNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	//Activity findByActivityByCounterNo(Integer counterNo);
 }
