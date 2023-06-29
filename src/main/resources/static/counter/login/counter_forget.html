@@ -54,10 +54,10 @@
             class="text-center icon"
             style="margin-bottom: -1em; padding-top: 20px"
           >
-            <i class="fa-solid fa-key" style="font-size: 30px"></i>
+            <i class="fa-solid fa-envelope" style="font-size: 30px"></i>
             <!-- 改 -->
             <p style="text-align: center; font-size: 30px; margin-top: 10px">
-              櫃位後台登入
+              請輸入櫃位信箱
             </p>
           </div>
           <div class="content-bottom">
@@ -65,29 +65,18 @@
               <div class="content-input-field">
                 <input
                   name="counterAccount"
-                  id="counterAccount"
-                  type="text"
-                  placeholder="請輸入帳號"
+                  id="counterMail"
+                  type="email"
+                  placeholder="請輸入信箱"
                   style="border: 1px solid"
                   onkeydown="checkEnter(event)"
                 />
               </div>
             </div>
-            <div class="field-group">
-              <div class="content-input-field">
-                <input
-                  name="counterPassword"
-                  id="counterPassword"
-                  type="Password"
-                  placeholder="請輸入密碼"
-                  style="border: 1px solid"
-                  onkeydown="checkEnter(event)"
-                />
-              </div>
-            </div>
+
             <div class="content-input-field">
-              <button type="button" class="btn" id="btn1" onclick="login()">
-                登入
+              <button type="button" class="btn" id="btn1" onclick="sendMail()">
+                發送驗證信
               </button>
               <p
                 id="login-error"
@@ -104,10 +93,10 @@
             <ul class="list-login">
               <li>
                 <a
-                  href="counter_forget.html"
+                  href="counter_login.html"
                   class="text-right"
                   style="margin-left: 100px"
-                  >忘記密碼?</a
+                  >回登入頁</a
                 >
               </li>
               <li class="clearfix"></li>
@@ -164,17 +153,15 @@
 
   <!---------------------------------- 送出登入請求 --------------------------------->
   <script>
-    function login() {
-      const name = document.getElementById("counterAccount").value;
-      const password = document.getElementById("counterPassword").value;
+    function sendMail() {
+      const mail = document.getElementById("counterMail").value;
 
       let counter = {
-        counterAccount: name,
-        counterPassword: password,
+        counterEmail: mail,
       };
 
-      fetch("/Jamigo/login", {
-        method: "POST",
+      fetch("/Jamigo/counterMail", {
+        method: "Post",
         headers: {
           "Content-Type": "application/json",
         },
@@ -182,13 +169,21 @@
       })
         .then((response) => {
           if (response.ok) {
-            localStorage.setItem("counterAccount", name);
-            window.location.href = "/Jamigo/counter/counter_data.html";
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "已將暫時密碼寄到您的信箱!",
+              text: "建議您立即更新密碼!",
+              showConfirmButton: false,
+              footer:
+                '<a href="counter_login.html" ><p style="border: 5px solid rgb(126, 126, 199); border-radius: 10px ;color : white ; background-color: rgb(126, 126, 199)">立即前往登入</p></a>',
+            });
           } else {
-            document.getElementById("login-error").style.display = "block";
             Swal.fire({
               icon: "error",
-              title: "帳號密碼有誤，請重新確認",
+              title: "查無此櫃位信箱!",
+              text: "請重新確認或連繫平台人員",
+              showConfirmButton: true,
             });
           }
         })
@@ -200,7 +195,7 @@
     function checkEnter(event) {
       if (event.keyCode === 13) {
         // 觸發登入按鈕的點擊事件
-        login();
+        sendMail();
       }
     }
   </script>
