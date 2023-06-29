@@ -1,16 +1,16 @@
 (() => {
     const tbody = document.querySelector('#tbody');
-
+    const counterNoa = localStorage.getItem('counterNo');
 
     // ===============================VVV方法區VVV====================================
 
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
     let dataaccount = 0;
     let CouponType = [];
-    let aa=1;
+    let aa = counterNoa;
 
     function getAllPromotion() {
-        console.log('進入getAllcouponType()'+aa)
+        console.log('進入getAllcouponType()' + aa)
         fetch('getCounterCouponType', {
             method: 'POST',
             headers: {
@@ -58,7 +58,8 @@
                         const formattedDatea = yeara + '-' + ('0' + montha).slice(-2) + '-' + ('0' + daya).slice(-2);
                         // 處理日期格式
                         const couponExpireDate = formattedDatea;
-
+                        const coupontypeaNo=document.querySelector('#coupontypeaNo');
+                        coupontypeaNo.value=counterNoa;
 
                         const couponConditions = row.couponConditions;
                         const couponPrice = row.couponPrice;
@@ -111,7 +112,7 @@
                                     <label for="recipientaNo${i}"
                                            class="col-form-label">欄位編號:</label>
                                     <input type="text" class="form-control"
-                                           id="recipientaNo${i}" value="" readonly>
+                                           id="recipientaNo${i}" value="${counterNoa}" readonly>
                                 </div>
                                 
                                 <div class="mb-3" >
@@ -350,7 +351,7 @@
         const coupontypePrice4new = document.querySelector('#coupontypePrice').value;
         const coupontypeLowest4new = document.querySelector('#coupontypeLowest').value;
         const coupontypeConditions4new = document.querySelector('#coupontypeConditions').value;
-        const msg=document.querySelector('#msg');
+        const msg = document.querySelector('#msg');
         //檢查
         const promotionNameLength = coupontypeName4new.length;
         if (promotionNameLength < 1 || promotionNameLength > 20) {
