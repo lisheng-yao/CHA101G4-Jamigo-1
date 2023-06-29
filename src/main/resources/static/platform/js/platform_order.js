@@ -115,12 +115,9 @@ function paymentStatFormatter(value) {
 
 function paymentMethodFormatter(value) {
     if (value === 1) {
-        return '<span class="badge rounded-pill text-bg-info">信用卡</span>';
+        return '<span class="badge rounded-pill text-bg-info">綠界金流</span>';
     }
     else if (value === 2) {
-        return '<span class="badge rounded-pill text-bg-info">ATM 轉帳</span>';
-    }
-    else if (value === 3) {
         return '<span class="badge rounded-pill text-bg-info">貨到付款</span>';
     }
 }
@@ -230,7 +227,7 @@ $table.on("click", "button.full-info", function () {
 
             $.ajax({
                 method: "GET",
-                url: `http://localhost:8080/Jamigo/shop/platform_order/detail/${platformOrderNo}`,
+                url: `http://localhost:8080/Jamigo/shop/platform_order/${platformOrderNo}/detail`,
                 success: function(response) {
 
                     tableContent  = `
@@ -263,12 +260,22 @@ $table.on("click", "button.full-info", function () {
                                 </tr>
                                 <tr>
                                     <td class="cart_img">
-                                        <img src="http://localhost:8080/Jamigo/shop/platform_order/product_picture/${item['productNo']}" alt="">
+                                        <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${item['productNo']}" alt="">
                                     </td>
                                     <td class="orderDetailStat">
                             `;
 
-                            if (item['orderDetailStat'] === 20) {
+                            if (item['orderDetailStat'] === 0) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-warning">訂單取消</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 10) {
+                                tableContent += `
+                                    <span class="badge rounded-pill text-bg-warning">等待付款</span>
+                                `;
+                            }
+                            else if (item['orderDetailStat'] === 20) {
                                 tableContent += `
                                     <span class="badge rounded-pill text-bg-warning">揀貨中</span>
                                 `;

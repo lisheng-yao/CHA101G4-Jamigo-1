@@ -114,41 +114,7 @@
 
     <div class="order_table table-responsive">
         <table>
-            <tbody>
-            <tr>
-                <td class="counter" colspan="3">Nike</td>
-            </tr>
 
-            <tr>
-                <td class="cart_img">
-                    <img src="cid:productPicture" alt="">
-                </td>
-                <td class="cart_info" colspan="2">
-                    <h5>(多文字測試)鞋子1鞋子1鞋子1鞋子1</h5>
-                    <p>單價: NT$1234 / 數量: 1</p>
-                </td>
-            </tr>
-            </tbody>
-
-
-            <tfoot>
-            <tr>
-                <th colspan="2">原總金額</th>
-                <th>NT$1000</th>
-            </tr>
-            <tr>
-                <th colspan="2">折價券折抵</th>
-                <th>NT$-100</th>
-            </tr>
-            <tr>
-                <th colspan="2">點數折抵</th>
-                <th>NT$-100</th>
-            </tr>
-            <tr class="order_total">
-                <th colspan="2">訂單實付金額</th>
-                <th>NT$800</th>
-            </tr>
-            </tfoot>
         </table>
     </div>
 </body>
