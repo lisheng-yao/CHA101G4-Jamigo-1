@@ -68,6 +68,12 @@ public class PromotionTypeServiceImpl implements PromotionTypeService {
         return Dao.selectAll();
     }
 
+    @Override
+    public List<Promotion> findbycounterNo(Integer counterNo){
+        List<Promotion> promotions =Dao.selectbycountNo(counterNo);
+        return  promotions;
+    };
+
 
     @Override
     public boolean remove(String promotionName) {

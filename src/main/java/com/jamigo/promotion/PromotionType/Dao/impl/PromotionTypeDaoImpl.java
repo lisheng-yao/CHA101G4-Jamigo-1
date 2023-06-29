@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
-
 @Repository
 public class PromotionTypeDaoImpl implements PromotionTypeDao {
 
@@ -25,6 +24,17 @@ public class PromotionTypeDaoImpl implements PromotionTypeDao {
                 .createQuery(hql, Promotion.class)
                 .getResultList();
     }
+
+    @Override
+    @Transactional
+    public List<Promotion> selectbycountNo(Integer counterNo) {
+        final String hql = "FROM Promotion WHERE counterNo = ?1";
+        return session
+                .createQuery(hql, Promotion.class)
+                .setParameter(1, counterNo)
+                .getResultList();
+    }
+
 
     @Override
     @Transactional

@@ -10,5 +10,7 @@ public interface CouponTypeDao {
     int deleteByPK(Integer couponTypeNo);
     int insert(CouponType couponType);
 
+    List<CouponType> selectBycounterNo(Integer counterNo);
+
     CouponType selectById(Integer couponTypeNo);
 }
