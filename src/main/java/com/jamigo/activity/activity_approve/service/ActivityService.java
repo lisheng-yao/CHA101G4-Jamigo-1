@@ -92,4 +92,11 @@ public class ActivityService {
 		    // 使用 ActivityDAO 的 save 方法保存 Activity
 		    return activityDAO.save(activity);
 		}
+
+	public Optional<Activity> findById(String activityNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
