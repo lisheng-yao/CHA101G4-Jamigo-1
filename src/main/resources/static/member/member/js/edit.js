@@ -158,13 +158,6 @@
             return;
         }
 
-        // console.log(inputmemberAddress.value);
-        // const AddressValue = inputmemberAddress.value;
-        // const AddressPattern = /^[\u4E00-\u9FA5]{3,}(?:市|縣|區)[^\s]*[路街巷][\u4E00-\u9FA5]{2,}/;
-        // if (!AddressPattern.test(AddressValue)) {
-        //     msg.textContent = '請輸入地址，其中需包含:縣/市/區;路/街/巷'
-        //     return;
-        // }
 
         const memberCarda = inputmemberCard.value;
         const memberCardLength = inputmemberCard.value.length;
@@ -374,13 +367,13 @@
         setTimeout(function () {
             console.log("等1秒");
             getmemberdata();
-        }, 1000);
+        }, 100);
         Swal.fire({
             position: 'center',
             icon: 'success',
             title: '已刷新!',
             showConfirmButton: false,
-            timer: 1500
+            timer: 500
         })
     });
     // ================================4. 性別select 轉貼至input====================================

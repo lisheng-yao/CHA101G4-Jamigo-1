@@ -43,12 +43,10 @@
         if (pwdLength < 6 || pwdLength > 12) {
             msg.textContent = '密碼長度須介於6~12字元';
             return;
-
         }
         if (confirmPassword.value !== memberPassword.value) {
             msg.textContent = '密碼與確認密碼不相符';
             return;
-
         }
 
         const email_verificationValue=email_verification.value;
@@ -70,7 +68,7 @@
             .then(resp => resp.json())// .then(function (resp) {resp.json();)})
             .then(body => {
                 console.log(body);
-                const {successful} = body;//const successful = body.successful;
+                const {successful,message} = body;//const successful = body.successful;
                 if (successful) {
 
                     btn2.disabled = true;
@@ -89,7 +87,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: ' 註冊失敗!',
+                        text: `${message}`,
                         footer: '<a href=""></a>'
                     })
                 };

@@ -94,11 +94,12 @@
                                     <input type="text" class="form-control"
                                            id="recipientaNo${i}" value="" readonly>
                                 </div>
-                                <span id="msg"> </span>
+                               
                             </form>
 
                         </div>
                         <div class="modal-footer">
+                         <span id="msg"> </span>
                             <button type="button" class="btn btn-secondary editbutton"
                                     data-bs-dismiss="modal" id="cancle${i}">取消
                             </button>

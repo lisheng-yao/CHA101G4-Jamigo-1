@@ -10,5 +10,5 @@ import java.util.List;
 @Setter
 public class CounterOrderForPlatformOrderDTO {
     private Byte disbursementStat;
-    private List<ProductForPlatformOrderDTO> product = new ArrayList<>();
+    private List<ProductDetailForPlatformOrderDTO> product = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 (() => {
     const tbody = document.querySelector('#tbody');
+    const msg=document.querySelector('#msg')
 
 
     // ===============================VVV方法區VVV====================================

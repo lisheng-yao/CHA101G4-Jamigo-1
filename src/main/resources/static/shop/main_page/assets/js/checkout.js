@@ -4,6 +4,8 @@ const totalCoupon = 0;
 const totalPoints = 1000;
 
 let memberAddress;
+let levelName;
+let levelFeedback;
 
 $(document).ready(function () {
 
@@ -12,7 +14,6 @@ $(document).ready(function () {
     setupRadioButtons('invoice_method', 'invoice');
 
     autoFillMemberData(memberNo);
-    getCartInfo(memberNo);
 
     check_buyer_data();
 });
@@ -55,6 +56,10 @@ function autoFillMemberData(memberNo) {
             $("input#buyerEmail").val(response.memberEmail);
 
             memberAddress = response.memberAddress;
+            levelName = response.memberLevelDetail.levelName;
+            levelFeedback = response.memberLevelDetail.levelFeedback;
+
+            getCartInfo(memberNo);
         }
     });
 }
@@ -83,7 +88,7 @@ function getCartInfo(memberNo) {
                     html_str +=
                         `<tr>
                             <td class="cart_img">
-                                <img src="http://localhost:8080/Jamigo/shop/platform_order/product_picture/${item['productNo']}" alt="">
+                                <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${item['productNo']}" alt="">
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>
@@ -96,7 +101,8 @@ function getCartInfo(memberNo) {
             }
 
             let actuallyPaid = totalPaid - totalCoupon - totalPoints;
-            let rewardPoints = Math.round(actuallyPaid / 10);
+            // 計算回饋點數 (每消費 10 元，回饋 1 點，且乘上會員等級)
+            let rewardPoints = Math.round(actuallyPaid / 10 * levelFeedback);
 
             html_str +=
                 `<tfoot>
@@ -120,7 +126,7 @@ function getCartInfo(memberNo) {
                             <th colspan="2">回饋點數</th>
                             <th>
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-                                <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${rewardPoints}
+                                <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${rewardPoints} (會員等級：${levelName})
                             </th>
                         </tr>
                     </tfoot>
@@ -135,7 +141,7 @@ function getCartInfo(memberNo) {
 }
 
 $("input#fillInAddress").on("change", function () {
-    if(this.checked) {
+    if (this.checked) {
         // checkbox 被勾選時執行的程式碼
         $("input.address").val(memberAddress);
         $('input.address').prop('disabled', true);
@@ -146,9 +152,9 @@ $("input#fillInAddress").on("change", function () {
     }
 })
 
-$("div.order_table").on("click", "div.create_order button",function() {
+$("div.order_table").on("click", "div.create_order button", function () {
 
-    if(!check_all_fill_in()){
+    if (!check_all_fill_in()) {
         return;
     }
 
@@ -189,6 +195,33 @@ $("div.order_table").on("click", "div.create_order button",function() {
                 totalPoints: totalPoints
             }
 
+            // $.ajax({
+            //     type: "POST",
+            //     url: "http://localhost:8080/Jamigo/ecpayCheckout",
+            //     data: JSON.stringify(platform_order_data),
+            //     contentType: "application/json",
+            //
+            //     success: function (res) {
+            //         Swal.fire({
+            //             title: '你的訂單已成功送出',
+            //             icon: 'success',
+            //             confirmButtonText: "回到商城首頁"
+            //         }).then(function () {
+            //             // 將消費者導回至商城首頁
+            //             window.location.href = "商城首頁.html"
+            //         })
+            //     },
+            //
+            //     error: function (err) {
+            //         Swal.fire({
+            //             title: '訂單送出失敗',
+            //             icon: 'error',
+            //             confirmButtonText: "關閉"
+            //         })
+            //     }
+            // })
+
+
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080/Jamigo/shop/platform_order",
@@ -201,6 +234,7 @@ $("div.order_table").on("click", "div.create_order button",function() {
                         icon: 'success',
                         confirmButtonText: "回到商城首頁"
                     }).then(function () {
+                        // 將消費者導回至商城首頁
                         window.location.href = "商城首頁.html"
                     })
                 },
@@ -223,7 +257,7 @@ function check_buyer_data() {
 
         let span_text = "*";
 
-        if($(this).val() === "")
+        if ($(this).val() === "")
             span_text += " 不得為空！";
 
         $(this).prev("label").children("span").text(span_text);
@@ -233,7 +267,7 @@ function check_buyer_data() {
 
         let span_text = "*";
 
-        if(!$(this).val().match("^09\\d{8}$"))
+        if (!$(this).val().match("^09\\d{8}$"))
             span_text += " 不符合格式！";
 
         $(this).prev("label").children("span").text(span_text);
@@ -243,7 +277,7 @@ function check_buyer_data() {
 
         let span_text = "*";
 
-        if(!$(this).val().match("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"))
+        if (!$(this).val().match("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"))
             span_text += " 不符合格式！";
 
         $(this).prev("label").children("span").text(span_text);
@@ -264,7 +298,7 @@ function check_all_fill_in() {
         return false;
     }
 
-    if(!$("input[name='payment_method']:checked").length) {
+    if (!$("input[name='payment_method']:checked").length) {
         Swal.fire({
             icon: 'error',
             title: '必須選擇一種付款方式！'
@@ -273,7 +307,7 @@ function check_all_fill_in() {
         return false;
     }
 
-    if(!$("input[name='shipping_method']:checked").length) {
+    if (!$("input[name='shipping_method']:checked").length) {
         Swal.fire({
             icon: 'error',
             title: '必須選擇一種取貨方式！'
@@ -282,7 +316,7 @@ function check_all_fill_in() {
         return false;
     }
 
-    if($("#shipping2").prop("checked") && $("input.address").val() === "") {
+    if ($("#shipping2").prop("checked") && $("input.address").val() === "") {
         Swal.fire({
             icon: 'error',
             title: '住址不得為空！'
@@ -291,7 +325,7 @@ function check_all_fill_in() {
         return false;
     }
 
-    if(!$("input[name='invoice_method']:checked").length) {
+    if (!$("input[name='invoice_method']:checked").length) {
         Swal.fire({
             icon: 'error',
             title: '必須選擇一種開立發票方式！'
@@ -300,7 +334,7 @@ function check_all_fill_in() {
         return false;
     }
 
-    if($("#invoice2").prop("checked") && $("input.invoice_gui").val() === "") {
+    if ($("#invoice2").prop("checked") && $("input.invoice_gui").val() === "") {
         Swal.fire({
             icon: 'error',
             title: '統一編號不得為空！'

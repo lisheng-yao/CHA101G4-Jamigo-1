@@ -10,6 +10,7 @@ public interface CouponTypeService {
 
 
     CouponType  edit(CouponType couponType);
+    CouponType  findByCouponTypeNo(CouponType couponType);
 
     List<CouponType > findAll();
 

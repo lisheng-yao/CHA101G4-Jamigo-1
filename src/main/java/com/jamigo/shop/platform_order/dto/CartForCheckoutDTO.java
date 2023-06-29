@@ -1,4 +1,4 @@
-package com.jamigo.shop.cart.dto;
+package com.jamigo.shop.platform_order.dto;
 
 import lombok.Getter;
 import lombok.Setter;
