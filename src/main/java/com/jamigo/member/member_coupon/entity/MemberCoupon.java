@@ -23,6 +23,7 @@ public class MemberCoupon extends Core {
     @NotNull
     @Column(name = "memberNo", nullable = false)
     private Integer memberNo;
+
     @Builder.Default
     @Column(name = "couponUsedStat")
     private Byte couponUsedStat=0;

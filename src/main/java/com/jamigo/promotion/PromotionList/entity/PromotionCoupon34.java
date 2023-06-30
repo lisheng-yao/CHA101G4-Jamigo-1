@@ -26,7 +26,6 @@ public class PromotionCoupon34 {
 	private String promotionName;
 	private Integer couponTypeNo;
 	private Integer amountOfCoupon;
-	private Integer getCouponConditions;
 	private Integer getCouponLimitLevel;
 	private Integer getCouponLimitAmount;
 	private Date promotionEffectiveDate;

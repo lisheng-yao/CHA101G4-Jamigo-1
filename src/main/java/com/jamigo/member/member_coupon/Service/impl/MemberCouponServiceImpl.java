@@ -19,16 +19,32 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     private MemberCouponDao Dao;
 
     @Override
+    public Integer findbycouponTypeNo(Integer couponTypeNo) {
+        List<MemberCoupon> list = Dao.findByCouponTypeNo(couponTypeNo);
+        Integer biggest=0;
+        for (MemberCoupon x : list) {
+            Integer memberCouponNo= x.getMemberCouponId().getMemberCouponNo();
+            if(biggest<memberCouponNo){
+                biggest= memberCouponNo;
+            }
+        }
+        biggest +=1;
+       return biggest;
+    }
+
+    ;
+
+    @Override
     public MemberCoupon add(MemberCoupon memberCoupon) {
 //        ====判斷有沒有領過====
 //        把傳進來的coupontypeno取出
-        Integer TypeNo= memberCoupon.getMemberCouponId().getCouponTypeNo();
+        Integer TypeNo = memberCoupon.getMemberCouponId().getCouponTypeNo();
 //        取出該會員所有折價券
         List<MemberCoupon> omemberCoupon = Dao.findByMemberNo(memberCoupon.getMemberNo());
 //        一個一個比對
-        for( MemberCoupon omembercoupon1 :omemberCoupon){
-            Integer oTypeNo= omembercoupon1.getMemberCouponId().getCouponTypeNo();
-            if(oTypeNo ==TypeNo){
+        for (MemberCoupon omembercoupon1 : omemberCoupon) {
+            Integer oTypeNo = omembercoupon1.getMemberCouponId().getCouponTypeNo();
+            if (oTypeNo == TypeNo) {
                 memberCoupon.setMessage("重複領取");
                 memberCoupon.setSuccessful(false);
                 return memberCoupon;
@@ -38,14 +54,14 @@ public class MemberCouponServiceImpl implements MemberCouponService {
 
         final MemberCoupon result = Dao.save(memberCoupon);
         if (result == null) {
-            memberCoupon.setMessage("領取失敗");
-            memberCoupon.setSuccessful(false);
-            return memberCoupon;
+            result.setMessage("領取失敗");
+            result.setSuccessful(false);
+            return result;
         }
-        memberCoupon.setMessage("領取成功");
-        memberCoupon.setSuccessful(true);
+        result.setMessage("領取成功");
+        result.setSuccessful(true);
 
-        return memberCoupon;
+        return result;
     }
 
 
@@ -62,7 +78,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
                 omemberCoupon.setCouponUsedTime(memberCoupon.getCouponUsedTime());
             }
             if (memberCoupon.getOrderDetailCouponNo() != null) {
-                omemberCoupon.setOrderDetailCouponNo(memberCoupon.getOrderDetailCouponNo() );
+                omemberCoupon.setOrderDetailCouponNo(memberCoupon.getOrderDetailCouponNo());
             }
 
             final MemberCoupon result = Dao.save(omemberCoupon);

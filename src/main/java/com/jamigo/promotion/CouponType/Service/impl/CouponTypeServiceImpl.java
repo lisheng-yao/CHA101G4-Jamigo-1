@@ -64,7 +64,7 @@ public class CouponTypeServiceImpl implements CouponTypeService {
         }
 
 
-        final int resultCount =Dao.update(ocouponType);
+        final int resultCount = Dao.update(ocouponType);
         ocouponType.setSuccessful(resultCount > 0);
         return ocouponType;
 
@@ -81,7 +81,11 @@ public class CouponTypeServiceImpl implements CouponTypeService {
         return Dao.selectAll();
     }
 
-
+    @Override
+    public List<CouponType> findBycounterNo(Integer counterNo) {
+        List<CouponType> reslut = Dao.selectBycounterNo(counterNo);
+        return reslut;
+    }
     @Override
     public boolean remove(Integer couponTypeNo) {
         try {

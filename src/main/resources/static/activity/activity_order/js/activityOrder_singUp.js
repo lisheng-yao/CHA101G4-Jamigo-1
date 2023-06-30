@@ -27,8 +27,18 @@ let activity_form_submit = document.querySelector('.activity-form-submit button'
 // 總金額
 let total_pay_money = document.querySelector('.total-pay .total-pay-money');
 
+// 拿取當前會員編號
+let currentMemberNo = localStorage.getAttribute('memberNo');
+
+// 獲取活動編號
+getActivityNo();
+function getActivityNo(){
+    let url = location.search;
+	currentCounterNo = new URLSearchParams(url).get('activityNo');
+}
+
 // 先拿1號會員的
-getMemberInfo(1);
+getMemberInfo(currentMemberNo);
 // 載入時讀取會員資料，並填入
 function getMemberInfo(id){
 	axios.post('/Jamigo/member/member/getmemberdata', 

@@ -356,7 +356,7 @@
                   />
                 </div>
 
-                <div class="input-group mt-2">
+                <div class="input-group mt-2" hidden>
                   <label for="counterStat" class="input-group-text"
                     >櫃位狀態</label
                   >
@@ -547,8 +547,6 @@
             document.getElementById("account").value = data.counterAccount;
             document.getElementById("counterPassword").value =
               data.counterPassword;
-            document.getElementById("counterStat").value =
-              data.counterStat === 1 ? "啟用" : "未啟用";
             document.getElementById("counterGui").value = data.counterGui;
             document.getElementById("counterFloor").value = data.counterFloor;
             document.getElementById("counterTel").value = data.counterTel;
@@ -579,16 +577,6 @@
     <!------------------------------------- 確認update ------------------------------->
 
     <script>
-      // 用於將圖片文件轉換為 Base64 字串
-      // function convertImageToBase64(counterPic) {
-      //   return new Promise((resolve, reject) => {
-      //     const reader = new FileReader();
-      //     reader.readAsDataURL(counterPic);
-      //     reader.onload = () => resolve(reader.result);
-      //     reader.onerror = (error) => reject(error);
-      //   });
-      // }
-
       async function updateCounter() {
         const counterNo = document.getElementById("counterNo").value;
         const counterName = document.getElementById("counterName").value;
@@ -644,30 +632,49 @@
         };
         console.log(data);
 
-        fetch(`/Jamigo/update/counter/${counterNo}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.text();
-            } else {
-              throw new Error("Level update failed");
-              return;
-            }
-          })
-          .then((responseData) => {
-            console.log(responseData);
-            Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
-              window.location.href = "/Jamigo/counter/counter_data.html";
-            });
-          })
-          .catch((error) => {
-            console.error("Error:", error);
+        if (
+          !counterName ||
+          !counterPassword ||
+          !counterGui ||
+          !counterFloor ||
+          !counterTel ||
+          !counterPoc ||
+          !counterPocPhone ||
+          !counterPocAddress ||
+          !counterEmail ||
+          !counterBankAccount ||
+          !counterAbout
+        ) {
+          Swal.fire({
+            icon: "error",
+            title: "請確認填寫所有欄位",
           });
+        } else {
+          fetch(`/Jamigo/update/counter/${counterNo}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Level update failed");
+                return;
+              }
+            })
+            .then((responseData) => {
+              console.log(responseData);
+              Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
+                window.location.href = "/Jamigo/counter/counter_data.html";
+              });
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        }
       }
     </script>
 
@@ -679,10 +686,10 @@
         const counterPic = counterPicInput.files[0];
 
         if (!counterPic) {
-        	Swal.fire({
-        		  icon: 'error',
-        		  title: '請選擇填圖片再上傳'
-        		})
+          Swal.fire({
+            icon: "error",
+            title: "請選擇填圖片再上傳",
+          });
         } else {
           const formData = new FormData();
           formData.append("counterPic", counterPic);

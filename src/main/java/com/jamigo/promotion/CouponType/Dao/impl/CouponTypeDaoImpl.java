@@ -28,6 +28,16 @@ public class CouponTypeDaoImpl implements CouponTypeDao {
 
     @Override
     @Transactional
+    public List<CouponType> selectBycounterNo(Integer counterNo) {
+        final String hql = "FROM CouponType WHERE counterNo = ?1";
+        return session
+                .createQuery(hql, CouponType.class)
+                .setParameter(1, counterNo)
+                .getResultList();
+    }
+
+    @Override
+    @Transactional
     public int update(CouponType couponType) {
         try {
             session.merge(couponType);

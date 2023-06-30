@@ -30,7 +30,9 @@ public interface PlatformOrderService {
 
     Map<String, CounterOrderForPlatformOrderDTO> getPlatformOrderDetailById(Integer platformOrderNo);
 
-    void createPlatformOrder(PlatformOrder newPlatformOrder);
+    String createPlatformOrder(PlatformOrder newPlatformOrder);
+
+    void changePaidStat(Integer platformOrderNo, String formData);
 
     void sendEmail() throws Exception;
 
