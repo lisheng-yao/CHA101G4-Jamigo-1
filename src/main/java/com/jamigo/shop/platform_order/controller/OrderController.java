@@ -12,9 +12,9 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @PostMapping("/ecpayCheckout")
-    public String ecpayCheckout() {
-        String aioCheckOutALLForm = orderService.ecpayCheckout();
+    @PostMapping("/shop/platform_order/ecpayCheckout")
+    public String ecpayCheckout(String form_data) {
+        String aioCheckOutALLForm = orderService.ecpayCheckout(form_data);
 
         return aioCheckOutALLForm;
     }
