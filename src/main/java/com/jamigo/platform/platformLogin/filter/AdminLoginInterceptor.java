@@ -3,9 +3,11 @@ package com.jamigo.platform.platformLogin.filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+@Component
 public class AdminLoginInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -15,13 +17,13 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 		if(attribute == null) {
 			// 在進入處理器方法之前執行的邏輯
 			// 此處可以將當前頁面的 URL 存儲到會話中
-			String currentUrl = req.getRequestURL().toString();
-			req.getSession().setAttribute("currentUrl", currentUrl);
+//			String currentUrl = req.getRequestURL().toString();
+//			req.getSession().setAttribute("currentUrl", currentUrl);
 			resp.sendRedirect("/Jamigo/platform/login/admin_login.html");
 			return false;
-		} else {
-			return true; // 返回 true 表示繼續執行後續的處理器和攔截器			
 		}
+		
+		return true; // 返回 true 表示繼續執行後續的處理器和攔截器			
     }
 
     @Override
