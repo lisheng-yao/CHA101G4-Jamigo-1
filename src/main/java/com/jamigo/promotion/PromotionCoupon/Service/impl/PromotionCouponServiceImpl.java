@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class PromotionCouponServiceImpl implements PromotionCouponService {
     @Autowired
@@ -64,15 +65,18 @@ public class PromotionCouponServiceImpl implements PromotionCouponService {
             if (promotionCoupone.getPromotionExpireDate() != null) {
                 oldpromotionCoupon.setPromotionExpireDate(promotionCoupone.getPromotionExpireDate());
             }
+            if (promotionCoupone.getGetAmount() != null) {
+                oldpromotionCoupon.setGetAmount(promotionCoupone.getGetAmount());
+            }
             if (promotionCoupone.getPromotionPic() != null) {
                 oldpromotionCoupon.setPromotionPic(promotionCoupone.getPromotionPic());
             }
 
-        final PromotionCoupon result = Dao.save(oldpromotionCoupon);
-        oldpromotionCoupon.setSuccessful(result != null);
-        oldpromotionCoupon.setMessage("修改成功");
-        return oldpromotionCoupon;
-        }else {
+            final PromotionCoupon result = Dao.save(oldpromotionCoupon);
+            oldpromotionCoupon.setSuccessful(result != null);
+            oldpromotionCoupon.setMessage("修改成功");
+            return oldpromotionCoupon;
+        } else {
             return null;
         }
     }
@@ -83,11 +87,24 @@ public class PromotionCouponServiceImpl implements PromotionCouponService {
     }
 
     @Override
-    public List<PromotionCoupon> findbcounterNo(Integer counterNo){
-        List<Integer> promotionCoupons=Dao.findCouponTypeNosByCounterNo(counterNo);
-        List<PromotionCoupon> promotionCoupons2=Dao.findByCouponTypeNoIn(promotionCoupons);
+    public List<PromotionCoupon> findbcounterNo(Integer counterNo) {
+        List<Integer> promotionCoupons = Dao.findCouponTypeNosByCounterNo(counterNo);
+        List<PromotionCoupon> promotionCoupons2 = Dao.findByCouponTypeNoIn(promotionCoupons);
         return promotionCoupons2;
-    };
+    }
+
+    ;
+
+    @Override
+    public PromotionCoupon findByPK(Integer promotionCouponNo) {
+        Optional<PromotionCoupon> promotionCoupon = Dao.findById(promotionCouponNo);
+        PromotionCoupon promotionCoupona = null;
+        if (promotionCoupon.isPresent()) {//確認opromotionCoupone是否為空
+            promotionCoupona = promotionCoupon.get();
+        }
+        return promotionCoupona;
+    }
+
     @Override
     public boolean remove(Integer promotionCouponNo) {
         try {
