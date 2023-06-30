@@ -29,7 +29,7 @@ login_btn.addEventListener('click', () => {
 		adminName : account.value,
 		adminPassword : password.value	
 	}
-	console.log(admin)
+	// console.log(admin)
 	let url = "/Jamigo/administrator/login"
 	
 	fetch(url, {
@@ -40,13 +40,19 @@ login_btn.addEventListener('click', () => {
 		body : JSON.stringify(admin)
 	})
 	.then(response => {
-		if(response.ok)
-//			console.log('okkkkkkkkk')
-			window.location.href = "/Jamigo/counter/activity_orderCtrl.html"
+		if(response.ok) {
+			console.log(response);
+			return response.json();
+		}
 		else
-			console.log('rrrrrrrrrrr')
+		console.log('rrrrrrrrrrr')
 	})
-	.catch(error => console.log('nooooooo'))
+	.then(data => {
+		console.log(data);
+		localStorage.setItem('adminNo', data.adminNo);
+		localStorage.setItem('adminName', data.adminName);
+	})
+	.catch(error => console.log(error))
 	
 })
 
