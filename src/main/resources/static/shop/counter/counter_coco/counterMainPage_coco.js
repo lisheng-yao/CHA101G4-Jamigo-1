@@ -13,7 +13,6 @@ let product_space = document.querySelector('.shop_wrapper .row');
 
 let counter_name_text = '';
 
-// 目前先拿櫃位1的輪播圖
 getCounter();
 
 
