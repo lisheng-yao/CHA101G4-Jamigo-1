@@ -3,7 +3,8 @@
 /* 隔開main區域 */
 
 .main_before {
-    padding-top: 5.5%;
+    padding-top: 80px;
+    padding-bottom: 10px;
 }
 
     .container {

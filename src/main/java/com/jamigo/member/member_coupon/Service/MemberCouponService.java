@@ -16,5 +16,7 @@ public interface MemberCouponService {
 
     List<MemberCoupon> selectByMember(MemberCoupon memberCoupon);
 
+    Integer findbycouponTypeNo(Integer couponTypeNo);
+
 
 }

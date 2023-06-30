@@ -82,7 +82,7 @@
                             couponTypeNo,
                             promotionEffectiveDate,
                             promotionExpireDate,
-                            `<a href="#"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
+                            `<a href="/Jamigo/promotion/promotion_list/promotionC_detail.html?promotionCouponNo=${promotionCouponNo}"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
             </button>
