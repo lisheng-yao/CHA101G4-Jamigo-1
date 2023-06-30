@@ -30,7 +30,10 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		
+<<<<<<< HEAD:src/main/java/com/jamigo/AdminLoginInterceptor.java
 		System.out.println("session中的platform為true");
+=======
+>>>>>>> coco:src/main/java/com/jamigo/platform/platformLogin/filter/AdminLoginInterceptor.java
 		return true; // 返回 true 表示繼續執行後續的處理器和攔截器			
     }
 

@@ -26,4 +26,5 @@ public class ActivityCollectionService {
 	public void delete(ActivityCollectionEntity entity) {
 		reopsitory.save(entity);
 	}
+	
 }
