@@ -87,16 +87,28 @@ public class ActivityService {
 	                .orElseThrow(() -> new IllegalArgumentException("Activity with id " + activityNo + " not found"));
 	        //找不到就拋出異常
 	    }
+	  
 	  //存取櫃位修改的資料
 	  public Activity saveActivity(Activity activity) {
-		    // 使用 ActivityDAO 的 save 方法保存 Activity
-		    return activityDAO.save(activity);
+		    try {
+		        // 使用 ActivityDAO 的 save 方法保存 Activity
+		        return activityDAO.save(activity);
+		    } catch (Exception e) {
+		        // Log the error and throw a custom exception or return a custom error message.
+		        System.out.println(e.getMessage());
+		        return null;
+		    }
 		}
 
-	public Optional<Activity> findById(Integer activityNo) {
-		// TODO Auto-generated method stub
-		 return activityDAO.findById(activityNo);
-	}
-
+		public Optional<Activity> findById(Integer activityNo) {
+		    try {
+		        // 使用 ActivityDAO 的 findById 方法查找 Activity
+		        return activityDAO.findById(activityNo);
+		    } catch (Exception e) {
+		        // Log the error and throw a custom exception or return a custom error message.
+		        System.out.println(e.getMessage());
+		        return Optional.empty();
+		    }
+		}
 
 }

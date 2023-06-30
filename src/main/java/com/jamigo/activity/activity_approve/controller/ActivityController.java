@@ -138,24 +138,31 @@ public class ActivityController {
 		activity.setActivityRegEndTime(updatedActivity.getActivityRegEndTime());
 		activity.setActivityStartTime(updatedActivity.getActivityStartTime());
 		activity.setActivityEndTime(updatedActivity.getActivityEndTime());
-		activity.setActivityPic(updatedActivity.getActivityPic());
+//		activity.setActivityPic(updatedActivity.getActivityPic());
 
 		// 把更新過的 Activity 儲存回資料庫
 		Activity savedActivity = activityService.saveActivity(activity);
 		return new ResponseEntity<>(savedActivity, HttpStatus.OK);
 	}
-	
+
 	//上傳修改圖片與存放
-	 @PutMapping("/backend/couninfo/{activityNo}")
-	    public ResponseEntity<String> uploadImage(@PathVariable Integer activityNo, @RequestBody byte[] imageBytes) {
-	        Optional<Activity> optionalActivity = activityService.findById(activityNo);
-	        if (optionalActivity.isPresent()) {
-	            Activity activity = optionalActivity.get();
-	            activity.setActivityPic(imageBytes);
+	@PutMapping("/backend/couimage/{activityNo}")
+	public ResponseEntity<String> uploadImage(@PathVariable Integer activityNo, @RequestParam("file") MultipartFile file) {
+	    Optional<Activity> optionalActivity = activityService.findById(activityNo);
+	    if (optionalActivity.isPresent()) {
+	        Activity activity = optionalActivity.get();
+	        try {
+	            byte[] bytes = file.getBytes();
+	            activity.setActivityPic(bytes);
 	            activityService.save(activity);
 	            return ResponseEntity.ok().body("Image upload success");
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activity not found");
+	        } catch (IOException e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed: " + e.getMessage());
 	        }
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activity not found");
 	    }
+	}
+
+
 }

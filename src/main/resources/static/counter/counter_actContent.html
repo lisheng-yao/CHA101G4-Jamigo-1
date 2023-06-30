@@ -532,7 +532,6 @@
 
 									<script>
 										var counterNo = 1;
-
 										// 將欄位的鍵（key）和類型（type）放入全域變數 `fields`
 										const fields = [
 											{ key: 'activityName', type: 'string' },
@@ -608,14 +607,14 @@
 
 
 										// 假設你有一個名為 'updateActivity' 的函數，用於更新活動數據
-									
+
 										function updateActivity(event, activityData) {
 											event.preventDefault();
 
 											const form = document.getElementById('appdetail');
 											const activityNo = form.dataset.activityNo;
 
-											let activity = {}; // 定義新的物件
+											let activity = {}; // 创建一个新的对象
 											fields.forEach((field) => {
 												let cell = form.querySelector(`.activity-${field.key}`);
 												if (cell && cell.firstChild) { // Check if cell and cell.firstChild exist
@@ -628,27 +627,33 @@
 														} else {
 															console.error('Invalid date:', activityData[field.key]);
 														}
-													} else {
+													} else if (field.key !== 'activityPic') {
 														activity[field.key] = activityData[field.key];
 													}
-
-
-													console.log(activityData);
 												}
 											});
+											const formData = new FormData();
+											formData.append("activity", JSON.stringify(activity));
 
-											axios.put(`/Jamigo/backend/couninfo/${activityNo}`, activityData) // 添加activityData参数
+											let activityPicCell = form.querySelector(`.activity-activityPic`);
+											let fileInput = activityPicCell.querySelector('input[type="file"]');
+											if (fileInput.files.length > 0) {
+												formData.append("file", fileInput.files[0]);
+											}
+
+											axios.put(`/Jamigo/backend/couimage/${activityNo}`, formData, { // send activity details and file
+												headers: {
+													'Content-Type': 'multipart/form-data'
+												}
+											})
 												.then(response => {
 													console.log('response.data:', response.data);
-													console.log('資料已更新');
+													console.log('活动数据已更新');
 												})
 												.catch(error => {
-													console.log('更新失敗', error);
+													console.log('更新失败', error);
 												});
-
 										}
-
-
 
 
 										axios.get(`/Jamigo/backend/couresult/${counterNo}`)
@@ -767,9 +772,6 @@
 																				cell.textContent = activity[field.key];
 																			}
 																		});
-
-
-
 																		;
 																	}
 																});
@@ -777,8 +779,6 @@
 													}
 												});
 											});
-
-
 									</script>
 
 									<!-- 									// 活動詳情燈箱結束 -->
