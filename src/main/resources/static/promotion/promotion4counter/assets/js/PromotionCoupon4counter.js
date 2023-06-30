@@ -1,7 +1,7 @@
 (() => {
     const tbody = document.querySelector('#tbody');
 
-
+    const counterNoa = localStorage.getItem('counterNo');
     // ===============================VVV方法區VVV====================================
 
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
@@ -9,7 +9,7 @@
     let PromotionType = [];
     let promotionName4 = [];
     let couponTypeNo4 = [];
-    let counterNoformlogin = 1;
+    let counterNoformlogin = counterNoa;
 
     function getAllPromotionCoupon() {
         console.log('進入getAllPromotionCoupon()');
@@ -82,7 +82,7 @@
                             couponTypeNo,
                             promotionEffectiveDate,
                             promotionExpireDate,
-                            `<a href="#"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
+                            `<a href="/Jamigo/promotion/promotion_list/promotionC_detail.html?promotionCouponNo=${promotionCouponNo}"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
             </button>
@@ -458,7 +458,7 @@
             .then(resp => resp.json())
             .then(body => {
                 console.log(body);
-                const {successful, Message} = body;
+                const {successful, message} = body;
                 if (successful) {
 
                     Swal.fire({
@@ -468,7 +468,7 @@
                     })
                 } else {
                     Swal.fire({
-                        icon: 'error', title: 'Oops...', text: Message, footer: '<a href=""></a>'
+                        icon: 'error', title: 'Oops...', text: `${message}`, footer: '<a href=""></a>'
                     })
                 }
                 ;
@@ -545,10 +545,6 @@
                 counterNo: counterNoformlogin,
             }),
         })
-
-
-
-
             .then(function (response) {
                 // 檢查 API 响應的狀態碼
                 if (response.status !== 200) {
@@ -693,7 +689,6 @@
 
     // ============================11.抓到選項下div並綁定select========================
     let div4CouponType = [];
-
     function setdiv4CouponType() {
         for (let i = 0; i <= CouponTypelength; i++) {
             const div4CouponTypea = document.getElementById('span4CouponType' + i);
@@ -702,10 +697,8 @@
             }
         }
     }
-
     let div4CouponType2 = [];
     let div4CouponType3 = []
-
     function setdiv4div4CouponType2() {//ok
         for (let p = 0; p <= dataaccount; p++) {
             for (let i = 0; i < CouponTypelength; i++) {

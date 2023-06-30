@@ -1,13 +1,13 @@
 (() => {
     const tbody = document.querySelector('#tbody');
 
-
+    const counterNoa = localStorage.getItem('counterNo');
     // ===============================VVV方法區VVV====================================
 
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
     let dataaccount = 0;
     let PromotionType = [];
-    let aa = 1;
+    let aa = counterNoa;
 
     function getAllPromotion() {
         console.log('進入getAllPromotion()')
@@ -42,6 +42,8 @@
                         const promotionMethod = row.promotionMethod;
                         const adminNo = row.adminNo;
                         const counterNo = row.counterNo;
+                        const recipientaNo=document.querySelector('#recipient-aNo');
+                        recipientaNo.value=counterNoa;
                         dataTable.row.add([
                             row.promotionName,
                             row.promotionType,
@@ -101,7 +103,7 @@
                                     <label for="recipientaNo${i}"
                                            class="col-form-label">欄位編號:</label>
                                     <input type="text" class="form-control"
-                                           id="recipientaNo${i}" value="" readonly>
+                                           id="recipientaNo${i}" value="${counterNoa}" readonly>
                                 </div>
                                
                             </form>
@@ -278,7 +280,7 @@
             .then(resp => resp.json())
             .then(body => {
                 console.log(body);
-                const {successful, Message} = body;
+                const {successful, message} = body;
                 if (successful) {
 
                     Swal.fire({
@@ -294,7 +296,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: Message,
+                        text: `${message}`,
                         footer: '<a href=""></a>'
                     })
                 }

@@ -29,7 +29,6 @@ public class PromotionPointController {
 
     @PostMapping("promotion/promotion/editPromotionPoint")
     public PromotionPoint editPromotion(@RequestBody String promotionPointRequest) {
-
         ObjectMapper objectMapper = new ObjectMapper();
         try {//這段是要把利用json傳進來但是 不是key：vlaue取出並刪除
             JsonNode jsonNode = objectMapper.readTree(promotionPointRequest);//先拿到jsonnode
@@ -38,12 +37,10 @@ public class PromotionPointController {
             if (promotionPic4json != null) { //轉回byte[]
                 PromotionPic = Base64.getDecoder().decode(promotionPic4json);
             }
-
             ObjectNode objectNode = (ObjectNode) jsonNode;//轉型 才能刪除
             objectNode.remove("promotionPic4json");//刪除
             objectNode.put("promotionPic", PromotionPic);
             PromotionPoint promotionPointa = objectMapper.convertValue(objectNode, PromotionPoint.class);//刪完後再包裝回去成PromotionPoint物件
-
             PromotionPoint promotionPoint = promotionPointService.edit(promotionPointa);
             return promotionPoint;
         } catch (IOException e) {
