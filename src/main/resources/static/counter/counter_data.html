@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/all.css" />
 
     <!-- 引入櫃位帳號管理CSS -->
-    <link rel="stylesheet" href="./css/counter-style.css" />
+    <link rel="stylesheet" href="./css/counter-controll-style.css" />
 
     <!-- 引入fontawsome -->
     <link rel="stylesheet" href="assets/fontawsome/css/all.css" />
@@ -432,8 +432,25 @@
             document.getElementById("cutPercent").textContent = data.cutPercent;
             document.getElementById("counterAccount").textContent =
               data.counterAccount;
-            document.getElementById("counterStat").textContent =
-              data.counterStat === 1 ? "啟用" : "停用";
+            var element = document.getElementById("counterStat");
+            switch (data.counterStat) {
+              case 0:
+                element.textContent = "帳號未啟用";
+                element.style.color = "red";
+                break;
+              case 1:
+                element.textContent = "帳號啟用中";
+                element.style.color = "green";
+                break;
+              case 2:
+                element.textContent = "帳號停用";
+                element.style.color = "red";
+                break;
+              default:
+                document.getElementById("counterStat").textContent =
+                  "未知帳號狀態";
+                break;
+            }
             document.getElementById("counterGui").textContent = data.counterGui;
             document.getElementById("counterFloor").textContent =
               data.counterFloor;
@@ -457,10 +474,6 @@
             img.alt = "";
             img.classList.add("detail-controll-table-img", "col-2");
             document.getElementById("counterPic").appendChild(img);
-
-            localStorage.setItem("counterNo", data.counterNo);
-            localStorage.setItem("counterName", data.counterName);
-            localStorage.setItem("memberorcount", "1");
           })
           .catch((error) => console.log("錯誤:", error));
       });
