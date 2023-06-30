@@ -93,9 +93,9 @@ public class ActivityService {
 		    return activityDAO.save(activity);
 		}
 
-	public Optional<Activity> findById(String activityNo) {
+	public Optional<Activity> findById(Integer activityNo) {
 		// TODO Auto-generated method stub
-		return null;
+		 return activityDAO.findById(activityNo);
 	}
 
 

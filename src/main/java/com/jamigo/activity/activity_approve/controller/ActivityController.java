@@ -146,8 +146,8 @@ public class ActivityController {
 	}
 	
 	//上傳修改圖片與存放
-	 @PostMapping("/Jamigo/backend/couninfo/{activityNo}/uploadImage")
-	    public ResponseEntity<String> uploadImage(@PathVariable String activityNo, @RequestBody byte[] imageBytes) {
+	 @PutMapping("/backend/couninfo/{activityNo}")
+	    public ResponseEntity<String> uploadImage(@PathVariable Integer activityNo, @RequestBody byte[] imageBytes) {
 	        Optional<Activity> optionalActivity = activityService.findById(activityNo);
 	        if (optionalActivity.isPresent()) {
 	            Activity activity = optionalActivity.get();
