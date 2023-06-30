@@ -12,4 +12,6 @@ public interface PromotionCouponDao extends JpaRepository<PromotionCoupon, Integ
 
     List<PromotionCoupon> findByCouponTypeNoIn(List<Integer> couponTypeNos);
 
+
+
 }
