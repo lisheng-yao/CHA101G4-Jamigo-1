@@ -18,7 +18,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 
 @Component
-@ServerEndpoint("/newWebsocket")
 public class NewCounterActivityPushHandler extends TextWebSocketHandler {
 
 	private static Map<String, WebSocketSession> sessionsMap = new ConcurrentHashMap<>();
@@ -29,6 +28,20 @@ public class NewCounterActivityPushHandler extends TextWebSocketHandler {
 	@Autowired
 	public void setGson(Gson gson) {
 		NewCounterActivityPushHandler.gson = gson;
+	}
+
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+//		Object credentials = session.getPrincipal().getCredentials();
+
+		session.sendMessage(new TextMessage("okkkkkkkkkkkkk"));
+	}
+	
+	@Override
+	public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException{
+		String payload = message.getPayload();
+		
+		session.sendMessage(new TextMessage(payload));
 	}
 	
 //	@OnOpen
@@ -58,14 +71,4 @@ public class NewCounterActivityPushHandler extends TextWebSocketHandler {
 //	    String json = gson.toJson(service.getByMemberNo(1));
 //		session.sendMessage(new TextMessage(json));
 //	}
-	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		session.sendMessage(new TextMessage("okkkkkkkkkkkkk"));
-	}
-	
-	@Override
-	public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException{
-		String payload = message.getPayload();
-		session.sendMessage(new TextMessage(payload));
-	}
 }
