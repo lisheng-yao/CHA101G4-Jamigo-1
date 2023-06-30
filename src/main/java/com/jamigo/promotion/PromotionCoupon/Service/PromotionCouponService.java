@@ -12,6 +12,8 @@ public interface PromotionCouponService {
     PromotionCoupon edit(PromotionCoupon promotionCoupon);
 
     List<PromotionCoupon> findAll();
+
+    PromotionCoupon findByPK(Integer promotionCouponNo);
     List<PromotionCoupon> findbcounterNo(Integer counterNo);
 
 

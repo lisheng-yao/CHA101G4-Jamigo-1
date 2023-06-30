@@ -54,14 +54,14 @@ public class MemberCouponServiceImpl implements MemberCouponService {
 
         final MemberCoupon result = Dao.save(memberCoupon);
         if (result == null) {
-            memberCoupon.setMessage("領取失敗");
-            memberCoupon.setSuccessful(false);
-            return memberCoupon;
+            result.setMessage("領取失敗");
+            result.setSuccessful(false);
+            return result;
         }
-        memberCoupon.setMessage("領取成功");
-        memberCoupon.setSuccessful(true);
+        result.setMessage("領取成功");
+        result.setSuccessful(true);
 
-        return memberCoupon;
+        return result;
     }
 
 
