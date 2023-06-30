@@ -1,4 +1,4 @@
-const memberNo = 1;
+const memberNo = 2;
 
 const totalCoupon = 0;
 const totalPoints = 1000;
@@ -195,32 +195,41 @@ $("div.order_table").on("click", "div.create_order button", function () {
                 totalPoints: totalPoints
             }
 
-            // $.ajax({
-            //     type: "POST",
-            //     url: "http://localhost:8080/Jamigo/ecpayCheckout",
-            //     data: JSON.stringify(platform_order_data),
-            //     contentType: "application/json",
+            // if (paymentMethod === '1') {
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "http://localhost:8080/Jamigo/shop/platform_order/ecpayCheckout",
+            //         data: form_data,
+            //         contentType: "application/x-www-form-urlencoded",
             //
-            //     success: function (res) {
-            //         Swal.fire({
-            //             title: '你的訂單已成功送出',
-            //             icon: 'success',
-            //             confirmButtonText: "回到商城首頁"
-            //         }).then(function () {
-            //             // 將消費者導回至商城首頁
-            //             window.location.href = "商城首頁.html"
-            //         })
-            //     },
+            //         success: function (res) {
             //
-            //     error: function (err) {
-            //         Swal.fire({
-            //             title: '訂單送出失敗',
-            //             icon: 'error',
-            //             confirmButtonText: "關閉"
-            //         })
-            //     }
-            // })
+            //             Swal.fire({
+            //                 title: '你的訂單已成功送出',
+            //                 icon: 'success',
+            //                 confirmButtonText: "進入綠界金流頁面"
+            //             }).then(function () {
+            //                 $('body').append(res); // 將返回的表單插入到網頁中
+            //                 $('#allPayAPIForm').submit(); // 自動提交表單
+            //             })
+            //         },
+            //
+            //         error: function (err) {
+            //             Swal.fire({
+            //                 title: '訂單送出失敗',
+            //                 icon: 'error',
+            //                 confirmButtonText: "關閉"
+            //             })
+            //         }
+            //     })
+            // }
 
+            let confirm_button_text;
+
+            if (paymentMethod === '1')
+                confirm_button_text = "進入綠界金流頁面"
+            else if (paymentMethod === '2')
+                confirm_button_text = "回到商城首頁"
 
             $.ajax({
                 type: "POST",
@@ -232,10 +241,16 @@ $("div.order_table").on("click", "div.create_order button", function () {
                     Swal.fire({
                         title: '你的訂單已成功送出',
                         icon: 'success',
-                        confirmButtonText: "回到商城首頁"
+                        confirmButtonText: confirm_button_text
+
                     }).then(function () {
-                        // 將消費者導回至商城首頁
-                        window.location.href = "商城首頁.html"
+
+                        if (paymentMethod === '1') {
+                            $('body').append(res); // 將返回的表單插入到網頁中
+                            $('#allPayAPIForm').submit(); // 自動提交表單
+                        }
+                        else if (paymentMethod === '2')
+                            window.location.href = "商城首頁.html";
                     })
                 },
 

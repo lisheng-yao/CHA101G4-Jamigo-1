@@ -103,9 +103,17 @@ public class PlatformOrderController {
 
 
     @PostMapping("/shop/platform_order")
-    public void createPlatformOrder(
+    public String createPlatformOrder(
             @RequestBody PlatformOrder newPlatformOrder) {
 
-        platformOrderService.createPlatformOrder(newPlatformOrder);
+        return platformOrderService.createPlatformOrder(newPlatformOrder);
+    }
+
+    @PostMapping("/shop/platform_order/{platformOrderNo}/paidResult")
+    public void checkPaidResult(
+            @PathVariable("platformOrderNo") Integer platformOrderNo,
+            @RequestBody String formData) {
+
+        platformOrderService.changePaidStat(platformOrderNo, formData);
     }
 }
