@@ -453,9 +453,11 @@
 																<!-- 活動詳情內容 -->
 																<tr>
 																	<th scope="row">活動名稱</th>
-																	<td class="editable activity-activityName"
-																		contenteditable="true">活動名稱</td>
+																	<td id="activityName"
+																		class="editable activity-activityName"
+																		contenteditable="true"></td>
 																</tr>
+
 																<tr>
 																	<th scope="row">活動費用</th>
 																	<td class="editable activity-activityCost"
@@ -468,15 +470,15 @@
 																</tr>
 																<tr>
 																	<th scope="row">活動內容</th>
-																	<td class="editable activity-activityDetail"
+																	<td id="activityDetail"
+																		class="editable activity-activityDetail"
 																		contenteditable="true"></td>
 																</tr>
 
 																<tr>
 																	<th scope="row">報名開始時間</th>
-																	<td class="activity-activityRegStartTime">
-																		<input type="datetime-local">
-																	</td>
+																	<td class="activity-activityRegStartTime"><input
+																			type="datetime-local"></td>
 																</tr>
 
 																<tr>
@@ -501,9 +503,11 @@
 
 																<tr>
 																	<th scope="row">活動照片</th>
-																	<td class="activity-activityPic"><input type="file"
+																	<td class="activity-activityPic"><input
+																			id="imageInput" type="file"
 																			accept="image/*"></td>
 																</tr>
+
 
 															</tbody>
 														</table>
@@ -512,7 +516,9 @@
 														<button type="button" class="btn btn-secondary"
 															data-bs-dismiss="modal">關閉</button>
 														<button type="button" class="btn btn-primary"
-															onclick="updateActivity(event, getActivityData())">修改資訊</button>
+															onclick="updateActivity(event)">修改資訊</button>
+
+
 													</div>
 												</div>
 											</div>
@@ -532,6 +538,7 @@
 
 									<script>
 										var counterNo = 1;
+
 										// 將欄位的鍵（key）和類型（type）放入全域變數 `fields`
 										const fields = [
 											{ key: 'activityName', type: 'string' },
@@ -558,102 +565,129 @@
 											return formattedDate;
 										}
 
-										let activityData = {};
-
-										const getActivityData = () => {
+										async function getActivityData() {
 											const form = document.getElementById('appdetail');
-											let activityData = {};  // Reset activityData
-											let promises = [];  // Array to store all the FileReader promises
 
-											fields.forEach((field) => {
-												let cell = form.querySelector(`.activity-${field.key}`);
-												if (field.type === 'date') {
-													let inputElement = cell.querySelector('input');
-													if (inputElement) {  // Make sure the element exists before reading its value
-														activityData[field.key] = new Date(inputElement.value).toISOString();
-													}
-												} else if (field.key === 'activityPic') {
-													let fileInput = cell.querySelector('input[type="file"]');
-													if (fileInput.files.length > 0) {
-														console.log("Reading file...");
-														let reader = new FileReader();
-
-														let promise = new Promise((resolve, reject) => {
-															reader.onloadend = function () {
-																// reader.result contains the base64 string
-																let base64String = reader.result;
-																console.log(base64String);
-
-																// Now you can send base64String to your server and save it in your database
-																activityData[field.key] = base64String;
-																resolve();  // Resolve the promise when the file has been read
-															};
-															reader.onerror = function (error) {
-																console.error("An error occurred while reading the file: ", error);
-																reject(error);
-															};
-														});
-
-														promises.push(promise);
-														reader.readAsDataURL(fileInput.files[0]);//读取用户在文件输入中选择的文件，然后将其转换为 Base64 1码的字符串。
-													}
+											let activityData = {};
+											fields.forEach(field => {
+												const element = form.querySelector(`.activity-${field.key}`);
+												let value;
+												if (field.type === 'image') {
+													value = element.querySelector('img').src;
+												} else if (field.type === 'string' || field.type === 'number') {
+													value = element.querySelector('input,textarea').value;
+												} else if (field.type === 'date') {
+													value = new Date(element.querySelector('input').value).toISOString();
 												}
+
+												activityData[field.key] = value;
 											});
 
-											return Promise.all(promises).then(() => activityData);  // Resolve with activityData when all files have been read
-										};
+											return activityData;
+										}
 
-										// Then call getActivityData() in your update function like before...
-
-
-										// 假設你有一個名為 'updateActivity' 的函數，用於更新活動數據
-
-										function updateActivity(event, activityData) {
+										// 更新活动信息的函数
+										async function updateActivity(event) {
 											event.preventDefault();
 
 											const form = document.getElementById('appdetail');
 											const activityNo = form.dataset.activityNo;
 
-											let activity = {}; // 创建一个新的对象
-											fields.forEach((field) => {
-												let cell = form.querySelector(`.activity-${field.key}`);
-												if (cell && cell.firstChild) { // Check if cell and cell.firstChild exist
-													if (field.type === 'date' && activityData[field.key] !== undefined) {
-														let utcDate = new Date(activityData[field.key]);
-														if (!isNaN(utcDate.getTime())) { // Check if the date is valid
-															// Extract the UTC date from the input
-															// Convert to Taipei time
-															activity[field.key] = new Date(utcDate.getTime() - (8 * 60 * 60 * 1000)).toISOString();
-														} else {
-															console.error('Invalid date:', activityData[field.key]);
-														}
-													} else if (field.key !== 'activityPic') {
-														activity[field.key] = activityData[field.key];
+											// 获取活动数据
+											let activityData = await getActivityData();
+
+											// 将活动数据除了活动照片以外的字段添加到新对象中
+											let dataToSend = {};
+											for (let field in activityData) {
+												if (field !== 'activityPic' && activityData.hasOwnProperty(field)) {
+													if (field === 'activityStartTime') {
+														dataToSend[field] = new Date(activityData[field]).toISOString();
+													} else {
+														dataToSend[field] = activityData[field];
 													}
 												}
-											});
-											const formData = new FormData();
-											formData.append("activity", JSON.stringify(activity));
-
-											let activityPicCell = form.querySelector(`.activity-activityPic`);
-											let fileInput = activityPicCell.querySelector('input[type="file"]');
-											if (fileInput.files.length > 0) {
-												formData.append("file", fileInput.files[0]);
 											}
 
-											axios.put(`/Jamigo/backend/couimage/${activityNo}`, formData, { // send activity details and file
+											// 发送更新请求到后端
+											axios.put(`/Jamigo/backend/applyupdate/${activityNo}`, dataToSend, {
 												headers: {
-													'Content-Type': 'multipart/form-data'
-												}
+													'Content-Type': 'application/json',
+												},
 											})
-												.then(response => {
-													console.log('response.data:', response.data);
-													console.log('活动数据已更新');
+												.then((response) => {
+													console.log('活动信息已更新:', response.data);
 												})
-												.catch(error => {
-													console.log('更新失败', error);
+												.catch((error) => {
+													console.error('更新失败:', error);
+													if (error.response) {
+														console.log(error.response.data);
+														console.log(error.response.status);
+														console.log(error.response.headers);
+													} else if (error.request) {
+														console.log(error.request);
+													} else {
+														console.log('Error', error.message);
+													}
 												});
 										}
+
+										// 更新活动图片的函数
+										async function updateImage(event) {
+											event.preventDefault();
+
+											const form = document.getElementById('appdetail');
+											const activityNo = form.dataset.activityNo;
+											const fileInput = document.querySelector('.activity-activityPic input[type="file"]');
+
+											if (!fileInput) {
+												throw new Error('Cannot find element with id "imageInput".');
+											}
+
+											// 检查用户是否选择了文件
+											if (!fileInput.files || fileInput.files.length === 0) {
+												console.error('没有选择文件');
+												return;
+											}
+											const file = fileInput.files[0];
+
+											// 创建一个 FormData 对象
+											let formData = new FormData();
+
+											// 将文件添加到 FormData 中
+											formData.append('file', file);
+
+											// 发送更新请求到后端
+											axios.put(`/Jamigo/backend/couimage/${activityNo}`, formData, {
+												headers: {
+													'Content-Type': 'multipart/form-data',
+												},
+											})
+												.then((response) => {
+													console.log('图片已更新:', response.data);
+												})
+												.catch((error) => {
+													console.error('更新失败:', error);
+													if (error.response) {
+														console.log(error.response.data);
+														console.log(error.response.status);
+														console.log(error.response.headers);
+													} else if (error.request) {
+														console.log(error.request);
+													} else {
+														console.log('Error', error.message);
+													}
+												});
+										}
+
+										document.addEventListener('DOMContentLoaded', (event) => {
+											// 在提交活动信息按钮上添加点击事件监听器
+											document.querySelector('button.btn.btn-primary').addEventListener('click', updateActivity);
+
+											// 在文件输入框上添加更改事件监听器
+											document.getElementById('imageInput').addEventListener('change', updateImage);
+										});
+
+
 
 
 										axios.get(`/Jamigo/backend/couresult/${counterNo}`)
@@ -726,7 +760,7 @@
 																				if (field.key === 'activityPic') {
 																					let img = document.createElement('img');
 																					img.src = 'data:image/jpeg;base64,' + activity[field.key];
-																					img.alt = '活動照片';
+																					img.alt = '活动照片';
 																					img.width = 150;
 																					// Append img to cell
 																					cell.appendChild(img);
@@ -737,18 +771,23 @@
 																					fileInput.addEventListener('change', function (e) {
 																						let file = e.target.files[0];
 																						let reader = new FileReader();
-																						reader.onloadend = function () {
+																						reader.onloadend = async function () {
 																							// Update the image data on the server. You might use axios.put()
 																							// After updating the server data, you can change the image source
 																							img.src = reader.result;
 																							// Save the base64 string to activityData
+																							let activityData = await getActivityData();
 																							activityData.activityPic = reader.result;
-																						}
+
+																							// Call the updateImage function
+																							await updateImage(e);
+																						};
 																						reader.readAsDataURL(file);
 																					});
 																					// Append file input to cell
 																					cell.appendChild(fileInput);
 																				} else {
+
 																					let input;
 
 																					if (field.key === 'activityName' || field.key === 'activityDetail') {
@@ -764,21 +803,25 @@
 																						input.value = activity[field.key];
 																					}
 
-
 																					// Append input to cell
 																					cell.appendChild(input);
 																				}
-																			} else {
-																				cell.textContent = activity[field.key];
 																			}
 																		});
-																		;
+																	} else {
+																		console.log('錯誤');
 																	}
 																});
 														});
 													}
 												});
+											})
+											.catch(error => {
+												console.log('Error:', error);
 											});
+
+
+
 									</script>
 
 									<!-- 									// 活動詳情燈箱結束 -->
@@ -1034,7 +1077,6 @@
 				);
 
 			</script>
-
 </body>
 
 </html>

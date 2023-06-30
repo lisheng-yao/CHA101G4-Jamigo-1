@@ -68,14 +68,12 @@ public class ActivityService {
 		return activities;
 	}
 
-
 	// 依照點選之活動編號映出相對應的活動資訊[櫃位後台]
 	public Activity getCouInfo(Integer activityNo) {
 		// TODO Auto-generated method stub
 		return activityDAO.findById(activityNo).orElse(null);
 	}
 	
-
 	@Autowired
 	public ActivityService(ActivityDAO activityDAO) {
 		this.activityDAO = activityDAO;
