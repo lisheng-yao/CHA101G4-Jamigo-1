@@ -364,11 +364,11 @@
     // ============================5. 綁定所有修改燈箱按鈕click / 圖片上傳change事件========================
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            editbuttons[i].addEventListener('click', () => {
+            editbuttons[i]?.addEventListener('click', () => {
                 console.log("修改按鈕啟動")
                 editPromotion(i);
             })
-            promotionPicinputs[i].addEventListener("change", function (event) {
+            promotionPicinputs[i]?.addEventListener("change", function (event) {
                 readPic(event);
                 Swal.fire({
                     position: 'center',
@@ -490,7 +490,7 @@
     // ============================8. 綁定所有刪除按鈕========================
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            deletebuttons[i].addEventListener('click', () => {
+            deletebuttons[i]?.addEventListener('click', () => {
                 const inputvalue = promotionCouponNoinputs[i].value;
                 deledtbyPK(inputvalue);
             })
@@ -714,7 +714,7 @@
 
     function Listener4SelectCoupontype() {
         for (let i = 0; i <= dataaccount; i++) {
-            couponTypeNoinputs[i].addEventListener('change', () => {
+            couponTypeNoinputs[i]?.addEventListener('change', () => {
                 const selectedValue2 = couponTypeNoinputs[i].value;
                 div4CouponType3[i].forEach(function (div) {
                     if (div.id === "span4CouponType" + selectedValue2 + i) {
@@ -885,7 +885,7 @@
 
     function Listener4SelectPromotion() {
         for (let i = 0; i <= dataaccount; i++) {
-            promotionNameinputs[i].addEventListener('change', () => {
+            promotionNameinputs[i]?.addEventListener('change', () => {
                 const selectedValue = promotionNameinputs[i].value;
                 div4promotion3[i].forEach(function (div) {
 

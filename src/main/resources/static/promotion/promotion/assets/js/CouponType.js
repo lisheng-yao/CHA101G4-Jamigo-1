@@ -323,7 +323,7 @@
     // ============================5. 綁定所有修改燈箱按鈕click事件========================
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            editbuttons[i].addEventListener('click', () => {
+            editbuttons[i]?.addEventListener('click', () => {
                 editPromotion(i);
             })
         }
@@ -424,7 +424,7 @@
     // ============================8. 綁定所有刪除按鈕========================
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            deletebuttons[i].addEventListener('click', () => {
+            deletebuttons[i]?.addEventListener('click', () => {
                 const inputvalue = recipientNoinputs[i].value;
                 deledtbyPK(inputvalue);
             })
@@ -479,7 +479,7 @@
     // ===============================2. 確認新增按鈕================================
 
     const button4new = document.querySelector('#newbutton');
-    button4new.addEventListener('click', () => {
+    button4new?.addEventListener('click', () => {
         newAPromotion();
     })
     //=================================3. 刪除按鈕=============================

@@ -243,7 +243,7 @@
     // ============================5. 綁定所有修改燈箱按鈕click事件========================
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            editbuttons[i].addEventListener('click', () => {
+            editbuttons[i]?.addEventListener('click', () => {
                 editPromotion(i);
             })
         }
@@ -318,7 +318,7 @@
     // ============================8. 綁定所有刪除按鈕========================
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            deletebuttons[i].addEventListener('click', () => {
+            deletebuttons[i]?.addEventListener('click', () => {
                 const inputvalue = promotionNameinputs[i].value;
                 deledtbyPK(inputvalue);
             })

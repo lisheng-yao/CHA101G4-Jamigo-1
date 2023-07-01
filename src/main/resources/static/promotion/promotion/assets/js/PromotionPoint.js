@@ -268,7 +268,7 @@
         const promotionPic4json = promotionPicinputs[i];
         const msg = document.querySelector('#msg');
 
-        promotionPic4json.addEventListener("change", function (event) {
+        promotionPic4json?.addEventListener("change", function (event) {
             readPic(event);
             Swal.fire({
                 position: 'center',
@@ -326,11 +326,11 @@
     // ============================5. 綁定所有修改燈箱按鈕click / 圖片上傳change事件========================
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            editbuttons[i].addEventListener('click', () => {
+            editbuttons[i]?.addEventListener('click', () => {
                 console.log('有綁到')
                 editPromotion(i);
             })
-            promotionPicinputs[i].addEventListener("change", function (event) {
+            promotionPicinputs[i]?.addEventListener("change", function (event) {
                 readPic(event);
                 Swal.fire({
                     position: 'center',
@@ -346,7 +346,7 @@
     // ============================6.   newAPromotion()新增promotion========================
     const msg2 = document.querySelector('#msg2');
     const promotionPic4new = document.querySelector('#promotionPica');
-    promotionPic4new.addEventListener("change", function (event) {
+    promotionPic4new?.addEventListener("change", function (event) {
         readPic(event);
         Swal.fire({
             position: 'center',
@@ -417,7 +417,7 @@
     // ============================8. 綁定所有刪除按鈕========================
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            deletebuttons[i].addEventListener('click', () => {
+            deletebuttons[i]?.addEventListener('click', () => {
                 const inputvalue = promotionPointNoinputs[i].value;
                 deledtbyPK(inputvalue);
             })
@@ -593,7 +593,7 @@
 
     function Listener4SelectPromotion() {
         for (let i = 0; i <= dataaccount; i++) {
-            promotionNameinputs[i].addEventListener('change', () => {
+            promotionNameinputs[i]?.addEventListener('change', () => {
                 const selectedValue = promotionNameinputs[i].value;
                 div4promotion3[i].forEach(function (div) {
 
@@ -605,7 +605,7 @@
                 });
             })
         }
-        select4promotionName.addEventListener('change', () => {
+        select4promotionName?.addEventListener('change', () => {
             const selectedValue = select4promotionName.value;
             div4Promotion.forEach(function (div) {
                 if (div.id === "span4Promotion" + selectedValue) {
@@ -643,7 +643,7 @@
     // ===============================2. 確認新增按鈕================================
 
     const button4new = document.querySelector('#newbutton');
-    button4new.addEventListener('click', () => {
+    button4new?.addEventListener('click', () => {
         newAPromotion();
     })
 //=================================3. 圖片檔案上傳按鈕=============================
