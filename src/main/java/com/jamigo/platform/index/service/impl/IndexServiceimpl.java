@@ -4,6 +4,7 @@ package com.jamigo.platform.index.service.impl;
 import com.jamigo.platform.index.dao.IndexDao;
 import com.jamigo.platform.index.entity.IndexVO;
 import com.jamigo.platform.index.service.IndexService;
+import com.jamigo.shop.product.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,5 +29,10 @@ public class IndexServiceimpl implements IndexService {
     @Override
     public String deleteOne(Integer mainpageCarouselNo) {
         return indexDao.deleteOne(mainpageCarouselNo);
+    }
+
+    @Override
+    public List<Product> getpopularproduct() {
+        return indexDao.getpopularproduct();
     }
 }

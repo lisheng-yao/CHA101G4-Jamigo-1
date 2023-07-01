@@ -4,6 +4,16 @@
     const errMsg = document.querySelector('#errMsg');
     const btn1 = document.querySelector('#btn1');
     console.log("login.js啟動");
+
+    const currentPageUrl = localStorage.getItem('currentPageUrl');
+    let newlocation;
+    alert(currentPageUrl);
+    if (currentPageUrl) {
+        newlocation = currentPageUrl;
+    }else{
+        newlocation = '../../frontEnd/前台會員管理首頁.html';
+    }
+
     btn1.addEventListener('click', function () {
         console.log("登入按鈕啟動");
         fetch('login', {
@@ -33,7 +43,7 @@
                     })
                     setTimeout(function() {
                         console.log("等1.5秒");
-                        location = '../../frontEnd/前台會員管理首頁.html';
+                        location = newlocation;
                     }, 1600);
 
                 } else {
