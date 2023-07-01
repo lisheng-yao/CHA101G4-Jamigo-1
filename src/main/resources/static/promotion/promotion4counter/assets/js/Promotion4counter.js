@@ -78,7 +78,6 @@
                                     <select name="" id="recipienttype${i}" class="form-control">
                                         <option value="折價券" ${promotionType === '折價券' ? 'selected' : ''}>折價券
                                         </option>
-                                        <option value="點數" ${promotionType === '點數' ? 'selected' : ''}>點數</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">

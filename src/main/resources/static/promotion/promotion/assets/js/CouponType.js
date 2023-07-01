@@ -64,7 +64,7 @@
                             couponLowest,
                             couponConditions,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
+                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}" ${counterNo !== null && !isNaN(counterNo) ? `style="display:none"` : ''}>修改
             </button>
             <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
                  aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -148,7 +148,7 @@
                     </div>
                 </div>
             </div>`,
-                            `<button type="button" class="btn btn-primary" id="delete${i}">刪除</button>`
+                            `<button type="button" class="btn btn-primary" id="delete${i}" ${counterNo !== null && !isNaN(counterNo) ? `style="display:none"` : ''}>刪除</button>`
 
                         ]);
                     }

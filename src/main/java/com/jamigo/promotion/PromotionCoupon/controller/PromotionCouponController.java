@@ -123,12 +123,10 @@ public class PromotionCouponController {
             if (promotionPic4json != null) { //轉回byte[]
                 PromotionPic = Base64.getDecoder().decode(promotionPic4json);
             }
-
             ObjectNode objectNode = (ObjectNode) jsonNode;//轉型 才能刪除
             objectNode.remove("promotionPic4json");//刪除
             objectNode.put("promotionPic", PromotionPic);
             PromotionCoupon promotionCoupona = objectMapper.convertValue(objectNode, PromotionCoupon.class);//刪完後再包裝回去成PromotionPoint物件
-
 
             PromotionCoupon promotionCoupon = PromotionCouponService.add(promotionCoupona);
             System.out.println("新增controller");
@@ -151,9 +149,10 @@ public class PromotionCouponController {
     public List<CouponType> findAllCouponType() {
         return CouponTypeSERVICE.findAll();
     }
+
     @PostMapping("promotion/promotion4counter/getAllCouponType")
     public List<CouponType> findAllCouponType2(@RequestBody CouponType couponTypeRequest) {
-       Integer counterNoa=couponTypeRequest.getCounterNo();
+        Integer counterNoa = couponTypeRequest.getCounterNo();
         return CouponTypeSERVICE.findBycounterNo(counterNoa);
     }
 
@@ -161,18 +160,19 @@ public class PromotionCouponController {
     public List<Promotion> findAllPromotion() {
         return promotionTypeService.findAll();
     }
+
     @PostMapping("promotion/promotion4counter/getAllPromotion")
     public List<Promotion> findAllPromotion2(@RequestBody CouponType couponTypeRequest) {
-        Integer counterNoa=couponTypeRequest.getCounterNo();
+        Integer counterNoa = couponTypeRequest.getCounterNo();
         return promotionTypeService.findbycounterNo(counterNoa);
     }
 
     @PostMapping("promotion/promotion4counter/getcounterPromotionCoupon")
-    public List<PromotionCoupon>  findPromotionbycounterNo(@RequestBody CouponType couponTypeRequest) {
+    public List<PromotionCoupon> findPromotionbycounterNo(@RequestBody CouponType couponTypeRequest) {
         System.out.println(couponTypeRequest);
         Integer counterNo = couponTypeRequest.getCounterNo();
-        System.out.println("counterNo"+counterNo);
-        List<PromotionCoupon>  counterPromotion = PromotionCouponService.findbcounterNo(counterNo);
+        System.out.println("counterNo" + counterNo);
+        List<PromotionCoupon> counterPromotion = PromotionCouponService.findbcounterNo(counterNo);
         return counterPromotion;
     }
 
