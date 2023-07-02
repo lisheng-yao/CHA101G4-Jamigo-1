@@ -343,11 +343,35 @@
                                             <label for="promotionExpireDate" class="col-form-label">活動結束日期:</label>
                                             <input type="date" class="form-control" id="promotionExpireDate" >
                                         </div>
+                                        <style>
+                                            .img-div{
+                                                /*max-width: 200px;*/
+                                                width: 150px;
+                                                height: 150px;
+                                                border-radius: 500px;
+                                                overflow: hidden;
+                                                /*position: relative;*/
+                                            }
+                                            #avatar-preview{
+                                                /*width: 100%;*/
+                                                /*display: block;*/
+                                                /*aspect-ratio: unset;*/
+                                                /*border-radius: unset;*/
+                                                /*height: unset;*/
+                                                position: relative;
+                                                /*top: -25%;*/
+                                            }
 
+                                        </style>
                                         <div class="mb-3">
+                                            <div class="img-div  ms-3">
+                                                <img id="avatar-preview" src="/Jamigo/member/member/image/gray.jpg" alt="Avatar Preview"
+                                                     class="img-fluid border border-dark"/>
+                                            </div>
                                             <label for="promotionPic" class="col-form-label">活動圖片:</label>
-                                            <input type="file" class="form-control" id="promotionPic" accept="image/jpeg, image/png">
+                                            <input type="file" class="form-control" id="promotionPic" accept="image/gif"  aria-describedby="avatar-upload-label" >
                                         </div>
+
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -436,6 +460,32 @@
     }
 
 
+
+
+</script>
+<script>
+    const avatarUpload = document.getElementById("promotionPic");
+    const avatarPlaceholder = document.getElementById("avatar-placeholder");
+    const avatarPreview = document.getElementById("avatar-preview");
+
+    avatarUpload.addEventListener("change", function () {
+        const file = avatarUpload.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            avatarPreview.src = e.target.result;
+            // avatarPreview.style.display = "block";
+            // avatarPlaceholder.style.display = "none"; // 隱藏灰色區塊
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            avatarPreview.src = "#";
+            // avatarPreview.style.display = "none";
+            // avatarPlaceholder.style.display = "block"; // 顯示灰色區塊
+        }
+    });
 
 
 </script>

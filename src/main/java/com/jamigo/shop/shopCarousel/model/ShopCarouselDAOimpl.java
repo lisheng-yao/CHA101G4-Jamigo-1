@@ -31,7 +31,7 @@ public class ShopCarouselDAOimpl implements ShopCarouselDAO {
 	private static final String INSERT_STMT = "INSERT INTO shop_carousel (shopCarouselTitle,shopCarouselText,shopCarouselPic,shopCarouselStartTime,shopCarouselEndTime,shopCarouselState,shopCarouselUrl) VALUES (?, ?, ?, ?, ?,?,?)";
 	private static final String GET_ONE_STMT = "SELECT shopCarouselNo,shopCarouselTitle,shopCarouselText,shopCarouselPic,shopCarouselStartTime,shopCarouselEndTime,shopCarouselState,shopCarouselUrl FROM shop_carousel WHERE shopCarouselNo = ?";
 	private static final String UPDATE = "UPDATE shop_carousel set shopCarouselTitle = ?,shopCarouselText = ?,shopCarouselPic = ?,shopCarouselStartTime = ?,shopCarouselEndTime = ?,shopCarouselState = ?,shopCarouselUrl = ? WHERE shopCarouselNo = ?";
-//	private static final String DELETE = "DELETE FROM emp2 where empno = ?";
+	private static final String DELETE = "DELETE FROM shop_carousel where shopCarouselNo = ?";
 
 	// =========================== 查詢全部 =================================
 	@Override
@@ -210,8 +210,45 @@ public class ShopCarouselDAOimpl implements ShopCarouselDAO {
 			pstmt.setInt(6, shopCarouselVO.getShopCarouselState());
 			pstmt.setString(7, shopCarouselVO.getShopCarouselUrl());
 			pstmt.setInt(8, shopCarouselVO.getShopCarouselNo());
-			
+
 			pstmt.executeUpdate();
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void delete(Integer shopCarouselNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setInt(1, shopCarouselNo);
+
+			pstmt.executeUpdate();
+
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

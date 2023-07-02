@@ -37,10 +37,66 @@
 
     <!--modernizr min js here-->
     <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/Jamigo/shop/shopping/assets/css/style-shawn.css">
 </head>
 
 <body>
-
+<nav class="navbar navbar-dark p-0 navbar-expand-lg">
+    <div class="container">
+        <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img
+                src="/Jamigo/index/頁首頁尾_final/images/找百貨.png"
+                alt="" class="LOGO"></a>
+        <img src="/Jamigo/index/頁首頁尾_final/images/頁首背景.gif" alt="" class="navbarimg">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/index/首頁/index.html"> 回首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link" style="color: yellow"
+                       href="/Jamigo/shop/main_page/商城首頁.html">線上商城</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/activity/event_space.html">文藝活動</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link"
+                       href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
+                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="button-01 nav-link" href="*">客服系統</a>-->
+                <!--                </li>-->
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/frontend/前台會員管理首頁.html" onclick="check(event);">會員專區</a>
+                </li>
+            </ul>
+        </div>
+        <!-- 導覽列右側 -->
+        <div id="signin">
+            <a href="/Jamigo/member/login/login.html">
+                <!--<a href="../member/login/login.html">-->
+                <button class="login-button">
+                    <i class="nav-icon fa-regular fa-user" style="color: #f5f5f5;"></i>
+                    會員登入/註冊
+                </button>
+            </a>
+        </div>
+        <div id="memberinfo">
+            <div id="imgcontainer">
+                <img src="#" alt="" id="memberimg">
+            </div>
+            <div class="memberinfo_container" id="signininfo">
+                <span id="membername">HI! </span>
+                <button id="logoutbutton" class="logout-button" onclick="opensignin();">登出</button>
+            </div>
+        </div>
+    </div>
+</nav>
+<main class="main_before">
     <!-- 商城的 header Start -->
     <header>
         <div class="main_header sticky-header">
@@ -52,9 +108,9 @@
                             <div class="main_menu menu_center menu_position">
                                 <nav>
                                     <ul>
-                                        <li><a href="商城首頁.html">商城首頁</a></li>
+                                        <li><a href="shopping_main_page.html">商城首頁</a></li>
 
-                                        <li><a href="品牌旗艦館.html">品牌旗艦館</a></li>
+                                        <li><a href="brand_flagship.html">品牌旗艦館</a></li>
 
                                         <!-- 目前把商品分類寫死，之後可以讓它活過來 -->
                                         <li class="mega_items"><a href="#">商品分類<i class="fa fa-angle-down"></i></a>
@@ -65,7 +121,8 @@
                                                         <ul>
                                                             <!-- 小分類 -->
                                                             <li><a href="#">服飾</a></li>
-                                                            <li><a href="商品分類頁.html">鞋子 (目前只有這個能跳轉到分類頁)</a></li>
+                                                            <li><a href="product_category_page.html">鞋子
+                                                                (目前只有這個能跳轉到分類頁)</a></li>
                                                         </ul>
                                                     </li>
                                                     <li><a href="#">時尚女裝</a>
@@ -108,7 +165,7 @@
                                                     <a href="#"><i class="ion-close-round"></i></a>
                                                 </div>
                                                 <!-- 輸入完關鍵字，並按搜尋按鈕後，會跳轉到商品搜尋頁 -->
-                                                <form action="商品搜尋頁.html" method="get">
+                                                <form action="product_search_page.html" method="get">
                                                     <input placeholder="輸入您要找的關鍵字" type="text" name="keyword">
                                                     <button type="submit"><span
                                                             class="icon icon-Search"></span></button>
@@ -123,7 +180,8 @@
                         <div class="col-lg-2">
                             <div class="header_account_area">
                                 <div class="header_account-list">
-                                    <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                    <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o"
+                                                                        aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -179,9 +237,9 @@
                             <div class="payment_method" id="payment_accordion">
                                 <div class="panel-default">
                                     <input id="payment1" type="radio" name="payment_method" data-toggle="collapse"
-                                        data-target="#payment_method1" value="1">
+                                           data-target="#payment_method1" value="1">
                                     <label for="payment1" data-toggle="collapse"
-                                        data-target="#payment_method1">綠界全方位金流</label>
+                                           data-target="#payment_method1">綠界全方位金流</label>
 
                                     <div id="payment_method1" class="collapse" data-parent="#payment_accordion">
                                         <div class="row">
@@ -194,9 +252,9 @@
 
                                 <div class="panel-default">
                                     <input id="payment3" type="radio" name="payment_method" data-toggle="collapse"
-                                        data-target="#payment_method3" value="2">
+                                           data-target="#payment_method3" value="2">
                                     <label for="payment3" data-toggle="collapse"
-                                        data-target="#payment_method3">貨到付款</label>
+                                           data-target="#payment_method3">貨到付款</label>
 
                                     <div id="payment_method3" class="collapse" data-parent="#payment_accordion">
                                         <div class="card-body1">
@@ -211,9 +269,9 @@
                             <div class="shipping_method" id="shipping_accordion">
                                 <div class="panel-default">
                                     <input id="shipping1" type="radio" name="shipping_method" data-toggle="collapse"
-                                        data-target="#shipping_method1" value="1">
+                                           data-target="#shipping_method1" value="1">
                                     <label for="shipping1" data-toggle="collapse"
-                                        data-target="#shipping_method1">店取</label>
+                                           data-target="#shipping_method1">店取</label>
 
                                     <div id="shipping_method1" class="collapse" data-parent="#shipping_accordion">
                                         <div class="row">
@@ -229,9 +287,9 @@
 
                                 <div class="panel-default">
                                     <input id="shipping2" type="radio" name="shipping_method" data-toggle="collapse"
-                                        data-target="#shipping_method2" value="2">
+                                           data-target="#shipping_method2" value="2">
                                     <label for="shipping2" data-toggle="collapse"
-                                        data-target="#shipping_method2">宅配到府</label>
+                                           data-target="#shipping_method2">宅配到府</label>
 
                                     <div id="shipping_method2" class="collapse" data-parent="#shipping_accordion">
                                         <div class="row">
@@ -262,9 +320,9 @@
                             <div class="invoice_method" id="invoice_accordion">
                                 <div class="panel-default">
                                     <input id="invoice1" type="radio" name="invoice_method" data-toggle="collapse"
-                                        data-target="#invoice_method1" value="1">
+                                           data-target="#invoice_method1" value="1">
                                     <label for="invoice1" data-toggle="collapse"
-                                        data-target="#invoice_method1">紙本發票</label>
+                                           data-target="#invoice_method1">紙本發票</label>
 
                                     <div id="invoice_method1" class="collapse" data-parent="#invoice_accordion">
                                         <div class="card-body1">
@@ -276,9 +334,9 @@
 
                                 <div class="panel-default">
                                     <input id="invoice2" type="radio" name="invoice_method" data-toggle="collapse"
-                                        data-target="#invoice_method2" value="2">
+                                           data-target="#invoice_method2" value="2">
                                     <label for="invoice2" data-toggle="collapse"
-                                        data-target="#invoice_method2">公司發票</label>
+                                           data-target="#invoice_method2">公司發票</label>
 
                                     <div id="invoice_method2" class="collapse" data-parent="#invoice_accordion">
                                         <div class="row">
@@ -294,55 +352,55 @@
                         <div class="col-lg-6 col-md-6">
                             <h3>訂單明細</h3>
                             <div class="order_table table-responsive">
-<!--                                <table>-->
-<!--                                    <tbody>-->
-<!--                                        <tr>-->
-<!--                                            <td class="counter" colspan="3">Nike</td>-->
-<!--                                        </tr>-->
+                                <!--                                <table>-->
+                                <!--                                    <tbody>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td class="counter" colspan="3">Nike</td>-->
+                                <!--                                        </tr>-->
 
-<!--                                        <tr>-->
-<!--                                            <td class="cart_img">-->
-<!--                                                <img src="assets/img/product/product1.jpg" alt="">-->
-<!--                                            </td>-->
-<!--                                            <td class="cart_info" colspan="2">-->
-<!--                                                <h5>(多文字測試)鞋子1鞋子1鞋子1鞋子1</h5>-->
-<!--                                                <p>單價: NT$1234 / 數量: 1</p>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td class="cart_img">-->
-<!--                                                <img src="assets/img/product/product1.jpg" alt="">-->
-<!--                                            </td>-->
-<!--                                            <td class="cart_info" colspan="2">-->
-<!--                                                <h5>鞋子1</h5>-->
-<!--                                                <p>單價: NT$1234 / 數量: 1</p>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
-<!--                                    </tbody>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td class="cart_img">-->
+                                <!--                                                <img src="assets/img/product/product1.jpg" alt="">-->
+                                <!--                                            </td>-->
+                                <!--                                            <td class="cart_info" colspan="2">-->
+                                <!--                                                <h5>(多文字測試)鞋子1鞋子1鞋子1鞋子1</h5>-->
+                                <!--                                                <p>單價: NT$1234 / 數量: 1</p>-->
+                                <!--                                            </td>-->
+                                <!--                                        </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td class="cart_img">-->
+                                <!--                                                <img src="assets/img/product/product1.jpg" alt="">-->
+                                <!--                                            </td>-->
+                                <!--                                            <td class="cart_info" colspan="2">-->
+                                <!--                                                <h5>鞋子1</h5>-->
+                                <!--                                                <p>單價: NT$1234 / 數量: 1</p>-->
+                                <!--                                            </td>-->
+                                <!--                                        </tr>-->
+                                <!--                                    </tbody>-->
 
 
-<!--                                    <tfoot>-->
-<!--                                        <tr>-->
-<!--                                            <th colspan="2">原總金額</th>-->
-<!--                                            <th>NT$1000</th>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <th colspan="2">折價券折抵</th>-->
-<!--                                            <th>NT$-100</th>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <th colspan="2">點數折抵</th>-->
-<!--                                            <th>NT$-100</th>-->
-<!--                                        </tr>-->
-<!--                                        <tr class="order_total">-->
-<!--                                            <th colspan="2">訂單實付金額</th>-->
-<!--                                            <th>NT$800</th>-->
-<!--                                        </tr>-->
-<!--                                    </tfoot>-->
-<!--                                </table>-->
-<!--                                <div class="create_order">-->
-<!--                                    <button type="submit">送出訂單</button>-->
-<!--                                </div>-->
+                                <!--                                    <tfoot>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <th colspan="2">原總金額</th>-->
+                                <!--                                            <th>NT$1000</th>-->
+                                <!--                                        </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <th colspan="2">折價券折抵</th>-->
+                                <!--                                            <th>NT$-100</th>-->
+                                <!--                                        </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <th colspan="2">點數折抵</th>-->
+                                <!--                                            <th>NT$-100</th>-->
+                                <!--                                        </tr>-->
+                                <!--                                        <tr class="order_total">-->
+                                <!--                                            <th colspan="2">訂單實付金額</th>-->
+                                <!--                                            <th>NT$800</th>-->
+                                <!--                                        </tr>-->
+                                <!--                                    </tfoot>-->
+                                <!--                                </table>-->
+                                <!--                                <div class="create_order">-->
+                                <!--                                    <button type="submit">送出訂單</button>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -351,47 +409,92 @@
         </div>
     </div>
     <!--Checkout page section end-->
-
-    <!-- Jamigo 的 footer Start -->
+</main>
+<footer>
     <div class="footer_section bg-dark text-light">
         <div class="container_footer">
+            <div class="row">
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">合作資訊</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/count_apply.html">櫃位申請</a></p>
+                        <p><a href="/Jamigo/index/首頁/site_info.html">場地相關</a></p>
+                        <p><a href="/Jamigo/index/首頁/talents_recruit.html">人才招募</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">關於我們</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/shop_info.html">營業資訊</a></p>
+                        <p><a href="/Jamigo/index/首頁/FAQ.html">FAQ中心</a></p>
+                        <p><a href="/Jamigo/index/首頁/transpotation.html">交通資訊</a></p>
 
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">會員相關</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/pay_info.html">付款方式</a></p>
+                        <p><a href="/Jamigo/index/首頁/deliver_info.html">配送流程</a></p>
+                        <p><a href="/Jamigo/index/首頁/return_product.html">退換商品</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">聯絡我們</h1>
+                    <div class="footer_lorem_text">
+                        <p>JAMIGO 1234-5678 <br>桃園市中壢區復興路46號</p>
+                        <p>010-020-0340</p>
+                        <p>&copy;info@company.co</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <img src="/Jamigo/index/頁首頁尾_final/images/footer_LOGO.png" alt="" class="footer_LOGO">
+                </div>
+            </div>
+        </div>
+        <div class="footer_icon">
+            <a href="#"><i class="footer-icon fa-brands fa-instagram fa-xl" style="font-size: 2.5em"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-facebook fa-xl" style="font-size: 2.5em"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-square-twitter fa-xl" style="font-size: 2.5em"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-line fa-xl" style="font-size: 2.5em"></i></a>
         </div>
     </div>
+</footer>
 
-    <!-- ========== JS ========== -->
-    <!--jquery min js-->
-    <script src="assets/js/vendor/jquery-3.4.1.min.js"></script>
-    <!--popper min js-->
-    <script src="assets/js/popper.js"></script>
-    <!--bootstrap min js-->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!--owl carousel min js-->
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!--slick min js-->
-    <script src="assets/js/slick.min.js"></script>
-    <!--magnific popup min js-->
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <!--counterup min js-->
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <!--jquery countdown min js-->
-    <script src="assets/js/jquery.countdown.js"></script>
-    <!--jquery ui min js-->
-    <script src="assets/js/jquery.ui.js"></script>
-    <!--jquery elevatezoom min js-->
-    <script src="assets/js/jquery.elevatezoom.js"></script>
-    <!--isotope packaged min js-->
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <!--slinky menu js-->
-    <script src="assets/js/slinky.menu.js"></script>
-    <!-- Plugins JS -->
-    <script src="assets/js/plugins.js"></script>
+<!-- ========== JS ========== -->
+<!--jquery min js-->
+<script src="assets/js/vendor/jquery-3.4.1.min.js"></script>
+<!--popper min js-->
+<script src="assets/js/popper.js"></script>
+<!--bootstrap min js-->
+<script src="assets/js/bootstrap.min.js"></script>
+<!--owl carousel min js-->
+<script src="assets/js/owl.carousel.min.js"></script>
+<!--slick min js-->
+<script src="assets/js/slick.min.js"></script>
+<!--magnific popup min js-->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!--counterup min js-->
+<script src="assets/js/jquery.counterup.min.js"></script>
+<!--jquery countdown min js-->
+<script src="assets/js/jquery.countdown.js"></script>
+<!--jquery ui min js-->
+<script src="assets/js/jquery.ui.js"></script>
+<!--jquery elevatezoom min js-->
+<script src="assets/js/jquery.elevatezoom.js"></script>
+<!--isotope packaged min js-->
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<!--slinky menu js-->
+<script src="assets/js/slinky.menu.js"></script>
+<!-- Plugins JS -->
+<script src="assets/js/plugins.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/checkout.js"></script>
+<!-- Main JS -->
+<script src="assets/js/main.js"></script>
+<script src="assets/js/checkout.js"></script>
+<script src="/Jamigo/shop/shopping/assets/js/script.js"></script>
 
 </body>
 

@@ -13,6 +13,8 @@ public interface PromotionPointService {
 
     List<PromotionPoint> findAll();
 
+
+    PromotionPoint   findbypk(Integer promotionPointNo);
     boolean remove(Integer promotionPointNo);
 
 }

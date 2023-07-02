@@ -10,6 +10,7 @@
     let PromotionType = [];
     let promotionName4 = [];
     let couponTypeNo4 = [];
+    let promotionCouponNos = [];
 
     function getAllPromotionCoupon() {
         console.log('進入getAllPromotionCoupon()')
@@ -32,6 +33,7 @@
                         dataaccount = i;
                         let row = PromotionCoupon[i];
                         const promotionCouponNo = row.promotionCouponNo;
+                        promotionCouponNos.push(promotionCouponNo);
                         const promotionCouponName = row.promotionCouponName;
                         const promotionName = row.promotionName;
                         promotionName4.push(promotionName);
@@ -76,7 +78,7 @@
                             promotionExpireDate,
                             `<a href="/Jamigo/promotion/promotion_list/promotionC_detail.html?promotionCouponNo=${promotionCouponNo}"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
+                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}" ${promotionName !== null && promotionName.includes("櫃位") ? `style="display:none"` : ''}>修改
             </button>
             <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
                  aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -165,10 +167,14 @@
                                             <input type="text" class="form-control" id="getAmount${i}" value="${getAmount}" readonly>
                                 </div>
                                 <div class="mb-3">
+                                <div class="img-div  ms-3">
+                                                <img id="avatar-preview${i}" src="/Jamigo/member/member/image/gray.jpg" alt="Avatar Preview"
+                                                     class="img-fluid border border-dark"/>
+                                            </div>
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
-                                           id="promotionPic${i}" value="${promotionPic}" accept="image/jpeg, image/png">
+                                           id="promotionPic${i}" value="${promotionPic}" accept="image/gif">
                                 </div>
                                 
                             </form>
@@ -183,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-            </div>`, `<button type="button" class="btn btn-primary" id="delete${i}">刪除</button>`
+            </div>`, `<button type="button" class="btn btn-primary" id="delete${i}" ${promotionName !== null && promotionName.includes("櫃位") ? `style="display:none"` : ''}>刪除</button>`
 
                         ]);
                     }
@@ -195,6 +201,7 @@
                     addeventlistener4deletebutton();
                     getAllCouponType();
                     getAllPromotion();
+                    preview();
                     const msg = document.querySelector('#msg');
                 });
             })
@@ -289,8 +296,8 @@
 
         msgs[i].textContent = '';
         const promotionNameLength = promotionCouponName4json.length;
-        if (promotionNameLength < 1 || promotionNameLength > 100) {
-            msgs[i].textContent = '名稱長度須介於1~100字元';
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msgs[i].textContent = '名稱長度須介於1~10字元';
             return;
         }
         if (amountOfCoupon4json === '') {
@@ -356,11 +363,11 @@
     // ============================5. 綁定所有修改燈箱按鈕click / 圖片上傳change事件========================
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            editbuttons[i].addEventListener('click', () => {
+            editbuttons[i]?.addEventListener('click', () => {
                 console.log("修改按鈕啟動")
                 editPromotion(i);
             })
-            promotionPicinputs[i].addEventListener("change", function (event) {
+            promotionPicinputs[i]?.addEventListener("change", function (event) {
                 readPic(event);
                 Swal.fire({
                     position: 'center',
@@ -376,9 +383,10 @@
     // ============================6.   newAPromotion()新增promotion========================
     const msg2 = document.querySelector('#msga');
     getpicinput()
+
     function getpicinput() {
         const promotionPic4new = document.querySelector('#promotionPic');
-        promotionPic4new.addEventListener("change", function (event) {
+        promotionPic4new?.addEventListener("change", function (event) {
             readPic(event);
             console.log("有圖")
             Swal.fire({
@@ -403,8 +411,8 @@
         const promotionExpireDate4new = document.querySelector('#promotionExpireDate').value;
 
         const promotionNameLength = promotionCouponName4new.length;
-        if (promotionNameLength < 1 || promotionNameLength > 100) {
-            msg2.textContent = '名稱長度須介於1~100字元';
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msg2.textContent = '名稱長度須介於1~10字元';
             return;
         }
         if (promotionName4new === '請選擇活動種類') {
@@ -465,7 +473,7 @@
                     })
                 } else {
                     Swal.fire({
-                        icon: 'error', title: 'Oops...', text:`${message}`, footer: '<a href=""></a>'
+                        icon: 'error', title: 'Oops...', text: `${message}`, footer: '<a href=""></a>'
                     })
                 }
                 ;
@@ -487,7 +495,7 @@
     // ============================8. 綁定所有刪除按鈕========================
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            deletebuttons[i].addEventListener('click', () => {
+            deletebuttons[i]?.addEventListener('click', () => {
                 const inputvalue = promotionCouponNoinputs[i].value;
                 deledtbyPK(inputvalue);
             })
@@ -560,11 +568,11 @@
                             const couponTypeNo2 = row.couponTypeNo;
                             const couponTypeName = row.couponTypeName;
                             let adminNod = "";
-                            if (row.adminNo != null) {
+                            if (row.adminNo !== null && row.adminNo !== "") {
                                 adminNod = row.adminNo;
                             }
                             let counterNo = "";
-                            if (row.counterNo != null) {
+                            if (row.counterNo !== null) {
                                 counterNo = row.counterNo;
                             }
                             // 處理日期格式
@@ -587,9 +595,9 @@
                             const couponConditions = row.couponConditions;
                             const couponPrice = row.couponPrice;
                             const couponLowest = row.couponLowest;
-
-                            str4_0 += `<option value="${couponTypeNo2}" ${couponTypeNo2 === couponTypeNo4[x] ? 'selected' : ''}>${couponTypeNo2} : ${couponTypeName}</option>`
-                            str3_0 += `<div id="span4CouponType${couponTypeNo2}${x}" class="hiddenyee">
+                            if (adminNod !== "") {
+                                str4_0 += `<option value="${couponTypeNo2}" ${couponTypeNo2 === couponTypeNo4[x] ? 'selected' : ''}>${couponTypeNo2} : ${couponTypeName}</option>`
+                                str3_0 += `<div id="span4CouponType${couponTypeNo2}${x}" class="hiddenyee">
                                 <span>管理員編號： ${adminNod}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
@@ -601,6 +609,7 @@
                                 <br>
                                 <span>使用說明: ${couponConditions}</span>
                                 </div>`
+                            }
                         }
                         str3.push(str3_0);
                         str3_0 = '';
@@ -613,7 +622,7 @@
                         const couponTypeNo2 = row.couponTypeNo;
                         const couponTypeName = row.couponTypeName;
                         let adminNod = "";
-                        if (row.adminNo != null) {
+                        if (row.adminNo !== null && row.adminNo !== "") {
                             adminNod = row.adminNo;
                         }
                         let counterNo = "";
@@ -640,8 +649,9 @@
                         const couponConditions = row.couponConditions;
                         const couponPrice = row.couponPrice;
                         const couponLowest = row.couponLowest;
-                        str += `<option value="${couponTypeNo2}" >${couponTypeNo2} : ${couponTypeName}</option>`
-                        str2 += `<div id="span4CouponType${couponTypeNo2}" class="hiddenyee">
+                        if (adminNod !== "") {
+                            str += `<option value="${couponTypeNo2}" >${couponTypeNo2} : ${couponTypeName}</option>`
+                            str2 += `<div id="span4CouponType${couponTypeNo2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNod}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
@@ -653,6 +663,7 @@
                                 <br>
                                 <span>使用說明: ${couponConditions}</span>
                                 </div>`
+                        }
 
                     }
                     dynamicSpansCouponTypeNo.innerHTML = str2;
@@ -706,7 +717,7 @@
 
     function Listener4SelectCoupontype() {
         for (let i = 0; i <= dataaccount; i++) {
-            couponTypeNoinputs[i].addEventListener('change', () => {
+            couponTypeNoinputs[i]?.addEventListener('change', () => {
                 const selectedValue2 = couponTypeNoinputs[i].value;
                 div4CouponType3[i].forEach(function (div) {
                     if (div.id === "span4CouponType" + selectedValue2 + i) {
@@ -718,7 +729,7 @@
 
             })
         }
-        select4CouponType.addEventListener('change', () => {
+        select4CouponType?.addEventListener('change', () => {
             const selectedValue = select4CouponType.value;
             div4CouponType.forEach(function (div) {
                 if (div.id === "span4CouponType" + selectedValue) {
@@ -767,22 +778,24 @@
                             promotionname.push(promotionName2);
                             const promotionType = row.promotionType;
                             const promotionMethod = row.promotionMethod;
-                            let adminNo = '';
-                            if (row.adminNo != null) {
+                            let adminNo = "";
+                            if (row.adminNo !== null && row.adminNo !== "") {
                                 adminNo = row.adminNo;
                             }
                             let counterNo = '';
-                            if (row.counterNo != null) {
+                            if (row.counterNo !== null) {
                                 counterNo = row.counterNo
                             }
-                            str4_0 += `<option value="${promotionName2}" ${promotionName2 === promotionName4[h] ? 'selected' : ''}>${promotionName2}</option>`
-                            str3_0 += `<div id="span4Promotion${promotionName2}${h}" class="hiddenyee">
+                            if (adminNo !== "") {
+                                str4_0 += `<option value="${promotionName2}" ${promotionName2 === promotionName4[h] ? 'selected' : ''}>${promotionName2}</option>`
+                                str3_0 += `<div id="span4Promotion${promotionName2}${h}" class="hiddenyee">
                                 <span>管理員編號： ${adminNo}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
                                 <span>發放種類: ${promotionType}</span>
                                 <span>發放方式: ${promotionMethod}</span>
                                 </div>`
+                            }
                         }
                         str3.push(str3_0);
                         str3_0 = '';
@@ -797,23 +810,23 @@
                         const promotionMethod = row.promotionMethod;
 
                         let adminNo = '';
-                        if (row.adminNo != null) {
+                        if (row.adminNo !== null && row.adminNo !== "") {
                             adminNo = row.adminNo;
                         }
                         let counterNo = '';
                         if (row.counterNo != null) {
                             counterNo = row.counterNo
                         }
-
-                        str += `<option value="${promotionName2}" >${promotionName2}</option>`
-                        str2 += `<div id="span4Promotion${promotionName2}" class="hiddenyee">
+                        if (adminNo !== "") {
+                            str += `<option value="${promotionName2}" >${promotionName2}</option>`
+                            str2 += `<div id="span4Promotion${promotionName2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNo}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
                                 <span>發放種類: ${promotionType}</span>
                                 <span>發放方式: ${promotionMethod}</span>
                                 </div>`
-
+                        }
                     }
                     dynamicSpanPromotionName.innerHTML = str2;
                     select4promotionName.innerHTML = str;
@@ -867,7 +880,7 @@
 
     function Listener4SelectPromotion() {
         for (let i = 0; i <= dataaccount; i++) {
-            promotionNameinputs[i].addEventListener('change', () => {
+            promotionNameinputs[i]?.addEventListener('change', () => {
                 const selectedValue = promotionNameinputs[i].value;
                 div4promotion3[i].forEach(function (div) {
 
@@ -879,7 +892,7 @@
                 });
             })
         }
-        select4promotionName.addEventListener('change', () => {
+        select4promotionName?.addEventListener('change', () => {
             const selectedValue = select4promotionName.value;
             div4Promotion.forEach(function (div) {
                 if (div.id === "span4Promotion" + selectedValue) {
@@ -908,6 +921,41 @@
         }
     }
 
+
+    // ===============================預覽圖====================================
+    const avatarUploads = [];
+    const avatarPreviews = [];
+
+    function preview() {
+
+
+        for (let i = 0; i <= dataaccount; i++) {
+            const avatarUploada = document.getElementById("promotionPic" + i);
+            const avatarPreviewa = document.getElementById("avatar-preview" + i);
+            avatarUploads.push(avatarUploada);
+            avatarPreviews.push(avatarPreviewa);
+
+        }
+
+        for (let i = 0; i <= dataaccount; i++) {
+            avatarPreviews[i].src = `/Jamigo/promotion/promotion4pic/${promotionCouponNos[i]}`
+            avatarUploads[i].addEventListener("change", function () {
+                const file = avatarUploads[i].files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    avatarPreviews[i].src = e.target.result;
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    avatarPreviews[i].src = "#";
+                }
+            });
+        }
+    }
+
     // ===============================^^^方法區^^^====================================
 
     // ===============================VVV使用方法區VVV================================
@@ -919,7 +967,7 @@
     // ===============================2. 確認新增按鈕================================
 
     const button4new = document.querySelector('#newbutton');
-    button4new.addEventListener('click', () => {
+    button4new?.addEventListener('click', () => {
         newAPromotion();
     })
 //=================================3. 圖片檔案上傳按鈕=============================

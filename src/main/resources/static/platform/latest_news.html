@@ -975,6 +975,14 @@
                             </div>
                           </div>
                         </div>
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          onclick="delectCarousel(${no})"
+                        >
+                        刪除
+                        </button>
+
                     </td>
                       `;
               // <a class="btn btn-sm btn-danger" id="btn-delete" href="">刪除</a>
@@ -1194,6 +1202,67 @@
             modal.hide();
           }
         }
+      }
+    </script>
+
+    <!------------------------------------- 刪除 ------------------------------->
+    <script>
+      function delectCarousel(modalId) {
+        const no = document.getElementById(`update-no-${modalId}`).value;
+
+        const data = {
+          delectShopCarouselNo: no,
+        };
+
+        Swal.fire({
+          title: "確定要刪除嗎?",
+          showDenyButton: true,
+          showCancelButton: false,
+          confirmButtonText: "確認",
+          denyButtonText: `取消`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire("刪除成功!", "", "success");
+            fetch("/Jamigo/ShopCarouselServlet", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Data-Type": "json3",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((responseData) => {
+                Swal.fire("刪除完成", "你很棒唉!", "success").then(() => {
+                  location.reload();
+                });
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          } else if (result.isDenied) {
+            Swal.fire("未刪除", "", "info");
+          }
+        });
+
+        // fetch("/Jamigo/ShopCarouselServlet", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "X-Data-Type": "json3",
+        //   },
+        //   body: JSON.stringify(data),
+        // })
+        //   .then((response) => response.json())
+        //   .then((responseData) => {
+        //     Swal.fire("刪除完成", "你很棒唉!", "success").then(() => {
+        //       location.reload();
+        //     });
+        //   })
+        //   .catch((error) => {
+        //     console.error("Error:", error);
+        //   });
       }
     </script>
   </body>

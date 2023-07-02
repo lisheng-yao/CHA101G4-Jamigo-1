@@ -51,7 +51,8 @@
                         let usedStat=(couponUsedStat===0)?'未使用':'已使用';
                         const orderDetailCouponNo = row.orderDetailCouponNo;
                         dataTable.row.add([
-                            memberCouponNo,
+                            couponTypeNo,
+                            `<div id="coupontypename${i}"></div>`,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">詳情
             </button>
@@ -104,11 +105,15 @@
     });
     // ============================3.   抓全部的詳情內的body========================
     const bodydiv = [];
+    const coupontypenamediv = [];
 
     function getbodydiv() {
         for (let i = 0; i <= dataaccount; i++) {
             const bodyi = document.querySelector('#memberCoupon' + i)
+            const coupontypename = document.querySelector('#coupontypename'+i)
             bodydiv.push(bodyi);
+            coupontypenamediv.push(coupontypename);
+
         }
     }
 
@@ -174,6 +179,7 @@
                             </form>
                     `;
                     bodydiv[i].innerHTML = str;
+                    coupontypenamediv[i].innerText=couponTypeName;
                 });
         }
     }

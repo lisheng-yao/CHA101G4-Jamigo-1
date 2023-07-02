@@ -15,6 +15,7 @@ let memberOwnPoints;
 
 $(function () {
     let memberNo = getMemberNo();
+
     //取回所有會員折價券
     getMemberCoupons();
     //取回會員點數
@@ -46,8 +47,8 @@ $(function () {
 
 //取得會員編號
 function getMemberNo() {
-    // return localStorage.getItem("memberNo");
-    return 1;
+    return parseInt(localStorage.getItem("memberNo"));
+    // return 1;
 }
 
 //依櫃位排序
@@ -551,11 +552,15 @@ function platformSelectChange() {
         $(".platform_usedDiscount").text(platformDiscount);
         //取得會員點數折抵金額
         let memberPoint_usedDiscount = parseInt($(".memberPoint_usedDiscount").text());
-        // let memberUsedPoint = $(".memberPoints_input").val();
-        // if(memberUsedPoint == ""){
-        //     memberUsedPoint = 0;
-        // }
+        //若應付總額已經為0
+        if($(".final_total").text() == "0"){
+            memberPoint_usedDiscount = memberPoint_usedDiscount - platformDiscount;
+            $(".memberPoints_input").val(memberPoint_usedDiscount);
+            $(".memberPoint_usedDiscount").text(memberPoint_usedDiscount);
 
+            alert("您的折價金額已達上限，將會優先使用折價券折抵並退回多於點數!");
+        }
+        
         $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount - memberPoint_usedDiscount);
     });
 }

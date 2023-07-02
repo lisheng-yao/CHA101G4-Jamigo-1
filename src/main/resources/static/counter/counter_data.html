@@ -28,10 +28,12 @@
       href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
       rel="stylesheet"
     />
+
     <title>櫃位帳號資料管理</title>
   </head>
 
   <body>
+    <!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
     <!-- 整頁的容器 -->
     <div class="container-fluid whole-page">
       <div class="row">
@@ -66,11 +68,8 @@
                   aria-expanded="false"
                 >
                   <i class="fa-solid fa-bell"></i>
-                  <span
-                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
-                  >
-                    <span class="visually-hidden">New alerts</span>
-                  </span>
+
+                  <span class="visually-hidden">New alerts</span>
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#"> </a></li>
@@ -81,15 +80,16 @@
                 </ul>
               </div>
             </li>
+            <div id="counter-top-name" style="font-weight: bold"></div>
             <!-- 頭像 -->
             <li class="nav-item">
               <a class="nav-link">
                 <img
-                  src="https://picsum.photos/id/684/600"
                   class="rounded-circle"
                   width="40"
                   height="40"
                   alt=""
+                  id="head-pic"
                 />
               </a>
             </li>
@@ -103,7 +103,7 @@
           <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
           <div class="list-group rounded-bottom-0">
             <a
-              href="counter_setFrontPage.html"
+              href="counter_carouselCtrl.html"
               class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
             >
               <i class="fa-solid fa-eye me-2"></i>
@@ -175,7 +175,7 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="#"
+                      href="counter_data.html"
                       class="list-group-item list-group-item-action sidebar-submenu active"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
@@ -214,18 +214,25 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="counter_coupon.html"
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券種類管理.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      櫃位折價票券管理
+                      折價票券種類管理
                     </a>
                     <a
-                      href="counter_discountAct.html"
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券活動管理.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      櫃位優惠活動管理
+                      優惠活動種類管理
+                    </a>
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位活動種類管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      折價券活動管理
                     </a>
                   </div>
                 </div>
@@ -253,25 +260,25 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="counter_actApply.html"
+                      href="event_venueCtrl.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                       線下活動申請
                     </a>
                     <a
+                      href="activity_orderCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      報名訂單查詢
+                    </a>
+                    <a
                       href="counter_actContent.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      活動內容管理
-                    </a>
-                    <a
-                      href="counter_actHistory.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      活動歷史紀錄
+                      活動申請查詢
                     </a>
                   </div>
                 </div>
@@ -280,21 +287,25 @@
           </div>
           <div class="list-group rounded-top-0">
             <a
-              href="counter_DM.html"
+              href="#"
               class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
             >
               <i class="fa-regular fa-message me-2"></i>
-              客戶訊息回覆
+              私訊服務
             </a>
             <a
-              href="#"
+              href=""
               class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+              id="sing-out"
             >
               <i class="fa-solid fa-right-from-bracket me-2"></i>
               登出
             </a>
           </div>
         </div>
+
+        <!-- =========================================== 這裡以上幫我複製貼上 ===================================================== -->
+
         <div class="col-10 page-body">
           <div class="controll-box counter-detail-controll-box">
             <div class="back-end-box-title counter-detail-controll-title">
@@ -329,7 +340,7 @@
                   </tr>
                   <tr>
                     <th scope="row">狀態</th>
-                    <td id="counterStat"></td>
+                    <td id="counterStat" bold></td>
                   </tr>
                   <tr>
                     <th scope="row">統編</th>
@@ -382,9 +393,14 @@
               <a
                 href="/Jamigo/counter/counter_dataUpdate.html"
                 class="btn revise-btn btn-outline-primary"
-                >修改</a
+                >修改資料</a
               >
-              <a href="#" class="btn btn-outline-secondary ml-2">返回總覽</a>
+              <a
+                href="/Jamigo/counter/counter_dataPassword.html"
+                class="btn revise-btn btn-outline-primary"
+                >修改密碼</a
+              >
+              <a href="#" class="btn btn-outline-secondary ml-2">返回上方</a>
             </div>
           </div>
         </div>
@@ -420,12 +436,26 @@
 
     <!-------------------------------------- 取得所有資訊 ---------------------------------->
 
+    <!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
+
+    <script src="./js/counter-top.js"></script>
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- =========================================== 這裡以上幫我複製貼上 ===================================================== -->
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         fetch("/Jamigo/counter/counterAcc")
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
+            // const headpic = document.getElementById("head-pic");
+            // headpic.src = "/Jamigo/counterPic/" + data.counterNo;
+
+            // const ctn = document.getElementById("counter-top-name");
+            // ctn.textContent = "歡迎回來  " + data.counterName + " 專櫃";
+
             document.getElementById("counterNo").textContent = data.counterNo;
             document.getElementById("counterName").textContent =
               data.counterName;
@@ -435,16 +465,17 @@
             var element = document.getElementById("counterStat");
             switch (data.counterStat) {
               case 0:
-                element.textContent = "帳號未啟用";
-                element.style.color = "red";
+                element.textContent = "未啟用";
+                element.style = "color : red ; font-weight:bold;";
+
                 break;
               case 1:
-                element.textContent = "帳號啟用中";
-                element.style.color = "green";
+                element.textContent = "啟用中";
+                element.style = "color : green ; font-weight:bold;";
                 break;
               case 2:
-                element.textContent = "帳號停用";
-                element.style.color = "red";
+                element.textContent = "停用";
+                element.style = "color : red ; font-weight:bold;";
                 break;
               default:
                 document.getElementById("counterStat").textContent =
