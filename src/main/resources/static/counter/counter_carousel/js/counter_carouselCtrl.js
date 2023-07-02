@@ -75,14 +75,43 @@ function render(datas) {
 // 刪除輪播圖
 carousel_controll_group.addEventListener('click', e => {
 	if(e.target.classList.contains('btn-danger')) {
-		let parentEle = e.target.parentElement;
-		let grandfatherEle = parentEle.parentElement;
-		let infoBox = grandfatherEle.firstElementChild;
-		let index = infoBox.lastElementChild.innerText;
+		Swal.fire({
+			title: '確定刪除輪播圖?',
+			// text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '確定刪除',
+			cancelButtonText: "取消"
+		})
+		.then(async result => {
+			if(result.isConfirmed) {
+				let parentEle = e.target.parentElement;
+				let grandfatherEle = parentEle.parentElement;
+				let infoBox = grandfatherEle.firstElementChild;
+				let index = infoBox.lastElementChild.innerText;
+				
+				axios.get(`/Jamigo/counterCarousel/deleteById/${index}`)
+				.then(response => {
+					Swal.fire({
+						icon: 'success',
+						title: '刪除成功',
+						text: '輪播資料刪除成功!',
+						confirmButtonText: "確認"
+					})
+					.then(() => window.location.href="./counter_carouselCtrl.html")
+				})
+				.catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: '刪除失敗',
+						text: '輪播資料新增失敗!',
+					})
+				})
+			}
+		})
 		
-		axios.get(`/Jamigo/counterCarousel/deleteById/${index}`)
-		.then(resp => location.reload())
-		.catch(err => console.log(err))
 	}
 })
 

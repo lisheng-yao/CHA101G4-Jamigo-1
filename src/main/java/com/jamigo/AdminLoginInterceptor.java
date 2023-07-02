@@ -20,8 +20,8 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 			System.out.println(aaa.nextElement());
 		}
 		System.out.println("session id 為" + req.getSession().getId());
-		if(req.getSession().getAttribute("counter") == null) {
-			System.out.println("session中的platform為null");
+		if(req.getSession().getAttribute("user") == null) {
+//			System.out.println("session中的platform為null");
 			// 在進入處理器方法之前執行的邏輯
 			// 此處可以將當前頁面的 URL 存儲到會話中
 //			String currentUrl = req.getRequestURL().toString();

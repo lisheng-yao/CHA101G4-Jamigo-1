@@ -52,7 +52,7 @@ public class AdministratorController {
 		
 		if(adminCheck != null) {
 			HttpSession session = req.getSession();
-			session.setAttribute("counter", adminCheck);
+			session.setAttribute("user", adminCheck);
 //			String currentUrl = (String)req.getSession().getAttribute("currentUrl");
 			AdministratorDTO dto = new AdministratorDTO();
 			dto.setAdminNo(adminCheck.getAdminNo());;
@@ -64,8 +64,9 @@ public class AdministratorController {
 	}
 	
 	@GetMapping("/logout")
-	public ResponseEntity<String> logout(SessionStatus sessionStatus, HttpServletResponse resp) {
+	public ResponseEntity<String> logout(HttpSession session, SessionStatus sessionStatus, HttpServletResponse resp) {
 		sessionStatus.setComplete();
+		session.removeAttribute("user");
 		return new ResponseEntity<>("登出", HttpStatus.OK);
 	}
 	
