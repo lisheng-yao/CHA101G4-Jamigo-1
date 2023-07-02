@@ -414,8 +414,8 @@
 
 
         const promotionNameLength = promotionCouponName4new.length;
-        if (promotionNameLength < 1 || promotionNameLength > 100) {
-            msg2.textContent = '名稱長度須介於1~100字元';
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msg2.textContent = '名稱長度須介於1~10字元';
             return;
         }
         if (promotionName4new === '請選擇活動種類') {
