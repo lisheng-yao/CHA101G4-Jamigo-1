@@ -10,7 +10,8 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
-    <!-- ========== CSS ========== -->
+    <!-- CSS 
+    ========================= -->
     <!--bootstrap min css-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!--owl carousel min css-->
@@ -110,7 +111,7 @@
                                     <ul>
                                         <li><a href="shopping_main_page.html">商城首頁</a></li>
 
-                                        <li><a href="brand_flagship.html">品牌旗艦館</a></li>
+                                        <li><a class="active" href="brand_flagship.html">品牌旗艦館</a></li>
 
                                         <!-- 目前把商品分類寫死，之後可以讓它活過來 -->
                                         <li class="mega_items"><a href="#">商品分類<i class="fa fa-angle-down"></i></a>
@@ -183,6 +184,12 @@
                                     <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o"
                                                                         aria-hidden="true"></i></a>
                                 </div>
+                                <div class="header_account-list  mini_cart_wrapper">
+                                    <a href="/Jamigo/shop/shopping/cart_detail_page.html"><i
+                                            class="icon icon-FullShoppingCart"></i><span
+                                            class="item_count"></span></a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -192,223 +199,96 @@
     </header>
     <!-- 商城的 header End -->
 
-    <!--breadcrumbs area start-->
     <div class="breadcrumbs_area">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumb_content">
-                        <h3>結帳</h3>
+                        <h3>品牌旗艦館</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--breadcrumbs area end-->
 
-    <!--Checkout page section-->
-    <div class="Checkout_section mt-10">
+    <!--testimonial area start-->
+    <div class="testimonial_area testimonial_two mb-95">
         <div class="container">
-            <div class="checkout_form">
-                <form method="post">
-                    <div class="row">
+            <div class="testimonial_container2">
+                <div class="row">
+                    <!--                    <div class="col-lg-4">-->
+                    <!--                        <div class="single-testimonial">-->
+                    <!--                            <div class="testimonial_thumb">-->
+                    <!--                                <a href="#"><img src="assets\img\counter\counter1.jpg" alt=""></a>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="testimonial_content">-->
+                    <!--                                <div class="testimonial_author">-->
+                    <!--                                    <a href="#">${coun}</a>-->
+                    <!--                                </div>-->
 
-                        <div class="col-lg-6 col-md-6">
+                    <!--                                <p>Nike商標圖案是個小鉤子。Nike一直將激勵全世界的每一位運動員並為其獻上最好的產品視為光榮的任務。Nike首創的氣墊技術給體育界帶來了一場革命。運用這項技術製造出的運動鞋可以很好地保護運動員的膝蓋，在其在作劇烈運動落地時減小對膝蓋的影響。-->
+                    <!--                                </p>-->
 
-                            <h3>訂購人資料</h3>
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="col-lg-4">-->
+                    <!--                        <div class="single-testimonial">-->
+                    <!--                            <div class="testimonial_thumb">-->
+                    <!--                                <a href="#"><img src="assets\img\counter\counter2.jpg" alt=""></a>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="testimonial_content">-->
 
-                            <div class="row">
-                                <div class="col-lg-6 mt-10 mb-10">
-                                    <label for="buyerName">姓名 <span>*</span></label>
-                                    <input type="text" id="buyerName">
-                                </div>
-                                <div class="col-lg-6 mt-10 mb-10">
-                                    <label for="buyerPhone">手機號碼 <span>*</span></label>
-                                    <input type="text" id="buyerPhone">
-                                </div>
-                                <div class="col-12 mt-10 mb-10">
-                                    <label for="buyerEmail">電子郵件 <span>*</span></label>
-                                    <input type="text" id="buyerEmail">
-                                </div>
-                            </div>
+                    <!--                                <div class="testimonial_author">-->
+                    <!--                                    <a href="#">森森鈴蘭 Lily Linglan</a>-->
+                    <!--                                </div>-->
 
-                            <h3>付款方式</h3>
+                    <!--                                <p>來自東方的魔女，鈴蘭-->
+                    <!--                                    喜歡唱歌的一匹狼，-->
+                    <!--                                    如果抹茶被吃，他就會不見-->
+                    <!--                                    ε٩(๑• ㅁ •)۶з</p>-->
 
-                            <div class="payment_method" id="payment_accordion">
-                                <div class="panel-default">
-                                    <input id="payment1" type="radio" name="payment_method" data-toggle="collapse"
-                                           data-target="#payment_method1" value="1">
-                                    <label for="payment1" data-toggle="collapse"
-                                           data-target="#payment_method1">綠界全方位金流</label>
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
 
-                                    <div id="payment_method1" class="collapse" data-parent="#payment_accordion">
-                                        <div class="row">
-                                            <div class="card-body1">
-                                                <p>可使用「信用卡」、「ATM 轉帳」、「超商條碼」和「超商代碼」等方式進行付款</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!--                    <div class="col-lg-4">-->
+                    <!--                        <div class="single-testimonial">-->
+                    <!--                            <div class="testimonial_thumb">-->
+                    <!--                                <a href="#"><img src="assets\img\counter\counter4.jpg" alt=""></a>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="testimonial_content">-->
+                    <!--                                <div class="testimonial_author">-->
+                    <!--                                    <a href="#">抹茶嵐提</a>-->
+                    <!--                                </div>-->
 
-                                <div class="panel-default">
-                                    <input id="payment3" type="radio" name="payment_method" data-toggle="collapse"
-                                           data-target="#payment_method3" value="2">
-                                    <label for="payment3" data-toggle="collapse"
-                                           data-target="#payment_method3">貨到付款</label>
+                    <!--                                <p>一條喜歡唱歌的鹹魚。</p>-->
 
-                                    <div id="payment_method3" class="collapse" data-parent="#payment_accordion">
-                                        <div class="card-body1">
-                                            <p>取貨時，僅接受現金付款</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
 
-                            <h3>取貨方式</h3>
+                    <!--                    <div class="col-lg-4">-->
+                    <!--                        <div class="single-testimonial">-->
+                    <!--                            <div class="testimonial_thumb">-->
+                    <!--                                <a href="#"><img src="assets\img\counter\counter3.jpg" alt=""></a>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="testimonial_content">-->
+                    <!--                                <div class="testimonial_author">-->
+                    <!--                                    <a href="#">DIOR 迪奧 旗艦館</a>-->
+                    <!--                                </div>-->
 
-                            <div class="shipping_method" id="shipping_accordion">
-                                <div class="panel-default">
-                                    <input id="shipping1" type="radio" name="shipping_method" data-toggle="collapse"
-                                           data-target="#shipping_method1" value="1">
-                                    <label for="shipping1" data-toggle="collapse"
-                                           data-target="#shipping_method1">店取</label>
+                    <!--                                <p>Dior品牌起源於法國，1938年，迪奧先生開始從事服裝設計，以黑白相間的千鳥格服飾而聲名大噪。-->
+                    <!--                                    迪奧化妝品向來與精品設計緊密結合，不論是保養品或是彩妝都帶有強烈的時尚與精品風格，可以稱的上是保養品中的精品。</p>-->
 
-                                    <div id="shipping_method1" class="collapse" data-parent="#shipping_accordion">
-                                        <div class="row">
-                                            <div class="card-body1 col-3 mt-10">
-                                                <label for="branch">請選擇館別 <span>*</span></label>
-                                                <select class="select_option branch" name="branch" id="branch">
-                                                    <option value="ZhongLi">中壢館</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel-default">
-                                    <input id="shipping2" type="radio" name="shipping_method" data-toggle="collapse"
-                                           data-target="#shipping_method2" value="2">
-                                    <label for="shipping2" data-toggle="collapse"
-                                           data-target="#shipping_method2">宅配到府</label>
-
-                                    <div id="shipping_method2" class="collapse" data-parent="#shipping_accordion">
-                                        <div class="row">
-                                            <div class="card-body1 col-3 mt-10">
-                                                <label for="country">國家 <span>*</span></label>
-                                                <select class="select_option country" name="country" id="country">
-                                                    <option value="台灣">台灣</option>
-                                                    <option value="台灣">中華民國</option>
-                                                </select>
-                                            </div>
-                                            <div class="card-body1 col-12 mt-10">
-                                                <label>住址 <span>*</span></label>
-                                                <input type="text" class="address">
-
-                                            </div>
-
-                                            <div class="card-body1 col-12 mt-10">
-                                                <input type="checkbox" id="fillInAddress">
-                                                <label for="fillInAddress">同會員資料 (自動填入)</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h3>開立發票</h3>
-
-                            <div class="invoice_method" id="invoice_accordion">
-                                <div class="panel-default">
-                                    <input id="invoice1" type="radio" name="invoice_method" data-toggle="collapse"
-                                           data-target="#invoice_method1" value="1">
-                                    <label for="invoice1" data-toggle="collapse"
-                                           data-target="#invoice_method1">紙本發票</label>
-
-                                    <div id="invoice_method1" class="collapse" data-parent="#invoice_accordion">
-                                        <div class="card-body1">
-                                            <p>若取貨方式為「店取」，請在館內實體貴賓廳領取發票。</p>
-                                            <p>若取貨方式為「宅配」，發票將會寄送至剛輸入的住址。</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel-default">
-                                    <input id="invoice2" type="radio" name="invoice_method" data-toggle="collapse"
-                                           data-target="#invoice_method2" value="2">
-                                    <label for="invoice2" data-toggle="collapse"
-                                           data-target="#invoice_method2">公司發票</label>
-
-                                    <div id="invoice_method2" class="collapse" data-parent="#invoice_accordion">
-                                        <div class="row">
-                                            <div class="card-body1 col-6 mt-10">
-                                                <label>統一編號 <span>*</span></label>
-                                                <input type="text" class="invoice_gui">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <h3>訂單明細</h3>
-                            <div class="order_table table-responsive">
-                                <!--                                <table>-->
-                                <!--                                    <tbody>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <td class="counter" colspan="3">Nike</td>-->
-                                <!--                                        </tr>-->
-
-                                <!--                                        <tr>-->
-                                <!--                                            <td class="cart_img">-->
-                                <!--                                                <img src="assets/img/product/product1.jpg" alt="">-->
-                                <!--                                            </td>-->
-                                <!--                                            <td class="cart_info" colspan="2">-->
-                                <!--                                                <h5>(多文字測試)鞋子1鞋子1鞋子1鞋子1</h5>-->
-                                <!--                                                <p>單價: NT$1234 / 數量: 1</p>-->
-                                <!--                                            </td>-->
-                                <!--                                        </tr>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <td class="cart_img">-->
-                                <!--                                                <img src="assets/img/product/product1.jpg" alt="">-->
-                                <!--                                            </td>-->
-                                <!--                                            <td class="cart_info" colspan="2">-->
-                                <!--                                                <h5>鞋子1</h5>-->
-                                <!--                                                <p>單價: NT$1234 / 數量: 1</p>-->
-                                <!--                                            </td>-->
-                                <!--                                        </tr>-->
-                                <!--                                    </tbody>-->
-
-
-                                <!--                                    <tfoot>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <th colspan="2">原總金額</th>-->
-                                <!--                                            <th>NT$1000</th>-->
-                                <!--                                        </tr>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <th colspan="2">折價券折抵</th>-->
-                                <!--                                            <th>NT$-100</th>-->
-                                <!--                                        </tr>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <th colspan="2">點數折抵</th>-->
-                                <!--                                            <th>NT$-100</th>-->
-                                <!--                                        </tr>-->
-                                <!--                                        <tr class="order_total">-->
-                                <!--                                            <th colspan="2">訂單實付金額</th>-->
-                                <!--                                            <th>NT$800</th>-->
-                                <!--                                        </tr>-->
-                                <!--                                    </tfoot>-->
-                                <!--                                </table>-->
-                                <!--                                <div class="create_order">-->
-                                <!--                                    <button type="submit">送出訂單</button>-->
-                                <!--                                </div>-->
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
             </div>
         </div>
     </div>
-    <!--Checkout page section end-->
+    <!--testimonial area end-->
 </main>
 <footer>
     <div class="footer_section bg-dark text-light">
@@ -489,12 +369,12 @@
 <!-- Plugins JS -->
 <script src="assets/js/plugins.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
-<script src="assets/js/checkout.js"></script>
+<script src="/Jamigo/shop/shopping/assets/js/product_detail_page.js"></script>
 <script src="/Jamigo/shop/shopping/assets/js/script.js"></script>
+<script src="assets/js/brand_flagship.js"></script>
+
 
 </body>
 
