@@ -17,6 +17,8 @@ let inputAttendeeMoreGenderFemale = document.querySelector('.form-label #inputAt
 let inputAttendeeMoreAge = document.querySelector('.form-label #inputAttendeeMoreAge');
 let activity_attendee_info = document.querySelector('.activity-attendee');
 
+let inputAttendee_error = document.querySelector('.form-item-attendee .error-text span');
+
 let inputCutPercent_error = document.querySelector('.form-item-percent .error-text span');
 
 let form_select = document.querySelector('.form-select');
@@ -69,7 +71,7 @@ function getSelectVersion() {
   }
 }
 
-// 檢查query中是否有值，有值代表為修改，要將櫃位原本數值放進input內
+// 檢查query中是否有值，有值代表為修改，要將活動訂單原本數值放進input內
 getQueryString();
 function getQueryString() {
   let urlParam = new URLSearchParams(window.location.search);
@@ -106,78 +108,79 @@ function getQueryString() {
 }
 
 // 新增櫃位
-if(sure_btn) {
-  sure_btn.addEventListener('click', () => {
-	  let sure_btn_promise = new Promise(async (resolve, reject) => {
-		await inputAccount_reject();
-		inputCutPercent_reject();
-        resolve();
-	  });
-	  sure_btn_promise.then(() => {
-  	   if(inputAccount_flag && inputCutPercent_flag) {
-		  insertactivityOrder();
-	    }
-	  })
-   })
-}
+// if(sure_btn) {
+//   sure_btn.addEventListener('click', () => {
+// 	  let sure_btn_promise = new Promise(async (resolve, reject) => {
+// 		await inputAccount_reject();
+// 		inputCutPercent_reject();
+//         resolve();
+// 	  });
+// 	  sure_btn_promise.then(() => {
+//   	   if(inputAccount_flag && inputCutPercent_flag) {
+// 		  insertactivityOrder();
+// 	    }
+// 	  })
+//    })
+// }
 
-// 確認是否新增櫃位的彈窗訊息
+// 確認是否新增活動訂單的彈窗訊息
 // + 送出修改資料到後端
-function insertactivityOrder(){ 
-	Swal.fire({
-	    title: '確定新增櫃位?',
-	    // text: "You won't be able to revert this!",
-	    icon: 'warning',
-	    showCancelButton: true,
-	    confirmButtonColor: '#3085d6',
-	    cancelButtonColor: '#d33',
-	    confirmButtonText: '確定新增',
-	    cancelButtonText: "取消"
-	}).then((result) => {
-		if(result.isConfirmed) {
-			let data_value = selectState.getAttribute('data-value');
-		    let activityOrder_insert = {
-		      'activityOrderNo' : 0,
-		      'cutPercent' : inputCutPercent.value,
-		      'activityOrderAccount' : inputAccount.value,
-		      'activityOrderPassword' : 'default1234',
-		      'activityOrderStat' : data_value
-		    }
+// function insertactivityOrder(){ 
+// 	Swal.fire({
+// 	    title: '確定新增櫃位?',
+// 	    // text: "You won't be able to revert this!",
+// 	    icon: 'warning',
+// 	    showCancelButton: true,
+// 	    confirmButtonColor: '#3085d6',
+// 	    cancelButtonColor: '#d33',
+// 	    confirmButtonText: '確定新增',
+// 	    cancelButtonText: "取消"
+// 	}).then((result) => {
+// 		if(result.isConfirmed) {
+// 			let data_value = selectState.getAttribute('data-value');
+// 		    let activityOrder_insert = {
+// 		      'activityOrderNo' : 0,
+// 		      'cutPercent' : inputCutPercent.value,
+// 		      'activityOrderAccount' : inputAccount.value,
+// 		      'activityOrderPassword' : 'default1234',
+// 		      'activityOrderStat' : data_value
+// 		    }
 		  
-		    let url = '/Jamigo/activityOrder/insert';
-		    fetch(url, {
-		      method : 'POST',
-		      headers : {
-		        'Content-Type' : 'application/json',
-		        'Header-Action' : 'insert'
-		      },
-		      body : JSON.stringify(activityOrder_insert)
-		    })
-		    .then(response => {
-			    Swal.fire({
-			      icon: 'success',
-			      title: '新增成功',
-			      text: '櫃位資料新增成功!',
-			      confirmButtonText: "確認"
-				})
-			    .then(() => window.location.href="./activity_orderCtrl.html")
-			})
-		    .catch(error => {
-		      Swal.fire({
-		        icon: 'error',
-		        title: '新增失敗',
-		        text: '櫃位資料新增失敗!',
-		      })
-		    })
-		}
-	})
-}
-// 修改櫃位
+// 		    let url = '/Jamigo/activityOrder/insert';
+// 		    fetch(url, {
+// 		      method : 'POST',
+// 		      headers : {
+// 		        'Content-Type' : 'application/json',
+// 		        'Header-Action' : 'insert'
+// 		      },
+// 		      body : JSON.stringify(activityOrder_insert)
+// 		    })
+// 		    .then(response => {
+// 			    Swal.fire({
+// 			      icon: 'success',
+// 			      title: '新增成功',
+// 			      text: '櫃位資料新增成功!',
+// 			      confirmButtonText: "確認"
+// 				})
+// 			    .then(() => window.location.href="./activity_orderCtrl.html")
+// 			})
+// 		    .catch(error => {
+// 		      Swal.fire({
+// 		        icon: 'error',
+// 		        title: '新增失敗',
+// 		        text: '櫃位資料新增失敗!',
+// 		      })
+// 		    })
+// 		}
+// 	})
+// }
+
+// 修改活動訂單
 if(revise_btn) {
   revise_btn.addEventListener('click', () => {
 	  let revise_btn_promise = new Promise(async (resolve, reject) => {
-//		await inputAccount_reject();
-//		inputCutPercent_reject();
+		let inputAttendee_flag = await inputAttendee_reject();
+		inputCutPercent_reject();
         resolve();
 	  });
 	  revise_btn_promise.then(() => {
@@ -189,7 +192,7 @@ if(revise_btn) {
 
 }
 
-// 確認是否修改櫃位的彈窗訊息
+// 確認是否修改活動訂單的彈窗訊息
 // + 送出修改資料到後端
 function editactivityOrder() {
   Swal.fire({
@@ -254,95 +257,19 @@ function editactivityOrder() {
 	  }
   })
 }
-// 檢查要新增或修改的帳號是否有重複
-//inputAccount.addEventListener('blur', async () => inputAccount_reject());
-//async function inputAccount_reject(){
-//  let flag = true;
-//  let error_text = '';
-//  let account = inputAccount.value;
-//  // 若inputNo無值為新增判斷，若inputNo有值為修改判斷
-//  inputNo ?	url = `/Jamigo/activityOrderCtrl/findByAccount/${inputNo.value}/${account}` : url = `/Jamigo/activityOrderCtrl/findByAccount/${account}`;
-//
-//  if(account == null && account.trim() == 0) {
-//    flag = false;
-//      error_text = '請填寫帳號';
-//  }
-//
-//  console.log(url);
-//  await fetch(url, {
-//    method : 'POST',
-//    headers : {
-//      'Content-Type' : 'text/plain',
-//      'Header-Action' : 'findByAccount',
-//      'Header-Account' : account
-//    }
-//  })
-//  .then(resp => { return resp.text() })
-//  .then(data => {
-//    if(data == 'true'){
-//      flag = true;
-//    } else if (data == 'false') {
-//      flag = false;
-//      error_text = '帳號已存在，請重新命名';
-//    } else {
-//      console.log(55555);
-//    }
-//    error_text_controll(flag, inputAccount_error, error_text);
-//  
-//  	inputAccount_flag = flag;
-//  })
-//  .catch(error => console.log(error));
-//}
-//
-//
-//// 檢查抽成數字是否介於0~1之間
-//inputCutPercent.addEventListener('blur', () => inputCutPercent_reject());
-//function inputCutPercent_reject() {
-//  let flag = true;
-//  let error_text = '';
-//  let percent = inputCutPercent.value;
-//
-//  if(percent == null && percent.trim() == 0) {
-//    flag = false;
-//    error_text = '請輸入抽成比例';
-//  } else if (!(percent > 0 && percent < 1)) {
-//    flag = false;
-//    error_text = '抽成比例需介於0~1之間，請輸入正確的抽成比例';
-//  } else {
-//    flag = true;
-//  }
-//
-//  error_text_controll(flag, inputCutPercent_error, error_text);
-//  inputCutPercent_flag = flag;
-//}
-
-// 檢查flag判斷要添加錯誤訊息還是移除錯誤訊息
-function error_text_controll(flag, item, error_text) {
-  let itemParent = item.parentElement;
-  if(flag) {
-    itemParent.parentElement.classList.remove('show');
-  } else {
-    item.innerText = error_text;
-    itemParent.parentElement.classList.add('show');
-  }
-}
 
 // 動態算出額外參加者人數
 // 並動態產出額外參加者資料填寫表格
 inputAttendee.addEventListener('blur', () => {
-	
 	// 創建一個新的 KeyboardEvent
 	autoCreatForm();
 });
 
 inputAttendee.addEventListener('keyup', e => {
-	
-	if(e.code === 'Enter'){
-		autoCreatForm();
-	}
-		
+	if(e.code === 'Enter') autoCreatForm();	
 })
 
+// 動態算出額外參加者人數function
 function autoCreatForm(){
 		let inputAttendeeMoreNum = inputAttendee.value - 1;
 		inputAttendeeMore.value = inputAttendeeMoreNum;
@@ -387,7 +314,7 @@ function autoCreateFormBody(startIndex, item) {
 	  `<div class="row">
         <div class="form-item form-item-attendee-more-name col-12 mt-3">
           <div class="form-label input-group-attendee-more-name">
-            <input name="attendeeName" type="text" class="form-control" id="inputAttendeeMoreName${startIndex}" value="${item ? item.attendeeName : ''}">
+            <input name="attendeeName" type="text" class="form-control form-control-name" id="inputAttendeeMoreName${startIndex}" value="${item ? item.attendeeName : ''}">
             <label for="inputAttendeeMoreName${startIndex}" class="input-group-text">第${startIndex}位參加者姓名</label>
           </div>
           <div class="error-text error-text-attendee-more-name">
@@ -414,7 +341,7 @@ function autoCreateFormBody(startIndex, item) {
         </div>
         <div class="form-item form-item-attendee-more-age col-6 mt-3">
           <div class="form-label input-group-attendee-more-age">
-            <input name="attendeeAge" type="text" class="form-control" id="inputAttendeeMoreAge${startIndex}" value="${item ? item.attendeeAge : ''}">
+            <input name="attendeeAge" type="text" class="form-control form-control-age" id="inputAttendeeMoreAge${startIndex}" value="${item ? item.attendeeAge : ''}">
             <label for="inputAttendeeMoreAge${startIndex}" class="input-group-text">第${startIndex}位參加者年紀</label>
           </div>
           <div class="error-text error-text-attendee-more-age">
@@ -427,3 +354,83 @@ function autoCreateFormBody(startIndex, item) {
 	  activity_attendee_info.lastChild.innerHTML = html;
 
 }
+
+// 錯誤判斷
+
+// 檢查參加人數
+inputAttendee.addEventListener('blur', () => inputAttendee_reject());
+function inputAttendee_reject() {
+	let flag = true;
+	let error_text = '';
+	let value = inputAttendee.value;
+
+ 	if(value == null || value.trim() == 0) {
+   		flag = false;
+   		error_text = '請輸入參加人數';
+	} else if (value <= 0) {
+		 flag = false;
+		 error_text = '請輸入正確的人數';
+	}
+
+	error_text_controll(flag, inputAttendee_error, error_text);
+	return flag;
+}
+activity_attendee_info.addEventListener('blur', e => {
+	console.log(e.target);
+	if(e.target.classList.contains('form-control-name')) {
+		console.log('觸發click');
+		let parent = e.target.parentElement;
+		let parentSibling = parent.nextElementSibling;
+		let err = parentSibling.lastElementChild;
+		inputAttendeeMoreName_reject(e.target, err)
+	}
+	if(e.target.classList.contains('form-control-age')) {
+		console.log('觸發click');
+		let parent = e.target.parentElement;
+		let parentSibling = parent.nextElementSibling;
+		let err = parentSibling.lastElementChild;
+		inputAttendeeMoreAge_reject(e.target, err)
+	}
+})
+function inputAttendeeMoreName_reject(input, errorSpan) {
+	let flag = true;
+	let error_text = '';
+	let value = input.value;
+
+ 	if(value == null || value.trim() == 0) {
+   		flag = false;
+   		error_text = `請輸入${input.nextElementSibling.innerText}`;
+	}
+
+	error_text_controll(flag, errorSpan, error_text);
+	return flag;
+}
+
+function inputAttendeeMoreAge_reject(input, errorSpan) {
+	let flag = true;
+	let error_text = '';
+	let value = input.value;
+
+	if (value <= 0) {
+		flag = false;
+		error_text = '請輸入正確的年紀';
+   	} else if(value == null || value.trim() == 0) {
+   		flag = false;
+   		error_text = `請輸入${input.nextElementSibling.innerText}`;
+	}
+
+	error_text_controll(flag, errorSpan, error_text);
+	return flag;
+}
+
+// 檢查flag判斷要添加錯誤訊息還是移除錯誤訊息
+function error_text_controll(flag, item, error_text) {
+	let itemParent = item.parentElement;
+	if(flag) {
+	  itemParent.parentElement.classList.remove('show');
+	} else {
+	  item.innerText = error_text;
+	  itemParent.parentElement.classList.add('show');
+	}
+  }
+  

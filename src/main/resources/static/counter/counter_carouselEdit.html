@@ -11,11 +11,11 @@
 
     <!-- 新引入的CSS檔案或套件請由此往下放 -->
 
-    <link rel="stylesheet" href="./counter_carousel/css/all.css">
+    <link rel="stylesheet" href="./activity_order/css/all.css">
     <!-- <link rel="stylesheet" href="./counter_carousel/css/counter_product_edit.css"> -->
 
     <!-- 引入fontawsome -->
-    <link rel="stylesheet" href="./counter_carousel/assets/fontawsome/css/all.css">
+    <link rel="stylesheet" href="./activity_order/assets/fontawsome/css/all.css">
     <!-- 引入Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -420,6 +420,10 @@
                                 </div>
                               </form>
                           </div>
+                          <div class="error-text error-text-account">
+                              <i class="fa-solid fa-circle-exclamation"></i>
+                              <span>錯誤訊息</span>
+                            </div>
                       </div>
                       
                       <form class="form-content-edit" action="" method="post">
@@ -431,7 +435,7 @@
                               <label for="inputNo" class="input-group-text disabled_label">輪播圖片編號</label>
                             </div>
                           </div>
-                          <div class="form-item form-item-name col-12 mt-3">
+                          <div class="form-item form-item-text col-12 mt-3">
                             <div class="form-label input-group-carousel-text">
                               <textarea name="inputText" id="inputText"></textarea>
                               <label for="inputText" class="input-group-text">輪播文字</label>
@@ -441,7 +445,7 @@
                               <span>錯誤訊息</span>
                             </div>
                           </div>
-                          <div class="form-item form-item-control col-6 mt-3">
+                          <div class="form-item form-item-startDate col-6 mt-3">
                             <div class="form-label input-group-account">
                               <input name="counterAccount" type="date" class="form-control" id="inputStartDate">
                               <label for="inputStartDate" class="input-group-text">開始日期</label>
@@ -451,7 +455,7 @@
                               <span>錯誤訊息</span>
                             </div>
                           </div>
-                          <div class="form-item form-item-percent col-6 mt-3">
+                          <div class="form-item form-item-startTime col-6 mt-3">
                             <div class="form-label input-group-percent">
                               <input name="cutPercent" type="time" class="form-control" id="inputStartTime">
                               <label for="inputStartTime" class="input-group-text">開始時間</label>
@@ -461,7 +465,7 @@
                               <span>錯誤訊息</span>
                             </div>
                           </div>
-                          <div class="form-item form-item-control col-6 mt-3">
+                          <div class="form-item form-item-endDate col-6 mt-3">
                             <div class="form-label input-group-account">
                               <input name="counterAccount" type="date" class="form-control" id="inputEndDate">
                               <label for="inputEndDate" class="input-group-text">結束日期</label>
@@ -471,7 +475,7 @@
                               <span>錯誤訊息</span>
                             </div>
                           </div>
-                          <div class="form-item form-item-percent col-6 mt-3">
+                          <div class="form-item form-item-endTime col-6 mt-3">
                             <div class="form-label input-group-percent">
                               <input name="cutPercent" type="time" class="form-control" id="inputEndTime">
                               <label for="inputEndTime" class="input-group-text">結束時間</label>
