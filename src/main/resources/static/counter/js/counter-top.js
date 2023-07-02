@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+  localStorage.setItem("counterNo", data.counterNo);
+  localStorage.setItem("counterName", data.counterName);
+  localStorage.setItem("counterAccount", data.counterAccount);
+
   fetch("/Jamigo/counter/counterAcc")
     .then((response) => response.json())
     .then((data) => {
