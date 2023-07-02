@@ -704,7 +704,7 @@ html {
 											return activityData;
 										}
 
-										// 更新活動信息的函數
+										// 更新活動內容的函數
 										async function updateActivity(event) {
 											event.preventDefault();
 
@@ -769,17 +769,17 @@ html {
 												throw new Error('Cannot find element with id "imageInput".');
 											}
 
-											// 检查用户是否选择了文件
+											// 檢查用戶是否選擇了文件
 											if (!fileInput.files || fileInput.files.length === 0) {
-												console.error('没有選擇文件');
+												console.error('沒有選擇文件');
 												return;
 											}
 											const file = fileInput.files[0];
 
-											// 创建一个 FormData 对象
+											// 創建 FormData 對象
 											let formData = new FormData();
 
-											// 将文件添加到 FormData 中
+											// 將文件添加到 FormData 中
 											formData.append('file', file);
 
 											// 發送更新請求到後端
@@ -789,11 +789,11 @@ html {
 												},
 											})
 												.then((response) => {
-													console.log('图片已更新:', response.data);
+													console.log('圖片已更新:', response.data);
 
 												})
 												.catch((error) => {
-													console.error('更新失败:', error);
+													console.error('更新失敗:', error);
 													if (error.response) {
 														console.log(error.response.data);
 														console.log(error.response.status);
@@ -811,7 +811,7 @@ html {
 											document.querySelector('button.btn.btn-primary').addEventListener('click', updateActivity);
 
 
-											// 在文件輸入框上添加更改事件監聽器
+											// 在選擇圖片框上添加更改事件監聽器
 											document.getElementById('imageInput').addEventListener('change', updateImage);
 										});
 
@@ -923,7 +923,7 @@ html {
 																				if (field.key === 'activityPic') {
 																					let img = document.createElement('img');
 																					img.src = 'data:image/jpeg;base64,' + activity[field.key];
-																					img.alt = '活动照片';
+																					img.alt = '活動照片';
 																					img.width = 150;
 																					// Append img to cell
 																					cell.appendChild(img);
@@ -935,7 +935,7 @@ html {
 																					// 增加以下内容
 																					fileInput.addEventListener('change', function (e) {
 																						let file = e.target.files[0];
-																						if (file) { // 只有当成功获取到文件时，才调用 FileReader
+																						if (file) { // 只有當成功獲取到文件时，才調用 FileReader
 																							let reader = new FileReader();
 
 																							reader.onloadend = async function () {

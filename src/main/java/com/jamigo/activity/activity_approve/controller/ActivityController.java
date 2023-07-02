@@ -155,7 +155,7 @@ public class ActivityController {
 		}
 	}
 
-//將非null的屬性從請求體中的updatedActivity對象複製到從數據庫中查詢到的activity對象,讓修改過的activity對象會被保存回數據庫
+    //將非null的屬性從請求體中的updatedActivity對象複製到從數據庫中查詢到的activity對象,讓修改過的activity對象會被保存回數據庫
 	private static String[] getNullPropertyNames(Object source) {
 		final BeanWrapper wrappedSource = new BeanWrapperImpl(source);
 		return Stream.of(wrappedSource.getPropertyDescriptors()).map(FeatureDescriptor::getName)
