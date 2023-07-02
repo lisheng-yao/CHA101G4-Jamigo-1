@@ -2,193 +2,313 @@
 <html lang="UTF-8">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- 引入bootstrap CDN -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 引入bootstrap CDN -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+	crossorigin="anonymous">
 
-	<!-- 新引入的CSS檔案或套件請由此往下放 -->
-	<link rel="stylesheet" href="/Jamigo/counter/assets/fontawsome/css/all.css">
-	<!-- 引入sweetalert2 css CDN-->
-	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet" />
-	<!-- 引入fontawsome -->
-	<link rel="stylesheet" href="/Jamigo/counter/css/all.css">
-	<!-- 引入Google font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
-		rel="stylesheet">
-	<title>櫃位活動管理</title>
+<!-- 新引入的CSS檔案或套件請由此往下放 -->
+<link rel="stylesheet"
+	href="/Jamigo/counter/assets/fontawsome/css/all.css">
+<!-- 引入sweetalert2 css CDN-->
+<link
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css"
+	rel="stylesheet" />
+<!-- 引入fontawsome -->
+<link rel="stylesheet" href="/Jamigo/counter/css/all.css">
+<!-- 引入Google font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+	rel="stylesheet">
+<title>櫃位活動管理</title>
 </head>
 
 <body>
+   <!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
+    <!-- 整頁的容器 -->
+    <div class="container-fluid whole-page">
+      <div class="row">
+        <div class="col my-2">
+          <span class="d-flex align-items-center logo-part">
+            <span class="logo-img mx-3">
+              <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+            </span>
+            <span class="fs-3 fw-bold logo-name"> Jamigo </span>
+            <span class="fs-4 fw-bold counter-page"> 櫃位後臺管理系統 </span>
+            <button
+              type="button"
+              class="btn rounded-circle border-0 nav-btn home-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              style="padding: 12px"
+              data-bs-title="返回首頁"
+            >
+              <i class="fa-solid fa-house fa-lg"></i>
+            </button>
+          </span>
+        </div>
+        <div class="col-auto my-2">
+          <ul class="nav justify-content-end d-flex align-items-center">
+            <li class="nav-item">
+              <!-- 通知訊息 -->
+              <div class="dropdown position-relative">
+                <button
+                  class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-bell"></i>
 
-	<!-- 整頁的容器 -->
-	<div class="container-fluid whole-page">
-		<div class="row">
-			<div class="col my-2">
-				<span class="d-flex align-items-center logo-part"> <span class="logo-img mx-3"> <i
-							class="fa-solid fa-hat-cowboy-side fa-xl"></i>
-					</span> <span class="fs-3 fw-bold logo-name"> Jamigo </span> <span
-						class="fs-4 fw-bold counter-page"> 櫃位後臺管理系統 </span>
-					<button type="button" class="btn rounded-circle border-0 nav-btn home-btn" data-bs-toggle="tooltip"
-						data-bs-placement="right" style="padding: 12px;" data-bs-title="返回首頁">
-						<i class="fa-solid fa-house fa-lg"></i>
-					</button>
-				</span>
-			</div>
-			<div class="col-auto my-2">
-				<ul class="nav justify-content-end d-flex align-items-center">
-					<li class="nav-item">
-						<!-- 通知訊息 -->
-						<div class="dropdown position-relative">
-							<button class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
-								type="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="fa-solid fa-bell"></i> <span
-									class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-									<span class="visually-hidden">New alerts</span>
-								</span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#"> </a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-							</ul>
-						</div>
-					</li>
-					<!-- 頭像 -->
-					<li class="nav-item"><a class="nav-link"> <img src="https://picsum.photos/id/684/600"
-								class="rounded-circle" width="40" height="40" alt="">
-						</a></li>
-				</ul>
-			</div>
-		</div>
+                  <span class="visually-hidden">New alerts</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"> </a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <div id="counter-top-name" style="font-weight: bold"></div>
+            <!-- 頭像 -->
+            <li class="nav-item">
+              <a class="nav-link">
+                <img
+                  class="rounded-circle"
+                  width="40"
+                  height="40"
+                  alt=""
+                  id="head-pic"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-		<div class="row">
-			<!-- 側邊選單列表 -->
-			<div class="col-2 sidebar">
-				<!-- sidebar-menu主選單，sidebar-submenu子選單 -->
-				<div class="list-group rounded-bottom-0">
-					<a href="counter_setFrontPage.html"
-						class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-						<i class="fa-solid fa-eye me-2"></i> 前臺頁面管理
-					</a>
-				</div>
-				<div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-								data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
-								aria-controls="flush-collapseOne">
-								<i class="fa-solid fa-list me-2"></i> 商品與訂單管理
-							</button>
-						</h2>
-						<div id="flush-collapseOne" class="accordion-collapse collapse"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0 border-0">
-								<div class="list-group rounded-0">
-									<a href="counter_product.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 商品資料管理
-									</a> <a href="counter_order.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位訂單管理
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-								data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
-								aria-controls="flush-collapseTwo">
-								<i class="fa-solid fa-circle-info me-2"></i> 櫃位資料專區
-							</button>
-						</h2>
-						<div id="flush-collapseTwo" class="accordion-collapse collapse"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0">
-								<div class="list-group rounded-0">
-									<a href="counter_data.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位帳號資料管理
-									</a> <a href="counter_monthly.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位月結報表查詢
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-								data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
-								aria-controls="flush-collapseThree">
-								<i class="fa-solid fa-gift me-2"></i> 櫃位優惠管理
-							</button>
-						</h2>
-						<div id="flush-collapseThree" class="accordion-collapse collapse"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0">
-								<div class="list-group rounded-0">
-									<a href="counter_coupon.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位折價票券管理
-									</a> <a href="counter_discountAct.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位優惠活動管理
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
-								data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="true"
-								aria-controls="flush-collapseFour">
-								<i class="fa-solid fa-champagne-glasses me-2"></i> 線下活動管理
-							</button>
-						</h2>
-						<div id="flush-collapseFour" class="accordion-collapse collapse show"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0">
-								<div class="list-group rounded-0">
-									<a href="counter_actApply.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 線下活動申請
-									</a> <a href="#"
-										class="list-group-item list-group-item-action sidebar-submenu active">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 活動內容管理
-									</a> <a href="counter_actHistory.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 活動歷史紀錄
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="list-group rounded-top-0">
-					<a href="counter_DM.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-						<i class="fa-regular fa-message me-2"></i> 客戶訊息回覆
-					</a> <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-						<i class="fa-solid fa-right-from-bracket me-2"></i> 登出
-					</a>
-				</div>
-			</div>
+      <div class="row">
+        <!-- 側邊選單列表 -->
+        <div class="col-2 sidebar">
+          <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+          <div class="list-group rounded-bottom-0">
+            <a
+              href="counter_carouselCtrl.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-eye me-2"></i>
+              前臺頁面管理
+            </a>
+          </div>
+          <div
+            class="accordion accordion-flush border-start border-end"
+            id="accordionFlushSidebar"
+          >
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  <i class="fa-solid fa-list me-2"></i>
+                  商品與訂單管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0 border-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_product.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      商品資料管理
+                    </a>
+                    <a
+                      href="counter_order.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位訂單管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseTwo"
+                >
+                  <i class="fa-solid fa-circle-info me-2"></i>
+                  櫃位資料專區
+                </button>
+              </h2>
+              <div
+                id="flush-collapseTwo"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_data.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位帳號資料管理
+                    </a>
+                    <a
+                      href="counter_monthly.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位月結報表查詢
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseThree"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseThree"
+                >
+                  <i class="fa-solid fa-gift me-2"></i>
+                  櫃位優惠管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseThree"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券種類管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      折價票券種類管理
+                    </a>
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券活動管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      優惠活動種類管理
+                    </a>
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位活動種類管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      折價券活動管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseFour"
+                  aria-expanded="ture"
+                  aria-controls="flush-collapseFour"
+                >
+                  <i class="fa-solid fa-champagne-glasses me-2"></i>
+                  線下活動管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseFour"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="event_venueCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      線下活動申請
+                    </a>
+                    <a
+                      href="activity_orderCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      報名訂單查詢
+                    </a>
+                    <a
+                      href="counter_actContent.html"
+                      class="list-group-item list-group-item-action sidebar-submenu active"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      活動申請查詢
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-group rounded-top-0">
+            <a
+              href="#"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-regular fa-message me-2"></i>
+              私訊服務
+            </a>
+            <a
+              href=""
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+              id="sing-out"
+            >
+              <i class="fa-solid fa-right-from-bracket me-2"></i>
+              登出
+            </a>
+          </div>
+        </div>
+
 			<!-- 網頁內容主體 -->
 			<div class="col-10 page-body">
 				<div class="col-10 page-body">
 					<div class="codepen版">
 						<!-- 引入sweetalert2 css CDN-->
-						<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css"
+						<link
+							href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css"
 							rel="stylesheet" />
 						<!-- 引入bootstrap3.3.6 CDN -->
 						<!-- <link
@@ -206,176 +326,174 @@
 							src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js"></script>
 
 						<!-- 引入可可css -->
-						<link rel="stylesheet" href="/Jamigo/counter/activity/css/backend.css">
+						<link rel="stylesheet"
+							href="/Jamigo/counter/activity/css/backend.css">
 						<style>
-							/* -------------------------------------------- */
-							html {
-								font-size: 16px;
-							}
+/* -------------------------------------------- */
+html {
+	font-size: 16px;
+}
 
-							.accordion-item .accordion-header {
-								margin-top: 0;
-							}
+.accordion-item .accordion-header {
+	margin-top: 0;
+}
 
-							.sidebar .list-group {
-								margin-bottom: 0;
-							}
+.sidebar .list-group {
+	margin-bottom: 0;
+}
 
-							.list-group .list-group-item {
-								margin-bottom: 0;
-							}
+.list-group .list-group-item {
+	margin-bottom: 0;
+}
 
-							/* -------------------------------------------- */
-							#user-banner .user-text {
-								/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,0a151c+100&0+0,1+100 */
-								background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%,
-										rgba(10, 21, 28, 1) 100%);
-								/* FF3.6-15 */
-								background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%,
-										rgba(10, 21, 28, 1) 100%);
-								/* Chrome10-25,Safari5.1-6 */
-								background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%,
-										rgba(10, 21, 28, 1) 100%);
-								/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-								filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff',
-										endColorstr='#0a151c', GradientType=1);
-								/* IE6-9 */
-							}
+/* -------------------------------------------- */
+#user-banner .user-text {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,0a151c+100&0+0,1+100 */
+	background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%,
+		rgba(10, 21, 28, 1) 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%,
+		rgba(10, 21, 28, 1) 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%,
+		rgba(10, 21, 28, 1) 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff',
+		endColorstr='#0a151c', GradientType=1);
+	/* IE6-9 */
+}
 
-							#user-banner .user-text h2 {
-								font-family: "open_sansbold";
-								color: #ffffff;
-								font-size: 40px;
-								text-transform: uppercase;
-								text-shadow: 1px 3px 1px #000000;
-							}
+#user-banner .user-text h2 {
+	font-family: "open_sansbold";
+	color: #ffffff;
+	font-size: 40px;
+	text-transform: uppercase;
+	text-shadow: 1px 3px 1px #000000;
+}
 
-							#user-banner .user-text p {
-								color: #fff;
-							}
+#user-banner .user-text p {
+	color: #fff;
+}
 
-							#user-account-content {
-								padding: 25px 0px;
-							}
+#user-account-content {
+	padding: 25px 0px;
+}
 
-							#user-account-content .list-group-item.disabled,
-							#user-account-content .list-group-item.disabled:focus,
-							#user-account-content .list-group-item.disabled:hover {
-								background-color: #e8206a;
-								color: #ffffff;
-								cursor: not-allowed;
-								font-size: 18px;
-								font-weight: bold;
-								text-transform: uppercase;
-							}
+#user-account-content .list-group-item.disabled, #user-account-content .list-group-item.disabled:focus,
+	#user-account-content .list-group-item.disabled:hover {
+	background-color: #e8206a;
+	color: #ffffff;
+	cursor: not-allowed;
+	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
 
-							#user-account-content a.list-group-item {
-								transition: all 0.3s ease-out;
-							}
+#user-account-content a.list-group-item {
+	transition: all 0.3s ease-out;
+}
 
-							#user-account-content .list-group-item.active,
-							#user-account-content .list-group-item.active:focus,
-							#user-account-content .list-group-item.active:hover {
-								background: #009dbf none repeat scroll 0 0;
-								text-shadow: 0 -1px 0 #286090;
-								border: none;
-							}
+#user-account-content .list-group-item.active, #user-account-content .list-group-item.active:focus,
+	#user-account-content .list-group-item.active:hover {
+	background: #009dbf none repeat scroll 0 0;
+	text-shadow: 0 -1px 0 #286090;
+	border: none;
+}
 
-							#user-account-content a.list-group-item:focus,
-							#user-account-content a.list-group-item:hover,
-							#user-account-content button.list-group-item:focus,
-							#user-account-content button.list-group-item:hover {
-								background-color: #f89921;
-								color: #fff;
-								text-decoration: none;
-								padding-left: 25px;
-								text-transform: uppercase;
-								text-decoration: none;
-							}
+#user-account-content a.list-group-item:focus, #user-account-content a.list-group-item:hover,
+	#user-account-content button.list-group-item:focus,
+	#user-account-content button.list-group-item:hover {
+	background-color: #f89921;
+	color: #fff;
+	text-decoration: none;
+	padding-left: 25px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
 
-							.filterable .panel-heading .pull-right {
-								margin-top: -20px;
-							}
+.filterable .panel-heading .pull-right {
+	margin-top: -20px;
+}
 
-							.filterable .filters input[disabled] {
-								background-color: transparent;
-								border: none;
-								cursor: auto;
-								box-shadow: none;
-								padding: 0;
-								height: auto;
-							}
+.filterable .filters input[disabled] {
+	background-color: transparent;
+	border: none;
+	cursor: auto;
+	box-shadow: none;
+	padding: 0;
+	height: auto;
+}
 
-							.filterable .filters input[disabled]::-webkit-input-placeholder {
-								color: #333;
-							}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+	color: #333;
+}
 
-							.filterable .filters input[disabled]::-moz-placeholder {
-								color: #333;
-							}
+.filterable .filters input[disabled]::-moz-placeholder {
+	color: #333;
+}
 
-							.filterable .filters input[disabled]:-ms-input-placeholder {
-								color: #333;
-							}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+	color: #333;
+}
 
-							.panel-default>.panel-heading {
-								background-image: none;
-								background-color: #f5f5f5 !important;
-							}
+.panel-default>.panel-heading {
+	background-image: none;
+	background-color: #f5f5f5 !important;
+}
 
-							.btn-success {
-								color: #fff;
-								background-image: none;
-								background-color: #5cb85c !important;
-								border-color: #4cae4c;
-								box-shadow: none;
-								text-shadow: none;
-							}
+.btn-success {
+	color: #fff;
+	background-image: none;
+	background-color: #5cb85c !important;
+	border-color: #4cae4c;
+	box-shadow: none;
+	text-shadow: none;
+}
 
-							.btn-danger {
-								background-image: none;
-								background-color: #d9534f !important;
-								border-color: #d43f3a;
-								color: #fff;
-								box-shadow: none;
-								text-shadow: none;
-							}
+.btn-danger {
+	background-image: none;
+	background-color: #d9534f !important;
+	border-color: #d43f3a;
+	color: #fff;
+	box-shadow: none;
+	text-shadow: none;
+}
 
-							.btn-pink {
-								background-color: #e8206a;
-								color: #ffffff;
-								text-shadow: none;
-								border-radius: 0px;
-							}
+.btn-pink {
+	background-color: #e8206a;
+	color: #ffffff;
+	text-shadow: none;
+	border-radius: 0px;
+}
 
-							.btn-appr {
-								background-color: #e8206a;
-								color: #ffffff;
-								text-shadow: none;
-								border-radius: 0px;
-							}
+.btn-appr {
+	background-color: #e8206a;
+	color: #ffffff;
+	text-shadow: none;
+	border-radius: 0px;
+}
 
-							.btn-reg {
-								background-color: #e8206a;
-								color: #ffffff;
-								text-shadow: none;
-								border-radius: 0px;
-							}
+.btn-reg {
+	background-color: #e8206a;
+	color: #ffffff;
+	text-shadow: none;
+	border-radius: 0px;
+}
 
-							.btn-primary {
-								background-image: none;
-								background-color: #337ab7 !important;
-								border-color: #2e6da4;
-								color: #fff;
-								box-shadow: none;
-								text-shadow: none;
-							}
+.btn-primary {
+	background-image: none;
+	background-color: #337ab7 !important;
+	border-color: #2e6da4;
+	color: #fff;
+	box-shadow: none;
+	text-shadow: none;
+}
 
-							.back-end-box td .label-reject {
-								color: rgb(45, 5, 125);
-								background-color: rgb(106, 138, 203);
-							}
-						</style>
+.back-end-box td .label-reject {
+	color: rgb(45, 5, 125);
+	background-color: rgb(106, 138, 203);
+}
+</style>
 						<div class="container-fluid back-end-box">
 							<div class="row">
 								<div class=" panel panel-default panel-table filterable">
@@ -409,18 +527,18 @@
 											class="table table-bordered table-hover text-center">
 											<thead>
 												<tr class="filters">
-													<th><input type="text" class="form-control" placeholder="活動編號"
-															disabled /></th>
-													<th><input type="text" class="form-control" placeholder="櫃位編號"
-															disabled /></th>
-													<th><input type="text" class="form-control" placeholder="參與限制"
-															disabled /></th>
-													<th><input type="text" class="form-control" placeholder="審核狀態"
-															disabled /></th>
-													<th><input type="text" class="form-control" placeholder="場地編號"
-															disabled /></th>
-													<th><input type="text" class="form-control" placeholder="活動修改"
-															disabled /></th>
+													<th><input type="text" class="form-control"
+														placeholder="活動編號" disabled /></th>
+													<th><input type="text" class="form-control"
+														placeholder="櫃位編號" disabled /></th>
+													<th><input type="text" class="form-control"
+														placeholder="參與限制" disabled /></th>
+													<th><input type="text" class="form-control"
+														placeholder="審核狀態" disabled /></th>
+													<th><input type="text" class="form-control"
+														placeholder="場地編號" disabled /></th>
+													<th><input type="text" class="form-control"
+														placeholder="活動修改" disabled /></th>
 												</tr>
 											</thead>
 											<!-- 活動管理頁面 -->
@@ -442,8 +560,8 @@
 												<div class="modal-content">
 													<div class="modal-header">
 														<h1 class="modal-title fs-5">活動內容修改</h1>
-														<button type="button" class="btn-close" data-bs-dismiss="modal"
-															aria-label="Close"></button>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
 													<div class="modal-body">
 														<table id="appdetail"
@@ -478,25 +596,25 @@
 																<tr>
 																	<th scope="row">報名開始時間</th>
 																	<td class="activity-activityRegStartTime"><input
-																			type="datetime-local"></td>
+																		type="datetime-local"></td>
 																</tr>
 
 																<tr>
 																	<th scope="row">報名截止時間</th>
 																	<td class="activity-activityRegEndTime"><input
-																			type="datetime-local"></td>
+																		type="datetime-local"></td>
 																</tr>
 
 																<tr>
 																	<th scope="row">活動開始時間</th>
 																	<td class="activity-activityStartTime"><input
-																			type="datetime-local"></td>
+																		type="datetime-local"></td>
 																</tr>
 
 																<tr>
 																	<th scope="row">活動結束時間</th>
 																	<td class="activity-activityEndTime"><input
-																			type="datetime-local"></td>
+																		type="datetime-local"></td>
 																</tr>
 
 
@@ -504,8 +622,7 @@
 																<tr>
 																	<th scope="row">活動照片</th>
 																	<td class="activity-activityPic"><input
-																			id="imageInput" type="file"
-																			accept="image/*"></td>
+																		id="imageInput" type="file" accept="image/*"></td>
 																</tr>
 
 
@@ -531,7 +648,8 @@
 									<script
 										src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 									<!-- axios CDN -->
-									<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+									<script
+										src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
 										integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
 										crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -1110,7 +1228,8 @@
 			</div>
 
 			<!-- 引入bootstrap CDN -->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
 				crossorigin="anonymous"></script>
 
@@ -1134,6 +1253,13 @@
 				);
 
 			</script>
+			<!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
+
+			<script src="./js/counter-top.js"></script>
+			<!-- sweetalert2 -->
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+			<!-- =========================================== 這裡以上幫我複製貼上 ===================================================== -->
 </body>
 
 </html>
