@@ -51,7 +51,7 @@ public class ReportDAOimpl implements ReportDAO {
         String sql = "SELECT (SELECT productName FROM product WHERE productNo = report.productNo) AS productName," +
                 "(SELECT memberName FROM member_data WHERE memberNo = report.memberNo ) AS memberName ,reportContent," +
                 "(SELECT reportNumber FROM product WHERE productNo = report.productNo) AS reportNumber," +
-                "reportStat,reportTime,reportResponse,responseTime,productNo,memberNo FROM report";
+                "reportStat,reportTime,reportResponse,responseTime,reportImage,productNo,memberNo FROM report";
 
         Map<String, Object> map = new HashMap<>();
 

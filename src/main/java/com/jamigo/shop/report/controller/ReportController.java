@@ -64,8 +64,7 @@ public class ReportController {
 
     @PostMapping("/updateOne")
     public ResponseEntity<?> updateOne(@RequestBody ReportRequest reportRequest) {
-        System.out.println("進來ㄌ");
-        //錯誤判斷 陣列轉字串 回應內容
+
         String reportresponse = Arrays.toString(reportRequest.getReportResponses());
         Map<String, String> map = new HashMap<>();
 
@@ -84,7 +83,6 @@ public class ReportController {
 
     @GetMapping("/report/{memberNo}/{productNo}")
     public ResponseEntity<ReportVO> getReportOne(@PathVariable Integer memberNo, @PathVariable Integer productNo) {
-        System.out.println("近來");
         List<ReportVO> list = reportService.getReportByPrimaryKey(memberNo, productNo);
 
         if (list != null) {

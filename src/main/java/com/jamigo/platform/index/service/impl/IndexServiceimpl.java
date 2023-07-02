@@ -49,8 +49,6 @@ public class IndexServiceimpl implements IndexService {
             Date startTime = indexVO.getMainpageCarouselStartTime();
             Date endTime = indexVO.getMainpageCarouselEndTime();
             Date now = new Date();
-            System.out.println(startTime);
-            System.out.println(endTime);
             if (startTime.before(now) && endTime.after(now)) {
                 filteredList.add(indexVO);
             }

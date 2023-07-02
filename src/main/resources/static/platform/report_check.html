@@ -80,6 +80,10 @@
         background-color: #333;
         margin-top: 5px;
     }
+    #finish_wrapper{
+        position: relative;
+        padding-top: 20px;
+    }
 </style>
 
 <body>
@@ -323,6 +327,9 @@
 
     <!-- 新引入的JS檔案或套件請由此往下放 -->
 
+    <!-- sweet alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script>
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
@@ -348,7 +355,7 @@
                     finish(response);
                 },
                 error: function (error) {
-                    fail(error)
+                    fail(error);
                 }
             });
 
@@ -404,7 +411,7 @@
 
                 //初始化datatable函式 
                 $('#all').DataTable({
-                    scrollY: '200px',
+                    scrollY: '250px',
                     scrollCollapse: true,
                     paging: false,
                     pageLength: 10,
@@ -449,7 +456,7 @@
                 });
 
                 $('#finish').DataTable({
-                    scrollY: '200px',
+                    scrollY: '250px',
                     scrollCollapse: true,
                     paging: false,
                     info: false,
@@ -468,12 +475,7 @@
                         },
                         { data: 'reportTime', title: "檢舉日期" },
                         { data: 'reportNumber', title: "被檢舉次數" },
-                        {
-                            data: 'handle', title: "操作",
-                            render: function (data, type, row) {
-                                return '<button class=\"btn1\" onclick=\"openNewWindow(this);\">回覆</button>'
-                            }
-                        }
+                        { data: 'handle', title: "操作"}
                     ],
                     columnDefs: [
                         {
@@ -492,8 +494,14 @@
                 });
             }
 
-            function error(error) {
-                alert(error.status);
+            function fail(error) {
+                Swal.fire({
+                    title: 'Oops...有點小問題',
+                    icon: 'error',
+                    confirmButtonText: error.status,
+                }).then(() => {
+
+                })
             }
         });
 

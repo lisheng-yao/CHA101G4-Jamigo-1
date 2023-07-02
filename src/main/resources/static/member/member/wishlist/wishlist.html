@@ -16,63 +16,80 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <!-- datatable js -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
-    <link rel="stylesheet" href="../css/all.css">
-    <style>
-        .avatar-placeholder {
-            width: 100px;
-            height: 100px;
-            background-color: #a5a9ac;
-            /* 灰色區塊的背景顏色 */
-            border-radius: 50%;
-        }
-
-        .noarea {
-            height: 300px;
-        }
-
-        #all th {
-            white-space: nowrap;
-        }
-
-        /* 按鈕的外觀 */
-        .btn1 {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        /* 按鈕的懸停效果 */
-        .btn1:hover {
-            background-color: #45a049;
-        }
-
-        /* 按鈕的按下效果 */
-        .btn1:active {
-            background-color: #3e8e41;
-        }
-    </style>
-
-    <!-- 引入fontawsome -->
-    <!--    <link rel="stylesheet" href="assets/fontawsome/css/all.css">-->
+    <!-- Font Awesome引用檔案 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- 引入Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>前臺頁面管理</title>
 </head>
 
 <style>
+    .avatar-placeholder {
+        width: 100px;
+        height: 100px;
+        background-color: #a5a9ac;
+        /* 灰色區塊的背景顏色 */
+        border-radius: 50%;
+    }
+
+    .noarea {
+        height: 300px;
+    }
+
+    #all th {
+        white-space: nowrap;
+    }
+
+    /* 按鈕的外觀 */
+    .seeMorebutton,
+    .addCartbutton {
+        background-color: #5edfdc;
+        outline: none;
+        border: none;
+        color: #ebebeb;
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 10px;
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+    }
+
+    .seeMorebutton:hover,
+    .addCartbutton:hover {
+        background-color: #225555;
+        color: #ffffff;
+    }
+
+    #imgcontainer {
+        width: 100px;
+        height: auto;
+        border-radius: 20%;
+    }
+
+    #imgcontainer img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 20%;
+    }
+
+    /* 評價星星 */
+    .evaluate {
+        display: flex;
+        align-items: center;
+        margin-top: 1px;
+    }
+
+    .evaluate .i {
+        color: #eeff00da;
+        margin: 3px 6px;
+    }
+
     /* 隱藏欄位多餘字 */
     .text-overflow {
         display: inline-block;
@@ -99,6 +116,85 @@
         background-color: #333;
         margin-top: 5px;
     }
+
+    /* 表格容器的樣式 */
+    .datatable-container {
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    /* 表格的樣式 */
+    .datatable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* 表頭儲存格的樣式 */
+    .datatable thead th {
+        background-color: #333;
+        color: #fff;
+        padding: 8px;
+        text-align: center !important;
+        overflow: hidden;
+
+    }
+
+    /* 資料行的樣式 */
+    .datatable tbody td {
+        background-color: #fff;
+        padding: 8px;
+        text-align: center;
+        height: 132px;
+        vertical-align: middle;
+    }
+
+    .textcontent {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        /* 顯示的最大行數 */
+        -ms-flex-line-pack: center;
+        align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+    }
+
+    /* 偶數行的背景顏色 */
+    .datatable tbody tr:nth-child(even) td {
+        background-color: #f2f2f2;
+    }
+
+    .btnall {
+        display: flex;
+    }
+
+    .btncontainer {
+        display: block;
+        margin-right: 2px;
+    }
+
+    .cancelbtncontainer {
+        position: relative;
+        top: 16px;
+    }
+
+    .cancelbtncontainer button {
+        font-size: 25px;
+        color: red;
+        background-color: inherit;
+        border: none !important;
+        opacity: 0.8;
+    }
+
+    .cancelbtncontainer button:hover {
+        color: rgb(169, 0, 0);
+        opacity: 1;
+    }
+    
+
+    
 </style>
 
 <body>
@@ -293,11 +389,12 @@
             <!-- 網頁內容主體 -->
             <div class="col-10 page-body">
 
-                <h2 class="main-title">查看檢舉結果</h2>
+                <h2 class="main-title">我的追蹤清單</h2>
+                <div class="datatable-container">
+                    <table id="myWishList" class="datatable" style="width:100%">
 
-                <table id="all" class="display" style="width:100%">
-
-                </table>
+                    </table>
+                </div>
                 <div class="noarea"></div>
             </div>
         </div>
@@ -308,6 +405,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
+    <!-- sweet alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
 
@@ -318,15 +417,22 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/Jamigo/memberreports/' +memberNo,
+                url: '/Jamigo/wishlist/getall/' + memberNo,
                 data: null,
                 dataType: 'json',
                 success: function (response) {
                     if (response.length > 0) {
                         finish(response);
                     } else {
-                        alert(error.message);
-                        history.back();
+                        Swal.fire({
+                            icon: 'info',
+                            text: '您並無檢舉紀錄!!請受曾某一拜',
+                            title: "恭喜!",
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.reload();
+                            return;
+                        })
                     }
                 },
                 error: function (error) {
@@ -336,142 +442,225 @@
 
 
             function finish(response) {
-                var data1 = [];
+                let data1 = [];
+                let productno;
+
 
                 for (let i = 0; i < response.length; i++) {
-                    //轉換處理狀態
-                    if (response[i].reportStat == 0) {
-                        response[i].reportStat = "未處理"
-                    } else {
-                        response[i].reportStat = "已處理"
+
+                    // 處理評價 人數/總評價數
+                    let nonestar = `<i class="far fa-star i"></i>`;
+                    let halfstar = `<i class="fa-solid fa-star-half-stroke i"></i>`;
+                    let allstar = `<i class="fas fa-star i"></i>`;
+
+                    stars = nonestar + nonestar + nonestar + nonestar + nonestar;
+
+                    if (response[i].evalTotalScore !== 0 || response[i].evalTotalPeople !== 0) {
+
+                        let starvalue = response[i].evalTotalScore / response[i].evalTotalPeople;
+
+                        if (starvalue > 0 && starvalue <= 1) {
+                            stars = halfstar + nonestar + nonestar + nonestar + nonestar;
+                        } else if (starvalue == 1) {
+                            stars = allstar + nonestar + nonestar + nonestar + nonestar;
+                        } else if (starvalue > 1 && starvalue < 2) {
+                            stars = allstar + halfstar + nonestar + nonestar + nonestar;
+                        } else if (starvalue == 2) {
+                            stars = allstar + allstar + nonestar + nonestar + nonestar;
+                        } else if (starvalue > 2 && starvalue < 3) {
+                            stars = allstar + allstar + halfstar + nonestar + nonestar;
+                        } else if (starvalue == 3) {
+                            stars = allstar + allstar + allstar + nonestar + nonestar;
+                        } else if (starvalue > 3 && starvalue < 4) {
+                            stars = allstar + allstar + allstar + halfstar + nonestar;
+                        } else if (starvalue == 4) {
+                            stars = allstar + allstar + allstar + allstar + nonestar;
+                        } else if (starvalue > 4 && starvalue < 5) {
+                            stars = allstar + allstar + allstar + allstar + halfstar;
+                        } else {
+                            stars = allstar + allstar + allstar + allstar + allstar;
+                        }
+
                     }
 
-                    //轉換時間格式
-                    var Time1 = new Date(response[i].reportTime);
-                    var reporttime = Time1.toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                    }).replace(',', ' ');
-
-                    var Time2 = new Date(response[i].responseTime);
-                    var responsetime = Time2.toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                    }).replace(',', ' ');
-
-                    if (responsetime == '01/01/1970  08:00:00') {
-                        responsetime = '';
-                    }
-                    var responsecontent = response[i].reportResponse;
-                    if (response[i].reportResponse != null) {
-                        responsecontent = response[i].reportResponse.replace(/\[|\]/g, '');
-                    } else {
-                        responsecontent = '尚未回覆';
-                    }
-
+                    evaltotalpeople = response[i].evalTotalPeople;
+                    productno = response[i].productNo;
                     data1.push({
-                        'reportStat': response[i].reportStat,
+                        'productPic': response[i].productNo,
+                        'counterName': response[i].counterName,
                         'productName': response[i].productName,
-                        'memberName': response[i].memberName,
-                        'reportContent': response[i].reportContent.replace(/\[|\]/g, ''),
-                        'reportTime': reporttime,
-                        'reportNumber': response[i].reportNumber + '次',
-                        'reportResponse': responsecontent,
-                        'responseTime': responsetime,
-                        'handle': "",
-                        'productNo': response[i].productNo,
-                        'memberNo': response[i].memberNo
+                        'productPrice': response[i].productPrice,
+                        'productInfo': response[i].productInfo,
+                        'evalScore': stars + '(' + evaltotalpeople + ')',
+                        'evalTotalPeople': evaltotalpeople,
+                        'handle': response[i].productNo,
+                        'data': `<div class = "saveCounterNo${response[i].productNo}" data-counterNo="${response[i].counterNo}" style="display:none;" ></div>
+                                <div class = "saveCounterName${response[i].productNo}" data-counterName="${response[i].counterName}" style="display:none;" ></div>
+                                <div class = "saveProductNo${response[i].productNo}" data-productNo="${response[i].productNo}" style="display:none;" ></div>
+                                <div class = "saveProductName${response[i].productNo}" data-productName="${response[i].productName}" style="display:none;" ></div>
+                                <div class = "saveProductPrice${response[i].productNo}" data-productPrice="${response[i].productPrice}" style="display:none;" ></div>`
                     })
-                }
 
+                }
                 //初始化datatable函式 
-                $('#all').DataTable({
+                $('#myWishList').DataTable({
                     scrollY: '500px',
                     scrollCollapse: true,
                     paging: false,
                     info: false,
                     data: data1,
+                    autoWidth: false,
                     columns: [
-                        { data: 'reportStat', title: "狀態" },
-                        { data: 'productNo' },
-                        { data: 'productName', title: "商品名稱" },
-                        { data: 'memberNo' },
-                        { data: 'memberName', title: "會員名稱" },
                         {
-                            data: 'reportContent', title: "檢舉內容",
+                            data: 'productPic', width: '8%', title: "商品圖",
                             render: function (data, type, row) {
-                                return '<span class="text-overflow">' + data + '</span>';
+                                return `<div id="imgcontainer"><img src='http://localhost:8080/Jamigo/shop/product_picture/product/${data}'></div>`
                             }
                         },
-                        { data: 'reportTime', title: "檢舉日期" },
-                        { data: 'reportNumber', title: "商品被檢舉" },
+                        { data: 'productName', width: '10%', title: "商品名稱" },
+                        { data: 'counterName', width: '10%', title: "品牌名稱" },
+                        { data: 'productPrice', width: '8%', title: "價格" },
                         {
-                            data: 'reportResponse', title: "客服回應",
+                            data: 'productInfo', width: '30%', title: "商品介紹",
                             render: function (data, type, row) {
-                                return '<span class="text-overflow">' + data + '</span>';
+                                return `<p class="textcontent">${data}</p>`
                             }
                         },
-                        { data: 'responseTime', title: "回應時間" },
                         {
-                            data: 'handle', title: "操作",
+                            data: 'evalScore', width: '15%', title: "評價",
                             render: function (data, type, row) {
-                                return '<button class=\"btn1\" onclick=\"openNewWindow(this);\">查看</button>'
+                                return `<div class="evaluate">${data}</div>`
                             }
-                        }
+                        },
+                        {
+                            data: 'handle', width: '15%', title: "操作",
+                            render: function (data, type, row) {
+                                return `<div class="btnall">
+                                <div class="btncontainer">
+                                <button class="seeMorebutton" onclick="gotoEditPage(${data});">查看更多</button>
+                                <button class="addCartbutton" value="${data}" onclick="addcart(event);">加入購物車</button></div>
+                                <div class="cancelbtncontainer"><button class="cancelbutton" onclick="remove(${data});"><i class="fa-regular fa-trash-can fa-xl"></i></button></div></div>`
+                            }
+                        },
+                        { data: 'data' }
                     ],
                     columnDefs: [
                         {
-                            target: 1,
-                            width: 0,
-                            visible: false,
-                            className: 'hidden-column'
-                        },
-                        {
-                            target: 3,
+                            target: 7,
                             width: 0,
                             visible: false,
                             className: 'hidden-column'
                         },
                     ]
-
                 });
             }
 
             function fail(error) {
                 alert(error.status);
+                Swal.fire({
+                    icon: 'info',
+                    text: error.status,
+                    title: "後台缺電，請稍後再試",
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location = '/Jamigo/index/首頁/index.html';
+                })
             }
 
         });
 
-        function openNewWindow(button) {
-            var row = $(button).closest('tr');
-            var rowData = $(button).closest('table').DataTable().row(row).data();
+        // 商品詳情
+        function gotoEditPage(id) {
+            window.location = `/Jamigo/shop/shopping/product_detail_page.html?productNo=${id}`;
+        }
+        // 加入購物車
+        function addcart(e) {
 
-            url = 'detailreport.html?memberNo=' + rowData.memberNo + '&productNo=' + rowData.productNo;
+            const memberid = parseInt(localStorage.getItem('memberNo'));
+            if (!memberid) {
+                localStorage.setItem('currentPageUrl', window.location.href);
+                window.location = '/Jamigo/member/login/login.html';
+                return;
+            }
 
-            var width = 800;
-            var height = 400;
-            var left = (window.innerWidth - width) / 2;
-            var top = (window.innerHeight - height) / 2;
-            childWindow = window.open(url, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+            let productNo = e.target.value;
+            let counterNo = document.querySelector('.saveCounterNo' + productNo).getAttribute("data-counterNo");
+            let counterName = document.querySelector('.saveCounterName' + productNo).getAttribute("data-counterName");
+            let productName = document.querySelector('.saveProductName' + productNo).getAttribute("data-productName");
+            let productPrice = document.querySelector('.saveProductPrice' + productNo).getAttribute("data-productPrice");
 
-            // 監聽子窗口的關閉事件
-            childWindow.addEventListener('beforeunload', function () {
-                sendCloseEvent();
-            });
+
+            let cartItem = {
+                counterNo: counterNo,
+                counterName: counterName,
+                productNo: productNo,
+                productName: productName,
+                productPrice: productPrice,
+                quantity: 1
+            };
+            let cartData = {
+                memberNo: memberid,
+                cartItem: cartItem
+            };
+
+            console.log(cartItem);
+
+            $.ajax({
+                url: '/Jamigo/cart/addOneToCart',
+                method: 'POST',
+                data: JSON.stringify(cartData),
+                contentType: 'application/json',
+                success: function (response) {
+
+                    Swal.fire({
+                        title: '成功加入購物車',
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: '查看購物車',
+                        cancelButtonText: '繼續購物'
+                    }).then((result) => {
+
+                        if (result.isConfirmed)
+                            window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
+                    })
+
+                }
+            })
         }
 
+        // 刪除函式
+        function remove(e) {
 
+            let productNo = parseInt(e);
+            let memberNo = localStorage.getItem('memberNo');
+
+            $.ajax({
+                type: 'GET',
+                url: '/Jamigo/wishlist/deleteone/' + memberNo + "/" + productNo,
+                success: function (response) {
+                    success(response);
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...出了點小問題',
+                        text: error.status,
+                    });
+                }
+            })
+
+            function success(response) {
+                Swal.fire({
+                    icon: 'success',
+                    text: '您已成功刪除',
+                    title: response.message,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.reload();
+                })
+            }
+
+        }
 
 
     </script>

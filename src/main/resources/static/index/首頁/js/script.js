@@ -65,7 +65,7 @@ $(document).ready(function () {
         effect: "coverflow",
         loop: true,
         autoplay: {
-            delay: 5000, 
+            delay: 5000,
             disableOnInteraction: false, // 使用者互動後是否停止自動播放
         },
         grabCursor: true,
@@ -196,8 +196,7 @@ $(document).ready(function () {
             <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${response[i].productNo}" alt="">
             </div>
             <div class="media-icons">
-            <i class="fa-solid fa-heart" style="color: #f1f2f3;"></i>
-                <i class="fa-solid fa-cart-arrow-down" style="color: #fafafa;" onclick = "addcart(event);"></i>
+            <a onclick="addWish(this,${response[i].productNo});"><i class="fa-solid fa-heart" style="color: #f1f2f3;"></i></a>
             </div>
             <h4 class="productname">${response[i].productName}</h4>
             <div class="productcontent">${response[i].productInfo}
@@ -241,8 +240,8 @@ function addcart(e) {
     let counterName = document.querySelector('.saveCounterName' + productNo).getAttribute("data-counterName");
     let productName = document.querySelector('.saveProductName' + productNo).getAttribute("data-productName");
     let productPrice = document.querySelector('.saveProductPrice' + productNo).getAttribute("data-productPrice");
-    
-    
+
+
     let cartItem = {
         counterNo: counterNo,
         counterName: counterName,
@@ -256,7 +255,6 @@ function addcart(e) {
         cartItem: cartItem
     };
 
-    console.log(cartItem);
 
     $.ajax({
         url: '/Jamigo/cart/addOneToCart',
@@ -264,7 +262,7 @@ function addcart(e) {
         data: JSON.stringify(cartData),
         contentType: 'application/json',
         success: function (response) {
-            
+
             Swal.fire({
                 title: '成功加入購物車',
                 icon: 'success',
@@ -272,16 +270,95 @@ function addcart(e) {
                 confirmButtonText: '查看購物車',
                 cancelButtonText: '繼續購物'
             }).then((result) => {
-                
                 if (result.isConfirmed)
                     window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
             })
-            
+
         }
     })
-
-
-
 }
+
+// 加入追蹤(還有css tored)
+function addWish(e,productNo) {
+
+    var button = e;
+
+    let memberNo = localStorage.getItem('memberNo');
+
+    if (!memberNo) {
+        window.location.href = '/Jamigo/member/login/login.html';
+        return;
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: '/Jamigo/wishlist/checkWishedByMemberNo/' + memberNo,
+        success: function (response) {
+            success(response);
+        },
+        error: function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: '後台缺電...請稍後再試',
+                text: error.status,
+            });
+        }
+    });
+
+    function success(response) {
+
+        for (let i = 0; i < response.length; i++) {
+            if (productNo == response[i]) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Jamigo/wishlist/deleteone/' + memberNo + "/" + response[i],
+                    success: function (response) {
+                        alert("刪除")
+                        button.classList.remove('tored');
+                        return;
+                    },
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...出了點小問題',
+                            text: error.status,
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    }
+                });
+                return;
+            }
+        }
+        $.ajax({
+            type: 'GET',
+            url: '/Jamigo/wishlist/addone/' + memberNo + "/" + productNo,
+            success: function (response) {
+                alert("新增");
+                button.classList.add('tored');
+                return;
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...出了點小問題',
+                    text: error.status,
+                }).then(() => {
+                    window.location.reload();
+                    return;
+                })
+            }
+        })
+    }
+}
+
+// fullpage 04
+$(document).ready(function () {
+
+
+
+
+})
+
 
 
