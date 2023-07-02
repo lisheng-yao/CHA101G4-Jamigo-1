@@ -139,9 +139,8 @@ public class CounterController {
 	// ========================== 登出 ==========================
 
 	@GetMapping("/sign_out")
-	public String sigout(HttpSession session) {
+	public void sigout(HttpSession session) {
 		// 銷毀session中的KV
 		session.removeAttribute("counter");
-		return "登出成功";
 	}
 }
