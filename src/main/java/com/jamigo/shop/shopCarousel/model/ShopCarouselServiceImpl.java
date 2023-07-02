@@ -72,4 +72,11 @@ public class ShopCarouselServiceImpl implements ShopCarouselService {
 		
 //		return dao.findByPrimaryKey(shopCarouselNo);
 	}
+
+
+	@Override
+	public void delete(Integer shopCarouselNo) {
+		dao.delete(shopCarouselNo);
+		
+	}
 }

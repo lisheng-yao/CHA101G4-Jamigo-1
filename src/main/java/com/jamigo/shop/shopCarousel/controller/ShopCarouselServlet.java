@@ -122,6 +122,32 @@ public class ShopCarouselServlet extends HttpServlet {
 					shopCarouselStartTime, shopCarouselEndTime, shopCarouselState, shopCarouselUrl);
 
 		}
+		
+		
+		// ========================================== 刪除 ===================================================
+		
+		if (("json3".equals(dataTypeAction) && contentType != null && contentType.startsWith("application/json"))) {
+
+			BufferedReader reader = request.getReader();
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			reader.close();
+
+			// 解析 JSON 內容
+			JsonObject json = gson.fromJson(sb.toString(), JsonObject.class);
+//			 System.out.println(json);
+
+			// 從解析後的 JSON 中獲取相應的屬性值
+			Integer shopCarouselNo = json.get("delectShopCarouselNo").getAsInt();
+
+
+			
+			shopCarouselService.delete(shopCarouselNo);
+
+		}
 
 	}
 
