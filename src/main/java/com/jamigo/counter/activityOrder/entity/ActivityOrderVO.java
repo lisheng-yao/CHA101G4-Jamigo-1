@@ -1,5 +1,6 @@
 package com.jamigo.counter.activityOrder.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +37,9 @@ public class ActivityOrderVO implements java.io.Serializable {
 	private Integer memberNo;
 	@CreationTimestamp
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date activityEnrollmentTime;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Timestamp activityEnrollmentTime;
+//	private Date activityEnrollmentTime;
 	private Byte activityPaymentStat;
 	private Integer memberCouponNo;
 	private Integer numberOfAttendee;
@@ -92,12 +94,12 @@ public class ActivityOrderVO implements java.io.Serializable {
 	}
 
 
-	public Date getActivityEnrollmentTime() {
+	public Timestamp getActivityEnrollmentTime() {
 		return activityEnrollmentTime;
 	}
 
 
-	public void setActivityEnrollmentTime(Date activityEnrollmentTime) {
+	public void setActivityEnrollmentTime(Timestamp activityEnrollmentTime) {
 		this.activityEnrollmentTime = activityEnrollmentTime;
 	}
 

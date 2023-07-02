@@ -2,6 +2,10 @@ let account = document.querySelector('#login-account');
 let password = document.querySelector('#login-password');
 let login_btn = document.querySelector('.content-input-field button');
 
+password.addEventListener('keyup', e => {
+	if(e.code === 'Enter') autoCreatForm();	
+})
+
 //checkLogin();
 //// 發請求給後端查找cookie中是不是有sessionId
 //function checkLogin(){
@@ -29,7 +33,7 @@ login_btn.addEventListener('click', () => {
 		adminName : account.value,
 		adminPassword : password.value	
 	}
-	console.log(admin)
+	// console.log(admin)
 	let url = "/Jamigo/administrator/login"
 	
 	fetch(url, {
@@ -40,13 +44,25 @@ login_btn.addEventListener('click', () => {
 		body : JSON.stringify(admin)
 	})
 	.then(response => {
-		if(response.ok)
-//			console.log('okkkkkkkkk')
-			window.location.href = "/Jamigo/counter/activity_orderCtrl.html"
-		else
-			console.log('rrrrrrrrrrr')
+		if(response.ok) {
+			console.log(response);
+			return response.json();
+		}
+		else {
+			Swal.fire({
+				icon: 'error',
+				title: '登入失敗',
+				text: '請輸入正確的帳號密碼',
+			})
+		}
 	})
-	.catch(error => console.log('nooooooo'))
+	.then(data => {
+		console.log(data);
+		localStorage.setItem('adminNo', data.adminNo);
+		localStorage.setItem('adminName', data.adminName);
+		window.location.assign('/Jamigo/platform/counter_accountCtrl.html')
+	})
+	.catch(error => console.log(error))
 	
 })
 

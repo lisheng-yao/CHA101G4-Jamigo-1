@@ -37,9 +37,66 @@
 
     <!--modernizr min js here-->
     <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/Jamigo/shop/shopping/assets/css/style-shawn.css">
 </head>
 
 <body>
+
+<nav class="navbar navbar-dark p-0 navbar-expand-lg">
+    <div class="container">
+        <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img
+                src="/Jamigo/index/頁首頁尾_final/images/找百貨.png"
+                alt="" class="LOGO"></a>
+        <img src="/Jamigo/index/頁首頁尾_final/images/頁首背景.gif" alt="" class="navbarimg">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/index/首頁/index.html"> 回首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link" style="color: yellow" href="/Jamigo/shop/main_page/商城首頁.html">線上商城</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/activity/event_space.html">文藝活動</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link"
+                       href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
+                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="button-01 nav-link" href="*">客服系統</a>-->
+                <!--                </li>-->
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/frontend/前台會員管理首頁.html" onclick="check(event);">會員專區</a>
+                </li>
+            </ul>
+        </div>
+        <!-- 導覽列右側 -->
+        <div id="signin">
+            <a href="/Jamigo/member/login/login.html">
+                <!--<a href="../member/login/login.html">-->
+                <button class="login-button">
+                    <i class="nav-icon fa-regular fa-user" style="color: #f5f5f5;"></i>
+                    會員登入/註冊
+                </button>
+            </a>
+        </div>
+        <div id="memberinfo">
+            <div id="imgcontainer">
+                <img src="#" alt="" id="memberimg">
+            </div>
+            <div class="memberinfo_container" id="signininfo">
+                <span id="membername">HI! </span>
+                <button id="logoutbutton" class="logout-button" onclick="opensignin();">登出</button>
+            </div>
+        </div>
+    </div>
+</nav>
+<main class="main_before">
     <!-- 商城的 header Start -->
     <header>
         <div class="main_header sticky-header">
@@ -64,7 +121,8 @@
                                                         <ul>
                                                             <!-- 小分類 -->
                                                             <li><a href="#">服飾</a></li>
-                                                            <li><a href="商品分類頁.html">鞋子 (目前只有這個能跳轉到分類頁)</a></li>
+                                                            <li><a href="商品分類頁.html">鞋子
+                                                                (目前只有這個能跳轉到分類頁)</a></li>
                                                         </ul>
                                                     </li>
                                                     <li><a href="#">時尚女裝</a>
@@ -122,7 +180,8 @@
                         <div class="col-lg-2">
                             <div class="header_account_area">
                                 <div class="header_account-list">
-                                    <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                    <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o"
+                                                                        aria-hidden="true"></i></a>
                                 </div>
                                 <div class="header_account-list  mini_cart_wrapper">
                                     <a href="javascript:void(0)"><i class="icon icon-FullShoppingCart"></i><span
@@ -293,14 +352,15 @@
                                     <!-- 商品圖片：可以放 2 張商品圖 -->
                                     <!-- 當滑鼠移到商品上時，會出現第 2 張商品圖 -->
                                     <a class="primary_img" href="#"><img src="assets/img/product/product5.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <a class="secondary_img" href="#"><img src="assets/img/product/product3.jpg"
-                                            alt=""></a>
+                                                                           alt=""></a>
 
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -318,7 +378,7 @@
                                     <!-- 櫃位名稱 -->
                                     <h5 class="counter_name">
                                         <a
-                                            href="#">NikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNike</a>
+                                                href="#">NikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNike</a>
                                     </h5>
                                     <!-- 商品名稱 -->
                                     <h4 class="product_name">
@@ -341,13 +401,14 @@
                             <figure>
                                 <div class="product_thumb">
                                     <a class="primary_img" href="#"><img src="assets/img/product/product102.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <a class="secondary_img" href="#"><img src="assets/img/product/product102.jpg"
-                                            alt=""></a>
+                                                                           alt=""></a>
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -360,7 +421,7 @@
                                     </div>
                                     <h5 class="counter_name"><a href="#">台灣自有品牌</a></h5>
                                     <h4 class="product_name"><a href="#">台灣的驕傲！ 藍 白 拖
-                                        </a></h4>
+                                    </a></h4>
                                     <div class="price_box">
                                         <span class="current_price">NT$60</span>
                                         <span class="old_price">NT$80</span>
@@ -378,13 +439,14 @@
                             <figure>
                                 <div class="product_thumb">
                                     <a class="primary_img" href="#"><img src="assets/img/product/product100.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <a class="secondary_img" href="#"><img src="assets/img/product/product100.jpg"
-                                            alt=""></a>
+                                                                           alt=""></a>
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -397,7 +459,7 @@
                                     </div>
                                     <h5 class="counter_name"><a href="#">森森鈴蘭</a></h5>
                                     <h4 class="product_name"><a href="#">【李李鈴蘭 / Linglan Lily】『牽絲戲』
-                                            歌回</a></h4>
+                                        歌回</a></h4>
                                     <div class="price_box">
                                         <span class="current_price">NT$0</span>
                                     </div>
@@ -414,11 +476,12 @@
                             <figure>
                                 <div class="product_thumb">
                                     <a class="primary_img" href="#"><img src="assets/img/product/product7.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -452,11 +515,12 @@
                             <figure>
                                 <div class="product_thumb">
                                     <a class="primary_img" href="#"><img src="assets/img/product/product6.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -531,13 +595,13 @@
                                     <figure>
                                         <div class="product_thumb">
                                             <a class="primary_img" href="#"><img src="assets/img/product/product100.jpg"
-                                                    alt=""></a>
+                                                                                 alt=""></a>
                                             <a class="secondary_img" href="#"><img
                                                     src="assets/img/product/product100.jpg" alt=""></a>
                                             <div class="action_links">
                                                 <ul>
                                                     <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                                class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                            class="fa fa-heart-o" aria-hidden="true"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -551,8 +615,8 @@
                                             </div>
                                             <h5 class="counter_name"><a href="#">森森鈴蘭</a></h5>
                                             <h4 class="product_name"><a href="#">【李李鈴蘭 / Linglan
-                                                    Lily】『牽絲戲』
-                                                    歌回</a></h4>
+                                                Lily】『牽絲戲』
+                                                歌回</a></h4>
                                             <div class="price_box">
                                                 <span class="current_price">NT$0</span>
                                             </div>
@@ -596,13 +660,13 @@
                                     <figure>
                                         <div class="product_thumb">
                                             <a class="primary_img" href="#"><img src="assets/img/product/product5.jpg"
-                                                    alt=""></a>
+                                                                                 alt=""></a>
                                             <a class="secondary_img" href="#"><img src="assets/img/product/product3.jpg"
-                                                    alt=""></a>
+                                                                                   alt=""></a>
                                             <div class="action_links">
                                                 <ul>
                                                     <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                                class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                            class="fa fa-heart-o" aria-hidden="true"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -637,11 +701,11 @@
                                     <figure>
                                         <div class="product_thumb">
                                             <a class="primary_img" href="#"><img src="assets/img/product/product7.jpg"
-                                                    alt=""></a>
+                                                                                 alt=""></a>
                                             <div class="action_links">
                                                 <ul>
                                                     <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                                class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                            class="fa fa-heart-o" aria-hidden="true"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -676,11 +740,11 @@
                                     <figure>
                                         <div class="product_thumb">
                                             <a class="primary_img" href="#"><img src="assets/img/product/product6.jpg"
-                                                    alt=""></a>
+                                                                                 alt=""></a>
                                             <div class="action_links">
                                                 <ul>
                                                     <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                                class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                            class="fa fa-heart-o" aria-hidden="true"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -715,11 +779,11 @@
                                     <figure>
                                         <div class="product_thumb">
                                             <a class="primary_img" href="#"><img src="assets/img/product/product10.jpg"
-                                                    alt=""></a>
+                                                                                 alt=""></a>
                                             <div class="action_links">
                                                 <ul>
                                                     <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                                class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                            class="fa fa-heart-o" aria-hidden="true"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -779,13 +843,14 @@
                                     </div>
 
                                     <a class="primary_img" href="#"><img src="assets/img/product/product100.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <a class="secondary_img" href="#"><img src="assets/img/product/product100.jpg"
-                                            alt=""></a>
+                                                                           alt=""></a>
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -798,7 +863,7 @@
                                     </div>
                                     <h5 class="counter_name"><a href="#">森森鈴蘭</a></h5>
                                     <h4 class="product_name"><a href="#">【李李鈴蘭 / Linglan
-                                            Lily】『牽絲戲』歌回</a></h4>
+                                        Lily】『牽絲戲』歌回</a></h4>
                                     <div class="price_box">
                                         <span class="current_price">NT$0</span>
                                     </div>
@@ -820,13 +885,14 @@
                                     </div>
 
                                     <a class="primary_img" href="#"><img src="assets/img/product/product102.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <a class="secondary_img" href="#"><img src="assets/img/product/product102.jpg"
-                                            alt=""></a>
+                                                                           alt=""></a>
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -839,7 +905,7 @@
                                     </div>
                                     <h5 class="counter_name"><a href="#">台灣自有品牌</a></h5>
                                     <h4 class="product_name"><a href="#">台灣的驕傲！ 藍 白 拖
-                                        </a></h4>
+                                    </a></h4>
                                     <div class="price_box">
                                         <span class="current_price">NT$60</span>
                                         <span class="old_price">NT$80</span>
@@ -862,11 +928,12 @@
                                     </div>
 
                                     <a class="primary_img" href="#"><img src="assets/img/product/product11.jpg"
-                                            alt=""></a>
+                                                                         alt=""></a>
                                     <div class="action_links">
                                         <ul>
                                             <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                        aria-hidden="true"></i></a></li>
+                                                                                                 aria-hidden="true"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -941,22 +1008,22 @@
                                         <ul class="nav product_navactive owl-carousel" role="tablist">
                                             <li>
                                                 <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab"
-                                                    aria-controls="tab1" aria-selected="false"><img
+                                                   aria-controls="tab1" aria-selected="false"><img
                                                         src="assets/img/product/product1.jpg" alt=""></a>
                                             </li>
                                             <li>
                                                 <a class="nav-link" data-toggle="tab" href="#tab2" role="tab"
-                                                    aria-controls="tab2" aria-selected="false"><img
+                                                   aria-controls="tab2" aria-selected="false"><img
                                                         src="assets/img/product/product2.jpg" alt=""></a>
                                             </li>
                                             <li>
                                                 <a class="nav-link button_three" data-toggle="tab" href="#tab3"
-                                                    role="tab" aria-controls="tab3" aria-selected="false"><img
+                                                   role="tab" aria-controls="tab3" aria-selected="false"><img
                                                         src="assets/img/product/product3.jpg" alt=""></a>
                                             </li>
                                             <li>
                                                 <a class="nav-link" data-toggle="tab" href="#tab4" role="tab"
-                                                    aria-controls="tab4" aria-selected="false"><img
+                                                   aria-controls="tab4" aria-selected="false"><img
                                                         src="assets/img/product/product8.jpg" alt=""></a>
                                             </li>
 
@@ -998,45 +1065,91 @@
         </div>
     </div>
     <!-- modal area end-->
-
-    <!-- Jamigo 的 footer Start -->
+</main>
+<footer>
     <div class="footer_section bg-dark text-light">
         <div class="container_footer">
+            <div class="row">
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">合作資訊</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/count_apply.html">櫃位申請</a></p>
+                        <p><a href="/Jamigo/index/首頁/site_info.html">場地相關</a></p>
+                        <p><a href="/Jamigo/index/首頁/talents_recruit.html">人才招募</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">關於我們</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/shop_info.html">營業資訊</a></p>
+                        <p><a href="/Jamigo/index/首頁/FAQ.html">FAQ中心</a></p>
+                        <p><a href="/Jamigo/index/首頁/transpotation.html">交通資訊</a></p>
 
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">會員相關</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/pay_info.html">付款方式</a></p>
+                        <p><a href="/Jamigo/index/首頁/deliver_info.html">配送流程</a></p>
+                        <p><a href="/Jamigo/index/首頁/return_product.html">退換商品</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">聯絡我們</h1>
+                    <div class="footer_lorem_text">
+                        <p>JAMIGO 1234-5678 <br>桃園市中壢區復興路46號</p>
+                        <p>010-020-0340</p>
+                        <p>&copy;info@company.co</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <img src="/Jamigo/index/頁首頁尾_final/images/footer_LOGO.png" alt="" class="footer_LOGO">
+                </div>
+            </div>
+        </div>
+        <div class="footer_icon">
+            <a href="#"><i class="footer-icon fa-brands fa-instagram fa-xl" style="font-size: 2.5em"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-facebook fa-xl" style="font-size: 2.5em"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-square-twitter fa-xl" style="font-size: 2.5em"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-line fa-xl" style="font-size: 2.5em"></i></a>
         </div>
     </div>
+</footer>
 
-    <!-- ========== JS ========== -->
-    <!--jquery min js-->
-    <script src="assets/js/vendor/jquery-3.4.1.min.js"></script>
-    <!--popper min js-->
-    <script src="assets/js/popper.js"></script>
-    <!--bootstrap min js-->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!--owl carousel min js-->
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!--slick min js-->
-    <script src="assets/js/slick.min.js"></script>
-    <!--magnific popup min js-->
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <!--counterup min js-->
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <!--jquery countdown min js-->
-    <script src="assets/js/jquery.countdown.js"></script>
-    <!--jquery ui min js-->
-    <script src="assets/js/jquery.ui.js"></script>
-    <!--jquery elevatezoom min js-->
-    <script src="assets/js/jquery.elevatezoom.js"></script>
-    <!--isotope packaged min js-->
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <!--slinky menu js-->
-    <script src="assets/js/slinky.menu.js"></script>
-    <!-- Plugins JS -->
-    <script src="assets/js/plugins.js"></script>
+<!-- ========== JS ========== -->
+<!--jquery min js-->
+<script src="assets/js/vendor/jquery-3.4.1.min.js"></script>
+<!--popper min js-->
+<script src="assets/js/popper.js"></script>
+<!--bootstrap min js-->
+<script src="assets/js/bootstrap.min.js"></script>
+<!--owl carousel min js-->
+<script src="assets/js/owl.carousel.min.js"></script>
+<!--slick min js-->
+<script src="assets/js/slick.min.js"></script>
+<!--magnific popup min js-->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!--counterup min js-->
+<script src="assets/js/jquery.counterup.min.js"></script>
+<!--jquery countdown min js-->
+<script src="assets/js/jquery.countdown.js"></script>
+<!--jquery ui min js-->
+<script src="assets/js/jquery.ui.js"></script>
+<!--jquery elevatezoom min js-->
+<script src="assets/js/jquery.elevatezoom.js"></script>
+<!--isotope packaged min js-->
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<!--slinky menu js-->
+<script src="assets/js/slinky.menu.js"></script>
+<!-- Plugins JS -->
+<script src="assets/js/plugins.js"></script>
 
-    <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/mini_cart.js"></script>
+<!-- Main JS -->
+<script src="assets/js/main.js"></script>
+<script src="assets/js/mini_cart.js"></script>
+
+<script src="/Jamigo/shop/shopping/assets/js/script.js"></script>
 
 </body>
 

@@ -28,4 +28,6 @@ public interface PlatformOrderRepository extends JpaRepository<PlatformOrder, In
             "join PlatformOrder po on co.platformOrderNo = po.platformOrderNo " +
             "where po.platformOrderNo = :platformOrderNo")
     List<PlatformOrderDetailDTO> getOrderDetailByPlatformOrderNo(Integer platformOrderNo);
+
+    List<PlatformOrder> findAllByMemberNo(Integer memberNo);
 }

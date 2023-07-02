@@ -460,9 +460,11 @@ body{
     margin-left: 0;
     color: #ff6863;
 }
+.carousel-img-content.show form,
 .form-item.show .form-label{
     outline: 1px solid #ff6863;
 }
+.carousel-img-content.show .error-text,
 .form-item.show .error-text{
     display: block;
 }

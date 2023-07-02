@@ -17,6 +17,8 @@ import com.jamigo.shop.platform_order.dto.ProductDetailForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import com.jamigo.shop.platform_order.repo.PlatformOrderRepository;
 import com.jamigo.shop.platform_order.service.PlatformOrderService;
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,9 +28,10 @@ import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -134,7 +137,7 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
 
 
     @Override
-    public void createPlatformOrder(PlatformOrder newPlatformOrder) {
+    public String createPlatformOrder(PlatformOrder newPlatformOrder) {
 
         // 透過 JSON 資料中的會員編號，取得該會員的購物車資料
         List<CartForCheckoutDTO> cartList = platformOrderRepository.getCartInfoByMemberNo(newPlatformOrder.getMemberNo());
@@ -234,7 +237,60 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
 //            throw new RuntimeException(e);
 //        }
 
+        if (savedPlatformOrder.getPaymentMethod() == 1)
+            return ecpayCheckout(savedPlatformOrder);
+
+        return null;
+
         // TODO: 清空購物車
+    }
+
+    public String ecpayCheckout(PlatformOrder newPlatformOrder) {
+
+        String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
+
+        Timestamp timestamp = newPlatformOrder.getOrderTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String strTimestamp = sdf.format(timestamp);
+
+        AllInOne all = new AllInOne("");
+
+        AioCheckOutALL obj = new AioCheckOutALL();
+        obj.setMerchantTradeNo(uuId);
+        obj.setMerchantTradeDate(strTimestamp);
+        obj.setTotalAmount(String.valueOf(newPlatformOrder.getActuallyPaid()));
+
+        obj.setTradeDesc("test Description");
+        obj.setItemName("Jamigo Mall 商品");
+        String orderResultURL = "http://localhost:8080/Jamigo/shop/platform_order/" + newPlatformOrder.getPlatformOrderNo().toString() + "/paidResult";
+        obj.setOrderResultURL(orderResultURL);
+        obj.setReturnURL("http://211.23.128.214:5000");
+        obj.setNeedExtraPaidInfo("N");
+        obj.setClientBackURL("http://localhost:8080/Jamigo/shop/main_page/%E5%95%86%E5%9F%8E%E9%A6%96%E9%A0%81.html");
+        String form = all.aioCheckOut(obj, null);
+
+        return form;
+    }
+
+    public void changePaidStat(Integer platformOrderNo, String formData) {
+
+        Map<String, String> map = new HashMap<String, String>();
+
+        String[] pairs = formData.split("&");
+        for (String pair : pairs) {
+            int idx = pair.indexOf("=");
+            map.put(pair.substring(0, idx), pair.substring(idx + 1));
+        }
+
+        if ("1".equals(map.get("RtnCode"))) {
+            PlatformOrder platformOrder = platformOrderRepository.findById(platformOrderNo).orElse(null);
+
+            if (platformOrder != null) {
+                platformOrder.setPaymentStat((byte) 1);
+                platformOrder.setPlatformOrderStat((byte) 20);
+                platformOrderRepository.save(platformOrder);
+            }
+        }
     }
 
     public void sendEmail() throws Exception {
