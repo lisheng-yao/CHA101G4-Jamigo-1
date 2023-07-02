@@ -173,16 +173,10 @@ $table.on("click", "button.full-info", function () {
             if (res.paymentMethod === 1) {
                 modal_body.innerHTML += `
                     <div>
-                        <p><b>付款方式：</b>信用卡</p>
+                        <p><b>付款方式：</b>綠界金流</p>
                 `;
             }
             else if (res.paymentMethod === 2) {
-                modal_body.innerHTML += `
-                    <div>
-                        <p><b>付款方式：</b>ATM 轉帳</p>
-                `;
-            }
-            else if (res.paymentMethod === 3) {
                 modal_body.innerHTML += `
                     <div>
                         <p><b>付款方式：</b>貨到付款</p>

@@ -119,4 +119,15 @@ public class CounterServiceimpl implements CounterService {
 		}
 	}
 
+	@Override
+	public void updatePass(Counter data) {
+		int counterNo = data.getCounterNo();
+		Optional<Counter> counter = counterRepository.findById(counterNo);
+		
+		var counter2 = counter.orElse(null);
+		counter2.setCounterPassword(data.getCounterPassword());
+		
+		counterRepository.save(counter2);
+	}
+
 }

@@ -11,10 +11,11 @@ import com.jamigo.promotion.PromotionPoint.Entity.PromotionPoint;
 import com.jamigo.promotion.PromotionType.Entity.Promotion;
 import com.jamigo.promotion.PromotionType.Service.PromotionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -123,12 +124,10 @@ public class PromotionCouponController {
             if (promotionPic4json != null) { //轉回byte[]
                 PromotionPic = Base64.getDecoder().decode(promotionPic4json);
             }
-
             ObjectNode objectNode = (ObjectNode) jsonNode;//轉型 才能刪除
             objectNode.remove("promotionPic4json");//刪除
             objectNode.put("promotionPic", PromotionPic);
             PromotionCoupon promotionCoupona = objectMapper.convertValue(objectNode, PromotionCoupon.class);//刪完後再包裝回去成PromotionPoint物件
-
 
             PromotionCoupon promotionCoupon = PromotionCouponService.add(promotionCoupona);
             System.out.println("新增controller");
@@ -151,9 +150,10 @@ public class PromotionCouponController {
     public List<CouponType> findAllCouponType() {
         return CouponTypeSERVICE.findAll();
     }
+
     @PostMapping("promotion/promotion4counter/getAllCouponType")
     public List<CouponType> findAllCouponType2(@RequestBody CouponType couponTypeRequest) {
-       Integer counterNoa=couponTypeRequest.getCounterNo();
+        Integer counterNoa = couponTypeRequest.getCounterNo();
         return CouponTypeSERVICE.findBycounterNo(counterNoa);
     }
 
@@ -161,18 +161,19 @@ public class PromotionCouponController {
     public List<Promotion> findAllPromotion() {
         return promotionTypeService.findAll();
     }
+
     @PostMapping("promotion/promotion4counter/getAllPromotion")
     public List<Promotion> findAllPromotion2(@RequestBody CouponType couponTypeRequest) {
-        Integer counterNoa=couponTypeRequest.getCounterNo();
+        Integer counterNoa = couponTypeRequest.getCounterNo();
         return promotionTypeService.findbycounterNo(counterNoa);
     }
 
     @PostMapping("promotion/promotion4counter/getcounterPromotionCoupon")
-    public List<PromotionCoupon>  findPromotionbycounterNo(@RequestBody CouponType couponTypeRequest) {
+    public List<PromotionCoupon> findPromotionbycounterNo(@RequestBody CouponType couponTypeRequest) {
         System.out.println(couponTypeRequest);
         Integer counterNo = couponTypeRequest.getCounterNo();
-        System.out.println("counterNo"+counterNo);
-        List<PromotionCoupon>  counterPromotion = PromotionCouponService.findbcounterNo(counterNo);
+        System.out.println("counterNo" + counterNo);
+        List<PromotionCoupon> counterPromotion = PromotionCouponService.findbcounterNo(counterNo);
         return counterPromotion;
     }
 
@@ -190,7 +191,35 @@ public class PromotionCouponController {
         return deletesucceed;
     }
 
+    @GetMapping("promotion/promotion4pic/{promotionCouponNo}")
+    public ResponseEntity<byte[]> selectPic(@PathVariable("promotionCouponNo") Integer promotionCouponNo) {
+        PromotionCoupon thiscoupon = PromotionCouponService.findByPK(promotionCouponNo);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_GIF);
+        if (thiscoupon != null) {
+            byte[] Pic = thiscoupon.getPromotionPic();
+            return new ResponseEntity<>(Pic, headers, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     ;
+
+    @GetMapping("promotion/promotion4counter4pic/{promotionCouponNo}")
+    public ResponseEntity<byte[]> selectPic2(@PathVariable("promotionCouponNo") Integer promotionCouponNo) {
+        PromotionCoupon thiscoupon = PromotionCouponService.findByPK(promotionCouponNo);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_GIF);
+        if (thiscoupon != null) {
+            byte[] Pic = thiscoupon.getPromotionPic();
+            return new ResponseEntity<>(Pic, headers, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
 
 

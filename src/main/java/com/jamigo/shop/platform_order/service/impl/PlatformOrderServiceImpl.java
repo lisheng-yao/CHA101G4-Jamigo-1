@@ -1,11 +1,12 @@
 package com.jamigo.shop.platform_order.service.impl;
 
 import com.jamigo.member.member_data.dao.MemberDataDAO;
+import com.jamigo.shop.cart.dto.CartDTO;
+import com.jamigo.shop.cart.service.CartService;
 import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
 import com.jamigo.member.member_data.entity.MemberData;
 import com.jamigo.member.member_level.dao.MemberLevelDetailRepository;
 import com.jamigo.member.member_level.model.MemberLevelDetail;
-import com.jamigo.shop.platform_order.dto.CartForCheckoutDTO;
 import com.jamigo.shop.counter_order.entity.CounterOrder;
 import com.jamigo.shop.counter_order.repo.CounterOrderRepository;
 import com.jamigo.shop.counter_order_detail.entity.CounterOrderDetail;
@@ -17,20 +18,21 @@ import com.jamigo.shop.platform_order.dto.ProductDetailForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import com.jamigo.shop.platform_order.repo.PlatformOrderRepository;
 import com.jamigo.shop.platform_order.service.PlatformOrderService;
+import com.jamigo.shop.product_picture.service.ProductPictureService;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,6 +53,10 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
     private Configuration configuration;
     @Autowired
     private JavaMailSender javaMailSender;
+    @Autowired
+    private CartService cartService;
+    @Autowired
+    private ProductPictureService productPictureService;
 
 
     @Override
@@ -84,12 +90,12 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
 
 
     @Override
-    public Map<String, List<CartForCheckoutDTO>> getCartInfoByMemberNo(Integer memberNo) {
+    public Map<String, List<CartDTO>> getCartInfoByMemberNo(Integer memberNo) {
 
-        List<CartForCheckoutDTO> cartList = platformOrderRepository.getCartInfoByMemberNo(memberNo);
+        List<CartDTO> cartDTOList = cartService.findAllCartItem(memberNo);
 
-        return cartList.stream()
-                .collect(Collectors.groupingBy(CartForCheckoutDTO::getCounterName));
+        return cartDTOList.stream()
+                .collect(Collectors.groupingBy(CartDTO::getCounterName));
     }
 
 
@@ -135,17 +141,19 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         return orderDetailMap;
     }
 
-
+    @Async
     @Override
     public String createPlatformOrder(PlatformOrder newPlatformOrder) {
 
+        Integer memberNo = newPlatformOrder.getMemberNo();
+
         // 透過 JSON 資料中的會員編號，取得該會員的購物車資料
-        List<CartForCheckoutDTO> cartList = platformOrderRepository.getCartInfoByMemberNo(newPlatformOrder.getMemberNo());
+        List<CartDTO> cartDTOList = cartService.findAllCartItem(memberNo);
 
         // 價錢計算必須放在後端
         // 計算原總金額
-        int totalPaid = cartList.stream()
-                .mapToInt(cartItem -> cartItem.getProductPrice() * cartItem.getAmount())
+        int totalPaid = cartDTOList.stream()
+                .mapToInt(cartItem -> cartItem.getProductPrice() * cartItem.getQuantity())
                 .sum();
 
         // 計算訂單實付金額
@@ -157,7 +165,6 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         // 計算回饋點數
         int levelFeedback = (memberLevelDetail != null) ? memberLevelDetail.getLevelFeedback() : 1;
         int rewardPoints = Math.round(actuallyPaid / 10.0f * levelFeedback);
-
 
         newPlatformOrder.setTotalPaid(totalPaid);
         newPlatformOrder.setActuallyPaid(actuallyPaid);
@@ -186,13 +193,13 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         // 取得平台訂單編號
         Integer platformOrderNo = savedPlatformOrder.getPlatformOrderNo();
 
-        Map<Integer, List<CartForCheckoutDTO>> cartMap = cartList.stream()
-                .collect(Collectors.groupingBy(CartForCheckoutDTO::getCounterNo));
+        Map<Integer, List<CartDTO>> cartMap = cartDTOList.stream()
+                .collect(Collectors.groupingBy(CartDTO::getCounterNo));
 
         for (var entry : cartMap.entrySet()) {
 
             Integer counterNo = entry.getKey();
-            List<CartForCheckoutDTO> productList = entry.getValue();
+            List<CartDTO> productList = entry.getValue();
 
             CounterOrder newCounterOrder = new CounterOrder();
             newCounterOrder.setPlatformOrderNo(platformOrderNo);
@@ -217,12 +224,12 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
                 id.setProductNo(product.getProductNo());
 
                 newCounterOrderDetail.setId(id);
-                newCounterOrderDetail.setAmount(product.getAmount());
+                newCounterOrderDetail.setAmount(product.getQuantity());
                 newCounterOrderDetail.setOrderDetailStat(savedPlatformOrder.getPlatformOrderStat());
 
                 counterOrderDetailRepository.save(newCounterOrderDetail);
 
-                counterTotalPaid += product.getProductPrice() * product.getAmount();
+                counterTotalPaid += product.getProductPrice() * product.getQuantity();
             }
 
             savedCounterOrder.setTotalPaid(counterTotalPaid);
@@ -231,18 +238,21 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
             counterOrderRepository.save(savedCounterOrder);
         }
 
-//        try {
-//            sendEmail();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
+        // 刪除會員所有存放在購物車的商品
+//        for (var cartItem : cartDTOList) {
+//            cartService.deleteOneInCart(cartItem, memberNo);
 //        }
+
+        try {
+            sendEmail(savedPlatformOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (savedPlatformOrder.getPaymentMethod() == 1)
             return ecpayCheckout(savedPlatformOrder);
 
         return null;
-
-        // TODO: 清空購物車
     }
 
     public String ecpayCheckout(PlatformOrder newPlatformOrder) {
@@ -260,13 +270,13 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         obj.setMerchantTradeDate(strTimestamp);
         obj.setTotalAmount(String.valueOf(newPlatformOrder.getActuallyPaid()));
 
-        obj.setTradeDesc("test Description");
+        obj.setTradeDesc("Jamigo Mall 購物測試");
         obj.setItemName("Jamigo Mall 商品");
         String orderResultURL = "http://localhost:8080/Jamigo/shop/platform_order/" + newPlatformOrder.getPlatformOrderNo().toString() + "/paidResult";
         obj.setOrderResultURL(orderResultURL);
         obj.setReturnURL("http://211.23.128.214:5000");
         obj.setNeedExtraPaidInfo("N");
-        obj.setClientBackURL("http://localhost:8080/Jamigo/shop/main_page/%E5%95%86%E5%9F%8E%E9%A6%96%E9%A0%81.html");
+        obj.setClientBackURL("http://localhost:8080/Jamigo/shop/main_page/shopping_main_page.html");
         String form = all.aioCheckOut(obj, null);
 
         return form;
@@ -289,33 +299,74 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
                 platformOrder.setPaymentStat((byte) 1);
                 platformOrder.setPlatformOrderStat((byte) 20);
                 platformOrderRepository.save(platformOrder);
+
+                List<CounterOrder> counterOrderList = counterOrderRepository.findAllByPlatformOrderNo(platformOrderNo);
+
+                for (var counterOrder : counterOrderList) {
+
+                    List<CounterOrderDetail> counterOrderDetailList = counterOrderDetailRepository.findAllByIdCounterOrderNo(counterOrder.getCounterOrderNo());
+
+                    for (var counterOrderDetail : counterOrderDetailList) {
+                        counterOrderDetail.setOrderDetailStat((byte) 20);
+                        counterOrderDetailRepository.save(counterOrderDetail);
+                    }
+
+                    counterOrder.setCounterOrderStat((byte) 20);
+                    counterOrderRepository.save(counterOrder);
+                }
             }
         }
     }
 
-    public void sendEmail() throws Exception {
+    public void sendEmail(PlatformOrder platformOrder) throws Exception {
+
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        // 使用支持 "multipart" 的 MimeMessageHelper
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-        helper.setSubject("Welcome To SpringHow.com");
-        helper.setTo("hao.4f31702@gmail.com");
-        String emailContent = getEmailContent();
+
+        helper.setSubject("[Jamigo Mall 線上商城] 您的訂單正在準備中");
+        helper.setFrom("jamigo.contact@gmail.com", "Jamigo Mall");
+        helper.setTo(platformOrder.getBuyerEmail());
+
+        Map<String, byte[]> images = new HashMap<>();
+        String emailContent = getEmailContent(platformOrder, images);
         helper.setText(emailContent, true);
 
-        // 取得商品編號為1的商品的首張圖片
-//        byte[] image = getFirstProductPicByProductNo(1);
-//        if (image != null && image.length > 0) {
-//            // 添加內嵌的圖片
-//            helper.addInline("productPicture", new ByteArrayResource(image), "image/gif");
-//        }
+        // 將所有的圖片添加到電子郵件中
+        for (Map.Entry<String, byte[]> image : images.entrySet()) {
+            String id = image.getKey();
+            byte[] bytes = image.getValue();
+            helper.addInline(id, new ByteArrayResource(bytes), "image/gif");
+        }
+
         javaMailSender.send(mimeMessage);
     }
 
-    public String getEmailContent() throws Exception {
+    public String getEmailContent(PlatformOrder platformOrder, Map<String, byte[]> images) throws Exception {
+
         StringWriter stringWriter = new StringWriter();
         Map<String, Object> model = new HashMap<>();
-//        model.put("user", user);
+
+        // 將你的資料添加到模型中
+        Map<String, CounterOrderForPlatformOrderDTO> orderDetailMap = getPlatformOrderDetailById(platformOrder.getPlatformOrderNo());
+        model.put("orderDetailMap", orderDetailMap);
+        model.put("platformOrder", platformOrder);
+
+        // 遍歷所有的訂單，獲取每個商品的圖片
+        for (CounterOrderForPlatformOrderDTO counterOrder : orderDetailMap.values()) {
+            for (ProductDetailForPlatformOrderDTO product : counterOrder.getProduct()) {
+                byte[] image = productPictureService.getFirstProductPicByProductNo(product.getProductNo());
+                images.put("image" + product.getProductNo(), image);
+            }
+        }
+
         configuration.getTemplate("order_confirm.ftlh").process(model, stringWriter);
         return stringWriter.getBuffer().toString();
     }
+
+    @Override
+    public List<PlatformOrder> getAllPlatformOrderByMemberNo(Integer memberNo) {
+        return platformOrderRepository.findAllByMemberNo(memberNo);
+    }
+
+
 }

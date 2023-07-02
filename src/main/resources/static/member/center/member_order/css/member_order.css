@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/earlyaccess/notosanstc.css");
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+div.pagination-detail {
+    display: none;
+}
+
+button.btn {
+    margin: 0 5px;
+}
+
+/*Bootstrap 標籤文字*/
+table#main_table tbody td span {
+    font-size: 14px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.media-body {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+div.align-self-center i {
+    font-size: 60px;
+}
+
+div.media-body h5{
+    font-weight: 700;
+}
+
+div.media-body h3{
+    font-weight: 700;
+}
+
+
+.order_table {
+    margin-bottom: 35px;
+    font-family: "Noto Sans TC", "arial";
+}
+
+.order_table table {
+    width: 100%;
+}
+
+.order_table table thead tr th {
+    min-width: 50%;
+    text-align: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+
+    font-size: 16px;
+}
+
+.order_table table tbody tr td {
+    min-width: 50%;
+    text-align: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.order_table table tbody tr td.counter {
+    min-width: 50%;
+    text-align: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    background: #e5e5e5;
+}
+
+.order_table table tbody tr td h5 {
+    line-height: 20px;
+    font-size: 16px;
+
+    min-height: 40px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+.order_table table tbody tr td p {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.order_table table tfoot tr th {
+    min-width: 50%;
+    text-align: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+
+    font-size: 16px;
+}
+
+.order_table table tfoot tr td {
+    min-width: 50%;
+    text-align: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-responsive td.cart_img {
+    width: 100px;
+    height: 100px;
+    padding: 0;
+}
+
+.table-responsive td.cart_img img {
+    width: 100px;
+    height: 100px;
+    padding: 0;
+}
+
+.table-responsive td.orderDetailStat {
+    width: 120px;
+    text-align: center;
+
+    font-family: var(--bs-body-font-family);
+}
+
+.table-responsive td.orderDetailStat span{
+    font-size: 14px;
+}
+
+.table-responsive table tbody tr td {
+    border-right: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 14px;
+    text-align: left;
+}

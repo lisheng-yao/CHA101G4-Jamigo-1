@@ -276,7 +276,7 @@
         <div class="col-10 page-body">
             <div class="controll-box activity-order-controll-box">
                 <div class="back-end-box-title activity-order-controll-title">
-                    <h2 class="h2">折價券活動管理</h2>
+                    <h2 class="h2">櫃位折價券活動管理</h2>
                     <!-- 燈箱 -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal" data-bs-whatever="@mdo">新增
@@ -343,10 +343,33 @@
                                             <label for="promotionExpireDate" class="col-form-label">活動結束日期:</label>
                                             <input type="date" class="form-control" id="promotionExpireDate" >
                                         </div>
+                                        <style>
+                                            .img-div{
+                                                /*max-width: 200px;*/
+                                                width: 150px;
+                                                height: 150px;
+                                                border-radius: 500px;
+                                                overflow: hidden;
+                                                /*position: relative;*/
+                                            }
+                                            #avatar-preview{
+                                                /*width: 100%;*/
+                                                /*display: block;*/
+                                                /*aspect-ratio: unset;*/
+                                                /*border-radius: unset;*/
+                                                /*height: unset;*/
+                                                position: relative;
+                                                /*top: -25%;*/
+                                            }
 
+                                        </style>
                                         <div class="mb-3">
+                                            <div class="img-div  ms-3">
+                                                <img id="avatar-preview" src="/Jamigo/member/member/image/gray.jpg" alt="Avatar Preview"
+                                                     class="img-fluid border border-dark"/>
+                                            </div>
                                             <label for="promotionPic" class="col-form-label">活動圖片:</label>
-                                            <input type="file" class="form-control" id="promotionPic" accept="image/jpeg, image/png">
+                                            <input type="file" class="form-control" id="promotionPic" accept="image/gif">
                                         </div>
                                     </form>
                                 </div>
@@ -436,6 +459,27 @@
     }
 
 
+
+
+</script>
+<script>
+    const avatarUpload = document.getElementById("promotionPic");
+    const avatarPreview = document.getElementById("avatar-preview");
+
+    avatarUpload.addEventListener("change", function () {
+        const file = avatarUpload.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            avatarPreview.src = e.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            avatarPreview.src = "#";
+        }
+    });
 
 
 </script>

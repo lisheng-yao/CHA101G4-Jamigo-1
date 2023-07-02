@@ -68,7 +68,7 @@ public class PromotionCouponServiceImpl implements PromotionCouponService {
             if (promotionCoupone.getGetAmount() != null) {
                 oldpromotionCoupon.setGetAmount(promotionCoupone.getGetAmount());
             }
-            if (promotionCoupone.getPromotionPic() != null) {
+            if (promotionCoupone.getPromotionPic() != null && promotionCoupone.getPromotionPic().length > 0) {
                 oldpromotionCoupon.setPromotionPic(promotionCoupone.getPromotionPic());
             }
 
