@@ -40,6 +40,8 @@ $(function(){
 
     //商品類別選單
     getProductCatOptions();
+    //檢查新增商品的格式
+    validInputContent();
     //新增商品品項
     addProduct();
 
@@ -79,6 +81,14 @@ function addProduct(){
         let productPrice = $("#productPrice").val();
         let productInfo = $("#productDescription").val();
         let productStat = $("input[name='productStatus']:checked").val() === "1" ? "true" : "false";
+        if(productCatNo == "0" || productName.trim() == "" || productPrice.trim() == "" || productInfo.trim() == ""){
+            Swal.fire({
+                icon: 'error',
+                title: '商品資料未填寫完整',
+                text: '請完成所有商品資料欄位填寫再新增',
+            });
+            return;
+        }
         $.ajax({
             url: `/Jamigo/products/addProduct`,
             method: "POST",
@@ -109,5 +119,34 @@ function gotoEditPage(id){
 }
 
 function validInputContent(){
+    // let hasShownAlert = false; // 跟踪警告是否已经触发过
+    // $('#productName').on('blur', function() {
+    //     const value = $(this).val().trim();
+    //     if (value === '') {
+    //         if (!hasShownAlert) { // 如果警告未触发过
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: '商品名稱未輸入',
+    //                 text: '商品名稱為必填項目'
+    //             });
+    //             hasShownAlert = true; // 将变量设为 true，表示已经触发过警告
+    //         }
+    //         $(this).focus(); // 将焦点保持在输入框内
+    //     } else {
+    //         hasShownAlert = false; // 当重新输入后，将变量设为 false，以便下次触发警告
+    //     }
+    // });
 
+    $('#productPrice').on('keypress', function(event) {
+        let inputValue = event.which;
+        // 限制只能輸入整數
+        if (!(inputValue >= 48 && inputValue <= 57)) {
+            event.preventDefault(); //阻止輸入
+        }
+    });
+    $('#productPrice').on('input', function() {
+        let inputValue = $(this).val().trim();
+        // 移除前导的0
+        $(this).val(inputValue.replace(/^0+/, ''));
+    });
 }

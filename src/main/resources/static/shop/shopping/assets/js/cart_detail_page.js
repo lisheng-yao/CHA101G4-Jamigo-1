@@ -15,6 +15,7 @@ let memberOwnPoints;
 
 $(function () {
     let memberNo = getMemberNo();
+
     //取回所有會員折價券
     getMemberCoupons();
     //取回會員點數
