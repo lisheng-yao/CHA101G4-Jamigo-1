@@ -23,6 +23,7 @@
                     const {memberNo, memberAccount} = body;
                     localStorage.setItem('memberNo', memberNo);
                     localStorage.setItem('memberAccount', memberAccount);
+                    localStorage.setItem('memberorcount', '0');
                     Swal.fire({
                         position: 'center',
                         icon: 'success',

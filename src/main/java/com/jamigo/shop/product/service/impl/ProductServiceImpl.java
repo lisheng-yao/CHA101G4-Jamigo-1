@@ -41,13 +41,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addProduct(AddProductDTO addProductDTO) {
+    public void addProduct(AddProductDTO addProductDTO, Integer counterNo) {
         Product product = new Product();
         //改成用Integer
 //        Counter counter = new Counter();
 //        counter.setCounterNo(addProductDTO.getCounterNo());
 //        product.setCounter(counter);
-        product.setCounterNo(addProductDTO.getCounterNo());
+//        product.setCounterNo(addProductDTO.getCounterNo());
+        product.setCounterNo(counterNo);
         product.setProductCategory(productCategoryRepository.getReferenceById(addProductDTO.getProductCategory()));
         product.setProductName(addProductDTO.getProductName());
         product.setProductPrice(addProductDTO.getProductPrice());

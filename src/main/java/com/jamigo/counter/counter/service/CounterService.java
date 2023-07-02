@@ -14,6 +14,8 @@ public interface CounterService {
 	
 	Counter getCounterByCounterNo(Integer counterNo);
 	
+	void forget(Counter counter);
+	
 	Counter findByAcc(String counterAccount , String counterPassword);
 	
 	void updateCounterPic(Integer counterNo, MultipartFile counterPic) throws IOException;

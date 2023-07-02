@@ -114,11 +114,11 @@ document.querySelector('.panel-table').addEventListener('click', e => {
       </tr>
       <tr>
         <th scope="row">活動評論</th>
-        <td>${activityOrder.commentDetail ? activityOrder.activityOrderTel : '無'}</td>
+        <td>${activityOrder.commentDetail ? activityOrder.commentDetail : '無'}</td>
       </tr>
       <tr>
         <th scope="row">活動評價星等</th>
-        <td>${activityOrder.activityScore ? activityOrder.activityOrderPoc : '無'}</td>
+        <td>${activityOrder.activityScore ? activityOrder.activityScore : '無'}</td>
       </tr>
     `;
     document.querySelector('.modal-footer a').href = `./activity_orderEdit.html?activityOrderNo=${activityOrder.activityOrderNo}`;

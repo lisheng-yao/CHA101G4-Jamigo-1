@@ -491,7 +491,7 @@
                     <tr class="text-dark">
                       <th scope="col" hidden>編號</th>
                       <th scope="col">輪播標題</th>
-                      <th scope="col">輪播文字</th>
+                      <th scope="col">輪播圖片</th>
                       <th scope="col">狀態</th>
                       <th scope="col">開始時間</th>
                       <th scope="col">結束時間</th>
@@ -805,6 +805,7 @@
               const state = carousel.shopCarouselState;
               const states =
                 carousel.shopCarouselState === 1 ? "啟用" : "未啟用";
+
               const url = carousel.shopCarouselUrl;
               // console.log(url);
 
@@ -821,10 +822,12 @@
               trElement.innerHTML = `
                     <td hidden>${no}</td>
                     <td>${title}</td>
-                    <td><img src="/Jamigo/DBPicReader?shopCarouselNo=${no}" style="max-width: 250px; max-height: 150px;"></td>
-                    <td>${states}</td>
-                    <td>${newStarTime}</td>
-                    <td>${newEndTime}</td>
+                    <td align="center"><img src="/Jamigo/DBPicReader?shopCarouselNo=${no}" style="max-width: 250px; max-height: 150px;"></td>
+                    <td align="center" style="color: ${
+                      states === "啟用" ? "green" : "red"
+                    } ; font-weight:bold;">${states}</td>
+                    <td align="center">${newStarTime}</td>
+                    <td align="center">${newEndTime}</td>
                     <td>
                       <button
                           type="button"
@@ -1021,67 +1024,76 @@
           base64Image = await convertImageToBase64(file);
         }
 
-        if (
-          !title ||
-          !text ||
-          !startTime ||
-          !endTime ||
-          !url ||
-          !state ||
-          !base64Image
-        ) {
+        if (startTime > endTime) {
+          // 開始時間大於結束時間，顯示錯誤訊息或執行相應的處理邏輯
           Swal.fire({
             icon: "error",
-            title: "請完整寫所有欄位資料",
+            title: "錯誤",
+            text: "開始時間不可大於結束時間",
           });
         } else {
-          // 建立 JSON 物件
-          const data = {
-            shopCarouselTitle: title,
-            shopCarouselText: text,
-            shopCarouselStartTime: startTime,
-            shopCarouselEndTime: endTime,
-            shopCarouselPic: base64Image,
-            shopCarouselUrl: url,
-            shopCarouselState: state,
-          };
-          // console.log(data);
-
-          // 發送 POST 請求
-          fetch("/Jamigo/ShopCarouselServlet", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Data-Type": "json1",
-            },
-            body: JSON.stringify(data),
-          })
-            .then((response) => response.json())
-            .then((responseData) => {
-              Swal.fire("新增完成", "你很棒唉!", "success")
-                .then(() => {
-                  // 清空表單
-                  document.getElementById("recipient-title").value = "";
-                  document.getElementById("recipient-text").value = "";
-                  document.getElementById("recipient-statTime").value = "";
-                  document.getElementById("recipient-endTime").value = "";
-                  document.getElementById("formFile").value = "";
-                  document.getElementById("recipient-url").value = "";
-                })
-                .then(() => {
-                  location.reload();
-                });
-            })
-            .catch((error) => {
-              // 處理錯誤
-              console.error("Error:", error);
+          if (
+            !title ||
+            !text ||
+            !startTime ||
+            !endTime ||
+            !url ||
+            !state ||
+            !base64Image
+          ) {
+            Swal.fire({
+              icon: "error",
+              title: "請完整寫所有欄位資料，並上傳圖片",
             });
+          } else {
+            // 建立 JSON 物件
+            const data = {
+              shopCarouselTitle: title,
+              shopCarouselText: text,
+              shopCarouselStartTime: startTime,
+              shopCarouselEndTime: endTime,
+              shopCarouselPic: base64Image,
+              shopCarouselUrl: url,
+              shopCarouselState: state,
+            };
+            // console.log(data);
 
-          // 確認後燈箱隱藏
-          var modal = bootstrap.Modal.getInstance(
-            document.getElementById("exampleModal")
-          );
-          modal.hide();
+            // 發送 POST 請求
+            fetch("/Jamigo/ShopCarouselServlet", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Data-Type": "json1",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((responseData) => {
+                Swal.fire("新增完成", "你很棒唉!", "success")
+                  .then(() => {
+                    // 清空表單
+                    document.getElementById("recipient-title").value = "";
+                    document.getElementById("recipient-text").value = "";
+                    document.getElementById("recipient-statTime").value = "";
+                    document.getElementById("recipient-endTime").value = "";
+                    document.getElementById("formFile").value = "";
+                    document.getElementById("recipient-url").value = "";
+                  })
+                  .then(() => {
+                    location.reload();
+                  });
+              })
+              .catch((error) => {
+                // 處理錯誤
+                console.error("Error:", error);
+              });
+
+            // 確認後燈箱隱藏
+            var modal = bootstrap.Modal.getInstance(
+              document.getElementById("exampleModal")
+            );
+            modal.hide();
+          }
         }
       }
     </script>
@@ -1130,42 +1142,58 @@
           base64Image = await convertImageToBase64(file);
         }
 
-        const data = {
-          updateShopCarouselNo: no,
-          updateShopCarouselTitle: title,
-          updateShopCarouselText: text,
-          updateShopCarouselStartTime: startTime,
-          updateShopCarouselEndTime: endTime,
-          updateShopCarouselPic: base64Image,
-          updateShopCarouselUrl: url,
-          updateShopCarouselState: state,
-        };
-        console.log(data);
-
-        fetch("/Jamigo/ShopCarouselServlet", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Data-Type": "json2",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((responseData) => {
-            console.log(responseData);
-            Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
-              location.reload();
-            });
-            // location.reload();
-          })
-          .catch((error) => {
-            console.error("Error:", error);
+        if (!title || !text || !startTime || !endTime || !state) {
+          Swal.fire({
+            icon: "error",
+            title: "請完整寫所有欄位資料，並上傳圖片",
           });
+        } else {
+          if (startTime > endTime) {
+            // 開始時間大於結束時間，顯示錯誤訊息或執行相應的處理邏輯
+            Swal.fire({
+              icon: "error",
+              title: "錯誤",
+              text: "開始時間不可大於結束時間",
+            });
+          } else {
+            const data = {
+              updateShopCarouselNo: no,
+              updateShopCarouselTitle: title,
+              updateShopCarouselText: text,
+              updateShopCarouselStartTime: startTime,
+              updateShopCarouselEndTime: endTime,
+              updateShopCarouselPic: base64Image,
+              updateShopCarouselUrl: url,
+              updateShopCarouselState: state,
+            };
+            console.log(data);
 
-        var modal = new bootstrap.Modal(
-          document.getElementById(`exampleModal${modalId}`)
-        );
-        modal.hide();
+            fetch("/Jamigo/ShopCarouselServlet", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Data-Type": "json2",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((responseData) => {
+                console.log(responseData);
+                Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
+                  location.reload();
+                });
+                // location.reload();
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+
+            var modal = new bootstrap.Modal(
+              document.getElementById(`exampleModal${modalId}`)
+            );
+            modal.hide();
+          }
+        }
       }
     </script>
   </body>

@@ -90,15 +90,16 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipientaNo${i}"
-                                           class="col-form-label">欄位編號:</label>
+                                           class="col-form-label">櫃位編號:</label>
                                     <input type="text" class="form-control"
                                            id="recipientaNo${i}" value="" readonly>
                                 </div>
-                                <span id="msg"> </span>
+                               
                             </form>
 
                         </div>
                         <div class="modal-footer">
+                         <span id="msg"> </span>
                             <button type="button" class="btn btn-secondary editbutton"
                                     data-bs-dismiss="modal" id="cancle${i}">取消
                             </button>
@@ -265,7 +266,7 @@
             .then(resp => resp.json())
             .then(body => {
                 console.log(body);
-                const {successful, Message} = body;
+                const {successful, message} = body;
                 if (successful) {
 
                     Swal.fire({
@@ -279,7 +280,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: Message,
+                        text: `${message}`,
                         footer: '<a href=""></a>'
                     })
                 }

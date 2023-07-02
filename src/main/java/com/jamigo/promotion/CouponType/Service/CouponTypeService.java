@@ -10,8 +10,11 @@ public interface CouponTypeService {
 
 
     CouponType  edit(CouponType couponType);
+    CouponType  findByCouponTypeNo(CouponType couponType);
 
     List<CouponType > findAll();
+
+    List<CouponType> findBycounterNo(Integer counterNo);
 
     boolean remove(Integer couponTypeNo);
 

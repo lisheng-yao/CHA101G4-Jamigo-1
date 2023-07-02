@@ -379,7 +379,11 @@
               </table>
             </div>
             <div class="button-group mt-3">
-              <a href="/Jamigo/counter/counter_dataUpdate.html" class="btn revise-btn btn-outline-primary">修改</a>
+              <a
+                href="/Jamigo/counter/counter_dataUpdate.html"
+                class="btn revise-btn btn-outline-primary"
+                >修改</a
+              >
               <a href="#" class="btn btn-outline-secondary ml-2">返回總覽</a>
             </div>
           </div>
@@ -428,8 +432,25 @@
             document.getElementById("cutPercent").textContent = data.cutPercent;
             document.getElementById("counterAccount").textContent =
               data.counterAccount;
-            document.getElementById("counterStat").textContent =
-              data.counterStat === 1 ? "啟用" : "停用";
+            var element = document.getElementById("counterStat");
+            switch (data.counterStat) {
+              case 0:
+                element.textContent = "帳號未啟用";
+                element.style.color = "red";
+                break;
+              case 1:
+                element.textContent = "帳號啟用中";
+                element.style.color = "green";
+                break;
+              case 2:
+                element.textContent = "帳號停用";
+                element.style.color = "red";
+                break;
+              default:
+                document.getElementById("counterStat").textContent =
+                  "未知帳號狀態";
+                break;
+            }
             document.getElementById("counterGui").textContent = data.counterGui;
             document.getElementById("counterFloor").textContent =
               data.counterFloor;

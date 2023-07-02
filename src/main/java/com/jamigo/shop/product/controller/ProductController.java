@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,10 +38,12 @@ public class ProductController {
         this.productPicService = productPicService;
     }
 
-    @GetMapping("/listAllCounterProducts/{counterNo}")
-    public List<Product> getProductsByCounterNo(@PathVariable Integer counterNo){
-        System.out.println(productService.getProductsByCounterNo(counterNo));
-        return productService.getProductsByCounterNo(counterNo);
+    @GetMapping("/listAllCounterProducts")
+    public List<Product> getProductsByCounterNo(HttpSession session){
+        Counter counter = (Counter) session.getAttribute("counter");
+        System.out.println(counter);
+        System.out.println(productService.getProductsByCounterNo(counter.getCounterNo()));
+        return productService.getProductsByCounterNo(counter.getCounterNo());
     }
 
     @GetMapping("/getAllCategories")
@@ -50,9 +53,11 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    public ResponseEntity<?> addProduct(@RequestBody AddProductDTO addProductDTO){
+    public ResponseEntity<?> addProduct(@RequestBody AddProductDTO addProductDTO, HttpSession session){
+        Counter counter = (Counter) session.getAttribute("counter");
+        Integer counterNo = counter.getCounterNo();
         try {
-            productService.addProduct(addProductDTO);
+            productService.addProduct(addProductDTO, counterNo);
             return ResponseEntity.ok("Product added successfully");
         } catch (Exception e) {
             e.printStackTrace();

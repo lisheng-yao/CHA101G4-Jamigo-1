@@ -26,7 +26,7 @@
     <!-- navbar製作導航欄 bg 背景色 navbar-dark 深色主題 p-3 內距留3 -->
     <nav
       class="navbar navbar-dark p-3 navbar-expand-lg"
-      style="margin-bottom: -125px"
+      style="margin-bottom: -125px ; width: 100%"
     >
       <div class="container" style="margin-left: 500px">
         <a href="#" class="navbar-brand"
@@ -104,7 +104,7 @@
             <ul class="list-login">
               <li>
                 <a
-                  href="https://memes.tw/wtf/135729"
+                  href="counter_forget.html"
                   class="text-right"
                   style="margin-left: 100px"
                   >忘記密碼?</a
@@ -174,20 +174,23 @@
       };
 
       fetch("/Jamigo/login", {
-        method: "Post",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(counter),
       })
         .then((response) => {
-          if (response.ok)
+          if (response.ok) {
+            localStorage.setItem("counterAccount", name);
             window.location.href = "/Jamigo/counter/counter_data.html";
-          else {document.getElementById("login-error").style.display = "block";
-          Swal.fire({
-            icon: "error",
-            title: "帳號密碼有誤，請重確認",
-          })};
+          } else {
+            document.getElementById("login-error").style.display = "block";
+            Swal.fire({
+              icon: "error",
+              title: "帳號密碼有誤，請重新確認",
+            });
+          }
         })
         .catch((error) => console.log("錯誤"));
     }

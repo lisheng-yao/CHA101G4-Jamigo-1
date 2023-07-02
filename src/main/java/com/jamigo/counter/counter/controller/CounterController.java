@@ -106,6 +106,19 @@ public class CounterController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("圖片更新失敗");
 		}
 	}
+	
+	// =========================== 櫃位忘記密碼 ===================================
+
+		@PostMapping("/counterMail")
+		public ResponseEntity<String> forgetPass(@RequestBody Counter counter) {
+			try {
+				counterService.forget(counter);
+				return ResponseEntity.ok("信件已發出");
+			} catch (NoSuchElementException e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("找不到櫃位");
+			}
+
+		}
 
 	// ========================== 登出 ==========================
 

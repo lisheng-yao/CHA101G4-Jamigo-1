@@ -1,5 +1,6 @@
 (() => {
     const tbody = document.querySelector('#tbody');
+    const msg=document.querySelector('#msg')
 
 
     // ===============================VVV方法區VVV====================================
@@ -67,7 +68,7 @@
                             promotionExpireDate,
                             getPointMag,
                             getPointConditions,
-                            `<a href="#"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
+                            `<a href="/Jamigo/promotion/promotion_list/promotionP_detail.html?promotionPointNo=${promotionPointNo}"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
             </button>
@@ -76,7 +77,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel${i}">折價券活動修改
+                            <h1 class="modal-title fs-5" id="exampleModalLabel${i}">點數活動修改
                             </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -326,6 +327,7 @@
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
             editbuttons[i].addEventListener('click', () => {
+                console.log('有綁到')
                 editPromotion(i);
             })
             promotionPicinputs[i].addEventListener("change", function (event) {

@@ -21,10 +21,28 @@ public class PromotionCouponTypeController {
         System.out.println("修改controller");
         return couponType;
         };
-    @PostMapping ("promotion/promotion/newcouponType")
+    @PostMapping ("promotion/promotion4counter/editcouponType")
+    public  CouponType  editPromotiona(@RequestBody CouponType couponTypeRequest) {
+        CouponType  couponType= SERVICE.edit(couponTypeRequest);
+        System.out.println("修改controller");
+        return couponType;
+    };
+    @PostMapping ("promotion/promotion4counter/newcouponType")
     public CouponType newPromotion(@RequestBody CouponType couponTypeRequest) {
         CouponType  couponType= SERVICE.add(couponTypeRequest);
         System.out.println("新增controller");
+        return couponType;
+    };
+    @PostMapping ("promotion/promotion/newcouponType")
+    public CouponType newPromotiona(@RequestBody CouponType couponTypeRequest) {
+        CouponType  couponType= SERVICE.add(couponTypeRequest);
+        System.out.println("新增controller");
+        return couponType;
+    };
+
+    @PostMapping ("member/member/getcoupontype")
+    public CouponType selectbyid(@RequestBody CouponType couponTypeRequest) {
+        CouponType  couponType= SERVICE.findByCouponTypeNo(couponTypeRequest);
         return couponType;
     };
 
@@ -38,6 +56,19 @@ public class PromotionCouponTypeController {
         Integer CouponTypeNo = couponTypeRequest.getCouponTypeNo();
         Boolean deletesucceed= SERVICE.remove(CouponTypeNo);
         return deletesucceed;
+    };
+
+    @PostMapping ("promotion/promotion4counter/deletecouponType")
+    public  Boolean deletePromotiona(@RequestBody CouponType couponTypeRequest) {
+        Integer CouponTypeNo = couponTypeRequest.getCouponTypeNo();
+        Boolean deletesucceed= SERVICE.remove(CouponTypeNo);
+        return deletesucceed;
+    };
+    @PostMapping ("promotion/promotion4counter/getCounterCouponType")
+    public   List<CouponType> getcounterCouponType(@RequestBody CouponType couponTypeRequest) {
+        Integer counterNo = couponTypeRequest.getCounterNo();
+        List<CouponType> couponType = SERVICE.findBycounterNo(counterNo);
+        return couponType;
     };
 }
 

@@ -1,0 +1,87 @@
+.counter_link_area{
+    font-size: 15px;
+    color: #555555;
+}
+
+.fa-solid.fa-house:hover {
+    color: #F53737;
+}
+
+.price_area {
+    align-items: center;
+    margin: 10px 0;
+}
+
+.price_area span.product_priceTag {
+    font-weight: 700;
+    font-size: 18px;
+    color: #555555;
+}
+
+.price_area span.product_price {
+    font-weight: 500;
+    font-size: 18px;
+    color: #F53737;
+}
+
+.price_area span.old_price {
+    font-weight: 500;
+    font-size: 16px;
+    color: #555555;
+    text-decoration: line-through;
+}
+
+.product_variant.spec {
+    display: flex;
+    align-items: center;
+}
+
+.product_variant.spec label {
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-right: 15px;
+}
+
+.product_variant.spec .niceselect_option {
+    float: inherit;
+    max-width: 200px;
+}
+
+.add_wishlist i.fa-heart-circle-plus:hover {
+    color: #F53737;
+}
+
+.product_carousel .col-lg-3 {
+    width: auto;
+}
+
+.product_info_button ul li a {
+    color: #777;
+}
+
+button.report_btn{
+    background: #222222;
+    border: 0;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 35px;
+    line-height: 15px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+button.report_btn:hover{
+    background: #F53737;
+    color: #ffffff;
+}
+
+
+
+

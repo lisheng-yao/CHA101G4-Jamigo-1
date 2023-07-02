@@ -1,10 +1,8 @@
 package com.jamigo.shop.counter_order.controller;
 
-import com.jamigo.counter.counter.service.CounterService;
 import com.jamigo.shop.counter_order.dto.CounterOrderForTableDTO;
-import com.jamigo.shop.counter_order.entity.CounterOrder;
+import com.jamigo.shop.counter_order.dto.ProductDetailForCounterOrderDTO;
 import com.jamigo.shop.counter_order.service.CounterOrderService;
-import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,7 @@ public class CounterOrderController {
     @Autowired
     private CounterOrderService counterOrderService;
 
-    @GetMapping("/shop/counter/{counterNo}/counter_order")
+    @GetMapping("/shop/counter_order/counter/{counterNo}")
     public ResponseEntity<?> getAllCounterOrder(
             @PathVariable("counterNo") Integer counterNo) {
 
@@ -31,4 +29,17 @@ public class CounterOrderController {
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+    @GetMapping("/shop/counter_order/{counterOrderNo}/detail")
+    public ResponseEntity<?> getCounterOrderDetail(
+            @PathVariable("counterOrderNo") Integer counterOrderNo) {
+
+        List<ProductDetailForCounterOrderDTO> productDetailForCounterOrderDTOList = counterOrderService.getCounterOrderDetailById(counterOrderNo);
+
+        if (productDetailForCounterOrderDTOList != null)
+            return ResponseEntity.status(HttpStatus.OK).body(productDetailForCounterOrderDTOList);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
 }

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="/Jamigo/member/member/css/all.css">
 
     <!--     引入fontawsome-->
-            <link rel="stylesheet" href="/Jamigo/member/member/assets/fontawsome/css/all.css">
+    <link rel="stylesheet" href="/Jamigo/member/member/assets/fontawsome/css/all.css">
     <!-- 引入Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +29,8 @@
             href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
             rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" type="text/css" href="/Jamigo/index/頁首頁尾_final/css/style.css">
     <title>會員專區</title>
 
     <style>
@@ -58,166 +60,262 @@
 </head>
 
 <body>
-
-<!-- 整頁的容器 -->
-<div class="container-fluid whole-page">
-
-    <!-- 側邊選單列表 -->
-    <div class="row">
-        <!-- 側邊選單列表 -->
-        <div class="col-2 sidebar">
-            <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
-            <div class="list-group rounded-bottom-0">
-                <a href="counter_setFrontPage.html"
-                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-eye me-2"></i>
-                    會員專區
-                </a>
-            </div>
-            <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true"
-                                aria-controls="flush-collapseOne">
-                            <i class="fa-solid fa-list me-2"></i>
-                            會員資料
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                         data-bs-parent="#accordionFlushSidebar">
-                        <div class="accordion-body p-0 border-0">
-                            <div class="list-group rounded-0">
-                                <a href="/Jamigo/member/member/edit.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu active">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員基本資料
-                                </a>
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員等級及優惠
-                                </a>
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員點數兌換區
-                                </a>
-                                <a href="/Jamigo/member/member/會員折價券.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員折價券
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
-                            <i class="fa-solid fa-circle-info me-2"></i>
-                            訂單及商品
-                        </button>
-                    </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                         data-bs-parent="#accordionFlushSidebar">
-                        <div class="accordion-body p-0">
-                            <div class="list-group rounded-0">
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    訂單查詢
-                                </a>
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    已追蹤商品
-                                </a>
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    檢舉查詢
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                aria-controls="flush-collapseThree">
-                            <i class="fa-solid fa-gift me-2"></i>
-                            線下活動相關
-                        </button>
-                    </h2>
-                    <div id="flush-collapseThree" class="accordion-collapse collapse"
-                         data-bs-parent="#accordionFlushSidebar">
-                        <div class="accordion-body p-0">
-                            <div class="list-group rounded-0">
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    已報名活動
-                                </a>
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    已追蹤活動
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group rounded-top-0">
-                    <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                        <i class="fa-solid fa-right-from-bracket me-2"></i>
-                        回首頁
-                    </a>
-                </div>
-            </div>
-            <div class="col-10 page-body">
-            </div>
+<!--header-->
+<nav class="navbar navbar-dark p-0 navbar-expand-lg">
+    <div class="container">
+        <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img
+                src="/Jamigo/index/頁首頁尾_final/images/找百貨.png"
+                alt="" class="LOGO"></a>
+        <img src="/Jamigo/index/頁首頁尾_final/images/頁首背景.gif" alt="" class="navbarimg">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/index/首頁/index.html"> 回首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/shop/main_page/商城首頁.html">線上商城</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/activity/event_space.html">文藝活動</a>
+                </li>
+                <li class="nav-item">
+                    <a class="button-01 nav-link"
+                       href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
+                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="button-01 nav-link" href="*">客服系統</a>-->
+                <!--                </li>-->
+                <li class="nav-item">
+                    <a class="button-01 nav-link" href="/Jamigo/frontend/前台會員管理首頁.html" onclick="check(event);">會員專區</a>
+                </li>
+            </ul>
         </div>
-
-        <!-- 網頁內容主體 -->
-
-        <div class="col-10 page-body">
-            <div class="controll-box activity-order-controll-box">
-                <div class="back-end-box-title activity-order-controll-title">
-                    <h2 class="h2">會員折價券</h2>
-                </div>
-                <div class="controll-content activity-order-controll-content">
-                    <table id="all" class="display" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>編號</th>
-                            <th>種類編號</th>
-                            <th>使用狀態</th>
-                            <th>折價券訂單明細編號</th>
-                            <th>使用時間</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tbody">
-
-
-
-                        </tbody>
-                    </table>
-
-
-                    <!---------------------------------主體結束-------------------------------->
-                </div>
+        <!-- 導覽列右側 -->
+        <div id="signin">
+            <a href="/Jamigo/member/login/login.html">
+                <!--<a href="../member/login/login.html">-->
+                <button class="login-button">
+                    <i class="nav-icon fa-regular fa-user" style="color: #f5f5f5;"></i>
+                    會員登入/註冊
+                </button>
+            </a>
+        </div>
+        <div id="memberinfo">
+            <div id="imgcontainer">
+                <img src="#" alt="" id="memberimg">
             </div>
-
-
+            <div class="memberinfo_container" id="signininfo">
+                <span id="membername">HI! </span>
+                <button id="logoutbutton" class="logout-button" onclick="opensignin();">登出</button>
+            </div>
         </div>
     </div>
-</div>
-</div>
+</nav>
+<!-- 整頁的容器 -->
+<main class="main_before">
+    <div class="container-fluid whole-page">
+        <!-- 側邊選單列表 -->
+        <div class="row">
+            <!-- 側邊選單列表 -->
+            <div class="col-2 sidebar">
+                <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+                <div class="list-group rounded-bottom-0">
+                    <a href="counter_setFrontPage.html"
+                       class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-solid fa-eye me-2"></i>
+                        會員專區
+                    </a>
+                </div>
+                <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true"
+                                    aria-controls="flush-collapseOne">
+                                <i class="fa-solid fa-list me-2"></i>
+                                會員資料
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                             data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0 border-0">
+                                <div class="list-group rounded-0">
+                                    <a href="/Jamigo/member/member/edit.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu active">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        會員基本資料
+                                    </a>
+                                    <a href="#"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        會員等級及優惠
+                                    </a>
 
+                                    <a href="/Jamigo/member/member/會員折價券.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        會員折價券
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                <i class="fa-solid fa-circle-info me-2"></i>
+                                訂單及商品
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0">
+                                <div class="list-group rounded-0">
+                                    <a href=""
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        查看訂單
+                                    </a>
+                                    <a href="#"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        已追蹤商品
+                                    </a>
+                                    <a href="/Jamigo/member/member/report/viewreport.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        檢舉查詢
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                    aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <i class="fa-solid fa-gift me-2"></i>
+                                線下活動
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0">
+                                <div class="list-group rounded-0">
+                                    <a href="#"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        已報名活動
+                                    </a>
+                                    <a href="/Jamigo/member/center/activityCollection/activity_collection.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        已追蹤活動
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group rounded-top-0">
+                        <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                            <i class="fa-solid fa-right-from-bracket me-2"></i>
+                            回首頁
+                        </a>
+                    </div>
+                </div>
+                <div class="col-10 page-body">
+                </div>
+            </div>
+                <div class="col-10 page-body" style="padding: 32px">
+                    <!-- 網頁內容主體 -->
+                    <div class="controll-box activity-order-controll-box">
+                        <div class="back-end-box-title activity-order-controll-title">
+                            <h2 class="h2">會員折價券</h2>
+                        </div>
+                        <div class="controll-content activity-order-controll-content">
+                            <table id="all" class="display" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>折價券編號</th>
+                                    <th>折價券種類</th>
+                                    <th>使用狀態</th>
+                                    <th>折價券訂單明細編號</th>
+                                    <th>使用時間</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody">
+
+
+                                </tbody>
+                            </table>
+
+
+                            <!---------------------------------主體結束-------------------------------->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer>
+    <div class="footer_section bg-dark text-light">
+        <div class="container_footer">
+            <div class="row">
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">合作資訊</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/count_apply.html">櫃位申請</a></p>
+                        <p><a href="/Jamigo/index/首頁/site_info.html">場地相關</a></p>
+                        <p><a href="/Jamigo/index/首頁/talents_recruit.html">人才招募</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">關於我們</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/shop_info.html">營業資訊</a></p>
+                        <p><a href="/Jamigo/index/首頁/FAQ.html">FAQ中心</a></p>
+                        <p><a href="/Jamigo/index/首頁/transpotation.html">交通資訊</a></p>
+
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">會員相關</h1>
+                    <div class="footer_lorem_text">
+                        <p><a href="/Jamigo/index/首頁/pay_info.html">付款方式</a></p>
+                        <p><a href="/Jamigo/index/首頁/deliver_info.html">配送流程</a></p>
+                        <p><a href="/Jamigo/index/首頁/return_product.html">退換商品</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <h1 class="customer_text">聯絡我們</h1>
+                    <div class="footer_lorem_text">
+                        <p>JAMIGO 1234-5678 <br>桃園市中壢區復興路46號</p>
+                        <p>010-020-0340</p>
+                        <p>&copy;info@company.co</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <img src="images/footer_LOGO.png" alt="" class="footer_LOGO">
+                </div>
+            </div>
+        </div>
+        <div class="footer_icon">
+            <a href="#"><i class="footer-icon fa-brands fa-instagram fa-xl"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-facebook fa-xl"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-square-twitter fa-xl"></i></a>
+            <a href="#"></a><i class="footer-icon fa-brands fa-line fa-xl"></i></a>
+        </div>
+    </div>
+</footer>
 <!-- 引入bootstrap CDN -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -262,6 +360,13 @@
 
 
 </script>
+
+<!-- bootstrap -->
+<script src="/Jamigo/frontEnd/js/bootstrap.js"></script>
+<!-- FontAwesome -->
+<script src="/Jamigo/frontEnd/js/all.js"></script>
+<!-- js -->
+<script src="/Jamigo/frontEnd/js/script.js"></script>
 </body>
 
 </html>

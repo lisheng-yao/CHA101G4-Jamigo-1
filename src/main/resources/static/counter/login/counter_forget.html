@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JAMIGO MALL</title>
+
+    <!-- Bootstrap-Core-CSS -->
+    <link
+      rel="stylesheet"
+      href="123/css/style.css"
+      type="text/css"
+      media="all"
+    />
+
+    <!-- bootstrap引用檔案 -->
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <!-- Font Awesome引用檔案 -->
+    <link rel="stylesheet" href="css/all.css" />
+    <!-- css本體 -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- navbar製作導航欄 bg 背景色 navbar-dark 深色主題 p-3 內距留3 -->
+    <nav
+      class="navbar navbar-dark p-3 navbar-expand-lg"
+      style="margin-bottom: -125px ; width: 100%"
+    >
+      <div class="container" style="margin-left: 500px">
+        <a href="#" class="navbar-brand"
+          ><img
+            src="images/JAMIGO_LOGO.gif"
+            alt=""
+            class="LOGO"
+            style="max-width: 125%"
+        /></a>
+        <!-- data-bs-toggle = "collapse" 觸發導覽列縮放功能  -->
+        <!-- data-bs-target="#navbarSupportedContent"   導覽列指向的目標 -->
+      </div>
+    </nav>
+    <!-------------------------------------------- 頁首結束 ------------------------------>
+    <!------------------------------------------ 內文主題 放這 --------------------------->
+
+    <!--/login -->
+    <section class="banner-bottom py-5">
+      <div class="container">
+        <div
+          class="content-grid"
+          style="box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3)"
+        >
+          <div
+            class="text-center icon"
+            style="margin-bottom: -1em; padding-top: 20px"
+          >
+            <i class="fa-solid fa-envelope" style="font-size: 30px"></i>
+            <!-- 改 -->
+            <p style="text-align: center; font-size: 30px; margin-top: 10px">
+              請輸入櫃位信箱
+            </p>
+          </div>
+          <div class="content-bottom">
+            <div class="field-group">
+              <div class="content-input-field">
+                <input
+                  name="counterAccount"
+                  id="counterMail"
+                  type="email"
+                  placeholder="請輸入信箱"
+                  style="border: 1px solid"
+                  onkeydown="checkEnter(event)"
+                />
+              </div>
+            </div>
+
+            <div class="content-input-field">
+              <button type="button" class="btn" id="btn1" onclick="sendMail()">
+                發送驗證信
+              </button>
+              <p
+                id="login-error"
+                style="
+                  color: red;
+                  display: none;
+                  margin-left: 80px;
+                  margin-top: 30px;
+                "
+              >
+                登入失敗，帳號或密碼錯誤
+              </p>
+            </div>
+            <ul class="list-login">
+              <li>
+                <a
+                  href="counter_login.html"
+                  class="text-right"
+                  style="margin-left: 100px"
+                  >回登入頁</a
+                >
+              </li>
+              <li class="clearfix"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /login -->
+    <!--/shipping-->
+    <section class="shipping-wthree">
+      <div class="shiopping-grids d-lg-flex">
+        <div class="col-lg-4 shiopping-w3pvt-gd text-center">
+          <div class="icon-gd" style="font-size: 30px; color: white">
+            <span class="fa fa-truck" aria-hidden="true"></span>
+          </div>
+          <div class="icon-gd-info">
+            <h3>關於物流</h3>
+            <p>On all order over $2000</p>
+          </div>
+        </div>
+        <div class="col-lg-4 shiopping-w3pvt-gd sec text-center">
+          <div class="icon-gd" style="font-size: 30px; color: white">
+            <span class="fa fa-bullhorn" aria-hidden="true"></span>
+          </div>
+          <div class="icon-gd-info">
+            <h3>最新公告</h3>
+            <p>On 1st exchange in 30 days</p>
+          </div>
+        </div>
+        <div class="col-lg-4 shiopping-w3pvt-gd text-center">
+          <div class="icon-gd" style="font-size: 30px; color: white">
+            <span class="fa fa-gift" aria-hidden="true"></span>
+          </div>
+          <div class="icon-gd-info">
+            <h3>常見問題</h3>
+            <p>Register &amp; save up to $29%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--//shipping-->
+
+    <!---------------------------------- 內容主題結束 --------------------------------->
+  </body>
+  <!-- bootstrap -->
+  <script src="js/bootstrap.js"></script>
+  <!-- FontAwesome -->
+  <script src="js/all.js"></script>
+  <!-- js -->
+  <script src="js/script.js"></script>
+  <!-- sweetalert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!---------------------------------- 送出登入請求 --------------------------------->
+  <script>
+    function sendMail() {
+      const mail = document.getElementById("counterMail").value;
+
+      let counter = {
+        counterEmail: mail,
+      };
+
+      fetch("/Jamigo/counterMail", {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(counter),
+      })
+        .then((response) => {
+          if (response.ok) {
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "已將暫時密碼寄到您的信箱!",
+              text: "建議您立即更新密碼!",
+              showConfirmButton: false,
+              footer:
+                '<a href="counter_login.html" ><p style="border: 5px solid rgb(126, 126, 199); border-radius: 10px ;color : white ; background-color: rgb(126, 126, 199)">立即前往登入</p></a>',
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "查無此櫃位信箱!",
+              text: "請重新確認或連繫平台人員",
+              showConfirmButton: true,
+            });
+          }
+        })
+        .catch((error) => console.log("錯誤"));
+    }
+  </script>
+
+  <script>
+    function checkEnter(event) {
+      if (event.keyCode === 13) {
+        // 觸發登入按鈕的點擊事件
+        sendMail();
+      }
+    }
+  </script>
+</html>
