@@ -55,96 +55,121 @@
 <body>
 
 <!-- 整頁的容器 -->
+<!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
+<!-- 整頁的容器 -->
 <div class="container-fluid whole-page">
     <div class="row">
         <div class="col my-2">
-                <span class="d-flex align-items-center logo-part">
-                    <span class="logo-img mx-3">
-                        <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
-                    </span>
-                    <span class="fs-3 fw-bold logo-name">
-                        Jamigo
-                    </span>
-                    <span class="fs-4 fw-bold platform-page">
-                        平臺後臺管理系統
-                    </span>
-                    <button type="button" class="btn rounded-circle border-0 nav-btn home-btn" data-bs-toggle="tooltip"
-                            data-bs-placement="right" style="padding: 12px;" data-bs-title="返回首頁">
-                        <i class="fa-solid fa-house fa-lg"></i>
-                    </button>
-                </span>
+          <span class="d-flex align-items-center logo-part">
+            <span class="logo-img mx-3">
+              <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+            </span>
+            <span class="fs-3 fw-bold logo-name"> Jamigo </span>
+            <span class="fs-4 fw-bold counter-page"> 櫃位後臺管理系統 </span>
+            <button
+                    type="button"
+                    class="btn rounded-circle border-0 nav-btn home-btn"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    style="padding: 12px"
+                    data-bs-title="返回首頁"
+            >
+              <i class="fa-solid fa-house fa-lg"></i>
+            </button>
+          </span>
         </div>
         <div class="col-auto my-2">
             <ul class="nav justify-content-end d-flex align-items-center">
                 <li class="nav-item">
                     <!-- 通知訊息 -->
                     <div class="dropdown position-relative">
-                        <button class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button
+                                class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        >
                             <i class="fa-solid fa-bell"></i>
-                            <span
-                                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden">New alerts</span>
-                                </span>
+
+                            <span class="visually-hidden">New alerts</span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">
-                                通知
-                            </a></li>
+                            <li><a class="dropdown-item" href="#"> </a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
+                <div id="counter-top-name" style="font-weight: bold"></div>
                 <!-- 頭像 -->
                 <li class="nav-item">
                     <a class="nav-link">
-                        <img src="https://picsum.photos/id/684/600" class="rounded-circle" width="40" height="40"
-                             alt="">
+                        <img
+                                class="rounded-circle"
+                                width="40"
+                                height="40"
+                                alt=""
+                                id="head-pic"
+                        />
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+
     <div class="row">
         <!-- 側邊選單列表 -->
         <div class="col-2 sidebar">
             <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
             <div class="list-group rounded-bottom-0">
-                <a href="emp_data.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-address-card me-2"></i>
-                    員工資料管理
-                </a>
-                <a href="memData_search.html"
-                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-users me-2"></i>
-                    會員資料查詢
+                <a
+                        href="counter_carouselCtrl.html"
+                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+                >
+                    <i class="fa-solid fa-eye me-2"></i>
+                    前臺頁面管理
                 </a>
             </div>
-
-            <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
+            <div
+                    class="accordion accordion-flush border-start border-end"
+                    id="accordionFlushSidebar"
+            >
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                aria-controls="flush-collapseOne">
-                            <i class="fa-solid fa-store me-2"></i>
-                            櫃位資料管理
+                        <button
+                                class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseOne"
+                        >
+                            <i class="fa-solid fa-list me-2"></i>
+                            商品與訂單管理
                         </button>
                     </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse"
-                         data-bs-parent="#accordionFlushSidebar">
+                    <div
+                            id="flush-collapseOne"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushSidebar"
+                    >
                         <div class="accordion-body p-0 border-0">
                             <div class="list-group rounded-0">
-                                <a href="counter_accountCtrl.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a
+                                        href="counter_product.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    櫃位帳號管理
+                                    商品資料管理
                                 </a>
-                                <a href="counter_monthlyCtrl.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a
+                                        href="counter_order.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    月結抽成管理
+                                    櫃位訂單管理
                                 </a>
                             </div>
                         </div>
@@ -152,35 +177,38 @@
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true"
-                                aria-controls="flush-collapseTwo">
-                            <i class="fa-solid fa-list me-2"></i>
-                            商城與訂單管理
+                        <button
+                                class="accordion-button fw-bold p-3 sidebar-menu collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseTwo"
+                        >
+                            <i class="fa-solid fa-circle-info me-2"></i>
+                            櫃位資料專區
                         </button>
                     </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse show"
-                         data-bs-parent="#accordionFlushSidebar">
+                    <div
+                            id="flush-collapseTwo"
+                            class="accordion-collapse collapse "
+                            data-bs-parent="#accordionFlushSidebar"
+                    >
                         <div class="accordion-body p-0">
                             <div class="list-group rounded-0">
-                                <a href="platform_order.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a
+                                        href="counter_data.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu "
+                                >
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    平臺訂單管理
+                                    櫃位帳號資料管理
                                 </a>
-                                <a href="product_category.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a
+                                        href="counter_monthly.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    商品類別管理
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-submenu active">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    商品檢舉審核
-                                </a>
-                                <a href="latest_news.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    商城輪播管理
+                                    櫃位月結報表查詢
                                 </a>
                             </div>
                         </div>
@@ -188,58 +216,91 @@
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                aria-controls="flush-collapseThree">
-                            <i class="fa-solid fa-champagne-glasses me-2"></i>
-                            線下活動與場地
-                        </button>
-                    </h2>
-                    <div id="flush-collapseThree" class="accordion-collapse collapse"
-                         data-bs-parent="#accordionFlushSidebar">
-                        <div class="accordion-body p-0">
-                            <div class="list-group rounded-0">
-                                <a href="event_check.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    線下活動申請審核
-                                </a>
-                                <a href="event_venueCtrl.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    線下活動場地管理
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
-                                aria-controls="flush-collapseFour">
+                        <button
+                                class="accordion-button collapsed fw-bold p-3 sidebar-menu "
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree"
+                                aria-expanded="true"
+                                aria-controls="flush-collapseThree"
+                        >
                             <i class="fa-solid fa-gift me-2"></i>
-                            全館優惠管理
+                            櫃位優惠管理
                         </button>
                     </h2>
-                    <div id="flush-collapseFour" class="accordion-collapse collapse"
-                         data-bs-parent="#accordionFlushSidebar">
+                    <div
+                            id="flush-collapseThree"
+                            class="accordion-collapse collapse show"
+                            data-bs-parent="#accordionFlushSidebar"
+                    >
                         <div class="accordion-body p-0">
                             <div class="list-group rounded-0">
-                                <a href="platform_coupon.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a
+                                        href="/Jamigo/promotion/promotion4counter/櫃位折價券種類管理.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu active"
+                                >
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    全館折價票券管理
+                                    折價票券種類管理
                                 </a>
-                                <a href="platform_discountAct.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a
+                                        href="/Jamigo/promotion/promotion4counter/櫃位折價券活動管理.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    全館優惠活動管理
+                                    優惠活動種類管理
                                 </a>
-                                <a href="member_rewards.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a
+                                        href="/Jamigo/promotion/promotion4counter/櫃位活動種類管理.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員等級回饋管理
+                                    折價券活動管理
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button
+                                class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseFour"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseFour"
+                        >
+                            <i class="fa-solid fa-champagne-glasses me-2"></i>
+                            線下活動管理
+                        </button>
+                    </h2>
+                    <div
+                            id="flush-collapseFour"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushSidebar"
+                    >
+                        <div class="accordion-body p-0">
+                            <div class="list-group rounded-0">
+                                <a
+                                        href="event_venueCtrl.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    線下活動申請
+                                </a>
+                                <a
+                                        href="activity_orderCtrl.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    報名訂單查詢
+                                </a>
+                                <a
+                                        href="counter_actContent.html"
+                                        class="list-group-item list-group-item-action sidebar-submenu"
+                                >
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    活動申請查詢
                                 </a>
                             </div>
                         </div>
@@ -247,21 +308,18 @@
                 </div>
             </div>
             <div class="list-group rounded-top-0">
-                <a href="robot_settings.html"
-                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-robot me-2"></i>
-                    客服機器人管理
-                </a>
-                <a href="platform_DM.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                <a
+                        href="#"
+                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+                >
                     <i class="fa-regular fa-message me-2"></i>
-                    即時客服問答
+                    私訊服務
                 </a>
-                <a href="platform_fullpage.html"
-                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-eye me-2"></i>
-                    平臺首頁管理
-                </a>
-                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                <a
+                        href=""
+                        class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+                        id="sing-out"
+                >
                     <i class="fa-solid fa-right-from-bracket me-2"></i>
                     登出
                 </a>
@@ -395,7 +453,9 @@
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
 
-
+<script src="/Users/zhanjunmin/code/intellj/Jamigo/src/main/resources/static/counter/js/counter-top.js"></script>
+<!-- sweetalert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
 

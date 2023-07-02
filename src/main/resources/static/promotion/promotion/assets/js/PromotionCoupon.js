@@ -651,7 +651,7 @@
                         const couponLowest = row.couponLowest;
                         if (adminNod !== "") {
                             str += `<option value="${couponTypeNo2}" >${couponTypeNo2} : ${couponTypeName}</option>`
-                            str2 += `<div id="span4CouponType${couponTypeNo2}" class="hiddenyee">
+                            str2 += `<div id="span4CouponTypee${couponTypeNo2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNod}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
@@ -680,6 +680,7 @@
                     Listener4SelectCoupontype()
                     setdiv4div4CouponType2()
 
+
                 });
             })
             .catch(function (err) {
@@ -692,7 +693,7 @@
 
     function setdiv4CouponType() {
         for (let i = 0; i <= CouponTypelength; i++) {
-            const div4CouponTypea = document.getElementById('span4CouponType' + i);
+            const div4CouponTypea = document.getElementById('span4CouponTypee' + i);
             if (div4CouponTypea) {
                 div4CouponType.push(div4CouponTypea);
             }
@@ -704,7 +705,7 @@
 
     function setdiv4div4CouponType2() {//ok
         for (let p = 0; p <= dataaccount; p++) {
-            for (let i = 0; i < CouponTypelength; i++) {
+            for (let i = 0; i <= CouponTypelength; i++) {
                 const div4CouponTypea = document.getElementById('span4CouponType' + i + p);
                 if (div4CouponTypea) {
                     div4CouponType2.push(div4CouponTypea);
@@ -732,7 +733,7 @@
         select4CouponType?.addEventListener('change', () => {
             const selectedValue = select4CouponType.value;
             div4CouponType.forEach(function (div) {
-                if (div.id === "span4CouponType" + selectedValue) {
+                if (div.id === "span4CouponTypee" + selectedValue) {
                     div.classList.remove("hiddenyee");
                 } else {
                     div.classList.add("hiddenyee");
