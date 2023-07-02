@@ -1,9 +1,10 @@
 const $table = $('table#main_table');
+const memberNo = 1;
 
 $(function () {
 
     $table.bootstrapTable('destroy').bootstrapTable({
-        url: "http://localhost:8080/Jamigo/shop/platform_order",
+        url: `http://localhost:8080/Jamigo/shop/platform_order/all/memberData/${memberNo}`,
         stickyHeader: true,
         columns: [
             {

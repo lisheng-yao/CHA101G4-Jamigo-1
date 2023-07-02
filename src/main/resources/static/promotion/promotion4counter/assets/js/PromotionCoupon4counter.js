@@ -578,11 +578,11 @@
                             const couponTypeNo2 = row.couponTypeNo;
                             const couponTypeName = row.couponTypeName;
                             let adminNod = "";
-                            if (row.adminNo != null) {
+                            if (row.adminNo !== null) {
                                 adminNod = row.adminNo;
                             }
                             let counterNo = "";
-                            if (row.counterNo != null) {
+                            if (row.counterNo !== null) {
                                 counterNo = row.counterNo;
                             }
                             // 處理日期格式
