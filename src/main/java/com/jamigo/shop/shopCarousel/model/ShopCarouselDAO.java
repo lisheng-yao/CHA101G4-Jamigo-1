@@ -7,5 +7,6 @@ public interface ShopCarouselDAO {
 		public ShopCarouselVO findByPrimaryKey(Integer shopCarouselNo);
 		public void update(ShopCarouselVO shopCarouselVO);
 		public List<ShopCarouselVO> getAll();
+		public void delete(Integer shopCarouselNo);
 
 }
