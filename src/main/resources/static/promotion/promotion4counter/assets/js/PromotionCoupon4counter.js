@@ -10,6 +10,7 @@
     let promotionName4 = [];
     let couponTypeNo4 = [];
     let counterNoformlogin = counterNoa;
+    let promotionCouponNos=[];
 
     function getAllPromotionCoupon() {
         console.log('進入getAllPromotionCoupon()');
@@ -40,6 +41,7 @@
                         dataaccount = i;
                         let row = PromotionCoupon[i];
                         const promotionCouponNo = row.promotionCouponNo;
+                        promotionCouponNos.push(promotionCouponNo);
                         const promotionCouponName = row.promotionCouponName;
                         const promotionName = row.promotionName;
                         promotionName4.push(promotionName);
@@ -173,6 +175,10 @@
                                             <input type="text" class="form-control" id="getAmount${i}" value="${getAmount}" readonly>
                                 </div>
                                 <div class="mb-3">
+                                <div class="img-div  ms-3">
+                                                <img id="avatar-preview${i}" src="/Jamigo/member/member/image/gray.jpg" alt="Avatar Preview"
+                                                     class="img-fluid border border-dark"/>
+                                            </div>
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
@@ -203,6 +209,7 @@
                     addeventlistener4deletebutton();
                     getAllCouponType();
                     getAllPromotion();
+                    preview();
                     const msg = document.querySelector('#msg');
                 });
             })
@@ -923,6 +930,36 @@
             };
             reader.readAsDataURL(file); // 讀取成url
             // return base64Image;
+        }
+    }
+    // ===============================預覽圖====================================
+    const avatarUploads = [];
+    const avatarPreviews = [];
+    function preview() {
+
+
+        for (let i = 0; i <= dataaccount; i++) {
+            const avatarUploada = document.getElementById("promotionPic" + i);
+            const avatarPreviewa = document.getElementById("avatar-preview" + i);
+            avatarUploads.push(avatarUploada);
+            avatarPreviews.push(avatarPreviewa);
+
+        }
+
+        for (let i = 0; i <= dataaccount; i++) {
+            avatarPreviews[i].src=`/Jamigo/promotion/promotion4counter4pic/${promotionCouponNos[i]}`
+            avatarUploads[i].addEventListener("change", function () {
+                const file = avatarUploads[i].files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarPreviews[i].src = e.target.result;
+                };
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    avatarPreviews[i].src = "#";
+                }
+            });
         }
     }
 

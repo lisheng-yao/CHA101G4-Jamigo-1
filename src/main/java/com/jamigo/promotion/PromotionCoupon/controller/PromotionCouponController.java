@@ -11,10 +11,11 @@ import com.jamigo.promotion.PromotionPoint.Entity.PromotionPoint;
 import com.jamigo.promotion.PromotionType.Entity.Promotion;
 import com.jamigo.promotion.PromotionType.Service.PromotionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -190,7 +191,35 @@ public class PromotionCouponController {
         return deletesucceed;
     }
 
+    @GetMapping("promotion/promotion4pic/{promotionCouponNo}")
+    public ResponseEntity<byte[]> selectPic(@PathVariable("promotionCouponNo") Integer promotionCouponNo) {
+        PromotionCoupon thiscoupon = PromotionCouponService.findByPK(promotionCouponNo);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_GIF);
+        if (thiscoupon != null) {
+            byte[] Pic = thiscoupon.getPromotionPic();
+            return new ResponseEntity<>(Pic, headers, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     ;
+
+    @GetMapping("promotion/promotion4counter4pic/{promotionCouponNo}")
+    public ResponseEntity<byte[]> selectPic2(@PathVariable("promotionCouponNo") Integer promotionCouponNo) {
+        PromotionCoupon thiscoupon = PromotionCouponService.findByPK(promotionCouponNo);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_GIF);
+        if (thiscoupon != null) {
+            byte[] Pic = thiscoupon.getPromotionPic();
+            return new ResponseEntity<>(Pic, headers, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
 
 

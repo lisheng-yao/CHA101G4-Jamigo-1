@@ -10,6 +10,7 @@
     let PromotionType = [];
     let promotionName4 = [];
     let couponTypeNo4 = [];
+    let promotionCouponNos=[];
 
     function getAllPromotionCoupon() {
         console.log('進入getAllPromotionCoupon()')
@@ -32,6 +33,7 @@
                         dataaccount = i;
                         let row = PromotionCoupon[i];
                         const promotionCouponNo = row.promotionCouponNo;
+                        promotionCouponNos.push(promotionCouponNo);
                         const promotionCouponName = row.promotionCouponName;
                         const promotionName = row.promotionName;
                         promotionName4.push(promotionName);
@@ -165,10 +167,14 @@
                                             <input type="text" class="form-control" id="getAmount${i}" value="${getAmount}" readonly>
                                 </div>
                                 <div class="mb-3">
+                                <div class="img-div  ms-3">
+                                                <img id="avatar-preview${i}" src="/Jamigo/member/member/image/gray.jpg" alt="Avatar Preview"
+                                                     class="img-fluid border border-dark"/>
+                                            </div>
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
-                                           id="promotionPic${i}" value="${promotionPic}" accept="image/jpeg, image/png">
+                                           id="promotionPic${i}" value="${promotionPic}" accept="image/gif">
                                 </div>
                                 
                             </form>
@@ -195,6 +201,7 @@
                     addeventlistener4deletebutton();
                     getAllCouponType();
                     getAllPromotion();
+                    preview();
                     const msg = document.querySelector('#msg');
                 });
             })
@@ -289,8 +296,8 @@
 
         msgs[i].textContent = '';
         const promotionNameLength = promotionCouponName4json.length;
-        if (promotionNameLength < 1 || promotionNameLength > 100) {
-            msgs[i].textContent = '名稱長度須介於1~100字元';
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msgs[i].textContent = '名稱長度須介於1~10字元';
             return;
         }
         if (amountOfCoupon4json === '') {
@@ -376,6 +383,7 @@
     // ============================6.   newAPromotion()新增promotion========================
     const msg2 = document.querySelector('#msga');
     getpicinput()
+
     function getpicinput() {
         const promotionPic4new = document.querySelector('#promotionPic');
         promotionPic4new?.addEventListener("change", function (event) {
@@ -403,8 +411,8 @@
         const promotionExpireDate4new = document.querySelector('#promotionExpireDate').value;
 
         const promotionNameLength = promotionCouponName4new.length;
-        if (promotionNameLength < 1 || promotionNameLength > 100) {
-            msg2.textContent = '名稱長度須介於1~100字元';
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msg2.textContent = '名稱長度須介於1~10字元';
             return;
         }
         if (promotionName4new === '請選擇活動種類') {
@@ -465,7 +473,7 @@
                     })
                 } else {
                     Swal.fire({
-                        icon: 'error', title: 'Oops...', text:`${message}`, footer: '<a href=""></a>'
+                        icon: 'error', title: 'Oops...', text: `${message}`, footer: '<a href=""></a>'
                     })
                 }
                 ;
@@ -905,6 +913,41 @@
             };
             reader.readAsDataURL(file); // 讀取成url
             // return base64Image;
+        }
+    }
+
+
+    // ===============================預覽圖====================================
+    const avatarUploads = [];
+    const avatarPreviews = [];
+
+    function preview() {
+
+
+        for (let i = 0; i <= dataaccount; i++) {
+            const avatarUploada = document.getElementById("promotionPic" + i);
+            const avatarPreviewa = document.getElementById("avatar-preview" + i);
+            avatarUploads.push(avatarUploada);
+            avatarPreviews.push(avatarPreviewa);
+
+        }
+
+        for (let i = 0; i <= dataaccount; i++) {
+            avatarPreviews[i].src=`/Jamigo/promotion/promotion4pic/${promotionCouponNos[i]}`
+            avatarUploads[i].addEventListener("change", function () {
+                const file = avatarUploads[i].files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    avatarPreviews[i].src = e.target.result;
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    avatarPreviews[i].src = "#";
+                }
+            });
         }
     }
 
