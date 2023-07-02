@@ -10,9 +10,9 @@
 		integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 	<!-- 新引入的CSS檔案或套件請由此往下放 -->
-
 	<link rel="stylesheet" href="/Jamigo/counter/assets/fontawsome/css/all.css">
-
+	<!-- 引入sweetalert2 css CDN-->
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet" />
 	<!-- 引入fontawsome -->
 	<link rel="stylesheet" href="/Jamigo/counter/css/all.css">
 	<!-- 引入Google font -->
@@ -419,7 +419,7 @@
 															disabled /></th>
 													<th><input type="text" class="form-control" placeholder="場地編號"
 															disabled /></th>
-													<th><input type="text" class="form-control" placeholder="活動詳情"
+													<th><input type="text" class="form-control" placeholder="活動修改"
 															disabled /></th>
 												</tr>
 											</thead>
@@ -432,7 +432,7 @@
 												<th>參與限制</th>
 												<th>審核狀態</th>
 												<th>場地編號</th>
-												<th>活動詳情</th>
+												<th>活動修改</th>
 											</tfoot>
 										</table>
 										<!-- Modal -->
@@ -441,7 +441,7 @@
 											<div class="modal-dialog">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h1 class="modal-title fs-5">線下活動詳情</h1>
+														<h1 class="modal-title fs-5">活動內容修改</h1>
 														<button type="button" class="btn-close" data-bs-dismiss="modal"
 															aria-label="Close"></button>
 													</div>
@@ -586,17 +586,17 @@
 											return activityData;
 										}
 
-										// 更新活动信息的函数
+										// 更新活動信息的函數
 										async function updateActivity(event) {
 											event.preventDefault();
 
 											const form = document.getElementById('appdetail');
 											const activityNo = form.dataset.activityNo;
 
-											// 获取活动数据
+											// 取得活動資料
 											let activityData = await getActivityData();
 
-											// 将活动数据除了活动照片以外的字段添加到新对象中
+											// 將活動資料(除了圖片)以外的字段添加到新對象中
 											let dataToSend = {};
 											for (let field in activityData) {
 												if (field !== 'activityPic' && activityData.hasOwnProperty(field)) {
@@ -615,10 +615,18 @@
 												},
 											})
 												.then((response) => {
-													console.log('活动信息已更新:', response.data);
+													console.log('活動資訊已更新:', response.data);
+													Swal.fire({
+														text: "修改完成:)",
+														icon: 'success'
+													}).then((result) => {
+														if (result.isConfirmed) {
+															window.location.reload(); // 將 'your_redirect_url' 替換成你想跳轉的頁面的 URL
+														}
+													});
 												})
 												.catch((error) => {
-													console.error('更新失败:', error);
+													console.error('更新失敗:', error);
 													if (error.response) {
 														console.log(error.response.data);
 														console.log(error.response.status);
@@ -631,7 +639,7 @@
 												});
 										}
 
-										// 更新活动图片的函数
+										// 更新活動圖片的函數
 										async function updateImage(event) {
 											event.preventDefault();
 
@@ -645,7 +653,7 @@
 
 											// 检查用户是否选择了文件
 											if (!fileInput.files || fileInput.files.length === 0) {
-												console.error('没有选择文件');
+												console.error('没有選擇文件');
 												return;
 											}
 											const file = fileInput.files[0];
@@ -656,7 +664,7 @@
 											// 将文件添加到 FormData 中
 											formData.append('file', file);
 
-											// 发送更新请求到后端
+											// 發送更新請求到後端
 											axios.put(`/Jamigo/backend/couimage/${activityNo}`, formData, {
 												headers: {
 													'Content-Type': 'multipart/form-data',
@@ -664,6 +672,7 @@
 											})
 												.then((response) => {
 													console.log('图片已更新:', response.data);
+
 												})
 												.catch((error) => {
 													console.error('更新失败:', error);
@@ -680,10 +689,11 @@
 										}
 
 										document.addEventListener('DOMContentLoaded', (event) => {
-											// 在提交活动信息按钮上添加点击事件监听器
+											// 在提交活動訊息按鈕上添加點擊事件監聽器
 											document.querySelector('button.btn.btn-primary').addEventListener('click', updateActivity);
 
-											// 在文件输入框上添加更改事件监听器
+
+											// 在文件輸入框上添加更改事件監聽器
 											document.getElementById('imageInput').addEventListener('change', updateImage);
 										});
 
@@ -703,8 +713,32 @@
 
 														['activityNo', 'counterNo', 'activityLev', 'activityApprovalStat', 'activityPlaceNo'].forEach(attr => {
 															let td = document.createElement("td");
-															td.innerText = activity[attr];
 															td.classList.add(`activity-${attr}`);
+															if (attr === 'activityApprovalStat') {
+																if (activity[attr] === 1) {
+																	td.innerHTML = '<span class="label label-success"><i class="fa-solid fa-circle-check"></i>通過</span>';
+																} else if (activity[attr] === 0) {
+																	td.innerHTML = ' <span class="label label-reject"><i class="fa-solid fa-circle-exclamation"></i>未通過</span>';
+																} else if (activity[attr] === 2) {
+																	td.innerHTML = ' <span class="label label-danger"><i class="fa-solid fa-circle-exclamation"></i>待審核</span>';
+																}
+															} else if (attr === 'activityLev') {
+																if (activity[attr] === 0) {
+																	td.innerHTML = '<span class="label label-success">一般會員</span>';
+																} else if (activity[attr] === 1) {
+																	td.innerHTML = ' <span class="label label-danger">VIP</span>';
+																}
+															} else if (attr === 'activityPlaceNo') {
+																if (activity[attr] === 0) {
+																	td.innerHTML = '<span class="label label-success"></i>文創基地</span>';
+																} else if (activity[attr] === 1) {
+																	td.innerHTML = ' <span class="label label-reject"></i>露天廣場</span>';
+																} else if (activity[attr] === 2) {
+																	td.innerHTML = ' <span class="label label-danger"></i>森林劇場</span>';
+																}
+															} else {
+																td.innerText = activity[attr];
+															}
 															tr.appendChild(td);
 														});
 
@@ -715,7 +749,7 @@
 														btnLink.dataset.bsToggle = 'modal';
 														btnLink.dataset.bsTarget = '#exampleModal';
 														btnLink.dataset.activityNo = activity.activityNo;
-														btnLink.textContent = '詳細資訊';
+														btnLink.textContent = '內容修改';
 
 														let btnIcon = document.createElement('i');
 														btnIcon.className = 'fa-solid fa-circle-info';
@@ -768,25 +802,34 @@
 																					let fileInput = document.createElement('input');
 																					fileInput.type = 'file';
 																					fileInput.accept = 'image/*';
+
+																					// 增加以下内容
 																					fileInput.addEventListener('change', function (e) {
 																						let file = e.target.files[0];
-																						let reader = new FileReader();
-																						reader.onloadend = async function () {
-																							// Update the image data on the server. You might use axios.put()
-																							// After updating the server data, you can change the image source
-																							img.src = reader.result;
-																							// Save the base64 string to activityData
-																							let activityData = await getActivityData();
-																							activityData.activityPic = reader.result;
+																						if (file) { // 只有当成功获取到文件时，才调用 FileReader
+																							let reader = new FileReader();
 
-																							// Call the updateImage function
-																							await updateImage(e);
-																						};
-																						reader.readAsDataURL(file);
+																							reader.onloadend = async function () {
+																								// Update the image data on the server. You might use axios.put()
+																								// After updating the server data, you can change the image source
+																								img.src = reader.result;
+																								// Save the base64 string to activityData
+																								let activityData = await getActivityData();
+																								activityData.activityPic = reader.result;
+
+																								// Call the updateImage function
+																								await updateImage(e);
+																							};
+																							reader.readAsDataURL(file);
+																						} else {
+																							console.error('No file selected');
+																						}
 																					});
+
 																					// Append file input to cell
 																					cell.appendChild(fileInput);
-																				} else {
+																				}
+																				else {
 
 																					let input;
 

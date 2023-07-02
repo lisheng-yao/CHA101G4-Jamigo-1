@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.jamigo.activity.activity_approve.dao.ActivityDAO;
 import com.jamigo.activity.activity_approve.model.Activity;
+import com.jamigo.counter.counter.entity.Counter;
 
 @Service
 public class ActivityService {
@@ -73,40 +74,41 @@ public class ActivityService {
 		// TODO Auto-generated method stub
 		return activityDAO.findById(activityNo).orElse(null);
 	}
-	
+
 	@Autowired
 	public ActivityService(ActivityDAO activityDAO) {
 		this.activityDAO = activityDAO;
 	}
 
 	// 修改櫃位申請活動的資料
-	  public Activity getActUpdate(Integer activityNo) {
-	        return activityDAO.findById(activityNo)//數據庫中搜尋PK對應的Activity記錄並會返回Optional<Activity>對象
-	                .orElseThrow(() -> new IllegalArgumentException("Activity with id " + activityNo + " not found"));
-	        //找不到就拋出異常
-	    }
-	  
-	  //存取櫃位修改的資料
-	  public Activity saveActivity(Activity activity) {
-		    try {
-		        // 使用 ActivityDAO 的 save 方法保存 Activity
-		        return activityDAO.save(activity);
-		    } catch (Exception e) {
-		        // Log the error and throw a custom exception or return a custom error message.
-		        System.out.println(e.getMessage());
-		        return null;
-		    }
-		}
+	public Activity getActUpdate(Integer activityNo) {
+		return activityDAO.findById(activityNo)// 數據庫中搜尋PK對應的Activity記錄並會返回Optional<Activity>對象
+				.orElseThrow(() -> new IllegalArgumentException("Activity with id " + activityNo + " not found"));
+		// 找不到就拋出異常
+	}
 
-		public Optional<Activity> findById(Integer activityNo) {
-		    try {
-		        // 使用 ActivityDAO 的 findById 方法查找 Activity
-		        return activityDAO.findById(activityNo);
-		    } catch (Exception e) {
-		        // Log the error and throw a custom exception or return a custom error message.
-		        System.out.println(e.getMessage());
-		        return Optional.empty();
-		    }
+	// 存取櫃位修改的資料
+	public Activity saveActivity(Activity activity) {
+		try {
+			// 使用 ActivityDAO 的 save 方法保存 Activity
+			return activityDAO.save(activity);
+		} catch (Exception e) {
+			// Log the error and throw a custom exception or return a custom error message.
+			System.out.println(e.getMessage());
+			return null;
 		}
+	}
+
+	public Optional<Activity> findById(Integer activityNo) {
+		try {
+			// 使用 ActivityDAO 的 findById 方法查找 Activity
+			return activityDAO.findById(activityNo);
+		} catch (Exception e) {
+			// Log the error and throw a custom exception or return a custom error message.
+			System.out.println(e.getMessage());
+			return Optional.empty();
+		}
+	}
+
 
 }
