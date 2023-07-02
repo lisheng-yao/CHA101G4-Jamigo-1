@@ -32,6 +32,7 @@
   </head>
 
   <body>
+    <!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
     <!-- 整頁的容器 -->
     <div class="container-fluid whole-page">
       <div class="row">
@@ -66,11 +67,8 @@
                   aria-expanded="false"
                 >
                   <i class="fa-solid fa-bell"></i>
-                  <span
-                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
-                  >
-                    <span class="visually-hidden">New alerts</span>
-                  </span>
+
+                  <span class="visually-hidden">New alerts</span>
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#"> </a></li>
@@ -81,6 +79,7 @@
                 </ul>
               </div>
             </li>
+            <div id="counter-top-name" style="font-weight: bold"></div>
             <!-- 頭像 -->
             <li class="nav-item">
               <a class="nav-link">
@@ -302,6 +301,9 @@
             </a>
           </div>
         </div>
+
+        <!-- =========================================== 這裡以上幫我複製貼上 ===================================================== -->
+
         <div class="col-10 page-body">
           <div class="controll-box counter-detail-controll-box">
             <div class="back-end-box-title counter-detail-controll-title">
@@ -336,7 +338,7 @@
                   </tr>
                   <tr>
                     <th scope="row">狀態</th>
-                    <td id="counterStat"></td>
+                    <td id="counterStat" bold></td>
                   </tr>
                   <tr>
                     <th scope="row">統編</th>
@@ -432,14 +434,24 @@
 
     <!-------------------------------------- 取得所有資訊 ---------------------------------->
 
+    <!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
+
+    <script src="./js/counter-top.js"></script>
+
+    <!-- =========================================== 這裡以上幫我複製貼上 ===================================================== -->
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         fetch("/Jamigo/counter/counterAcc")
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-            const headpic = document.getElementById("head-pic");
-            headpic.src = "/Jamigo/counterPic/" + data.counterNo;
+            // const headpic = document.getElementById("head-pic");
+            // headpic.src = "/Jamigo/counterPic/" + data.counterNo;
+
+            // const ctn = document.getElementById("counter-top-name");
+            // ctn.textContent = "歡迎回來  " + data.counterName + " 專櫃";
+
             document.getElementById("counterNo").textContent = data.counterNo;
             document.getElementById("counterName").textContent =
               data.counterName;
@@ -450,15 +462,16 @@
             switch (data.counterStat) {
               case 0:
                 element.textContent = "未啟用";
-                element.style.color = "red";
+                element.style = "color : red ; font-weight:bold;";
+
                 break;
               case 1:
                 element.textContent = "啟用中";
-                element.style.color = "green";
+                element.style = "color : green ; font-weight:bold;";
                 break;
               case 2:
                 element.textContent = "停用";
-                element.style.color = "red";
+                element.style = "color : red ; font-weight:bold;";
                 break;
               default:
                 document.getElementById("counterStat").textContent =
