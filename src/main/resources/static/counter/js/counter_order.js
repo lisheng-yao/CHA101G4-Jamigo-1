@@ -1,4 +1,4 @@
-const counterNo = 3;
+const counterNo = 10;
 
 const $table = $('table#main_table');
 

@@ -1,7 +1,7 @@
 package com.jamigo.shop.platform_order.service;
 
+import com.jamigo.shop.cart.dto.CartDTO;
 import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
-import com.jamigo.shop.platform_order.dto.CartForCheckoutDTO;
 import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 
@@ -22,7 +22,7 @@ public interface PlatformOrderService {
      * @param memberNo 會員編號
      * @return { "櫃位A名稱": ["商品a", "商品b"], "櫃位B名稱": ["商品c"] } 類型的資料
      */
-    Map<String, List<CartForCheckoutDTO>> getCartInfoByMemberNo(Integer memberNo);
+    Map<String, List<CartDTO>> getCartInfoByMemberNo(Integer memberNo);
 
     List<PlatformOrder> getAllPlatformOrder();
 
@@ -34,7 +34,9 @@ public interface PlatformOrderService {
 
     void changePaidStat(Integer platformOrderNo, String formData);
 
-    void sendEmail() throws Exception;
+    void sendEmail(PlatformOrder platformOrder) throws Exception;
 
-    String getEmailContent() throws Exception;
+    String getEmailContent(PlatformOrder platformOrder, Map<String, byte[]> images) throws Exception;
+
+    List<PlatformOrder> getAllPlatformOrderByMemberNo(Integer memberNo);
 }

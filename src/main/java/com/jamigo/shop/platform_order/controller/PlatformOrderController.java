@@ -1,7 +1,7 @@
 package com.jamigo.shop.platform_order.controller;
 
+import com.jamigo.shop.cart.dto.CartDTO;
 import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
-import com.jamigo.shop.platform_order.dto.CartForCheckoutDTO;
 import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import com.jamigo.shop.platform_order.service.PlatformOrderService;
@@ -54,7 +54,7 @@ public class PlatformOrderController {
     public ResponseEntity<?> getCartInfo(
             @PathVariable("memberNo") Integer memberNo) {
 
-        Map<String, List<CartForCheckoutDTO>> cartMap = platformOrderService.getCartInfoByMemberNo(memberNo);
+        Map<String, List<CartDTO>> cartMap = platformOrderService.getCartInfoByMemberNo(memberNo);
 
         if (cartMap != null)
             return ResponseEntity.status(HttpStatus.OK).body(cartMap);
@@ -116,4 +116,19 @@ public class PlatformOrderController {
 
         platformOrderService.changePaidStat(platformOrderNo, formData);
     }
+
+    @GetMapping("/shop/platform_order/all/memberData/{memberNo}")
+    public ResponseEntity<?> getAllPlatformOrderForMember(
+            @PathVariable("memberNo") Integer memberNo
+    ) {
+
+        List<PlatformOrder> platformOrders = platformOrderService.getAllPlatformOrderByMemberNo(memberNo);
+
+        if (platformOrders != null)
+            return ResponseEntity.status(HttpStatus.OK).body(platformOrders);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    }
 }
+

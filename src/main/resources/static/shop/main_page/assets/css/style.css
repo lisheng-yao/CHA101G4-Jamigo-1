@@ -4598,9 +4598,9 @@ textarea:-ms-input-placeholder {
 }
 
 /*brand css here*/
-.brand_area {
-    margin-bottom: 87px;
-}
+/*.brand_area {*/
+/*    margin-bottom: 87px;*/
+/*}*/
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .brand_area {
