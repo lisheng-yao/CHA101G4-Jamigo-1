@@ -1,4 +1,4 @@
-const memberNo = 2;
+const memberNo = parseInt(localStorage.getItem("memberNo"));
 
 const totalCoupon = 0;
 const totalPoints = 1000;
@@ -83,7 +83,7 @@ function getCartInfo(memberNo) {
 
                 for (let item of response[counter_name]) {
 
-                    totalPaid += item["productPrice"] * item["amount"];
+                    totalPaid += item["productPrice"] * item["quantity"];
 
                     html_str +=
                         `<tr>
@@ -92,7 +92,7 @@ function getCartInfo(memberNo) {
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>
-                                <p>單價: $${item["productPrice"]} / 數量: ${item["amount"]}</p>
+                                <p>單價: $${item["productPrice"]} / 數量: ${item["quantity"]}</p>
                             </td>
                         </tr>`;
                 }
@@ -125,7 +125,6 @@ function getCartInfo(memberNo) {
                         <tr class="order_total">
                             <th colspan="2">回饋點數</th>
                             <th>
-                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
                                 <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${rewardPoints} (會員等級：${levelName})
                             </th>
                         </tr>
@@ -250,7 +249,7 @@ $("div.order_table").on("click", "div.create_order button", function () {
                             $('#allPayAPIForm').submit(); // 自動提交表單
                         }
                         else if (paymentMethod === '2')
-                            window.location.href = "商城首頁.html";
+                            window.location.href = "shopping_main_page.html";
                     })
                 },
 
