@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -28,12 +29,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jamigo.activity.activity_approve.model.Activity;
 import com.jamigo.activity.activity_approve.service.ActivityService;
+import com.jamigo.counter.counter.entity.Counter;
+import com.jamigo.counter.counter.service.CounterService;
 
 @RestController
 public class ActivityController {
 
 	private ActivityService activityService;
-
+	
+	@Autowired
+	CounterService counterService;
+	
 	// 新增線下活動申請表
 	@PostMapping(value = "/backend/appform", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // 把input寫入的資料傳進去
 	// 映射特定的HTTP請求方法到特定的處理函式
@@ -176,5 +182,22 @@ public class ActivityController {
 					.body("Image upload failed: " + e.getMessage());
 		}
 	}
+	    
+	
+    //抓取該使用戶登入session的資料
+    @GetMapping("/counter/counterAcc_2")
+    public Counter getSessionAcc(HttpSession session, HttpServletRequest req) {
+    	
+    	// 如果有資料要重新取設定session
+    	Counter ccc = (Counter) session.getAttribute("counter");
+    	Integer counterNo = ccc.getCounterNo();
+    	Counter counter3 = counterService.getCounterByCounterNo(counterNo);
+    	if (counter3 != null) {
+    		HttpSession session2 = req.getSession();
+    		session2.setAttribute("counter", counter3);
+    	}
+    	
+    	return (Counter) session.getAttribute("counter");
+    }
 
 }

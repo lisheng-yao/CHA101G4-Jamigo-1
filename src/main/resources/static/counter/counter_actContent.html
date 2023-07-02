@@ -537,7 +537,7 @@
 
 
 									<script>
-										var counterNo = 1;
+										//var counterNo = 1;
 
 										// 將欄位的鍵（key）和類型（type）放入全域變數 `fields`
 										const fields = [
@@ -608,7 +608,7 @@
 												}
 											}
 
-											// 发送更新请求到后端
+											// 發送更新请求到後端
 											axios.put(`/Jamigo/backend/applyupdate/${activityNo}`, dataToSend, {
 												headers: {
 													'Content-Type': 'application/json',
@@ -697,17 +697,28 @@
 											document.getElementById('imageInput').addEventListener('change', updateImage);
 										});
 
+										async function fetchCounterAndRelatedData() {
+											try {
+												// 從 session 獲取 counterNo
+												const response = await axios.get('/Jamigo/counter/counterAcc');
+												const counterNo = response.data.counterNo;
+												console.log('獲取到的 counterNo:', counterNo);
+
+												// 使用獲取到的 counterNo 獲取相關資料
+												const relatedDataRes = await axios.get(`/Jamigo/backend/couresult/${counterNo}`);
+												const relatedData = relatedDataRes.data;
+												console.log('獲取到的相關數據:', relatedData);
 
 
 
-										axios.get(`/Jamigo/backend/couresult/${counterNo}`)
-											.then(response => {
-												const data = response.data;
-												console.log(response.data);
+												// axios.get(`/Jamigo/backend/couresult/${counterNo}`)
+												// 	.then(response => {
+												// 		const data = response.data;
+												// 		console.log(response.data);
 
 												const tbody = document.getElementById("actlist");
 
-												response.data.forEach(activity => {
+												relatedDataRes.data.forEach(activity => {
 													if (activity && activity.activityNo) {
 														let tr = document.createElement("tr");
 
@@ -858,10 +869,13 @@
 														});
 													}
 												});
-											})
-											.catch(error => {
-												console.log('Error:', error);
-											});
+											} catch (error) {
+												console.error('獲取資料失敗:', error);
+											}
+										}
+
+										// 在進入頁面時調用這個函數
+										fetchCounterAndRelatedData();
 
 
 

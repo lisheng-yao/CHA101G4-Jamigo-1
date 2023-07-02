@@ -77,7 +77,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div class="row">
 		<!-- 側邊選單列表 -->
@@ -264,79 +264,100 @@ input[type="submit"]:hover {
 	background-color: #0056b3;
 }
 </style>
- <div class="container-fluid back-end-box">
-              <div class="row">
-                <div class=" panel panel-default panel-table filterable">
-                  <div class="panel-heading">
-                    <div class="row align-items-center">
-                      <div class="col col-xs-6">
-                        <h4><i class="fa-regular fa-address-book"></i> 櫃位活動申請頁面</h4>
-                      </div>
-					  
-				
+			<div class="container-fluid back-end-box">
+				<div class="row">
+					<div class=" panel panel-default panel-table filterable">
+						<div class="panel-heading">
+							<div class="row align-items-center">
+								<div class="col col-xs-6">
+									<h4>
+										<i class="fa-regular fa-address-book"></i> 櫃位活動申請頁面
+									</h4>
 								</div>
-								</head>
 
-								<body>
-									<form action="activity_apply" method="post">
-										<!-- <div class="vector-img-one">
+
+							</div>
+							</head>
+
+							<body>
+								<form action="activity_apply" method="post">
+									<!-- <div class="vector-img-one">
                             <img src="static/picture/qq.png" width="100" alt="">
                         </div> -->
-										<h3 class="center-text">活動申請表單</h3>
-										<p>
-											<b>-----請詳細填寫資訊------</b>
-										</p>
-										<label for="counterNo">櫃位編號:</label> <input type="text"
-											id="counterNo" name="counterNo"> <label
-											for="activityName">活動名稱:</label> <input type="text"
-											id="activityName" name="activityName"> <label
-											for="activityCost">活動費用:</label> <input type="number"
-											id="activityCost" name="activityCost"> <label
-											for="activityLimit">活動名額:</label> <input type="number"
-											id="activityLimit" name="activityLimit"> <label
-											for="activityPlaceNo">場地編號:</label> <input type="text"
-											id="activityPlaceNo" name="activityPlaceNo"> <label
-											for="activityLev">活動參與等級:</label> <input type="text"
-											id="activityLev" name="activityLev"> <label
-											for="activityDetail">活動內容:</label>
-										<textarea id="activityDetail" name="activityDetail"></textarea>
-										<label for="activityPic">活動照片:</label> <input type="file"
-											id="activityPic" name="activityPic"> <label
-											for="activityRegStartTime">報名開始時間:</label> <input
-											type="datetime-local" id="activityRegStartTime"
-											name="activityRegStartTime"> <label
-											for="activityRegEndTime">報名截止時間:</label> <input
-											type="datetime-local" id="activityRegEndTime"
-											name="activityRegEndTime"> <label
-											for="activityStartTime">活動開始時間:</label> <input
-											type="datetime-local" id="activityStartTime"
-											name="activityStartTime"> <label
-											for="activityEndTime">活動結束時間:</label> <input
-											type="datetime-local" id="activityEndTime"
-											name="activityEndTime"> <input type="submit"
-											value="提交">
-									</form>
-								</body>
-							</div>
-								</div>
-							<!-- 引入sweetalert2 css CDN-->
-							<script
-								src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
-							<link rel="stylesheet"
-								href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+									<h3 class="center-text">活動申請表單</h3>
+									<p>
+										<b>-----請詳細填寫資訊------</b>
+									</p>
+									<label for="counterNo">櫃位編號:</label> <input type="text"
+										id="counterNo" name="counterNo"> <label
+										for="activityName">活動名稱:</label> <input type="text"
+										id="activityName" name="activityName"> <label
+										for="activityCost">活動費用:</label> <input type="number"
+										id="activityCost" name="activityCost"> <label
+										for="activityLimit">活動名額:</label> <input type="number"
+										id="activityLimit" name="activityLimit"> <label
+										for="activityPlaceNo">場地編號:</label> <input type="text"
+										id="activityPlaceNo" name="activityPlaceNo"> <label
+										for="activityLev">活動參與等級:</label> <input type="text"
+										id="activityLev" name="activityLev"> <label
+										for="activityDetail">活動內容:</label>
+									<textarea id="activityDetail" name="activityDetail"></textarea>
+									<label for="activityPic">活動照片:</label> <input type="file"
+										id="activityPic" name="activityPic"> <label
+										for="activityRegStartTime">報名開始時間:</label> <input
+										type="datetime-local" id="activityRegStartTime"
+										name="activityRegStartTime"> <label
+										for="activityRegEndTime">報名截止時間:</label> <input
+										type="datetime-local" id="activityRegEndTime"
+										name="activityRegEndTime"> <label
+										for="activityStartTime">活動開始時間:</label> <input
+										type="datetime-local" id="activityStartTime"
+										name="activityStartTime"> <label for="activityEndTime">活動結束時間:</label>
+									<input type="datetime-local" id="activityEndTime"
+										name="activityEndTime"> <input type="submit"
+										value="提交">
+								</form>
+							</body>
+						</div>
+					</div>
+					<!-- 引入sweetalert2 css CDN-->
+					<script
+						src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+					<link rel="stylesheet"
+						href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
 
-							<!-- 引入bootstrap CDN -->
-							<script
-								src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-								integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-								crossorigin="anonymous"></script>
-							<script
-								src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
-								integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
-								crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-							<script
-								src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-							<script>
+					<!-- 引入bootstrap CDN -->
+					<script
+						src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+						integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+						crossorigin="anonymous"></script>
+					<script
+						src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+						integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+						crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+					<script
+						src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+					<script>
+							// 首先獲取對應的input元素
+							window.addEventListener('load', function () {
+								let counterNoInput = document.getElementById('counterNo');
+								console.log("執行");
+								// 使用Axios發送GET請求
+								axios.get('/Jamigo/counter/counterAcc_2')
+									.then(function (response) {
+										//test
+										console.log(response.data);
+										// 當請求成功時，將獲取到的counterNo設定為input的值
+										counterNoInput.value = response.data.counterNo;
+
+										// 將input元素設置read-only
+										counterNoInput.readOnly = true;
+			    })
+									.catch(function (error) {
+										// 當請求失敗時，輸出錯誤信息
+										console.error(error);
+									});
+							});
                 document.querySelector('form').addEventListener('submit', function (e) {
                     e.preventDefault();
 
@@ -360,7 +381,7 @@ input[type="submit"]:hover {
                 });
             </script>
 
-							<!-- 新引入的JS檔案或套件請由此往下放 -->
+					<!-- 新引入的JS檔案或套件請由此往下放 -->
 </body>
 
 </html>
