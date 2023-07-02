@@ -84,10 +84,10 @@ public class ReportController {
 
     @GetMapping("/report/{memberNo}/{productNo}")
     public ResponseEntity<ReportVO> getReportOne(@PathVariable Integer memberNo, @PathVariable Integer productNo) {
-
+        System.out.println("近來");
         List<ReportVO> list = reportService.getReportByPrimaryKey(memberNo, productNo);
 
-        if (list.size() > 0) {
+        if (list != null) {
             return ResponseEntity.ok(list.get(0));
         } else {
             return ResponseEntity.notFound().build();

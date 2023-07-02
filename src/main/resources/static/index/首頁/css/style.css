@@ -332,7 +332,10 @@ nav {
     .swiper-button-next:hover {
         opacity: 1;
     }
-
+    .swiper-pagination.swptwo{
+        position: relative;
+        bottom: 2px; /* 調整分頁的垂直位置 */
+    }
     .image {
         height: 190px;
         width: 190px;

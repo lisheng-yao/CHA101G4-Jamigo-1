@@ -61,14 +61,21 @@
             <label class="form-label" for="response-time">回應時間:</label>
             <span id="response-time"></span>
         </div>
-        
-        
-        
+
+        <div class="form-field">
+            <label class="form-label" for="resport-image">檢舉圖片:</label>
+            <div id="previewAreaContainer">
+                <div id="previewArea">
+                </div>
+            </div>
+        </div>
+
     </form>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
 
     document.addEventListener("DOMContentLoaded", function () {
 
@@ -87,9 +94,8 @@
                 alert(error.status);
             }
         });
-    });
-    function finish(response) {
-
+        function finish(response) {
+            
         //轉換處理狀態
         if (response.reportStat == 0) {
             response.reportStat = "未處理"
@@ -106,37 +112,58 @@
         var seconds = ('0' + Time1.getSeconds()).slice(-2);
         var reportTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
         
-        var Time2 = new Date(response.responseTime);
-        var year = Time2.getFullYear();
-        var month = ('0' + (Time2.getMonth() + 1)).slice(-2);
-        var day = ('0' + Time2.getDay()).slice(-2);
-        var hours = ('0' + Time2.getHours()).slice(-2);
-        var minutes = ('0' + Time2.getMinutes()).slice(-2);
-        var seconds = ('0' + Time2.getSeconds()).slice(-2);
-        var responseTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        if(response.responseTime){
+            var Time2 = new Date(response.responseTime);
+            var year = Time2.getFullYear();
+            var month = ('0' + (Time2.getMonth() + 1)).slice(-2);
+            var day = ('0' + Time2.getDay()).slice(-2);
+            var hours = ('0' + Time2.getHours()).slice(-2);
+            var minutes = ('0' + Time2.getMinutes()).slice(-2);
+            var seconds = ('0' + Time2.getSeconds()).slice(-2);
+            var responseTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        }else{
+            responseTime = '';
+        }
 
-        let reportstat = document.getElementById('report-status')
-        let productname = document.getElementById('product-name')
-        let reportcontent = document.getElementById('report-content')
-        let membername = document.getElementById('member-name')
-        let reportnumber = document.getElementById('report-count')
-        let reporttime = document.getElementById('report-time')
-        let reportresponse = document.getElementById('report-response')
-        let responsetime = document.getElementById('response-time')
+        
+        
+        let reportResponse;
+        if(response.reportResponse == null){
+            reportResponse = "尚未回覆";
+        }else{
+            reportResponse = response.reportResponse.replace(/\[|\]/g, '')
+        }
 
-        reportstat.innerText = response.reportStat;
-        productname.innerText = response.productName;
-        reportcontent.innerText = response.reportContent.replace(/\[|\]/g, '');
-        membername.innerText = response.memberName;
-        reportnumber.innerText = response.reportNumber;
-        reporttime.innerText = reportTime;
-        reportresponse.innerText = response.reportResponse.replace(/\[|\]/g, '');
+        let reportstat = document.getElementById('report-status');
+        let productname = document.getElementById('product-name');
+        let reportcontent = document.getElementById('report-content');
+        let membername = document.getElementById('member-name');
+        let reportnumber = document.getElementById('report-count');
+        let reporttime = document.getElementById('report-time');
+        let reportresponse = document.getElementById('report-response');
+        let responsetime = document.getElementById('response-time');
+        let previewArea = document.getElementById('previewArea');
+        
+        reportstat.innerText = response.reportStat
+        productname.innerText = response.productName
+        reportcontent.innerText = response.reportContent.replace(/\[|\]/g, '')
+        membername.innerText = response.memberName
+        reportnumber.innerText = response.reportNumber
+        reporttime.innerText = reportTime
+        reportresponse.innerText = reportResponse
         responsetime.innerText = responseTime;
+        
+        // 圖片載入
+        var byteArray = response.reportImage;
+        var imageUrl = 'data:image/png;base64,' + byteArray;
+        $('#previewArea').append(`<img src="${imageUrl}" />`);
+        
     }
-
-
-
+});
     
+    
+    
+
 
 
 

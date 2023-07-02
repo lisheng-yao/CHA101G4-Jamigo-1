@@ -57,4 +57,12 @@ public class IndexController {
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
+    @GetMapping("index/getDuringTimeAll")
+    public ResponseEntity<List<IndexVO>> getDuringTimeAll(){
+
+        List<IndexVO> list = indexService.getDuringTimeAll();
+
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
 }

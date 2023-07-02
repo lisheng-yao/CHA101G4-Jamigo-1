@@ -56,7 +56,8 @@
         font-weight: bold;
     }
 
-    #category-input,#name-input {
+    #category-input,
+    #name-input {
         margin: 10px;
         padding: 5px;
         border: 1px solid #ccc;
@@ -422,37 +423,48 @@
                 });
             }
         });
-  
+
     }
-    
-    
-    
-    function deletebutton (event){
+
+
+
+    function deletebutton(event) {
 
         var row = $(event).closest('tr');
         var rowdata = $(event).closest('table').DataTable().row(row).data();
+        if (rowdata.productCount !== 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: '抱歉~請注意',
+                text: '您無法刪除已引用該類別的商品，請通知櫃位先下架商品',
+            }).then(() => {
+                return;
+            })
+        }else{
+            $.ajax({
+                type: 'GET',
+                url: '/Jamigo/shop/deleteOne/' + rowdata.productCatNo,
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: '您已成功刪除類別',
+                        title: response,
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.reload();
+                    })
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...出了點小問題',
+                        text: error.status,
+                    });
+                }
+            });
+        }
 
-        $.ajax({
-            type: 'GET',
-            url: '/Jamigo/shop/deleteOne/' + rowdata.productCatNo,
-            success: function (response) {
-                Swal.fire({
-                    icon: 'success',
-                    text: '您已成功刪除類別',
-                    title: response,
-                    confirmButtonText:'OK'
-                }).then(()=>{
-                    window.location.reload();
-                })
-            },
-            error: function (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...出了點小問題',
-                    text: error.status,
-                });
-            }
-        });
+
 
     }
 

@@ -314,9 +314,11 @@
         $(document).ready(function () {
 
 
+let memberNo = localStorage.getItem('memberNo');
+
             $.ajax({
                 type: 'GET',
-                url: '/Jamigo/memberreports/1',
+                url: '/Jamigo/memberreports/' +memberNo,
                 data: null,
                 dataType: 'json',
                 success: function (response) {

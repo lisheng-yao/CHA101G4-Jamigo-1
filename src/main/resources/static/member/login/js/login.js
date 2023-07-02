@@ -7,7 +7,6 @@
 
     const currentPageUrl = localStorage.getItem('currentPageUrl');
     let newlocation;
-    alert(currentPageUrl);
     if (currentPageUrl) {
         newlocation = currentPageUrl;
     }else{

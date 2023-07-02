@@ -498,11 +498,11 @@
         // 監聽圖片上傳的變化
         imageInput.addEventListener('change', function (event) {
             var file = event.target.files[0];
-            
+
             // 檢查是否選擇了圖片
             if (file) {
                 var reader = new FileReader();
-                
+
                 // 載入圖片後的處理
                 reader.onload = function () {
                     image1 = new Image();
@@ -521,7 +521,7 @@
                                 window.location.reload();
                                 return;
                             })
-                        }else{
+                        } else {
                             // 顯示上傳成功動畫
                             showUploadSuccessAnimation();
                         }
@@ -553,7 +553,7 @@
         function submit() {
             var starttime = document.getElementById('starttime').value;
             var endtime = document.getElementById('endtime').value;
-            
+
 
             if (!image1) {
                 Swal.fire({
@@ -597,55 +597,54 @@
                 }).then(() => {
                     return;
                 })
-            }else{
-
-                
+            } else {
                 // 圖片轉成base64
-            // 將圖片繪製到 Canvas
-            var canvas = document.createElement('canvas');
-            canvas.width = image1.width;
-            canvas.height = image1.height;
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(image1, 0, 0);
-            
-            // 獲取圖片的資料 URL
-            var dataURL = canvas.toDataURL().split(',')[1];
-            
-            // 送請求
-            formdata = {
-                "mainpageCarouselPic": dataURL,
-                "mainpageCarouselStartTime": starttime,
-                "mainpageCarouselEndTime": endtime
-            };
-            
-            $.ajax({
-                type: 'POST',
-                url: '/Jamigo/index/insert',
-                data: JSON.stringify(formdata),
-                contentType: 'application/json',
-                processData: false,
-                success: function (response) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: '您已成功新增圖片',
-                        title: response,
-                    }).then(() => {
-                        window.location.reload();
-                    })
-                },
-                
-                error: function (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...出了點小問題',
-                        text: error.status,
-                    }).then(() => {
-                        window.location.reload();
-                    })
-                }
-            })
+                // 將圖片繪製到 Canvas
+                var canvas = document.createElement('canvas');
+                canvas.width = image1.width;
+                canvas.height = image1.height;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(image1, 0, 0);
+
+                // 獲取圖片的資料 URL
+                var dataURL = canvas.toDataURL().split(',')[1];
+
+                // 送請求
+                formdata = {
+                    "mainpageCarouselPic": dataURL,
+                    "mainpageCarouselStartTime": starttime,
+                    "mainpageCarouselEndTime": endtime
+                };
+                alert(starttime);
+                alert(endtime);
+                $.ajax({
+                    type: 'POST',
+                    url: '/Jamigo/index/insert',
+                    data: JSON.stringify(formdata),
+                    contentType: 'application/json',
+                    processData: false,
+                    success: function (response) {
+                        Swal.fire({
+                            icon: 'success',
+                            text: '您已成功新增圖片',
+                            title: response,
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    },
+
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...出了點小問題',
+                            text: error.status,
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    }
+                })
+            }
         }
-    }
 
         //函式 上傳成功後顯示動畫
         function showUploadSuccessAnimation() {

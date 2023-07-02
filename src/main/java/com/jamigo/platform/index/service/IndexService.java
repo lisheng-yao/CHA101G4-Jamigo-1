@@ -17,4 +17,6 @@ String deleteOne(Integer mainpageCarouselNo);
 
 List<Product> getpopularproduct();
 
+List<IndexVO> getDuringTimeAll();
+
 }
