@@ -2,6 +2,10 @@ let account = document.querySelector('#login-account');
 let password = document.querySelector('#login-password');
 let login_btn = document.querySelector('.content-input-field button');
 
+password.addEventListener('keyup', e => {
+	if(e.code === 'Enter') autoCreatForm();	
+})
+
 //checkLogin();
 //// 發請求給後端查找cookie中是不是有sessionId
 //function checkLogin(){
@@ -44,13 +48,19 @@ login_btn.addEventListener('click', () => {
 			console.log(response);
 			return response.json();
 		}
-		else
-		console.log('rrrrrrrrrrr')
+		else {
+			Swal.fire({
+				icon: 'error',
+				title: '登入失敗',
+				text: '請輸入正確的帳號密碼',
+			})
+		}
 	})
 	.then(data => {
 		console.log(data);
 		localStorage.setItem('adminNo', data.adminNo);
 		localStorage.setItem('adminName', data.adminName);
+		window.location.assign('/Jamigo/platform/counter_accountCtrl.html')
 	})
 	.catch(error => console.log(error))
 	

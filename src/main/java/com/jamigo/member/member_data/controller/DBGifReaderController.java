@@ -29,7 +29,6 @@ public class DBGifReaderController {
         headers.setContentType(MediaType.IMAGE_JPEG);
         if (thismember != null) {
             byte[] thisPic = thismember.getMemberPic();
-            out.println("把查到的物件的照片放上去");
             return new ResponseEntity<>(thisPic, headers, HttpStatus.OK);
         } else {
             return ResponseEntity.notFound().build();

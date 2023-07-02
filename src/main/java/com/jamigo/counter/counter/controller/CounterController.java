@@ -119,13 +119,28 @@ public class CounterController {
 			}
 
 		}
+		
+		
+	// =========================== 更新櫃位密碼 ===================================	
+		
+		@PutMapping("/update/counterPass/{counterNo}")
+		public ResponseEntity<String> updatePass(@PathVariable Integer counterNo,@RequestBody Counter data){
+			Optional<Counter> counter = counterRepository.findById(counterNo);
+			
+			if (counter == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("counter not found");
+			}
+			
+			counterService.updatePass(data);
+			
+			return ResponseEntity.ok("counter updated successfully");
+		}
 
 	// ========================== 登出 ==========================
 
 	@GetMapping("/sign_out")
-	public String sigout(HttpSession session) {
+	public void sigout(HttpSession session) {
 		// 銷毀session中的KV
 		session.removeAttribute("counter");
-		return "登出成功";
 	}
 }

@@ -225,8 +225,10 @@ function editCounter() {
 	  }
   })
 }
-// 檢查要新增或修改的帳號是否有重複
+
 inputAccount.addEventListener('blur', async () => inputAccount_reject());
+
+// 檢查要新增或修改的帳號是否有重複
 async function inputAccount_reject(){
   let flag = true;
   let error_text = '';
@@ -265,15 +267,15 @@ async function inputAccount_reject(){
   .catch(error => console.log(error));
 }
 
+inputCutPercent.addEventListener('blur', () => inputCutPercent_reject());
 
 // 檢查抽成數字是否介於0~1之間
-inputCutPercent.addEventListener('blur', () => inputCutPercent_reject());
 function inputCutPercent_reject() {
   let flag = true;
   let error_text = '';
   let percent = inputCutPercent.value;
 
-  if(percent == null && percent.trim() == 0) {
+  if(percent == null || percent.trim() == 0) {
     flag = false;
     error_text = '請輸入抽成比例';
   } else if (!(percent > 0 && percent < 1)) {

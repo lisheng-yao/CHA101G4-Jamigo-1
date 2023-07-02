@@ -10,6 +10,7 @@
     let promotionName4 = [];
     let couponTypeNo4 = [];
     let counterNoformlogin = counterNoa;
+    let promotionCouponNos=[];
 
     function getAllPromotionCoupon() {
         console.log('進入getAllPromotionCoupon()');
@@ -40,6 +41,7 @@
                         dataaccount = i;
                         let row = PromotionCoupon[i];
                         const promotionCouponNo = row.promotionCouponNo;
+                        promotionCouponNos.push(promotionCouponNo);
                         const promotionCouponName = row.promotionCouponName;
                         const promotionName = row.promotionName;
                         promotionName4.push(promotionName);
@@ -173,10 +175,14 @@
                                             <input type="text" class="form-control" id="getAmount${i}" value="${getAmount}" readonly>
                                 </div>
                                 <div class="mb-3">
+                                <div class="img-div  ms-3">
+                                                <img id="avatar-preview${i}" src="/Jamigo/member/member/image/gray.jpg" alt="Avatar Preview"
+                                                     class="img-fluid border border-dark"/>
+                                            </div>
                                     <label for="promotionPic${i}"
                                            class="col-form-label">活動圖片:</label>
                                     <input type="file" class="form-control"
-                                           id="promotionPic${i}" value="${promotionPic}" >
+                                           id="promotionPic${i}" value="${promotionPic}" accept="image/gif">
                                 </div>
                                 
                             </form>
@@ -203,6 +209,7 @@
                     addeventlistener4deletebutton();
                     getAllCouponType();
                     getAllPromotion();
+                    preview();
                     const msg = document.querySelector('#msg');
                 });
             })
@@ -364,11 +371,11 @@
     // ============================5. 綁定所有修改燈箱按鈕click / 圖片上傳change事件========================
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            editbuttons[i].addEventListener('click', () => {
+            editbuttons[i]?.addEventListener('click', () => {
                 console.log("修改按鈕啟動")
                 editPromotion(i);
             })
-            promotionPicinputs[i].addEventListener("change", function (event) {
+            promotionPicinputs[i]?.addEventListener("change", function (event) {
                 readPic(event);
                 Swal.fire({
                     position: 'center',
@@ -383,6 +390,17 @@
 
     // ============================6.   newAPromotion()新增promotion========================
     const msg2 = document.querySelector('#msga');
+    const promotionPic4new = document.querySelector('#promotionPic');
+    promotionPic4new.addEventListener("change", function (event) {
+        readPic(event);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '上傳成功!',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    });
 
     function newAPromotion() {
         const promotionCouponName4new = document.querySelector('#promotionCouponName').value;
@@ -393,21 +411,11 @@
         const getCouponLimitAmount4new = document.querySelector('#getCouponLimitAmount').value;
         const promotionEffectiveDate4new = document.querySelector('#promotionEffectiveDate').value;
         const promotionExpireDate4new = document.querySelector('#promotionExpireDate').value;
-        const promotionPic4new = document.querySelector('#promotionPic');
-        promotionPic4new.addEventListener("change", function (event) {
-            readPic(event);
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '上傳成功!',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        });
+
 
         const promotionNameLength = promotionCouponName4new.length;
-        if (promotionNameLength < 1 || promotionNameLength > 100) {
-            msg2.textContent = '名稱長度須介於1~100字元';
+        if (promotionNameLength < 1 || promotionNameLength > 10) {
+            msg2.textContent = '名稱長度須介於1~10字元';
             return;
         }
         if (promotionName4new === '請選擇活動種類') {
@@ -438,8 +446,7 @@
             msg2.textContent = '結束日期不可為空';
             return;
         }
-
-
+        console.log(base64Image)
         fetch('newPromotionCoupon', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
@@ -490,7 +497,7 @@
     // ============================8. 綁定所有刪除按鈕========================
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            deletebuttons[i].addEventListener('click', () => {
+            deletebuttons[i]?.addEventListener('click', () => {
                 const inputvalue = promotionCouponNoinputs[i].value;
                 deledtbyPK(inputvalue);
             })
@@ -714,7 +721,7 @@
 
     function Listener4SelectCoupontype() {
         for (let i = 0; i <= dataaccount; i++) {
-            couponTypeNoinputs[i].addEventListener('change', () => {
+            couponTypeNoinputs[i]?.addEventListener('change', () => {
                 const selectedValue2 = couponTypeNoinputs[i].value;
                 div4CouponType3[i].forEach(function (div) {
                     if (div.id === "span4CouponType" + selectedValue2 + i) {
@@ -885,7 +892,7 @@
 
     function Listener4SelectPromotion() {
         for (let i = 0; i <= dataaccount; i++) {
-            promotionNameinputs[i].addEventListener('change', () => {
+            promotionNameinputs[i]?.addEventListener('change', () => {
                 const selectedValue = promotionNameinputs[i].value;
                 div4promotion3[i].forEach(function (div) {
 
@@ -919,10 +926,40 @@
             reader.onload = function (e) {
                 const imageSrc = e.target.result; // 獲取數據
                 base64Image = imageSrc.split(",")[1];// 轉成base64
-                console.log()
+
             };
             reader.readAsDataURL(file); // 讀取成url
             // return base64Image;
+        }
+    }
+    // ===============================預覽圖====================================
+    const avatarUploads = [];
+    const avatarPreviews = [];
+    function preview() {
+
+
+        for (let i = 0; i <= dataaccount; i++) {
+            const avatarUploada = document.getElementById("promotionPic" + i);
+            const avatarPreviewa = document.getElementById("avatar-preview" + i);
+            avatarUploads.push(avatarUploada);
+            avatarPreviews.push(avatarPreviewa);
+
+        }
+
+        for (let i = 0; i <= dataaccount; i++) {
+            avatarPreviews[i].src=`/Jamigo/promotion/promotion4counter4pic/${promotionCouponNos[i]}`
+            avatarUploads[i].addEventListener("change", function () {
+                const file = avatarUploads[i].files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarPreviews[i].src = e.target.result;
+                };
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    avatarPreviews[i].src = "#";
+                }
+            });
         }
     }
 

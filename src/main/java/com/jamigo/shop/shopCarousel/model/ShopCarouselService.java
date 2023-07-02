@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface ShopCarouselService {
 
-	//	================== 查所有 ======================
+	// ================== 查所有 ======================
 	List<ShopCarouselVO> getAll();
 
-	//	================== 新增 ======================
+	// ================== 新增 ======================
 	ShopCarouselVO addCarousel(String shopCarouselTitle, String shopCarouselText, byte[] shopCarouselPic,
 			Date shopCarouselStartTime, Date shopCarouselEndTime, Integer shopCarouselState, String shopCarouselUrl);
 
@@ -17,5 +17,7 @@ public interface ShopCarouselService {
 	void updateShopCarousel(Integer shopCarouselNo, String shopCarouselTitle, String shopCarouselText,
 			byte[] shopCarouselPic, Date shopCarouselStartTime, Date shopCarouselEndTime, Integer shopCarouselState,
 			String shopCarouselUrl);
+
+	void delete(Integer shopCarouselNo);
 
 }

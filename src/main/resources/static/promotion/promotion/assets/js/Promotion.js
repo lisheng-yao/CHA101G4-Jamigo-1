@@ -40,7 +40,7 @@
                             row.adminNo,
                             row.counterNo,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}">修改
+                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}" ${counterNo !== null && !isNaN(counterNo) ? `style="display:none"` : ''}>修改
             </button>
             <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
                  aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>`,
-                            `<button type="button" class="btn btn-primary" id="delete${i}">刪除</button>`
+                            `<button type="button" class="btn btn-primary" id="delete${i}" ${counterNo !== null && !isNaN(counterNo) ? `style="display:none"` : ''}>刪除</button>`
 
                         ]);
                     }
@@ -231,7 +231,7 @@
     // ============================5. 綁定所有修改燈箱按鈕click事件========================
     function addeventlistener4editbutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            editbuttons[i].addEventListener('click', () => {
+            editbuttons[i]?.addEventListener('click', () => {
                 editPromotion(i);
             })
         }
@@ -303,7 +303,7 @@
     // ============================8. 綁定所有刪除按鈕========================
     function addeventlistener4deletebutton() {
         for (let i = 0; i <= dataaccount; i++) {
-            deletebuttons[i].addEventListener('click', () => {
+            deletebuttons[i]?.addEventListener('click', () => {
                 const inputvalue =promotionNameinputs[i].value;
                 deledtbyPK(inputvalue);
             })
@@ -356,7 +356,7 @@
     // ===============================2. 確認新增按鈕================================
 
     const button4new = document.querySelector('#newbutton');
-    button4new.addEventListener('click', () => {
+    button4new?.addEventListener('click', () => {
         newAPromotion();
     })
     //=================================3. 刪除按鈕=============================

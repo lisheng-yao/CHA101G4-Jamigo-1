@@ -79,7 +79,7 @@ public class PromotionPointServiceImpl implements PromotionPointService {
             if (promotionPoint.getPromotionExpireDate() != null) {
                 oldpromotionPoint.setPromotionExpireDate(promotionPoint.getPromotionExpireDate());
             }
-            if (promotionPoint.getPromotionPic() != null) {
+            if (promotionPoint.getPromotionPic() != null && promotionPoint.getPromotionPic().length > 0) {
                 oldpromotionPoint.setPromotionPic(promotionPoint.getPromotionPic());
             }
 
@@ -97,6 +97,16 @@ public class PromotionPointServiceImpl implements PromotionPointService {
     public List<PromotionPoint> findAll() {
         return Dao.findAll();
     }
+
+    @Override
+    public PromotionPoint  findbypk(Integer promotionPointNo){
+            Optional<PromotionPoint> findpic=  Dao.findById(promotionPointNo);
+        PromotionPoint  oldpromotionPoint=null;
+        if (findpic.isPresent()) {//確認opromotionCoupone是否為空
+            oldpromotionPoint = findpic.get();//將它取出以更改值
+        }
+        return oldpromotionPoint;
+    };
 
 
     @Override
