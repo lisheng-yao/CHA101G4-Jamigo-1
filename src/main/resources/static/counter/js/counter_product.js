@@ -79,7 +79,6 @@ function addProduct(){
         let productPrice = $("#productPrice").val();
         let productInfo = $("#productDescription").val();
         let productStat = $("input[name='productStatus']:checked").val() === "1" ? "true" : "false";
-    // === "1" ? "true" : "false"
         $.ajax({
             url: `/Jamigo/products/addProduct`,
             method: "POST",
@@ -109,23 +108,6 @@ function gotoEditPage(id){
     window.location=`/Jamigo/counter/counter_product_edit.html?productNo=${id}`;
 }
 
-// document.getElementById('imageUpload').addEventListener('change', function (event) {
-//     var previewContainer = document.getElementById('imagePreview');
-//     var files = event.target.files;
-//
-//     for (var i = 0; i < files.length; i++) {
-//         var reader = new FileReader();
-//
-//         reader.onload = (function (file) {
-//             return function (event) {
-//                 var imgElement = document.createElement('img');
-//                 imgElement.src = event.target.result;
-//                 imgElement.classList.add('preview-image');
-//
-//                 previewContainer.appendChild(imgElement);
-//             };
-//         })(files[i]);
-//
-//         reader.readAsDataURL(files[i]);
-//     }
-// });
+function validInputContent(){
+
+}

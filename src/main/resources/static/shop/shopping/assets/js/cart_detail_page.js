@@ -46,8 +46,8 @@ $(function () {
 
 //取得會員編號
 function getMemberNo() {
-    // return localStorage.getItem("memberNo");
-    return 1;
+    return parseInt(localStorage.getItem("memberNo"));
+    // return 1;
 }
 
 //依櫃位排序
