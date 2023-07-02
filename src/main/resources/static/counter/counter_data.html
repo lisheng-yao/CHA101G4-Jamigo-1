@@ -459,7 +459,8 @@
             document.getElementById("counterNo").textContent = data.counterNo;
             document.getElementById("counterName").textContent =
               data.counterName;
-            document.getElementById("cutPercent").textContent = data.cutPercent;
+            const pr = data.cutPercent * 100;
+            document.getElementById("cutPercent").textContent = pr + " %";
             document.getElementById("counterAccount").textContent =
               data.counterAccount;
             var element = document.getElementById("counterStat");
