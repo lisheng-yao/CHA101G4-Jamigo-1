@@ -695,3 +695,7 @@ function putCanUsePlatformCoupons(memberCoupons, currentCounterNo, counterTotal)
     }
     return canUseCounterCouponHtml;
 }
+
+function goToWishListPage(){
+    window.location = `/Jamigo/member/member/wishlist/wishlist.html`;
+}
