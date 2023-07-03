@@ -20,7 +20,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!--    複製這裡-->
+
     <!-- 引入bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -30,6 +30,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
           rel="stylesheet">
     <!-- 新引入的CSS檔案或套件請由此往下放 -->
+    <!--    複製這裡-->
     <link rel="stylesheet" href="/Jamigo/frontEnd/css/all.css">
     <link rel="stylesheet" href="/Jamigo/frontEnd/assets/fontawsome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/Jamigo/frontEnd/css/style.css">
@@ -38,10 +39,12 @@
 </head>
 
 <body>
+<!--header-->
 <nav class="navbar navbar-dark p-0 navbar-expand-lg">
     <div class="container">
-        <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img src="/Jamigo/index/頁首頁尾_final/images/找百貨.png"
-                                                                          alt="" class="LOGO"></a>
+        <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img
+                src="/Jamigo/index/頁首頁尾_final/images/找百貨.png"
+                alt="" class="LOGO"></a>
         <img src="/Jamigo/index/頁首頁尾_final/images/頁首背景.gif" alt="" class="navbarimg">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
@@ -58,7 +61,8 @@
                     <a class="button-01 nav-link" href="/Jamigo/activity/event_space.html">文藝活動</a>
                 </li>
                 <li class="nav-item">
-                    <a class="button-01 nav-link" href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
+                    <a class="button-01 nav-link"
+                       href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
                 </li>
                 <!--                <li class="nav-item">-->
                 <!--                    <a class="button-01 nav-link" href="*">客服系統</a>-->
@@ -89,316 +93,317 @@
         </div>
     </div>
 </nav>
-<main class="main_before">
 <!-- 整頁的容器 -->
-<div class="container-fluid whole-page">
-
-
-    <div class="row">
-        <!-- 側邊選單列表 -->
-        <div class="col-2 sidebar" style="padding-right: 30px;">
-            <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
-            <div class="list-group rounded-bottom-0">
-                <a href="counter_setFrontPage.html"
-                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-eye me-2"></i>
-                    會員專區
-                </a>
-            </div>
-            <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true"
-                                aria-controls="flush-collapseOne">
-                            <i class="fa-solid fa-list me-2"></i>
-                            會員資料
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                         data-bs-parent="#accordionFlushSidebar">
-                        <div class="accordion-body p-0 border-0">
-                            <div class="list-group rounded-0">
-                                <a href="/Jamigo/member/member/edit.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu active">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員基本資料
-                                </a>
-                                <a href="/Jamigo/member/member/member_rewards.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員等級及優惠
-                                </a>
-
-                                <a href="/Jamigo/member/member/會員折價券.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    會員折價券
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
-                            <i class="fa-solid fa-circle-info me-2"></i>
-                            訂單及商品
-                        </button>
-                    </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                         data-bs-parent="#accordionFlushSidebar">
-                        <div class="accordion-body p-0">
-                            <div class="list-group rounded-0">
-                                <a href="/Jamigo/member/center/member_order/member_order.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    查看訂單
-                                </a>
-                                <a href="#"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    已追蹤商品
-                                </a>
-                                <a href="/Jamigo/member/member/report/viewreport.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    檢舉查詢
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
-                                aria-expanded="false"
-                                aria-controls="flush-collapseThree">
-                            <i class="fa-solid fa-gift me-2"></i>
-                            線下活動
-                        </button>
-                    </h2>
-                    <div id="flush-collapseThree" class="accordion-collapse collapse"
-                         data-bs-parent="#accordionFlushSidebar">
-                        <div class="accordion-body p-0">
-                            <div class="list-group rounded-0">
-                                <a href="/Jamigo/member/center/activity_memberSignUp/member_activityMemberSignUp.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    已報名活動
-                                </a>
-                                <a href="/Jamigo/member/center/activityCollection/member_activityCollection.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    已追蹤活動
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group rounded-top-0">
-                    <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                        <i class="fa-solid fa-right-from-bracket me-2"></i>
-                        回首頁
+<main class="main_before">
+    <div class="container-fluid whole-page">
+        <div class="row">
+            <!-- 側邊選單列表 -->
+            <div class="col-2 sidebar" style="padding-right: 30px;">
+                <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+                <div class="list-group rounded-bottom-0">
+                    <a href="counter_setFrontPage.html"
+                       class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                        <i class="fa-solid fa-eye me-2"></i>
+                        會員專區
                     </a>
                 </div>
-            </div>
-            <div class="col-10 page-body">
-            </div>
-        </div>
+                <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true"
+                                    aria-controls="flush-collapseOne">
+                                <i class="fa-solid fa-list me-2"></i>
+                                會員資料
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                             data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0 border-0">
+                                <div class="list-group rounded-0">
+                                    <a href="/Jamigo/member/member/edit.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu active">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        會員基本資料
+                                    </a>
+                                    <a href="/Jamigo/member/member/member_rewards.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        會員等級及優惠
+                                    </a>
 
-        <!-- 網頁內容主體 -->
-        <div class="col-10 page-body">
-            <div class="container2 d-flex">
-                <div class="col-8">
-                    <div class="controll-box counter-alter-controll-box">
-                        <div class="back-end-box-title counter-alter-controll-title">
-                            <h2>會員資訊管理</h2>
+                                    <a href="/Jamigo/member/member/會員折價券.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        會員折價券
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="controll-content counter-alter-controll-content">
-                            <form action="" id="editmemberform">
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                <i class="fa-solid fa-circle-info me-2"></i>
+                                訂單及商品
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0">
+                                <div class="list-group rounded-0">
+                                    <a href="/Jamigo/member/center/member_order/member_order.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        查看訂單
+                                    </a>
+                                    <a href="/Jamigo/member/member/wishlist/wishlist.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        已追蹤商品
+                                    </a>
+                                    <a href="/Jamigo/member/member/report/viewreport.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        檢舉查詢
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                    aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <i class="fa-solid fa-gift me-2"></i>
+                                線下活動
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushSidebar">
+                            <div class="accordion-body p-0">
+                                <div class="list-group rounded-0">
+                                    <a href="/Jamigo/member/center/activity_memberSignUp/member_activityMemberSignUp.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        已報名活動
+                                    </a>
+                                    <a href="/Jamigo/member/center/activityCollection/member_activityCollection.html"
+                                       class="list-group-item list-group-item-action sidebar-submenu">
+                                        <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                        已追蹤活動
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group rounded-top-0">
+                        <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                            <i class="fa-solid fa-right-from-bracket me-2"></i>
+                            回首頁
+                        </a>
+                    </div>
+                </div>
+                <div class="col-10 page-body">
+                </div>
+            </div>
+            <!-- 網頁內容主體 -->
+            <div class="col-10 page-body">
+                <div class="container2 d-flex">
+                    <div class="col-8">
+                        <div class="controll-box counter-alter-controll-box">
+                            <div class="back-end-box-title counter-alter-controll-title">
+                                <h2>會員資訊管理</h2>
+                            </div>
+                            <div class="controll-content counter-alter-controll-content">
+                                <form action="" id="editmemberform">
 
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberNo" class="input-group-text">會員編號</label>
-                                    <input type="text" class="form-control" id="inputmemberNo" readonly>
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberAccount" class="input-group-text">會員帳號</label>
-                                    <input type="text" class="form-control" id="inputmemberAccount" readonly>
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberName" class="input-group-text">會員姓名</label>
-                                    <input type="text" class="form-control" id="inputmemberName">
-                                </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberNo" class="input-group-text">會員編號</label>
+                                        <input type="text" class="form-control" id="inputmemberNo" readonly>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberAccount" class="input-group-text">會員帳號</label>
+                                        <input type="text" class="form-control" id="inputmemberAccount" readonly>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberName" class="input-group-text">會員姓名</label>
+                                        <input type="text" class="form-control" id="inputmemberName">
+                                    </div>
 
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberPhone" class="input-group-text">手機號碼</label>
-                                    <input type="text" class="form-control" id="inputmemberPhone">
-                                </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberPhone" class="input-group-text">手機號碼</label>
+                                        <input type="text" class="form-control" id="inputmemberPhone">
+                                    </div>
 
 
-                                <div class="input-group mt-2">
-                                    <select  class="btn btn-outline-primary dropdown-toggle" id="selectGender" >
-                                        <option selected disabled>性別</option>
-                                        <option >男生</option>
-                                        <option >女生</option>
-                                    </select>
-                                    <input type="text" class="form-control" aria-label="Text input with dropdown button"
-                                     readonly  id="inputmemberGender">
-                                </div>
+                                    <div class="input-group mt-2">
+                                        <select class="btn btn-outline-primary dropdown-toggle" id="selectGender">
+                                            <option selected disabled>性別</option>
+                                            <option>男生</option>
+                                            <option>女生</option>
+                                        </select>
+                                        <input type="text" class="form-control"
+                                               aria-label="Text input with dropdown button"
+                                               readonly id="inputmemberGender">
+                                    </div>
 
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberEmail" class="input-group-text">E-mail</label>
-                                    <input type="text" class="form-control" id="inputmemberEmail">
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberAddress" class="input-group-text">地址</label>
-                                    <input type="text" class="form-control" id="inputmemberAddress">
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberJoinTime" class="input-group-text">會員註冊時間</label>
-                                    <input type="text" class="form-control" id="inputmemberJoinTime" readonly>
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberNation" class="input-group-text">國籍</label>
-                                    <input type="text" class="form-control" id="inputmemberNation" value="台灣" readonly>
-                                </div>
-                                <!-- 上傳大頭貼區塊開始 -->
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberEmail" class="input-group-text">E-mail</label>
+                                        <input type="text" class="form-control" id="inputmemberEmail">
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberAddress" class="input-group-text">地址</label>
+                                        <input type="text" class="form-control" id="inputmemberAddress">
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberJoinTime" class="input-group-text">會員註冊時間</label>
+                                        <input type="text" class="form-control" id="inputmemberJoinTime" readonly>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberNation" class="input-group-text">國籍</label>
+                                        <input type="text" class="form-control" id="inputmemberNation" value="台灣"
+                                               readonly>
+                                    </div>
+                                    <!-- 上傳大頭貼區塊開始 -->
 
-                                <style>
-                                    .img-div{
-                                        /*max-width: 200px;*/
-                                        width: 150px;
-                                        height: 150px;
-                                        border-radius: 500px;
-                                        overflow: hidden;
-                                        /*position: relative;*/
-                                    }
-                                    #avatar-preview{
-                                        /*width: 100%;*/
-                                        /*display: block;*/
-                                        /*aspect-ratio: unset;*/
-                                        /*border-radius: unset;*/
-                                        /*height: unset;*/
-                                        position: relative;
-                                        /*top: -25%;*/
-                                    }
+                                    <style>
+                                        .img-div {
+                                            /*max-width: 200px;*/
+                                            width: 150px;
+                                            height: 150px;
+                                            border-radius: 500px;
+                                            overflow: hidden;
+                                            /*position: relative;*/
+                                        }
 
-                                </style>
-                                <div class="input-group">
-                                    <div class="input-group-text">會員照片</div>
-                                    <div class="d-flex align-items-center">
-                                        <div class="img-div  ms-3">
-                                            <img id="avatar-preview" src="./image/gray.jpg" alt="Avatar Preview"
-                                                 class="img-fluid border border-dark"/>
-                                        </div>
-                                        <div class="flex-grow-1 custom-file ps-3">
-                                            <input type="file" class="form-control" id="inputmemberPic"
-                                                   aria-describedby="avatar-upload-label"/>
+                                        #avatar-preview {
+                                            /*width: 100%;*/
+                                            /*display: block;*/
+                                            /*aspect-ratio: unset;*/
+                                            /*border-radius: unset;*/
+                                            /*height: unset;*/
+                                            position: relative;
+                                            /*top: -25%;*/
+                                        }
+
+                                    </style>
+                                    <div class="input-group">
+                                        <div class="input-group-text">會員照片</div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="img-div  ms-3">
+                                                <img id="avatar-preview" src="./image/gray.jpg" alt="Avatar Preview"
+                                                     class="img-fluid border border-dark"/>
+                                            </div>
+                                            <div class="flex-grow-1 custom-file ps-3">
+                                                <input type="file" class="form-control" id="inputmemberPic"
+                                                       aria-describedby="avatar-upload-label"/>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- 上傳大頭貼區塊結束 -->
+                                    <!-- 上傳大頭貼區塊結束 -->
 
 
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberCard" class="input-group-text">信用卡</label>
-                                    <input type="text" class="form-control" id="inputmemberCard">
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberPoints" class="input-group-text">會員點數</label>
-                                    <input type="text" class="form-control" id="inputmemberPoints" readonly>
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberStat" class="input-group-text">帳號狀態</label>
-                                    <input type="text" class="form-control" id="inputmemberStat" readonly>
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputlevelNo" class="input-group-text">會員等級</label>
-                                    <input type="text" class="form-control" id="inputlevelNo" readonly>
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label for="inputmemberBirthday" class="input-group-text">生日</label>
-                                    <input type="date" class="form-control" id="inputmemberBirthday">
-                                </div>
-                                <div id="msg"></div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberCard" class="input-group-text">信用卡</label>
+                                        <input type="text" class="form-control" id="inputmemberCard">
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberPoints" class="input-group-text">會員點數</label>
+                                        <input type="text" class="form-control" id="inputmemberPoints" readonly>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberStat" class="input-group-text">帳號狀態</label>
+                                        <input type="text" class="form-control" id="inputmemberStat" readonly>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputlevelNo" class="input-group-text">會員等級</label>
+                                        <input type="text" class="form-control" id="inputlevelNo" readonly>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <label for="inputmemberBirthday" class="input-group-text">生日</label>
+                                        <input type="date" class="form-control" id="inputmemberBirthday">
+                                    </div>
+                                    <div id="msg"></div>
 
 
-                                <!-- 按鈕區-->
-                                <div class="button-group mt-2">
-                                    <button type="button" class="btn revise-btn btn-outline-primary" id="confirmbtn">
-                                        確認修改
-                                    </button>
-                                    <button type="button" class="btn btn-outline-secondary ml-2" id="canslebtn">重設
-                                    </button>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            data-bs-whatever="@mdo">修改密碼
-                                    </button>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">修改密碼</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                </div>
-                                                <!-- 燈箱區  修改密碼-->
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="mb-3">
-                                                            <label for="oldmemberPassword"
-                                                                   class="col-form-label">舊的密碼</label>
-                                                            <input type="password" class="form-control"
-                                                                   id="oldmemberPassword">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="newmemberPassword"
-                                                                   class="col-form-label">新的密碼</label>
-                                                            <input type="password" class="form-control"
-                                                                   id="newmemberPassword"></textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="newmemberPasswordConfirm"
-                                                                   class="col-form-label">確認密碼</label>
-                                                            <input type="password" class="form-control"
-                                                                   id="newmemberPasswordConfirm"></textarea>
-                                                            <span id="msg2"></span>
-                                                        </div>
+                                    <!-- 按鈕區-->
+                                    <div class="button-group mt-2">
+                                        <button type="button" class="btn revise-btn btn-outline-primary"
+                                                id="confirmbtn">
+                                            確認修改
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary ml-2" id="canslebtn">重設
+                                        </button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                                data-bs-whatever="@mdo">修改密碼
+                                        </button>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                            修改密碼</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <!-- 燈箱區  修改密碼-->
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="mb-3">
+                                                                <label for="oldmemberPassword"
+                                                                       class="col-form-label">舊的密碼</label>
+                                                                <input type="password" class="form-control"
+                                                                       id="oldmemberPassword">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="newmemberPassword"
+                                                                       class="col-form-label">新的密碼</label>
+                                                                <input type="password" class="form-control"
+                                                                       id="newmemberPassword"></textarea>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="newmemberPasswordConfirm"
+                                                                       class="col-form-label">確認密碼</label>
+                                                                <input type="password" class="form-control"
+                                                                       id="newmemberPasswordConfirm"></textarea>
+                                                                <span id="msg2"></span>
+                                                            </div>
 
 
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal" id="cancelbtn2">
-                                                        取消
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary" id="confirmbtn2">
-                                                        確定更改
-                                                    </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal" id="cancelbtn2">
+                                                            取消
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary" id="confirmbtn2">
+                                                            確定更改
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <hr>
-                            </form>
+                                    <hr>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-3">
+                    <div class="col-3">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
 </main>
 <!--footer-->
 <footer>
@@ -481,11 +486,11 @@
         const file = avatarUpload.files[0];
         const reader = new FileReader();
 
-            reader.onload = function (e) {
-                avatarPreview.src = e.target.result;
-                avatarPreview.style.display = "block";
-                avatarPlaceholder.style.display = "none"; // 隱藏灰色區塊
-            };
+        reader.onload = function (e) {
+            avatarPreview.src = e.target.result;
+            avatarPreview.style.display = "block";
+            avatarPlaceholder.style.display = "none"; // 隱藏灰色區塊
+        };
 
         if (file) {
             reader.readAsDataURL(file);
