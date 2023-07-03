@@ -19,6 +19,7 @@ $(function(){
                 list_html += `
                     <tr>
                         <td>${resp[e].productCategory.productCatName}</td>
+<!--                        <td><img src="/Jamigo/shop/product_picture/product/${resp[e].productNo}" alt="" style="height: 50px; width: 50px;"></td>-->
                         <td>${resp[e].productName}</td>
                         <td>${resp[e].productPrice}</td>
                         <td class="prod-description">${resp[e].productInfo}</td>

@@ -19,4 +19,7 @@ public class ProductCategory implements Serializable {
 
     @Column(name = "productCatName", length = 40)
     private String productCatName;
+
+    @Column(name = "productCatPerson", length = 20)
+    private String productCatPerson;
 }
