@@ -137,6 +137,7 @@ function showCartByCounter() {
     //如果購物車沒有商品
     if (cartItems.length == 0) {
         $("#cartPanel").html(`<div>購物車尚無商品</div>`);
+        $(".available_platformCoupon").html(`<option>尚無可使用的全館折價券</option>`)
         return;
     }
     let counterTotal = 0;
@@ -170,7 +171,7 @@ function showCartByCounter() {
             <tr>
                 <td class="productNo" style="display: none">${cartItems[i].productNo}</td>
                 <td class="product_thumb">
-                    <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${cartItems[i].productNo}" alt="">
+                    <img src="/Jamigo/shop/product_picture/product/${cartItems[i].productNo}" alt="">
                 </td>
                 <td class="product_name"><a href="/Jamigo/shop/shopping/product_detail_page.html?productNo=${cartItems[i].productNo}">${cartItems[i].productName}</a></td>
                 <td class="product_price">${cartItems[i].productPrice}</td>
