@@ -4,6 +4,8 @@ package com.jamigo.platform.index.dao.impl;
 import com.jamigo.platform.index.dao.IndexDao;
 import com.jamigo.platform.index.entity.IndexVO;
 import com.jamigo.platform.index.rowmapper.IndexRowMapper;
+import com.jamigo.platform.index.rowmapper.ProductRowMapper;
+import com.jamigo.shop.product.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -64,5 +66,22 @@ public class IndexDaoimpl implements IndexDao {
         namedParameterdbcTemplate.update(sql, map);
 
         return "刪除成功";
+    }
+
+    @Override
+    public List<Product> getpopularproduct() {
+        String sql = "SELECT p.productNo, p.counterNo, c.counterName, p.productName, p.productPrice, p.productInfo, p.productSaleNum, p.evalTotalPeople, p.evalTotalScore " +
+                "FROM product p " +
+                "INNER JOIN counter c ON p.counterNo = c.counterNo " +
+                "WHERE p.productStat = 1 " +
+                "ORDER BY p.productSaleNum DESC " +
+                "LIMIT :count";
+
+        int count = 10;
+        Map<String, Object> map = new HashMap();
+        map.put("count", Math.min(count, 10));
+
+        List<Product> list = namedParameterdbcTemplate.query(sql, map, new ProductRowMapper());
+        return list;
     }
 }
