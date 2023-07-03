@@ -1,12 +1,14 @@
+let currentCounterNo = localStorage.getItem('counterNo');
+
 window.addEventListener("DOMContentLoaded", () =>{
   // 先查出所有櫃位
-  getAllactivityOrder();
+  getAllactivityOrder(currentCounterNo);
 
 })
 
-function getAllactivityOrder() {
+function getAllactivityOrder(counterNo) {
   let xhr = new XMLHttpRequest();
-  let url = "/Jamigo/activityOrder/getAll";
+  let url = `/Jamigo/activityOrder/getByCounterNO/${counterNo}`;
   
   xhr.addEventListener("load", () => {
     let activityOrders = JSON.parse(xhr.responseText);

@@ -4,15 +4,18 @@ package com.jamigo.platform.index.service.impl;
 import com.jamigo.platform.index.dao.IndexDao;
 import com.jamigo.platform.index.entity.IndexVO;
 import com.jamigo.platform.index.service.IndexService;
+import com.jamigo.shop.product.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
 public class IndexServiceimpl implements IndexService {
 
-@Autowired
+    @Autowired
     private IndexDao indexDao;
 
     @Override
@@ -28,5 +31,30 @@ public class IndexServiceimpl implements IndexService {
     @Override
     public String deleteOne(Integer mainpageCarouselNo) {
         return indexDao.deleteOne(mainpageCarouselNo);
+    }
+
+    @Override
+    public List<Product> getpopularproduct() {
+        return indexDao.getpopularproduct();
+    }
+
+    @Override
+    public List<IndexVO> getDuringTimeAll() {
+
+        List<IndexVO> list = indexDao.getAll();
+        List<IndexVO> filteredList = new ArrayList<>();
+
+        for (IndexVO indexVO : list) {
+
+            Date startTime = indexVO.getMainpageCarouselStartTime();
+            Date endTime = indexVO.getMainpageCarouselEndTime();
+            Date now = new Date();
+            if (startTime.before(now) && endTime.after(now)) {
+                filteredList.add(indexVO);
+            }
+        }
+
+
+        return filteredList;
     }
 }

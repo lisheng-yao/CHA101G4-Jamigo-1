@@ -2,6 +2,7 @@ package com.jamigo.platform.index.dao;
 
 
 import com.jamigo.platform.index.entity.IndexVO;
+import com.jamigo.shop.product.entity.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,5 +15,7 @@ public interface IndexDao {
     List<IndexVO> getAll();
 
     String deleteOne(Integer mainpageCarouselNo);
+
+    List<Product> getpopularproduct();
 
 }

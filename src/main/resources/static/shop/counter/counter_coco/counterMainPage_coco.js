@@ -104,7 +104,9 @@ function createProductItem(data){
 	ele.classList.add('col-sm-6');
 	ele.classList.add('col-12');
 	product_space.append(ele);
-
+	let score = data.evalTotalPeople == 0 ? 0 : data.evalTotalScore / data.evalTotalPeople;
+	score = parseFloat(score.toFixed(1));
+	
 	let html = `
 	<article class="single_product">
 		<figure>
@@ -128,8 +130,8 @@ function createProductItem(data){
 			<div class="product_content grid_content">
 				<div class="product_rating">
 					<ul>
-						<div class="Stars" style="--rating: 5;">
-							<span>${data.evalTotalScore} (${data.evalTotalPeople})</span>
+						<div class="Stars" style="--rating: ${score};">
+							<span>${score} (${data.evalTotalPeople})</span>
 						</div>
 					</ul>
 				</div>

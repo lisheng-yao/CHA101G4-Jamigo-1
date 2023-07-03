@@ -708,7 +708,7 @@
     let div4CouponType3 = []
     function setdiv4div4CouponType2() {//ok
         for (let p = 0; p <= dataaccount; p++) {
-            for (let i = 0; i < CouponTypelength; i++) {
+            for (let i = 0; i <= CouponTypelength; i++) {
                 const div4CouponTypea = document.getElementById('span4CouponType' + i + p);
                 if (div4CouponTypea) {
                     div4CouponType2.push(div4CouponTypea);
@@ -878,7 +878,7 @@
 
     function setdiv4Promotion2() {
         for (let p = 0; p <= dataaccount; p++) {
-            for (let i = 0; i < promotionNamelength; i++) {
+            for (let i = 0; i <promotionNamelength; i++) {
                 const div4Promotiona = document.getElementById('span4Promotion' + promotionname[i] + p);
                 if (div4Promotiona) {
                     div4Promotion2.push(div4Promotiona);

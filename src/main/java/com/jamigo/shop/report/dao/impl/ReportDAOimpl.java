@@ -24,8 +24,8 @@ public class ReportDAOimpl implements ReportDAO {
 
     @Override
     public String insertOne(ReportRequest reportRequest) {
-        String sql = "INSERT INTO report (productNo,memberNo,reportContent,reportStat,reportTime" +
-                ") VALUES(:productNo,:memberNo,:reportContent,:reportStat,:reportTime)";
+        String sql = "INSERT INTO report (productNo,memberNo,reportContent,reportStat,reportTime,reportImage" +
+                ") VALUES(:productNo,:memberNo,:reportContent,:reportStat,:reportTime,:reportImage)";
 
         String sql2 = "UPDATE product SET reportNumber = reportNumber + 1 WHERE productNo = :productNo";
 
@@ -35,6 +35,7 @@ public class ReportDAOimpl implements ReportDAO {
         map.put("memberNo", reportRequest.getMemberNo());
         map.put("reportContent", reportRequest.getReportContent());
         map.put("reportStat", reportRequest.getReportStat());
+        map.put("reportImage",reportRequest.getReportImage());
 
         Date now = new Date();
         map.put("reportTime", now);
@@ -50,7 +51,7 @@ public class ReportDAOimpl implements ReportDAO {
         String sql = "SELECT (SELECT productName FROM product WHERE productNo = report.productNo) AS productName," +
                 "(SELECT memberName FROM member_data WHERE memberNo = report.memberNo ) AS memberName ,reportContent," +
                 "(SELECT reportNumber FROM product WHERE productNo = report.productNo) AS reportNumber," +
-                "reportStat,reportTime,reportResponse,responseTime,productNo,memberNo FROM report";
+                "reportStat,reportTime,reportResponse,responseTime,reportImage,productNo,memberNo FROM report";
 
         Map<String, Object> map = new HashMap<>();
 
@@ -64,7 +65,7 @@ public class ReportDAOimpl implements ReportDAO {
     public List<ReportVO> getReportByPrimaryKey(Integer memberNo, Integer productNo) {
         String sql = "SELECT (SELECT productName FROM product WHERE productNo = report.productNo) AS productName," +
                 "(SELECT memberName FROM member_data WHERE memberNo = report.memberNo ) AS memberName ,reportContent,(SELECT reportNumber FROM product WHERE productNo = report.productNo) AS reportNumber," +
-                "reportStat,reportTime,reportResponse,responseTime,productNo,memberNo FROM report WHERE productNo = :productNo AND memberNo = :memberNo";
+                "reportStat,reportTime,reportResponse,responseTime,reportImage,productNo,memberNo FROM report WHERE productNo = :productNo AND memberNo = :memberNo";
 
 
         Map<String, Object> map = new HashMap<>();
@@ -107,7 +108,7 @@ public class ReportDAOimpl implements ReportDAO {
         String sql = "SELECT (SELECT productName FROM product WHERE productNo = report.productNo) AS productName," +
                 "(SELECT memberName FROM member_data WHERE memberNo = report.memberNo ) AS memberName ,reportContent," +
                 "(SELECT reportNumber FROM product WHERE productNo = report.productNo) AS reportNumber," +
-                "reportStat,reportTime,reportResponse,responseTime,productNo,memberNo FROM report WHERE memberNo = :memberNo";
+                "reportStat,reportTime,reportResponse,responseTime,reportImage,productNo,memberNo FROM report WHERE memberNo = :memberNo";
 
     Map<String,Object> map = new HashMap<>();
     map.put("memberNo",memberNo);

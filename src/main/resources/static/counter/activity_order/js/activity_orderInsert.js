@@ -176,31 +176,32 @@ function getQueryString() {
 // }
 
 // 修改活動訂單
-if(revise_btn) {
-  revise_btn.addEventListener('click', () => {
-	  let revise_btn_promise = new Promise(async (resolve, reject) => {
-		let inputAttendee_flag = await inputAttendee_reject();
-		let attendeeNum = inputAttendee.value - 1;
-		for(let i = 0; i < attendeeNum.length; i++) {
-			let inputAttendeeMoreName_id = document.querySelector(`#inputAttendeeMoreName${i}`);
-			let parent = inputAttendeeMoreName_id;
-			let parentSibling = parent.nextElementSibling;
-			let err = parentSibling.lastElementChild;
-			inputAttendeeMoreName_reject(inputAttendeeMoreName_id, err)
-			inputAttendee_reject();
-			inputAttendeeMoreAge_reject(inputAttendeeMoreName_id, err);
-		
-		}
-        resolve();
-	  });
-	  revise_btn_promise.then(() => {
-		  editactivityOrder();
-//  	   if(inputAccount_flag && inputCutPercent_flag) {
-//	    }  
-	  })
+  revise_btn?.addEventListener('click', () => {
+	let inputAttendee_flag = inputAttendee_reject();
+	let attendeeNum = inputAttendee.value - 1;
+	let flag = true;
+	for(let i = 1; i <= attendeeNum; i++) {
+		let inputAttendeeMoreName_id = document.querySelector(`#inputAttendeeMoreName${i}`);
+		let inputAttendeeMoreAge_id = document.querySelector(`#inputAttendeeMoreAge${i}`);
+		let parent = inputAttendeeMoreName_id;
+		let parentSibling = parent.nextElementSibling;
+		let err = parentSibling.lastElementChild;
+		let inputAttendeeMoreName_flag = inputAttendeeMoreName_reject(inputAttendeeMoreName_id);
+		let inputAttendeeMoreAge_flag = inputAttendeeMoreAge_reject(inputAttendeeMoreAge_id);
+		if(!inputAttendeeMoreName_flag){
+			flag = false;
+		};
+		if(!inputAttendeeMoreAge_flag){
+			flag = false;
+		};
+	}
+
+	if(inputAttendee_flag && flag) {
+		editactivityOrder();
+	}
   })
 
-}
+
 
 // 確認是否修改活動訂單的彈窗訊息
 // + 送出修改資料到後端
@@ -324,7 +325,7 @@ function autoCreateFormBody(startIndex, item) {
 	  `<div class="row">
         <div class="form-item form-item-attendee-more-name col-12 mt-3">
           <div class="form-label input-group-attendee-more-name">
-            <input name="attendeeName" type="text" class="form-control form-control-name" id="inputAttendeeMoreName${startIndex}" value="${item ? item.attendeeName : ''}">
+            <input onblur="inputAttendeeMoreName_reject(this)" name="attendeeName" type="text" class="form-control form-control-name" id="inputAttendeeMoreName${startIndex}" value="${item ? item.attendeeName : ''}">
             <label for="inputAttendeeMoreName${startIndex}" class="input-group-text">第${startIndex}位參加者姓名</label>
           </div>
           <div class="error-text error-text-attendee-more-name">
@@ -351,7 +352,7 @@ function autoCreateFormBody(startIndex, item) {
         </div>
         <div class="form-item form-item-attendee-more-age col-6 mt-3">
           <div class="form-label input-group-attendee-more-age">
-            <input name="attendeeAge" type="text" class="form-control form-control-age" id="inputAttendeeMoreAge${startIndex}" value="${item ? item.attendeeAge : ''}">
+            <input onblur="inputAttendeeMoreAge_reject(this)" name="attendeeAge" type="text" class="form-control form-control-age" id="inputAttendeeMoreAge${startIndex}" value="${item ? item.attendeeAge : ''}">
             <label for="inputAttendeeMoreAge${startIndex}" class="input-group-text">第${startIndex}位參加者年紀</label>
           </div>
           <div class="error-text error-text-attendee-more-age">
@@ -380,7 +381,10 @@ function inputAttendee_reject() {
 	} else if (value <= 0) {
 		 flag = false;
 		 error_text = '請輸入正確的人數';
-	}
+	} else if(isNaN(value)) {
+		flag = false;
+		error_text = `請輸入正確的參加人數`;
+ 	}
 
 	error_text_controll(flag, inputAttendee_error, error_text);
 	return flag;
@@ -402,45 +406,58 @@ function inputAttendee_reject() {
 // 		inputAttendeeMoreAge_reject(e.target, err)
 // 	}
 // })
-function inputAttendeeMoreName_reject(input, errorSpan) {
+function inputAttendeeMoreName_reject(ele) {
 	let flag = true;
 	let error_text = '';
-	let value = input.value;
+	let value = ele.value;
+	let parent = ele.parentElement;
+	let parentSibling = parent.nextElementSibling;
+	let err = parentSibling.lastElementChild;
 
  	if(value == null || value.trim() == 0) {
    		flag = false;
-   		error_text = `請輸入${input.nextElementSibling.innerText}`;
+   		error_text = `請輸入${ele.nextElementSibling.innerText}`;
 	}
 
-	error_text_controll(flag, errorSpan, error_text);
+	error_text_controll(flag, err, error_text);
 	return flag;
 }
 
-function inputAttendeeMoreAge_reject(input, errorSpan) {
+function inputAttendeeMoreAge_reject(ele) {
 	let flag = true;
 	let error_text = '';
-	let value = input.value;
+	let value = ele.value;
+	let parent = ele.parentElement;
+	let parentSibling = parent.nextElementSibling;
+	let err = parentSibling.lastElementChild;
 
 	if (value <= 0) {
 		flag = false;
 		error_text = '請輸入正確的年紀';
    	} else if(value == null || value.trim() == 0) {
    		flag = false;
-   		error_text = `請輸入${input.nextElementSibling.innerText}`;
+   		error_text = `請輸入${ele.nextElementSibling.innerText}`;
+	} else if(isNaN(value)) {
+   		flag = false;
+   		error_text = `請輸入正確的年紀`;
 	}
 
-	error_text_controll(flag, errorSpan, error_text);
+	error_text_controll(flag, err, error_text);
 	return flag;
 }
 
 // 檢查flag判斷要添加錯誤訊息還是移除錯誤訊息
 function error_text_controll(flag, item, error_text) {
 	let itemParent = item.parentElement;
-	if(flag) {
+	let contentParent = itemParent.parentElement;
+	let rowParent = contentParent.parentElement;
+	if(flag) { 
 	  itemParent.parentElement.classList.remove('show');
+	  rowParent.parentElement.classList.remove('show');
 	} else {
 	  item.innerText = error_text;
 	  itemParent.parentElement.classList.add('show');
+	  rowParent.parentElement.classList.add('show');
 	}
   }
   
