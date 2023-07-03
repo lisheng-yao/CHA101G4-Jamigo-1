@@ -41,7 +41,7 @@ public class Categorydaoimpl implements Categorydao {
         String sql = "INSERT INTO product_category(productCatName,productCatPerson) VALUES(:productCatName,:productCatPerson)";
 
         Map<String, Object> map = new HashMap<>();
-        System.out.println(categoryVO.getProductCatName());
+
         map.put("productCatName", categoryVO.getProductCatName());
         map.put("productCatPerson", categoryVO.getProductCatPerson());
         namedParameterJdbcTemplate.update(sql, map);
@@ -52,7 +52,7 @@ public class Categorydaoimpl implements Categorydao {
     @Override
     public String delete(Integer productCatNo) {
         String sql = "DELETE FROM product_category WHERE productCatNo=:productCatNo";
-        System.out.println(productCatNo);
+
         Map<String, Object> map = new HashMap<>();
         map.put("productCatNo", productCatNo);
 
