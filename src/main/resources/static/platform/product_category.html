@@ -82,6 +82,44 @@
     #addbutton:hover {
         background-color: #45a049;
     }
+
+    /* datatable */
+    /* 表格容器的樣式 */
+    .datatablecontainer {
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    /* 表格的樣式 */
+    .datatable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* 表頭儲存格的樣式 */
+    .datatable thead th {
+        background-color: #006c74;
+        color: #fff;
+        padding: 8px;
+        text-align: center !important;
+        overflow: hidden;
+
+    }
+
+    /* 資料行的樣式 */
+    .datatable tbody td {
+        background-color: #fff;
+        padding: 8px;
+        text-align: center;
+        height: 65px;
+        vertical-align: middle;
+    }
+
+    /* 偶數行的背景顏色 */
+    .datatable tbody tr:nth-child(even) td {
+        background-color: #f2f2f2;
+    }
 </style>
 
 <body>
@@ -283,6 +321,7 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="list-group rounded-top-0">
                 <!--                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu ">-->
                 <!--                    <i class="fa-regular fa-message me-2"></i>-->
@@ -298,6 +337,26 @@
                     <i class="fa-solid fa-right-from-bracket me-2"></i>
                     登出
                 </a>
+=======
+            <div class="col-10 page-body">
+                <!-- 網頁內容主體  往下放-->
+
+                <div class="datatablecontainer">
+
+                    <table id="product_category_table" class="datatable display" style="width:100%">
+
+                    </table>
+
+                </div>
+                <div class="create">
+                    <label for="category-input">加入類別:</label>
+                    <input type="text" id="category-input">
+                    <label for="name-input">新增人員:</label>
+                    <input type="text" id="name-input">
+                </div>
+                <button id="addbutton" onclick="add();">新增</button>
+
+>>>>>>> Shawn
             </div>
         </div>
         <!-- 網頁內容主體  往下放-->
@@ -364,6 +423,7 @@
             for (let i = 0; i < response.length; i++) {
 
                 data1.push({
+                    'data': response[i].productCatNo ,
                     'productCatNo': i + 1,
                     'productCatName': response[i].productCatName,
                     'productCatPerson': response[i].productCatPerson,
@@ -379,18 +439,28 @@
                 info: false,
                 data: data1,
                 columns: [
+<<<<<<< HEAD
                     {data: 'productCatNo', title: "類別編號"},
                     {data: 'productCatName', title: "類別名稱"},
                     {data: 'productCatPerson', title: "新增人員"},
                     {data: 'productCount', title: "已擁有商品數"},
+=======
+                    { data: 'data' },
+                    { data: 'productCatNo', title: "類別編號" },
+                    { data: 'productCatName', title: "類別名稱" },
+                    { data: 'productCatPerson', title: "新增人員" },
+                    { data: 'productCount', title: "已擁有商品數" },
+>>>>>>> Shawn
                     {
                         data: 'handle', title: "操作",
                         render: function (data, type, row) {
                             return '<button class="delete-button" onclick="deletebutton(this);">刪除</button>'
                         }
                     }
-
                 ],
+                columnDefs:[
+                    {target: 0,width: 0,visible:false}
+                ]
 
 
             });
@@ -401,34 +471,51 @@
 
         var categoryinput = document.getElementById('category-input').value;
         var nameinput = document.getElementById('name-input').value;
-        var data = {
-            "productCatName": categoryinput,
-            "productCatPerson": nameinput
-        }
 
-        $.ajax({
-            type: 'POST',
-            url: '/Jamigo/shop/addOneCategory',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            success: function (response) {
-                Swal.fire({
-                    icon: 'success',
-                    text: '您已成功新增類別',
-                    title: response,
-                }).then(() => {
-                    window.location.reload();
-                })
-            },
-            error: function (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...出了點小問題',
-                    text: error.status,
-                });
+        if (!categoryinput) {
+            Swal.fire({
+                icon: 'warning',
+                text: '請輸入類別資料',
+                title: '提醒',
+            });
+            return;
+        } else if (!nameinput) {
+            Swal.fire({
+                icon: 'warning',
+                text: '請輸入新增人員',
+                title: '提醒',
+            });
+            return;
+        } else {
+            var data = {
+                "productCatName": categoryinput,
+                "productCatPerson": nameinput
             }
-        });
 
+            $.ajax({
+                type: 'POST',
+                url: '/Jamigo/shop/addOneCategory',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: '您已成功新增類別',
+                        title: response,
+                    }).then(() => {
+                        window.location.reload();
+                    })
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...出了點小問題',
+                        text: error.status,
+                    });
+                }
+            });
+
+        }
     }
 
 
@@ -436,18 +523,30 @@
 
         var row = $(event).closest('tr');
         var rowdata = $(event).closest('table').DataTable().row(row).data();
+        if(rowdata.productCatNo == 1){
+            Swal.fire({
+                icon: 'warning',
+                title: '抱歉~請注意',
+                text: '您無法刪除該類別的商品',
+            }).then(() => {
+            })
+            return;
+        }
         if (rowdata.productCount !== 0) {
             Swal.fire({
                 icon: 'warning',
                 title: '抱歉~請注意',
-                text: '您無法刪除已引用該類別的商品，請通知櫃位先下架商品',
+                text: '您無法刪除該類別的商品，請通知櫃位先下架商品',
             }).then(() => {
-                return;
             })
+<<<<<<< HEAD
+=======
+            return;
+>>>>>>> Shawn
         } else {
             $.ajax({
                 type: 'GET',
-                url: '/Jamigo/shop/deleteOne/' + rowdata.productCatNo,
+                url: '/Jamigo/shop/deleteOne/' + rowdata.data,
                 success: function (response) {
                     Swal.fire({
                         icon: 'success',
