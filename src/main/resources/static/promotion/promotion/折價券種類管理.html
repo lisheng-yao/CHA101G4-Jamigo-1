@@ -20,15 +20,17 @@
 
     <link rel="stylesheet" href="assets/css/all.css">
 
-    <!-- 引入fontawsome -->
-<!--    <link rel="stylesheet" href="/Jamigo/promotion/assets/fontawsome/css/all.css">-->
-    <!-- 引入Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
             href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
             rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--複製-->
+    <link rel="stylesheet" href="/Jamigo/backEnd/css/all.css">
+    <!-- 引入fontawsome -->
+    <link rel="stylesheet" href="/Jamigo/backEnd/assets/fontawsome/css/all.css">
+    <!--複製-->
     <title>折價券種類管理</title>
 
     <style>
@@ -56,6 +58,7 @@
 
 <!-- 整頁的容器 -->
 <div class="container-fluid whole-page">
+    <!--header-->
     <div class="row">
         <div class="col my-2">
                 <span class="d-flex align-items-center logo-part">
@@ -68,10 +71,12 @@
                     <span class="fs-4 fw-bold platform-page">
                         平臺後臺管理系統
                     </span>
+                    <a href="/Jamigo/platform/counter_accountCtrl.html">
                     <button type="button" class="btn rounded-circle border-0 nav-btn home-btn" data-bs-toggle="tooltip"
                             data-bs-placement="right" style="padding: 12px;" data-bs-title="返回首頁">
                         <i class="fa-solid fa-house fa-lg"></i>
-                    </button>
+                    </button></a>
+
                 </span>
         </div>
         <div class="col-auto my-2">
@@ -80,7 +85,8 @@
                     <!-- 通知訊息 -->
                     <div class="dropdown position-relative">
                         <button class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-bell"></i>
                             <span
                                     class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
@@ -106,22 +112,17 @@
             </ul>
         </div>
     </div>
+    <!--aside-->
     <div class="row">
         <!-- 側邊選單列表 -->
-        <div class="col-2 sidebar">
+        <div class="col-2 sidebar" style="padding:20px">
             <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
             <div class="list-group rounded-bottom-0">
-                <a href="emp_data.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-address-card me-2"></i>
-                    員工資料管理
-                </a>
-                <a href="memData_search.html"
-                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
                     <i class="fa-solid fa-users me-2"></i>
-                    會員資料查詢
+                    平台後台管理
                 </a>
             </div>
-
             <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -136,12 +137,12 @@
                          data-bs-parent="#accordionFlushSidebar">
                         <div class="accordion-body p-0 border-0">
                             <div class="list-group rounded-0">
-                                <a href="counter_accountCtrl.html"
+                                <a href="/Jamigo/platform/counter_accountCtrl.html"
                                    class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     櫃位帳號管理
                                 </a>
-                                <a href="counter_monthlyCtrl.html"
+                                <a href="/Jamigo/platform/counter_monthlyCtrl.html"
                                    class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     月結抽成管理
@@ -152,33 +153,34 @@
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true"
+                        <button class="accordion-button  collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
                                 aria-controls="flush-collapseTwo">
                             <i class="fa-solid fa-list me-2"></i>
                             商城與訂單管理
                         </button>
                     </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse "
                          data-bs-parent="#accordionFlushSidebar">
                         <div class="accordion-body p-0">
                             <div class="list-group rounded-0">
-                                <a href="platform_order.html"
+                                <a href="/Jamigo/platform/platform_order.html"
                                    class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     平臺訂單管理
                                 </a>
-                                <a href="product_category.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a href="/Jamigo/platform/product_category.html"
+                                   class="list-group-item list-group-item-action   sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     商品類別管理
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-submenu active">
+                                <a href="/Jamigo/platform/report_check.html"
+                                   class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     商品檢舉審核
                                 </a>
-                                <a href="latest_news.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a href="/Jamigo/platform/latest_news.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     商城輪播管理
                                 </a>
@@ -189,25 +191,21 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                aria-expanded="false"
                                 aria-controls="flush-collapseThree">
                             <i class="fa-solid fa-champagne-glasses me-2"></i>
                             線下活動與場地
                         </button>
                     </h2>
-                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                    <div id="flush-collapseThree" class="accordion-collapse collapse "
                          data-bs-parent="#accordionFlushSidebar">
                         <div class="accordion-body p-0">
                             <div class="list-group rounded-0">
-                                <a href="event_check.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                <a href="/Jamigo/platform/event_approved.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     線下活動申請審核
-                                </a>
-                                <a href="event_venueCtrl.html"
-                                   class="list-group-item list-group-item-action sidebar-submenu">
-                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    線下活動場地管理
                                 </a>
                             </div>
                         </div>
@@ -215,28 +213,38 @@
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
+                        <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="true"
                                 aria-controls="flush-collapseFour">
                             <i class="fa-solid fa-gift me-2"></i>
                             全館優惠管理
                         </button>
                     </h2>
-                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                    <div id="flush-collapseFour" class="accordion-collapse collapse show"
                          data-bs-parent="#accordionFlushSidebar">
                         <div class="accordion-body p-0">
                             <div class="list-group rounded-0">
-                                <a href="platform_coupon.html"
+                                <a href="/Jamigo/promotion/promotion/優惠活動種類管理.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    優惠活動種類管理
+                                </a>
+                                <a href="/Jamigo/promotion/promotion/折價券種類管理.html"
+                                   class="list-group-item list-group-item-action  active sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    折價券種類管理
+                                </a>
+                                <a href="/Jamigo/promotion/promotion/折價券活動管理.html"
                                    class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    全館折價票券管理
+                                    折價券活動管理
                                 </a>
-                                <a href="platform_discountAct.html"
+                                <a href="/Jamigo/promotion/promotion/點數活動管理.html"
                                    class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                                    全館優惠活動管理
+                                    點數活動管理
                                 </a>
-                                <a href="member_rewards.html"
+                                <a href="/Jamigo/platform/member_rewards.html"
                                    class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     會員等級回饋管理
@@ -247,29 +255,23 @@
                 </div>
             </div>
             <div class="list-group rounded-top-0">
-                <a href="robot_settings.html"
-                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-robot me-2"></i>
-                    客服機器人管理
-                </a>
-                <a href="platform_DM.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-regular fa-message me-2"></i>
-                    即時客服問答
-                </a>
-                <a href="platform_fullpage.html"
+                <!--                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu ">-->
+                <!--                    <i class="fa-regular fa-message me-2"></i>-->
+                <!--                    即時客服問答-->
+                <!--                </a>-->
+                <a href="/Jamigo/platform/platform_fullpage.html"
                    class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
                     <i class="fa-solid fa-eye me-2"></i>
                     平臺首頁管理
                 </a>
-                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                <a href="/Jamigo/platform/login/admin_login.html"
+                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu" id="logoutbutton">
                     <i class="fa-solid fa-right-from-bracket me-2"></i>
                     登出
                 </a>
             </div>
         </div>
-
         <!-- 網頁內容主體 -->
-
         <div class="col-10 page-body">
             <div class="controll-box activity-order-controll-box">
                 <div class="back-end-box-title activity-order-controll-title">
@@ -301,7 +303,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="coupontypecNo" class="col-form-label">管理員編號:</label>
-                                            <input type="text" class="form-control" id="coupontypecNo" readonly>
+                                            <input type="text" class="form-control" id="coupontypecNo" value="" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label for="coupontypeaNo" class="col-form-label">欄位編號:</label>
@@ -419,11 +421,16 @@
         }
         row.parentNode.removeChild(row);
     }
-
-
-
-
 </script>
+<!--複製-->
+<script>
+    const logoutbutton = document.querySelector('#logoutbutton');
+    logoutbutton.addEventListener('click', () => {
+        localStorage.setItem("adminName", "");
+        localStorage.setItem("adminNo", "");
+    })
+</script>
+<!--複製-->
 </body>
 
 </html>

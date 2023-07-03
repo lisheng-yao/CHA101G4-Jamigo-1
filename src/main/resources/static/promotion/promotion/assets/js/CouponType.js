@@ -1,6 +1,6 @@
 (() => {
     const tbody = document.querySelector('#tbody');
-
+    const localstorageadminNo = localStorage.getItem("adminNo");
 
     // ===============================VVV方法區VVV====================================
 
@@ -95,7 +95,7 @@
                                     <label for="recipientcNo${i}"
                                            class="col-form-label">管理員編號:</label>
                                     <input type="text" class="form-control"
-                                           id="recipientcNo${i}" value="" readonly>
+                                           id="recipientcNo${i}" value="${localstorageadminNo}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipientaNo${i}"
@@ -330,6 +330,9 @@
     }
 
     // ============================6.   newAPromotion()新增promotion========================
+    const coupontypecNo = document.querySelector('#coupontypecNo');
+    coupontypecNo.value = localstorageadminNo;
+    console.log("coupontypecNo"+coupontypecNo.value);
     function newAPromotion() {
         // const coupontypeNo4new = document.querySelector('#coupontypeNoe').value;
         const coupontypeName4new = document.querySelector('#coupontypeName').value;
@@ -340,7 +343,8 @@
         const coupontypePrice4new = document.querySelector('#coupontypePrice').value;
         const coupontypeLowest4new = document.querySelector('#coupontypeLowest').value;
         const coupontypeConditions4new = document.querySelector('#coupontypeConditions').value;
-        const msg=document.querySelector('#msg');
+        const msg = document.querySelector('#msg');
+
         //檢查
         const promotionNameLength = coupontypeName4new.length;
         if (promotionNameLength < 1 || promotionNameLength > 20) {
@@ -375,7 +379,7 @@
             body: JSON.stringify({
                 // couponTypeNo: coupontypeNo4new,
                 couponTypeName: coupontypeName4new,
-                adminNo: coupontypecNo4new,
+                adminNo: coupontypecNo4new.value,
                 counterNo: coupontypeaNo4new,
                 couponCreateDate: coupontypeDate4new,
                 couponConditions: coupontypeConditions4new,

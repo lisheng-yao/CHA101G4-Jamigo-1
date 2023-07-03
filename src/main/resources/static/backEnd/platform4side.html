@@ -29,7 +29,8 @@
 
 <!-- 整頁的容器 -->
 <div class="container-fluid whole-page">
-    <div class="row"> <!--        header-->
+    <!--header-->
+    <div class="row">
         <div class="col my-2">
                 <span class="d-flex align-items-center logo-part">
                     <span class="logo-img mx-3">
@@ -82,18 +83,17 @@
             </ul>
         </div>
     </div>
-
+    <!--aside-->
     <div class="row">
         <!-- 側邊選單列表 -->
-        <div class="col-2 sidebar">
+        <div class="col-2 sidebar" style="padding:20px">
             <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
             <div class="list-group rounded-bottom-0">
                 <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
                     <i class="fa-solid fa-users me-2"></i>
-                   平台後台管理
+                    平台後台管理
                 </a>
             </div>
-
             <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -214,7 +214,7 @@
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     點數活動管理
                                 </a>
-                                <a href="member_rewards.html"
+                                <a href="/Jamigo/platform/member_rewards.html"
                                    class="list-group-item list-group-item-action sidebar-submenu">
                                     <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                                     會員等級回饋管理
@@ -225,28 +225,24 @@
                 </div>
             </div>
             <div class="list-group rounded-top-0">
-                <a href="robot_settings.html" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-                    <i class="fa-solid fa-robot me-2"></i>
-                    客服機器人管理
-                </a>
-                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu active">
-                    <i class="fa-regular fa-message me-2"></i>
-                    即時客服問答
-                </a>
-                <a href="platform_fullpage.html"
+                <!--                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu ">-->
+                <!--                    <i class="fa-regular fa-message me-2"></i>-->
+                <!--                    即時客服問答-->
+                <!--                </a>-->
+                <a href="/Jamigo/platform/platform_fullpage.html"
                    class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
                     <i class="fa-solid fa-eye me-2"></i>
                     平臺首頁管理
                 </a>
-                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                <a href="/Jamigo/platform/login/admin_login.html"
+                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu" id="logoutbutton">
                     <i class="fa-solid fa-right-from-bracket me-2"></i>
                     登出
                 </a>
             </div>
         </div>
         <!-- 網頁內容主體 -->
-        <div class="col-10 page-body">
-
+        <div class="col-10 page-body" >
 
         </div>
     </div>
@@ -270,6 +266,15 @@
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
+<!--複製-->
+<script>
+    const logoutbutton = document.querySelector('#logoutbutton');
+    logoutbutton.addEventListener('click', () => {
+        localStorage.setItem("adminName", "");
+        localStorage.setItem("adminNo", "");
+    })
+</script>
+<!--複製-->
 </body>
 
 </html>

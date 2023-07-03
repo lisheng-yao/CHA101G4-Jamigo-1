@@ -1,583 +1,504 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入bootstrap CDN -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-      crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+            crossorigin="anonymous"
     />
 
     <!-- 新引入的CSS檔案或套件請由此往下放 -->
 
-    <link rel="stylesheet" href="css/all.css" />
+    <link rel="stylesheet" href="css/all.css"/>
 
     <!-- 引入fontawsome -->
-    <link rel="stylesheet" href="assets/fontawsome/css/all.css" />
+    <link rel="stylesheet" href="assets/fontawsome/css/all.css"/>
     <!-- 引入Google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
-      href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+            rel="stylesheet"
     />
+    <!--複製-->
+    <link rel="stylesheet" href="/Jamigo/backEnd/css/all.css">
+    <!-- 引入fontawsome -->
+    <link rel="stylesheet" href="/Jamigo/backEnd/assets/fontawsome/css/all.css">
+    <!--複製-->
     <title>會員等級回饋管理</title>
-  </head>
+</head>
 
-  <body>
-    <!-- 整頁的容器 -->
-    <div class="container-fluid whole-page">
-      <div class="row">
+<body>
+<!-- 整頁的容器 -->
+<div class="container-fluid whole-page">
+    <!--header-->
+    <div class="row">
         <div class="col my-2">
-          <span class="d-flex align-items-center logo-part">
-            <span class="logo-img mx-3">
-              <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
-            </span>
-            <span class="fs-3 fw-bold logo-name"> Jamigo </span>
-            <span class="fs-4 fw-bold platform-page"> 平臺後臺管理系統 </span>
-            <button
-              type="button"
-              class="btn rounded-circle border-0 nav-btn home-btn"
-              data-bs-toggle="tooltip"
-              data-bs-placement="right"
-              style="padding: 12px"
-              data-bs-title="返回首頁"
-            >
-              <i class="fa-solid fa-house fa-lg"></i>
-            </button>
-          </span>
+                <span class="d-flex align-items-center logo-part">
+                    <span class="logo-img mx-3">
+                        <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+                    </span>
+                    <span class="fs-3 fw-bold logo-name">
+                        Jamigo
+                    </span>
+                    <span class="fs-4 fw-bold platform-page">
+                        平臺後臺管理系統
+                    </span>
+                    <a href="/Jamigo/platform/counter_accountCtrl.html">
+                    <button type="button" class="btn rounded-circle border-0 nav-btn home-btn" data-bs-toggle="tooltip"
+                            data-bs-placement="right" style="padding: 12px;" data-bs-title="返回首頁">
+                        <i class="fa-solid fa-house fa-lg"></i>
+                    </button></a>
+
+                </span>
         </div>
         <div class="col-auto my-2">
-          <ul class="nav justify-content-end d-flex align-items-center">
-            <li class="nav-item">
-              <!-- 通知訊息 -->
-              <div class="dropdown position-relative">
-                <button
-                  class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i class="fa-solid fa-bell"></i>
-                  <span
-                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
-                  >
-                    <span class="visually-hidden">New alerts</span>
-                  </span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#"> 通知 </a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <!-- 頭像 -->
-            <li class="nav-item">
-              <a class="nav-link">
-                <img
-                  src="https://picsum.photos/id/684/600"
-                  class="rounded-circle"
-                  width="40"
-                  height="40"
-                  alt=""
-                />
-              </a>
-            </li>
-          </ul>
+            <ul class="nav justify-content-end d-flex align-items-center">
+                <li class="nav-item">
+                    <!-- 通知訊息 -->
+                    <div class="dropdown position-relative">
+                        <button class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
+                                type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-bell"></i>
+                            <span
+                                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                </span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">
+                                通知
+                            </a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- 頭像 -->
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <img src="https://picsum.photos/id/684/600" class="rounded-circle" width="40" height="40"
+                             alt="">
+                    </a>
+                </li>
+            </ul>
         </div>
-      </div>
-
-      <div class="row">
+    </div>
+    <!--aside-->
+    <div class="row">
         <!-- 側邊選單列表 -->
-        <div class="col-2 sidebar">
-          <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
-          <div class="list-group rounded-bottom-0">
-            <a
-              href="emp_data.html"
-              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
-            >
-              <i class="fa-solid fa-address-card me-2"></i>
-              員工資料管理
-            </a>
-            <a
-              href="memData_search.html"
-              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
-            >
-              <i class="fa-solid fa-users me-2"></i>
-              會員資料查詢
-            </a>
-          </div>
-
-          <div
-            class="accordion accordion-flush border-start border-end"
-            id="accordionFlushSidebar"
-          >
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseOne"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseOne"
-                >
-                  <i class="fa-solid fa-store me-2"></i>
-                  櫃位資料管理
-                </button>
-              </h2>
-              <div
-                id="flush-collapseOne"
-                class="accordion-collapse collapse"
-                data-bs-parent="#accordionFlushSidebar"
-              >
-                <div class="accordion-body p-0 border-0">
-                  <div class="list-group rounded-0">
-                    <a
-                      href="counter_accountCtrl.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      櫃位帳號管理
-                    </a>
-                    <a
-                      href="counter_monthlyCtrl.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      月結抽成管理
-                    </a>
-                  </div>
-                </div>
-              </div>
+        <div class="col-2 sidebar" style="padding:20px">
+            <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+            <div class="list-group rounded-bottom-0">
+                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                    <i class="fa-solid fa-users me-2"></i>
+                    平台後台管理
+                </a>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseTwo"
-                >
-                  <i class="fa-solid fa-list me-2"></i>
-                  商城與訂單管理
-                </button>
-              </h2>
-              <div
-                id="flush-collapseTwo"
-                class="accordion-collapse collapse"
-                data-bs-parent="#accordionFlushSidebar"
-              >
-                <div class="accordion-body p-0">
-                  <div class="list-group rounded-0">
-                    <a
-                      href="platform_order.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      平臺訂單管理
-                    </a>
-                    <a
-                      href="product_category.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      商品類別管理
-                    </a>
-                    <a
-                      href="report_check.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      商品檢舉審核
-                    </a>
-                    <a
-                      href="latest_news.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      商城輪播管理
-                    </a>
-                  </div>
+            <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne">
+                            <i class="fa-solid fa-store me-2"></i>
+                            櫃位資料管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0 border-0">
+                            <div class="list-group rounded-0">
+                                <a href="/Jamigo/platform/counter_accountCtrl.html"
+                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    櫃位帳號管理
+                                </a>
+                                <a href="/Jamigo/platform/counter_monthlyCtrl.html"
+                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    月結抽成管理
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseThree"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseThree"
-                >
-                  <i class="fa-solid fa-champagne-glasses me-2"></i>
-                  線下活動與場地
-                </button>
-              </h2>
-              <div
-                id="flush-collapseThree"
-                class="accordion-collapse collapse"
-                data-bs-parent="#accordionFlushSidebar"
-              >
-                <div class="accordion-body p-0">
-                  <div class="list-group rounded-0">
-                    <a
-                      href="event_check.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      線下活動申請審核
-                    </a>
-                    <a
-                      href="event_venueCtrl.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      線下活動場地管理
-                    </a>
-                  </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button  collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo">
+                            <i class="fa-solid fa-list me-2"></i>
+                            商城與訂單管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse "
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0">
+                            <div class="list-group rounded-0">
+                                <a href="/Jamigo/platform/platform_order.html"
+                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    平臺訂單管理
+                                </a>
+                                <a href="/Jamigo/platform/product_category.html"
+                                   class="list-group-item list-group-item-action   sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    商品類別管理
+                                </a>
+                                <a href="/Jamigo/platform/report_check.html"
+                                   class="list-group-item list-group-item-action sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    商品檢舉審核
+                                </a>
+                                <a href="/Jamigo/platform/latest_news.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    商城輪播管理
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button fw-bold p-3 sidebar-menu"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseFour"
-                  aria-expanded="true"
-                  aria-controls="flush-collapseFour"
-                >
-                  <i class="fa-solid fa-gift me-2"></i>
-                  全館優惠管理
-                </button>
-              </h2>
-              <div
-                id="flush-collapseFour"
-                class="accordion-collapse collapse show"
-                data-bs-parent="#accordionFlushSidebar"
-              >
-                <div class="accordion-body p-0">
-                  <div class="list-group rounded-0">
-                    <a
-                      href="platform_coupon.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      全館折價票券管理
-                    </a>
-                    <a
-                      href="platform_discountAct.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      全館優惠活動管理
-                    </a>
-                    <a
-                      href="#"
-                      class="list-group-item list-group-item-action sidebar-submenu active"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      會員等級回饋管理
-                    </a>
-                  </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseThree">
+                            <i class="fa-solid fa-champagne-glasses me-2"></i>
+                            線下活動與場地
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse "
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0">
+                            <div class="list-group rounded-0">
+                                <a href="/Jamigo/platform/event_approved.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    線下活動申請審核
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="true"
+                                aria-controls="flush-collapseFour">
+                            <i class="fa-solid fa-gift me-2"></i>
+                            全館優惠管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse show"
+                         data-bs-parent="#accordionFlushSidebar">
+                        <div class="accordion-body p-0">
+                            <div class="list-group rounded-0">
+                                <a href="/Jamigo/promotion/promotion/優惠活動種類管理.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    優惠活動種類管理
+                                </a>
+                                <a href="/Jamigo/promotion/promotion/折價券種類管理.html"
+                                   class="list-group-item list-group-item-action   sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    折價券種類管理
+                                </a>
+                                <a href="/Jamigo/promotion/promotion/折價券活動管理.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    折價券活動管理
+                                </a>
+                                <a href="/Jamigo/promotion/promotion/點數活動管理.html"
+                                   class="list-group-item list-group-item-action  sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    點數活動管理
+                                </a>
+                                <a href="/Jamigo/platform/member_rewards.html"
+                                   class="list-group-item list-group-item-action   active sidebar-submenu">
+                                    <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                                    會員等級回饋管理
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="list-group rounded-top-0">
-            <a
-              href="robot_settings.html"
-              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
-            >
-              <i class="fa-solid fa-robot me-2"></i>
-              客服機器人管理
-            </a>
-            <a
-              href="platform_DM.html"
-              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
-            >
-              <i class="fa-regular fa-message me-2"></i>
-              即時客服問答
-            </a>
-            <a
-              href="platform_fullpage.html"
-              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
-            >
-              <i class="fa-solid fa-eye me-2"></i>
-              平臺首頁管理
-            </a>
-            <a
-              href="#"
-              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
-            >
-              <i class="fa-solid fa-right-from-bracket me-2"></i>
-              登出
-            </a>
-          </div>
+            <div class="list-group rounded-top-0">
+                <!--                <a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu ">-->
+                <!--                    <i class="fa-regular fa-message me-2"></i>-->
+                <!--                    即時客服問答-->
+                <!--                </a>-->
+                <a href="/Jamigo/platform/platform_fullpage.html"
+                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
+                    <i class="fa-solid fa-eye me-2"></i>
+                    平臺首頁管理
+                </a>
+                <a href="/Jamigo/platform/login/admin_login.html"
+                   class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu" id="logoutbutton">
+                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+                    登出
+                </a>
+            </div>
         </div>
         <!-- 網頁內容主體 -->
         <div class="col-10 page-body">
-          <div class="col-12">
-            <h2 class="mb-3 fw-bold">會員等級回饋管理</h2>
-            <!-- 新增燈箱彈跳 -->
-            <div>
-              <button
-                type="button"
-                class="btn btn-success fw-bold modal-lg"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                data-bs-whatever="@mdo"
-              >
-                新增會員等級
-              </button>
-              <div
-                class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+            <div class="col-12">
+                <h2 class="mb-3 fw-bold">會員等級回饋管理</h2>
+                <!-- 新增燈箱彈跳 -->
+                <div>
+                    <button
+                            type="button"
+                            class="btn btn-success fw-bold modal-lg"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            data-bs-whatever="@mdo"
+                    >
                         新增會員等級
-                      </h1>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="mb-3">
-                          <label for="add-name" class="col-form-label"
-                            >會員等級名稱</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="add-name"
-                            name="name"
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="add-feedback" class="col-form-label"
-                            >點數回饋倍率</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="add-feedback"
-                            name="feedback"
-                          />
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        onclick="addLevel()"
-                      >
-                        確認新增
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="bg-light rounded h-100 p-4">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr class="p-2 mb-2 bg-primary text-white border border-1">
-                      <th scope="col">#</th>
-                      <th scope="col">會員等級</th>
-                      <th scope="col">點數回饋倍率</th>
-                      <th scope="col">修改名稱 / 回饋</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-body">
-                    <tr class="border border-1">
-                      <th scope="row">1</th>
-                      <td>鑽石</td>
-                      <td>
-                        <select
-                          class="form-select"
-                          id="floatingSelect"
-                          aria-label="Floating label select example"
-                        >
-                          <option selected>請選擇倍率</option>
-                          <option value="1">1倍</option>
-                          <option value="2">2倍</option>
-                          <option value="3">3倍</option>
-                        </select>
-                      </td>
-                      <td>
-                        <!-- 修改燈箱彈跳 -->
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          data-bs-whatever="@mdo"
-                        >
-                          修改
-                        </button>
-                        <div
-                          class="modal fade"
-                          id="exampleModal"
-                          tabindex="-1"
-                          aria-labelledby="exampleModalLabel"
-                          aria-hidden="true"
-                        >
-                          <div class="modal-dialog">
+                    </button>
+                    <div
+                            class="modal fade"
+                            id="exampleModal"
+                            tabindex="-1"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
                             <div class="modal-content">
-                              <div class="modal-header">
-                                <h1
-                                  class="modal-title fs-5"
-                                  id="exampleModalLabel"
-                                >
-                                  修改優惠
-                                </h1>
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
-                              </div>
-                              <div class="modal-body">
-                                <form>
-                                  <div class="mb-3">
-                                    <label
-                                      for="recipient-name"
-                                      class="col-form-label"
-                                      >修改升等門檻</label
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        新增會員等級
+                                    </h1>
+                                    <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="add-name" class="col-form-label"
+                                            >會員等級名稱</label
+                                            >
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="add-name"
+                                                    name="name"
+                                            />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="add-feedback" class="col-form-label"
+                                            >點數回饋倍率</label
+                                            >
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="add-feedback"
+                                                    name="feedback"
+                                            />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal"
                                     >
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      id="recipient-name"
-                                    />
-                                  </div>
-                                  <div class="mb-3">
-                                    <label
-                                      for="recipient-name"
-                                      class="col-form-label"
-                                      >修改點數回饋倍率</label
+                                        Close
+                                    </button>
+                                    <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                            onclick="addLevel()"
                                     >
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      id="recipient-name"
-                                    />
-                                  </div>
-                                </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button
-                                  type="button"
-                                  class="btn btn-secondary"
-                                  data-bs-dismiss="modal"
-                                >
-                                  取消
-                                </button>
-                                <button type="button" class="btn btn-primary">
-                                  確認修改
-                                </button>
-                              </div>
+                                        確認新增
+                                    </button>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    </div>
+                </div>
+                <div class="bg-light rounded h-100 p-4">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr class="p-2 mb-2 bg-primary text-white border border-1">
+                                <th scope="col">#</th>
+                                <th scope="col">會員等級</th>
+                                <th scope="col">點數回饋倍率</th>
+                                <th scope="col">修改名稱 / 回饋</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-body">
+                            <tr class="border border-1">
+                                <th scope="row">1</th>
+                                <td>鑽石</td>
+                                <td>
+                                    <select
+                                            class="form-select"
+                                            id="floatingSelect"
+                                            aria-label="Floating label select example"
+                                    >
+                                        <option selected>請選擇倍率</option>
+                                        <option value="1">1倍</option>
+                                        <option value="2">2倍</option>
+                                        <option value="3">3倍</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <!-- 修改燈箱彈跳 -->
+                                    <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal"
+                                            data-bs-whatever="@mdo"
+                                    >
+                                        修改
+                                    </button>
+                                    <div
+                                            class="modal fade"
+                                            id="exampleModal"
+                                            tabindex="-1"
+                                            aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true"
+                                    >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1
+                                                            class="modal-title fs-5"
+                                                            id="exampleModalLabel"
+                                                    >
+                                                        修改優惠
+                                                    </h1>
+                                                    <button
+                                                            type="button"
+                                                            class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="Close"
+                                                    ></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label
+                                                                    for="recipient-name"
+                                                                    class="col-form-label"
+                                                            >修改升等門檻</label
+                                                            >
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    id="recipient-name"
+                                                            />
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label
+                                                                    for="recipient-name"
+                                                                    class="col-form-label"
+                                                            >修改點數回饋倍率</label
+                                                            >
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    id="recipient-name"
+                                                            />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button
+                                                            type="button"
+                                                            class="btn btn-secondary"
+                                                            data-bs-dismiss="modal"
+                                                    >
+                                                        取消
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary">
+                                                        確認修改
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- 引入bootstrap CDN -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-      crossorigin="anonymous"
-    ></script>
+<!-- 引入bootstrap CDN -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"
+></script>
 
-    <!-- 引入sweetalert CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- 引入sweetalert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- 新引入的JS檔案或套件請由此往下放 -->
+<!-- 新引入的JS檔案或套件請由此往下放 -->
 
-    <script>
-      const popoverTriggerList = document.querySelectorAll(
+<script>
+    const popoverTriggerList = document.querySelectorAll(
         '[data-bs-toggle="popover"]'
-      );
-      const popoverList = [...popoverTriggerList].map(
+    );
+    const popoverList = [...popoverTriggerList].map(
         (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
-      );
-    </script>
+    );
+</script>
 
-    <script>
-      const tooltipTriggerList = document.querySelectorAll(
+<script>
+    const tooltipTriggerList = document.querySelectorAll(
         '[data-bs-toggle="tooltip"]'
-      );
-      const tooltipList = [...tooltipTriggerList].map(
+    );
+    const tooltipList = [...tooltipTriggerList].map(
         (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-      );
-    </script>
+    );
+</script>
 
-    <!-------------------------------------- 取得所有資訊 ---------------------------------->
-    <script>
-      // 載入印出
-      window.onload = function () {
+<!-------------------------------------- 取得所有資訊 ---------------------------------->
+<script>
+    // 載入印出
+    window.onload = function () {
         getData();
-      };
+    };
 
-      function getData() {
+    function getData() {
         fetch("/Jamigo/memberLevelDetail")
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            const dataRow = document.getElementById("table-body");
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                const dataRow = document.getElementById("table-body");
 
-            dataRow.innerHTML = "";
+                dataRow.innerHTML = "";
 
-            // 輸出每個輪播資料
-            data.forEach((mlevel) => {
-              const no = mlevel.levelNo;
-              const name = mlevel.levelName;
-              const feedback = mlevel.levelFeedback;
+                // 輸出每個輪播資料
+                data.forEach((mlevel) => {
+                    const no = mlevel.levelNo;
+                    const name = mlevel.levelName;
+                    const feedback = mlevel.levelFeedback;
 
-              const trElement = document.createElement("tr");
-              trElement.innerHTML = `
+                    const trElement = document.createElement("tr");
+                    trElement.innerHTML = `
                     <td>${no}</td>
                     <td>${name}</td>
                     <td>${feedback} 倍</td>
@@ -661,106 +582,115 @@
                         </div>
                     </td>
                     `;
-              var tableBody = document.getElementById("table-body");
-              tableBody.appendChild(trElement);
+                    var tableBody = document.getElementById("table-body");
+                    tableBody.appendChild(trElement);
+                });
+            })
+            .catch((error) => {
+                // 處理錯誤
+                console.error("Error:", error);
             });
-          })
-          .catch((error) => {
-            // 處理錯誤
-            console.error("Error:", error);
-          });
-      }
-    </script>
+    }
+</script>
 
-    <!-------------------------------------- 新增會員等級 ---------------------------------->
+<!-------------------------------------- 新增會員等級 ---------------------------------->
 
-    <script>
-      function addLevel() {
+<script>
+    function addLevel() {
         const name = document.getElementById("add-name").value;
         const feedback = document.getElementById("add-feedback").value;
 
         const data = {
-          levelName: name,
-          levelFeedback: feedback,
+            levelName: name,
+            levelFeedback: feedback,
         };
 
         // 發送 POST 請求
         fetch("/Jamigo/addLevel", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
         })
-        .then((response) => {
-            if (response.ok) {
-              return response.text();
-            } else {
-              throw new Error("Level add failed");
-              return;
-            }
-          })
-          .then((responseData) => {
-            Swal.fire("新增完成", "你很棒唉!", "success")
-              .then(() => {
-                // 清空表單
-                document.getElementById("add-name").value = "";
-                document.getElementById("add-feedback").value = "";
-              })
-              .then(() => {
-                location.reload();
-              });
-          })
-          .catch((error) => {
-            // 處理錯誤
-            console.error("Error:", error);
-          });
-      }
-    </script>
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error("Level add failed");
+                    return;
+                }
+            })
+            .then((responseData) => {
+                Swal.fire("新增完成", "你很棒唉!", "success")
+                    .then(() => {
+                        // 清空表單
+                        document.getElementById("add-name").value = "";
+                        document.getElementById("add-feedback").value = "";
+                    })
+                    .then(() => {
+                        location.reload();
+                    });
+            })
+            .catch((error) => {
+                // 處理錯誤
+                console.error("Error:", error);
+            });
+    }
+</script>
 
-    <!-------------------------------------- 修改會員等級 ---------------------------------->
-    <script>
-      function updateLevel(levelId) {
+<!-------------------------------------- 修改會員等級 ---------------------------------->
+<script>
+    function updateLevel(levelId) {
         const no = document.getElementById(`update-no-${levelId}`).value;
         const name = document.getElementById(`update-name-${levelId}`).value;
         const feedback = document.getElementById(
-          `update-feedback-${levelId}`
+            `update-feedback-${levelId}`
         ).value;
 
         const data = {
-          levelNo: no,
-          levelName: name,
-          levelFeedback: feedback,
+            levelNo: no,
+            levelName: name,
+            levelFeedback: feedback,
         };
 
         console.log(data);
 
         fetch(`/Jamigo/update/${no}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
         })
-          .then((response) => {
-            if (response.ok) {
-              return response.text();
-            } else {
-              throw new Error("Level update failed");
-              return;
-            }
-          })
-          .then((responseData) => {
-            console.log(responseData);
-            Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
-              location.reload();
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error("Level update failed");
+                    return;
+                }
+            })
+            .then((responseData) => {
+                console.log(responseData);
+                Swal.fire("修改完成", "你很棒唉!", "success").then(() => {
+                    location.reload();
+                });
+                // location.reload();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
             });
-            // location.reload();
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      }
-    </script>
-  </body>
+    }
+</script>
+<!--複製-->
+<script>
+    const logoutbutton = document.querySelector('#logoutbutton');
+    logoutbutton.addEventListener('click', () => {
+        localStorage.setItem("adminName", "");
+        localStorage.setItem("adminNo", "");
+    })
+</script>
+<!--複製-->
+</body>
 </html>
