@@ -940,7 +940,7 @@
 
         for (let i = 0; i <= dataaccount; i++) {
             avatarPreviews[i].src = `/Jamigo/promotion/promotion4pic/${promotionCouponNos[i]}`
-            avatarUploads[i].addEventListener("change", function () {
+            avatarUploads[i]?.addEventListener("change", function () {
                 const file = avatarUploads[i].files[0];
                 const reader = new FileReader();
 
