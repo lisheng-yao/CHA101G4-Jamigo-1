@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <style>
-        body {
+        div, h2, p {
             color: black;
         }
 

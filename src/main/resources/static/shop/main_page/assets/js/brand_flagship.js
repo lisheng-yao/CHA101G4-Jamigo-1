@@ -7,12 +7,16 @@ function render() {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/Jamigo/counterCtrl/getAll',
+        url: '/Jamigo/counterCtrl/getAll',
         success: function (response) {
 
             let html_str = "";
 
             for (let item of response) {
+
+                if (item['counterStat'] === 2)
+                    continue;
+
                 html_str += `
                     <div class="col-lg-4">
                         <div class="single-testimonial">
