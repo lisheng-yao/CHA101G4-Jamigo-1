@@ -1,13 +1,19 @@
 package com.jamigo.activity.activity_approve.controller;
 
+import java.beans.FeatureDescriptor;
 import java.io.IOException;
 //import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,15 +27,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jamigo.activity.activity_approve.dao.ActivityDAO;
 import com.jamigo.activity.activity_approve.model.Activity;
 import com.jamigo.activity.activity_approve.service.ActivityService;
+import com.jamigo.counter.counter.entity.Counter;
+import com.jamigo.counter.counter.service.CounterService;
 
 @RestController
 public class ActivityController {
 
 	private ActivityService activityService;
-
+	
+	@Autowired
+	CounterService counterService;
+	
 	// 新增線下活動申請表
 	@PostMapping(value = "/backend/appform", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // 把input寫入的資料傳進去
 	// 映射特定的HTTP請求方法到特定的處理函式
@@ -124,38 +134,70 @@ public class ActivityController {
 		this.activityService = activityService;
 	}
 
-//修改活動申請單[櫃位後台]
+	// 修改活動申請單[櫃位後台]
 	@PutMapping("/backend/applyupdate/{activityNo}")
-	public ResponseEntity<Activity> updateActivity(@PathVariable Integer activityNo,
+	public ResponseEntity<?> updateActivityInfo(@PathVariable Integer activityNo,
 			@RequestBody Activity updatedActivity) {
-		Activity activity = activityService.getActUpdate(activityNo);
-		// 用 updatedActivity 的資訊來更新找到的 Activity
-		activity.setActivityName(updatedActivity.getActivityName());
-		activity.setActivityCost(updatedActivity.getActivityCost());
-		activity.setActivityLimit(updatedActivity.getActivityLimit());
-		activity.setActivityDetail(updatedActivity.getActivityDetail());
-		activity.setActivityRegStartTime(updatedActivity.getActivityRegStartTime());
-		activity.setActivityRegEndTime(updatedActivity.getActivityRegEndTime());
-		activity.setActivityStartTime(updatedActivity.getActivityStartTime());
-		activity.setActivityEndTime(updatedActivity.getActivityEndTime());
-		activity.setActivityPic(updatedActivity.getActivityPic());
+		Optional<Activity> optionalActivity = activityService.findById(activityNo);
+		if (!optionalActivity.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activity not found");
+		}
 
-		// 把更新過的 Activity 儲存回資料庫
-		Activity savedActivity = activityService.saveActivity(activity);
-		return new ResponseEntity<>(savedActivity, HttpStatus.OK);
+		Activity activity = optionalActivity.get();
+		BeanUtils.copyProperties(updatedActivity, activity, getNullPropertyNames(updatedActivity));
+
+		try {
+			Activity savedActivity = activityService.saveActivity(activity);
+			return new ResponseEntity<>(savedActivity, HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Activity update failed: " + e.getMessage());
+		}
 	}
+
+    //將非null的屬性從請求體中的updatedActivity對象複製到從數據庫中查詢到的activity對象,讓修改過的activity對象會被保存回數據庫
+	private static String[] getNullPropertyNames(Object source) {
+		final BeanWrapper wrappedSource = new BeanWrapperImpl(source);
+		return Stream.of(wrappedSource.getPropertyDescriptors()).map(FeatureDescriptor::getName)
+				.filter(propertyName -> wrappedSource.getPropertyValue(propertyName) == null).toArray(String[]::new);
+	}
+
+	// 上傳修改圖片與存放檔案
+	@PutMapping("/backend/couimage/{activityNo}")
+	public ResponseEntity<String> uploadImage(@PathVariable Integer activityNo,
+			@RequestParam("file") MultipartFile file) {
+		Optional<Activity> optionalActivity = activityService.findById(activityNo);
+		if (!optionalActivity.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activity not found");
+		}
+
+		Activity activity = optionalActivity.get();
+		try {
+			byte[] bytes = file.getBytes();
+			activity.setActivityPic(bytes);
+			activityService.saveActivity(activity);
+			return ResponseEntity.ok().body("Image upload success");
+		} catch (IOException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Image upload failed: " + e.getMessage());
+		}
+	}
+	    
 	
-	//上傳修改圖片與存放
-	 @PostMapping("/Jamigo/backend/couninfo/{activityNo}/uploadImage")
-	    public ResponseEntity<String> uploadImage(@PathVariable String activityNo, @RequestBody byte[] imageBytes) {
-	        Optional<Activity> optionalActivity = activityService.findById(activityNo);
-	        if (optionalActivity.isPresent()) {
-	            Activity activity = optionalActivity.get();
-	            activity.setActivityPic(imageBytes);
-	            activityService.save(activity);
-	            return ResponseEntity.ok().body("Image upload success");
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Activity not found");
-	        }
-	    }
+    //抓取該使用戶登入session的資料
+    @GetMapping("/counter/counterAcc_2")
+    public Counter getSessionAcc(HttpSession session, HttpServletRequest req) {
+    	
+    	// 如果有資料要重新取設定session
+    	Counter ccc = (Counter) session.getAttribute("counter");
+    	Integer counterNo = ccc.getCounterNo();
+    	Counter counter3 = counterService.getCounterByCounterNo(counterNo);
+    	if (counter3 != null) {
+    		HttpSession session2 = req.getSession();
+    		session2.setAttribute("counter", counter3);
+    	}
+    	
+    	return (Counter) session.getAttribute("counter");
+    }
+
 }
