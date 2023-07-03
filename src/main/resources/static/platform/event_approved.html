@@ -34,7 +34,7 @@
           <span class="d-flex align-items-center logo-part"> <span class="logo-img mx-3"> <i
                 class="fa-solid fa-hat-cowboy-side fa-xl" style="font-size: 20px"></i>
             </span> <span class="fw-bold logo-name" style="font-size: 28px">
-              Jamigo </span> <span class="fs-4 fw-bold platform-page" style="font-size: 24px"> 平臺後臺管理系統 </span>
+              Jamigo </span> <span class="fw-bold platform-page" style="font-size: 24px"> 平臺後臺管理系統 </span>
             <button type="button" class="btn rounded-circle border-0 nav-btn home-btn" data-bs-toggle="tooltip"
               data-bs-placement="right" style="padding: 12px" data-bs-title="返回首頁">
               <i class="fa-solid fa-house fa-lg"></i>
@@ -83,17 +83,17 @@
           <div class="accordion accordion-flush border-start border-end" id="accordionFlushSidebar">
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button fw-bold p-3 sidebar-menu" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                   <i class="fa-solid fa-store me-2"></i> 櫃位資料管理
                 </button>
               </h2>
-              <div id="flush-collapseOne" class="accordion-collapse collapse show"
+              <div id="flush-collapseOne" class="accordion-collapse collapse"
                 data-bs-parent="#accordionFlushSidebar">
                 <div class="accordion-body p-0 border-0">
                   <div class="list-group rounded-0">
-                    <a href="#" class="list-group-item list-group-item-action sidebar-submenu active">
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i> 線下活動審核頁面
+                    <a href="#" class="list-group-item list-group-item-action sidebar-submenu">
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位帳號管理
                     </a> <a href="counter_monthlyCtrl.html"
                       class="list-group-item list-group-item-action sidebar-submenu">
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i> 月結抽成管理
@@ -128,19 +128,19 @@
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed fw-bold p-3 sidebar-menu" type="button"
-                  data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                <button class="accordion-button fw-bold p-3 sidebar-menu" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="true"
                   aria-controls="flush-collapseThree">
                   <i class="fa-solid fa-champagne-glasses me-2"></i> 線下活動與場地
                 </button>
               </h2>
-              <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushSidebar">
+              <div id="flush-collapseThree" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushSidebar">
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
-                    <a href="event_check.html" class="list-group-item list-group-item-action sidebar-submenu">
+                    <a href="event_approved.html" class="list-group-item list-group-item-action sidebar-submenu active">
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i> 線下活動申請審核
-                    </a> <a href="event_venueCtrl.html" class="list-group-item list-group-item-action sidebar-submenu">
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i> 線下活動場地管理
+                    <!-- </a> <a href="event_venueCtrl.html" class="list-group-item list-group-item-action sidebar-submenu">
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i> 線下活動場地管理 -->
                     </a>
                   </div>
                 </div>
@@ -202,7 +202,7 @@
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js"></script>
 
             <!-- 引入可可css -->
-            <link rel="stylesheet" href="/Jamigo/platform/activity/css/backend.css">
+            <link rel="stylesheet" href="/Jamigo/counter/activity/css/backend.css">
             <style>
               /* -------------------------------------------- */
               html {
@@ -513,6 +513,22 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
           <script>//tobody id
+
+            // 定義一個格式化日期的函數
+            function formatDate(dateString) {
+              const date = new Date(dateString);
+              const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                timeZone: 'Asia/Taipei',
+                locale: 'zh-TW'//指定中文
+              };
+              return date.toLocaleString('zh-TW', options);
+            }
+
             function createTableCell(item, fieldName) {
               const cell = document.createElement('td');
               cell.textContent = item[fieldName];
@@ -659,6 +675,12 @@
                             { name: '活動結束時間', key: 'activityEndTime' },
                             { name: '活動照片', key: 'activityPic' }
                           ];
+
+                          // format the dates in activity
+                          activity.activityRegStartTime = formatDate(activity.activityRegStartTime);
+                          activity.activityRegEndTime = formatDate(activity.activityRegEndTime);
+                          activity.activityStartTime = formatDate(activity.activityStartTime);
+                          activity.activityEndTime = formatDate(activity.activityEndTime);
                           //遍歷field陣列的每個項目,如果其key屬性在activity對象中存在,就將對應的值添加到指定的表格單元格中
                           field.forEach((field, index) => {
                             if (field.key in activity) {

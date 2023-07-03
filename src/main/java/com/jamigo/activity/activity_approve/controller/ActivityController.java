@@ -69,6 +69,7 @@ public class ActivityController {
 		activity.setActivityPlaceNo(activityPlaceNo);
 		activity.setActivityDetail(activityDetail);
 		activity.setActivityLev(activityLev);
+		activity.setActivityApprovalStat((byte) 2);
 		try {
 			activity.setActivityPic(activityPic.getBytes());
 		} catch (IOException e) {
