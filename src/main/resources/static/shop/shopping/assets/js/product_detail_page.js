@@ -15,6 +15,7 @@ $(function (){
             // $("#counterNo").val(productWithPics.counterNo);
             let transProductStat = product.productStat === true ? 1 : 0;
             $("#counterName").text(product.counterName);
+            $("#counterName").attr("href", `/Jamigo/shop/counter/counter_mainPage.html?counterNo=${product.counterNo}`);
             $("#counterNo").text(product.counterNo);
             $("#productName").text(product.productName);
             $("#productPrice").text(product.productPrice);
@@ -91,8 +92,16 @@ function addToCart(productNo){
             contentType: "application/json",
             data: JSON.stringify(cartData),
             success: function (resp){
-                alert("商品已加入購物車" + resp);
-                location.reload();
+                // alert("商品已加入購物車" + resp);
+                Swal.fire(
+                    '加入成功！',
+                    '商品已加入您的購物車',
+                    'success'
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.reload();   //重新整理
+                    }
+                });
             },
             error: function (){
                 alert("商品加入購物車失敗");
@@ -126,4 +135,14 @@ function goToCartDetailPage(){
         return;
     }
     window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
+}
+
+function goToWishListPage(){
+    let memberNo = getMemberNo();
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+    window.location = `/Jamigo/member/member/wishlist/wishlist.html`;
 }

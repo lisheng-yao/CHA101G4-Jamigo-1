@@ -116,6 +116,27 @@ function previewPicture(input, previewElement) {
 
 function sendUpdateData(productNo) {
     $("#confirm-edit").click(function (e) {
+        let productCatNo = $("#categorySelect").val();
+        let productName = $("#productName").val().trim();
+        let productPrice = $("#productPrice").val().trim();
+        let productInfo = $("#productDescription").val().trim();
+        if(productCatNo == "0" || productName == "" || productPrice == "" || productInfo == ""){
+            Swal.fire({
+                icon: 'error',
+                title: '新增失敗！',
+                text: '商品基本資料欄位未填寫完整',
+            })
+            return;
+        }
+        if($('input[name="productStatus"]:checked').val() === "1" && document.getElementById("imagePreview1").src === ""){
+            Swal.fire({
+                icon: 'error',
+                title: '新增失敗！',
+                text: '必須至少上傳No.1商品照片才可以上架商品',
+            })
+            return;
+        }
+
         let formData = new FormData($("#product-detail")[0]);
         let productPic1 = convertToBlob(document.getElementById("imagePreview1").src);
         let productPic2 = convertToBlob(document.getElementById("imagePreview2").src);
@@ -132,19 +153,23 @@ function sendUpdateData(productNo) {
             processData: false,
             contentType: false,
             success: function (resp) {
-                alert("更新成功");
-                window.location = `/Jamigo/counter/counter_product.html`;
+                Swal.fire({
+                    icon: 'success',
+                    title: '修改成功！',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function () {
+                    window.location = "/Jamigo/counter/counter_product.html";
+                });
             }
         });
         //-------------------------------------------------
-
 
         // const imageFiles = $('#imgPreview .img-upload').map((i, v) => convertToBlob($(v).attr('src'))).get();
         console.log("----",productPic1);
         console.log("----",productPic2);
         console.log("----",productPic3);
         console.log("----",productPic4);
-
     });
 }
 
