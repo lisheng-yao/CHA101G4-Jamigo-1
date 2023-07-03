@@ -32,6 +32,7 @@
   </head>
 
   <body>
+    <!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
     <!-- 整頁的容器 -->
     <div class="container-fluid whole-page">
       <div class="row">
@@ -66,11 +67,8 @@
                   aria-expanded="false"
                 >
                   <i class="fa-solid fa-bell"></i>
-                  <span
-                    class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
-                  >
-                    <span class="visually-hidden">New alerts</span>
-                  </span>
+
+                  <span class="visually-hidden">New alerts</span>
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#"> </a></li>
@@ -81,15 +79,16 @@
                 </ul>
               </div>
             </li>
+            <div id="counter-top-name" style="font-weight: bold"></div>
             <!-- 頭像 -->
             <li class="nav-item">
               <a class="nav-link">
                 <img
-                  src="https://picsum.photos/id/684/600"
                   class="rounded-circle"
                   width="40"
                   height="40"
                   alt=""
+                  id="head-pic"
                 />
               </a>
             </li>
@@ -103,7 +102,7 @@
           <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
           <div class="list-group rounded-bottom-0">
             <a
-              href="counter_setFrontPage.html"
+              href="counter_carouselCtrl.html"
               class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
             >
               <i class="fa-solid fa-eye me-2"></i>
@@ -175,7 +174,7 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="#"
+                      href="counter_data.html"
                       class="list-group-item list-group-item-action sidebar-submenu active"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
@@ -214,18 +213,25 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="counter_coupon.html"
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券種類管理.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      櫃位折價票券管理
+                      折價票券種類管理
                     </a>
                     <a
-                      href="counter_discountAct.html"
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券活動管理.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      櫃位優惠活動管理
+                      折價券活動管理
+                    </a>
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位活動種類管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      優惠活動種類管理
                     </a>
                   </div>
                 </div>
@@ -253,25 +259,25 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="counter_actApply.html"
+                      href="event_venueCtrl.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                       線下活動申請
                     </a>
                     <a
+                      href="activity_orderCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      報名訂單查詢
+                    </a>
+                    <a
                       href="counter_actContent.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      活動內容管理
-                    </a>
-                    <a
-                      href="counter_actHistory.html"
-                      class="list-group-item list-group-item-action sidebar-submenu"
-                    >
-                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      活動歷史紀錄
+                      活動申請查詢
                     </a>
                   </div>
                 </div>
@@ -280,22 +286,24 @@
           </div>
           <div class="list-group rounded-top-0">
             <a
-              href="counter_DM.html"
+              href="#"
               class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
             >
               <i class="fa-regular fa-message me-2"></i>
-              客戶訊息回覆
+              私訊服務
             </a>
             <a
-              href="#"
+              href=""
               class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+              id="sing-out"
             >
               <i class="fa-solid fa-right-from-bracket me-2"></i>
               登出
             </a>
           </div>
         </div>
-        <!-- 網頁內容主體 -->
+
+        <!-- =========================================== 這裡以上幫我複製貼上 ===================================================== -->
         <div class="col-10 page-body">
           <div class="controll-box counter-alter-controll-box">
             <div class="back-end-box-title counter-alter-controll-title">
@@ -446,6 +454,7 @@
                     class="form-control"
                     aria-label="With textarea"
                     id="counterAbout"
+                    rows="8"
                   ></textarea>
                 </div>
 
@@ -509,6 +518,8 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+
+    <script src="./js/counter-top.js"></script>
 
     <!-- 新引入的JS檔案或套件請由此往下放 -->
 

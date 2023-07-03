@@ -132,13 +132,12 @@ public class CartServiceImpl implements CartService {
                     //取出購物車原有項目元素變成JSONObject
                     JsonObject oldItem = element.getAsJsonObject();
 
-                    //如果productNo一樣，商品數量+1
                     if(oldItem.get("productNo").getAsInt() == newItem.get("productNo").getAsInt()){
                         //舊的商品數量
                         int quantity = oldItem.get("quantity").getAsInt();
                         //新的商品數量
                         int newQuantity = newItem.get("quantity").getAsInt();
-                        //新舊數量加總
+                        //覆蓋為新的商品數量
                         oldItem.addProperty("quantity", newQuantity);
                         //標記商品存在購物車
                         itemExists = true;
@@ -199,7 +198,6 @@ public class CartServiceImpl implements CartService {
                     //取出購物車原有項目元素變成JSONObject
                     JsonObject oldItem = element.getAsJsonObject();
 
-                    //如果productNo一樣，商品數量+1
                     if(oldItem.get("productNo").getAsInt() == newItem.get("productNo").getAsInt()){
 
                         cart.remove(oldItem);

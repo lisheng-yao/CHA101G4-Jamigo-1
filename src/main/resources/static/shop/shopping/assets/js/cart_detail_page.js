@@ -15,6 +15,7 @@ let memberOwnPoints;
 
 $(function () {
     let memberNo = getMemberNo();
+
     //取回所有會員折價券
     getMemberCoupons();
     //取回會員點數
@@ -46,8 +47,8 @@ $(function () {
 
 //取得會員編號
 function getMemberNo() {
-    // return localStorage.getItem("memberNo");
-    return 1;
+    return parseInt(localStorage.getItem("memberNo"));
+    // return 1;
 }
 
 //依櫃位排序
@@ -66,13 +67,13 @@ let counterArea_head = `
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="counter_name" colspan="7"><a href="#">head_counterName</a></th>
+                                    <th class="counter_name" colspan="7"><a href="head_counterLink">head_counterName</a></th>
                                 </tr>
     
                                 <tr>
                                     <th class="prductNo_title" style="display: none">商品編號</th>
                                     <th class="product_thumb_title">商品圖片</th>
-                                    <th class="product_name_title">商品</th>
+                                    <th class="product_name_title">商品名稱</th>
                                     <th class="product_price_title">單價</th>
                                     <th class="product_quantity_title">數量</th>
                                     <th class="product_total_title">總價</th>
@@ -101,16 +102,6 @@ let counterArea_foot = `
                                             <select class="available_counterCoupon">
                                                 foot_canUseCounterCouponOptions
                                             </select>
-                                        </div>
-
-                                        <div class="canNotUse_counterCoupon d-flex">
-                                            <i class="fa-solid fa-xmark p-2"></i>
-                                            <span class="canNotUseCounterCoupon_area">未符合使用門檻</span>
-                                            <button type="button" class="go_shopping"
-                                                onclick="window.location.href='商城首頁.html'">
-                                                繼續購物
-                                                <i class="fa-solid fa-bag-shopping"></i>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -146,6 +137,7 @@ function showCartByCounter() {
     //如果購物車沒有商品
     if (cartItems.length == 0) {
         $("#cartPanel").html(`<div>購物車尚無商品</div>`);
+        $(".available_platformCoupon").html(`<option>尚無可使用的全館折價券</option>`)
         return;
     }
     let counterTotal = 0;
@@ -161,7 +153,8 @@ function showCartByCounter() {
                 cart_html += replaced_counterArea_foot; //結束前一個櫃位的table
             }
             //新增櫃位table標題
-            let replaced_counterArea_head = counterArea_head.replace("head_counterName", cartItems[i].counterName);
+            let counterLink = `/Jamigo/shop/counter/counter_mainPage.html?counterNo=${cartItems[i].counterNo}`;
+            let replaced_counterArea_head = counterArea_head.replace("head_counterName", cartItems[i].counterName).replace("head_counterLink", counterLink);
             cart_html += replaced_counterArea_head;
             //紀錄新櫃位編號
             currentCounterNo = cartItems[i].counterNo;
@@ -178,7 +171,7 @@ function showCartByCounter() {
             <tr>
                 <td class="productNo" style="display: none">${cartItems[i].productNo}</td>
                 <td class="product_thumb">
-                    <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${cartItems[i].productNo}" alt="">
+                    <img src="/Jamigo/shop/product_picture/product/${cartItems[i].productNo}" alt="">
                 </td>
                 <td class="product_name"><a href="/Jamigo/shop/shopping/product_detail_page.html?productNo=${cartItems[i].productNo}">${cartItems[i].productName}</a></td>
                 <td class="product_price">${cartItems[i].productPrice}</td>
@@ -224,6 +217,56 @@ function registerInputEvent() {
     subtotals = $(".product_total");
     for (let i = 0; i < btnMinus.length; i++) {
         btnMinus.eq(i).on("click", function () {
+            if (quantities.eq(i).val() === "1"){
+                Swal.fire({
+                    title: '確認移除?',
+                    text: "想要把此商品從購物清單移除嗎?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#DA6272',
+                    cancelButtonColor: '#6A8CC7',
+                    confirmButtonText: '確認',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //將商品從購物車移除
+                        let memberNo = getMemberNo();
+                        let cartItem = {
+                            counterNo: parseInt(cartItems[i].counterNo),
+                            counterName: cartItems[i].counterName,
+                            productNo: parseInt(cartItems[i].productNo),
+                            productName: cartItems[i].productName,
+                            productPrice: parseInt(cartItems[i].productPrice),
+                            // image: productImages.eq(i).attr("src"),
+                            quantity: parseInt(quantities.eq(i).val())
+                        };
+                        let cartData = {
+                            memberNo: memberNo,
+                            cartItem: cartItem
+                        };
+                        $.ajax({
+                            url: `/Jamigo/cart/deleteOneInCart`,
+                            method: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(cartData),
+                            success: function (resp) {
+                                Swal.fire(
+                                    '移除成功！',
+                                    '商品已從購物車內移除',
+                                    'success'
+                                ).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload();   //重新整理
+                                    }
+                                });
+                            },
+                            error: function () {
+                                alert("商品刪除失敗");
+                            }
+                        });
+                    }
+                });
+            }
             if (quantities.eq(i).val() > 1) { //數量為0時,不給減
                 quantities.eq(i).val(parseInt(quantities.eq(i).val()) - 1);
             }
@@ -257,11 +300,6 @@ function registerInputEvent() {
                     cancelButtonText: '取消'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire(
-                            '移除成功！',
-                            '商品已從購物車內移除',
-                            'success'
-                        );
                         //將商品從購物車移除
                         let memberNo = getMemberNo();
                         let cartItem = {
@@ -283,13 +321,20 @@ function registerInputEvent() {
                             contentType: "application/json",
                             data: JSON.stringify(cartData),
                             success: function (resp) {
-                                alert("商品刪除成功" + resp);
+                                Swal.fire(
+                                    '移除成功！',
+                                    '商品已從購物車內移除',
+                                    'success'
+                                ).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload();   //重新整理
+                                    }
+                                });
                             },
                             error: function () {
                                 alert("商品刪除失敗");
                             }
                         });
-                        location.reload();
                     }
                 });
             }
@@ -389,11 +434,6 @@ function trashCanRemove() {
                 cancelButtonText: '取消'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                        '移除成功！',
-                        '商品已從購物車內移除',
-                        'success'
-                    );
                     //將商品從購物車移除
                     let memberNo = getMemberNo();
                     let cartItem = {
@@ -415,10 +455,15 @@ function trashCanRemove() {
                         contentType: "application/json",
                         data: JSON.stringify(cartData),
                         success: function (resp) {
-                            alert("商品刪除成功" + resp);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000); // 延遲2秒重新整理頁面
+                            Swal.fire(
+                                '移除成功！',
+                                '商品已從購物車內移除',
+                                'success'
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload();   //重新整理
+                                }
+                            });
                         },
                         error: function () {
                             alert("商品刪除失敗");
@@ -551,11 +596,20 @@ function platformSelectChange() {
         $(".platform_usedDiscount").text(platformDiscount);
         //取得會員點數折抵金額
         let memberPoint_usedDiscount = parseInt($(".memberPoint_usedDiscount").text());
-        // let memberUsedPoint = $(".memberPoints_input").val();
-        // if(memberUsedPoint == ""){
-        //     memberUsedPoint = 0;
-        // }
-
+        //若應付總額已經為0
+        if($(".final_total").text() == "0"){
+            memberPoint_usedDiscount = memberPoint_usedDiscount - platformDiscount;
+            $(".memberPoints_input").val(memberPoint_usedDiscount);
+            $(".memberPoint_usedDiscount").text(memberPoint_usedDiscount);
+            // alert("您的折價金額已達上限，將會優先使用折價券折抵並退回多於點數!");
+            Swal.fire({
+                icon: 'info',
+                iconColor: '#DA6272',
+                title: '折抵金額已到達上限！',
+                text: '優先使用折價券折抵，無法使用的點數折抵將退回'
+            })
+        }
+        
         $(".final_total").text(parseInt($(".totalAfterCounterDiscount").text()) - platformDiscount - memberPoint_usedDiscount);
     });
 }
@@ -641,4 +695,8 @@ function putCanUsePlatformCoupons(memberCoupons, currentCounterNo, counterTotal)
         `;
     }
     return canUseCounterCouponHtml;
+}
+
+function goToWishListPage(){
+    window.location = `/Jamigo/member/member/wishlist/wishlist.html`;
 }

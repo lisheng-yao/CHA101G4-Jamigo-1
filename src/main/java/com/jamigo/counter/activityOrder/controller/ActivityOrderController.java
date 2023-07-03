@@ -104,6 +104,13 @@ public class ActivityOrderController {
 		return activityOrderService.getAll();
 		
 	}
+
+	@GetMapping("/getByCounterNO/{counterNo}")
+	public List<ActivityOrderVO> getByCounterNO(@PathVariable Integer counterNo){
+		
+		return activityOrderService.getByCounterNO(counterNo);
+		
+	}
 	
 	@PostMapping("/ecpayCheckout")
 	public String ecpayCheckout(@RequestBody MultiValueMap<String, String> requestParams) {

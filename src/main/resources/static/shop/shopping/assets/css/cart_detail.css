@@ -294,6 +294,7 @@ select.available_platformCoupon{
 }
 
 .checkout_title {
+    font-weight: 600;
     width: 94%;
 }
 
@@ -304,7 +305,7 @@ select.available_platformCoupon{
 }
 
 .order_originalTotal p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     margin: 0;
 }

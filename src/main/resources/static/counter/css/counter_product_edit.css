@@ -1,4 +1,21 @@
 .edit-product-title{
     font-size: 25px;
     font-weight: 700;
+    padding: 18px;
+    background-color: #E3E3E3;
+}
+
+.edit-product-content{
+    padding: 0 25px;
+}
+
+.productPic{
+    color: #8E8E8E;
+    font-family: "Ubuntu";
+}
+
+.btns-area {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #E3E3E3;
 }

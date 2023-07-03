@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.jamigo.activity.activity_approve.dao.ActivityDAO;
 import com.jamigo.activity.activity_approve.model.Activity;
+import com.jamigo.counter.counter.entity.Counter;
 
 @Service
 public class ActivityService {
@@ -68,13 +69,11 @@ public class ActivityService {
 		return activities;
 	}
 
-
 	// 依照點選之活動編號映出相對應的活動資訊[櫃位後台]
 	public Activity getCouInfo(Integer activityNo) {
 		// TODO Auto-generated method stub
 		return activityDAO.findById(activityNo).orElse(null);
 	}
-	
 
 	@Autowired
 	public ActivityService(ActivityDAO activityDAO) {
@@ -82,20 +81,33 @@ public class ActivityService {
 	}
 
 	// 修改櫃位申請活動的資料
-	  public Activity getActUpdate(Integer activityNo) {
-	        return activityDAO.findById(activityNo)//數據庫中搜尋PK對應的Activity記錄並會返回Optional<Activity>對象
-	                .orElseThrow(() -> new IllegalArgumentException("Activity with id " + activityNo + " not found"));
-	        //找不到就拋出異常
-	    }
-	  //存取櫃位修改的資料
-	  public Activity saveActivity(Activity activity) {
-		    // 使用 ActivityDAO 的 save 方法保存 Activity
-		    return activityDAO.save(activity);
-		}
+	public Activity getActUpdate(Integer activityNo) {
+		return activityDAO.findById(activityNo)// 數據庫中搜尋PK對應的Activity記錄並會返回Optional<Activity>對象
+				.orElseThrow(() -> new IllegalArgumentException("Activity with id " + activityNo + " not found"));
+		// 找不到就拋出異常
+	}
 
-	public Optional<Activity> findById(String activityNo) {
-		// TODO Auto-generated method stub
-		return null;
+	// 存取櫃位修改的資料
+	public Activity saveActivity(Activity activity) {
+		try {
+			// 使用 ActivityDAO 的 save 方法保存 Activity
+			return activityDAO.save(activity);
+		} catch (Exception e) {
+			// Log the error and throw a custom exception or return a custom error message.
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	public Optional<Activity> findById(Integer activityNo) {
+		try {
+			// 使用 ActivityDAO 的 findById 方法查找 Activity
+			return activityDAO.findById(activityNo);
+		} catch (Exception e) {
+			// Log the error and throw a custom exception or return a custom error message.
+			System.out.println(e.getMessage());
+			return Optional.empty();
+		}
 	}
 
 

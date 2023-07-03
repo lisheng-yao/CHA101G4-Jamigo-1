@@ -103,7 +103,7 @@
           <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
           <div class="list-group rounded-bottom-0">
             <a
-              href="counter_carouselCtrl.html"
+              href="/Jamigo/counter/counter_carouselCtrl.html"
               class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
             >
               <i class="fa-solid fa-eye me-2"></i>
@@ -136,14 +136,14 @@
                 <div class="accordion-body p-0 border-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="counter_product.html"
+                      href="/Jamigo/counter/counter_product.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                       商品資料管理
                     </a>
                     <a
-                      href="counter_order.html"
+                      href="/Jamigo/counter/counter_order.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
@@ -175,14 +175,14 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="counter_data.html"
+                      href="/Jamigo/counter/counter_data.html"
                       class="list-group-item list-group-item-action sidebar-submenu active"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                       櫃位帳號資料管理
                     </a>
                     <a
-                      href="counter_monthly.html"
+                      href="/Jamigo/counter/counter_monthly.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
@@ -225,14 +225,14 @@
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      優惠活動種類管理
+                      折價券活動管理
                     </a>
                     <a
                       href="/Jamigo/promotion/promotion4counter/櫃位活動種類管理.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
-                      折價券活動管理
+                      優惠活動種類管理
                     </a>
                   </div>
                 </div>
@@ -260,21 +260,21 @@
                 <div class="accordion-body p-0">
                   <div class="list-group rounded-0">
                     <a
-                      href="event_venueCtrl.html"
+                      href="/Jamigo/counter/event_venueCtrl.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                       線下活動申請
                     </a>
                     <a
-                      href="activity_orderCtrl.html"
+                      href="/Jamigo/counter/activity_orderCtrl.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
                       報名訂單查詢
                     </a>
                     <a
-                      href="counter_actContent.html"
+                      href="/Jamigo/counter/counter_actContent.html"
                       class="list-group-item list-group-item-action sidebar-submenu"
                     >
                       <i class="fa-solid fa-caret-right ms-2 me-1"></i>
@@ -459,7 +459,8 @@
             document.getElementById("counterNo").textContent = data.counterNo;
             document.getElementById("counterName").textContent =
               data.counterName;
-            document.getElementById("cutPercent").textContent = data.cutPercent;
+            const pr = data.cutPercent * 100;
+            document.getElementById("cutPercent").textContent = pr + " %";
             document.getElementById("counterAccount").textContent =
               data.counterAccount;
             var element = document.getElementById("counterStat");
@@ -484,7 +485,7 @@
             }
             document.getElementById("counterGui").textContent = data.counterGui;
             document.getElementById("counterFloor").textContent =
-              data.counterFloor;
+              data.counterFloor + "F";
             document.getElementById("counterTel").textContent = data.counterTel;
             document.getElementById("counterPoc").textContent = data.counterPoc;
             document.getElementById("counterPocPhone").textContent =
