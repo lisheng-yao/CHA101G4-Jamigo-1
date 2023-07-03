@@ -261,7 +261,7 @@ function autoCreateForm(startIndex) {
         <div class="phone_email">
             <label>姓名</label>
             <div class="form-text">
-                <input id="activity-attendee-more-name-input${startIndex}" type="text" name="activity-attendee-more-name" placeholder="" required="">
+                <input id="activity-attendee-more-name-input${startIndex}" tabindex="0" type="text" name="activity-attendee-more-name" placeholder="" required="">
             </div>
         </div>
         <div class="phone_email">
@@ -283,7 +283,7 @@ function autoCreateForm(startIndex) {
         <div class="phone_email">
             <label>年紀</label>
             <div class="form-text">
-                <input type="text" id="activity-attendee-more-age-input${startIndex}" name="activity-attendee-more-age" placeholder="" required="">
+                <input type="text" id="activity-attendee-more-age-input${startIndex}" tabindex="0" name="activity-attendee-more-age" placeholder="" required="">
             </div>
         </div>`;
     activity_attendee_more.lastChild.innerHTML = html;

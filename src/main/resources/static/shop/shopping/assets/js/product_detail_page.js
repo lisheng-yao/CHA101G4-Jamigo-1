@@ -55,14 +55,19 @@ $(function (){
 
 //取得會員編號
 function getMemberNo(){
-    // return localStorage.getItem("memberNo");
-    return 1;
+    return parseInt(localStorage.getItem("memberNo"));
+    // return 1;
 }
 
 //放入購物車
 function addToCart(productNo){
     $("#add_to_cart").on("click", function (){
         let memberNo = getMemberNo();
+        if (!memberNo) {
+            localStorage.setItem('currentPageUrl', window.location.href);
+            window.location = '/Jamigo/member/login/login.html';
+            return;
+        }
         let counterName = product.counterName;
         let counterNo = product.counterNo;
         let productName = product.productName;
@@ -98,13 +103,27 @@ function addToCart(productNo){
 
 function printCartItemsCount(){
     let memberNo = getMemberNo();
-    $.ajax({
-        url: `/Jamigo/cart/getCartList/${memberNo}`,
-        method: "GET",
-        async: false,
-        success: function (respCartItems){
-            cartItems = respCartItems;
-            $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
-        }
-    });
+    if(!memberNo){
+        $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+    }else {
+        $.ajax({
+            url: `/Jamigo/cart/getCartList/${memberNo}`,
+            method: "GET",
+            async: false,
+            success: function (respCartItems){
+                cartItems = respCartItems;
+                $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+            }
+        });
+    }
+}
+
+function goToCartDetailPage(){
+    let memberNo = getMemberNo();
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+    window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
 }

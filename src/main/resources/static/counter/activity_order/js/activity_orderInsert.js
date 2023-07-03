@@ -180,7 +180,17 @@ if(revise_btn) {
   revise_btn.addEventListener('click', () => {
 	  let revise_btn_promise = new Promise(async (resolve, reject) => {
 		let inputAttendee_flag = await inputAttendee_reject();
-		inputCutPercent_reject();
+		let attendeeNum = inputAttendee.value - 1;
+		for(let i = 0; i < attendeeNum.length; i++) {
+			let inputAttendeeMoreName_id = document.querySelector(`#inputAttendeeMoreName${i}`);
+			let parent = inputAttendeeMoreName_id;
+			let parentSibling = parent.nextElementSibling;
+			let err = parentSibling.lastElementChild;
+			inputAttendeeMoreName_reject(inputAttendeeMoreName_id, err)
+			inputAttendee_reject();
+			inputAttendeeMoreAge_reject(inputAttendeeMoreName_id, err);
+		
+		}
         resolve();
 	  });
 	  revise_btn_promise.then(() => {
@@ -375,23 +385,23 @@ function inputAttendee_reject() {
 	error_text_controll(flag, inputAttendee_error, error_text);
 	return flag;
 }
-activity_attendee_info.addEventListener('blur', e => {
-	console.log(e.target);
-	if(e.target.classList.contains('form-control-name')) {
-		console.log('觸發click');
-		let parent = e.target.parentElement;
-		let parentSibling = parent.nextElementSibling;
-		let err = parentSibling.lastElementChild;
-		inputAttendeeMoreName_reject(e.target, err)
-	}
-	if(e.target.classList.contains('form-control-age')) {
-		console.log('觸發click');
-		let parent = e.target.parentElement;
-		let parentSibling = parent.nextElementSibling;
-		let err = parentSibling.lastElementChild;
-		inputAttendeeMoreAge_reject(e.target, err)
-	}
-})
+// activity_attendee_info.addEventListener('mouseleave', e => {
+// 	console.log(e.target);
+// 	if(e.target.classList.contains('form-control-name')) {
+// 		console.log('觸發click');
+// 		let parent = e.target.parentElement;
+// 		let parentSibling = parent.nextElementSibling;
+// 		let err = parentSibling.lastElementChild;
+// 		inputAttendeeMoreName_reject(e.target, err)
+// 	}
+// 	if(e.target.classList.contains('form-control-age')) {
+// 		console.log('觸發click');
+// 		let parent = e.target.parentElement;
+// 		let parentSibling = parent.nextElementSibling;
+// 		let err = parentSibling.lastElementChild;
+// 		inputAttendeeMoreAge_reject(e.target, err)
+// 	}
+// })
 function inputAttendeeMoreName_reject(input, errorSpan) {
 	let flag = true;
 	let error_text = '';
