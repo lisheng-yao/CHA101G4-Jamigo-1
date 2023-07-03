@@ -3,6 +3,7 @@ package com.jamigo.platform.index.controller;
 
 import com.jamigo.platform.index.entity.IndexVO;
 import com.jamigo.platform.index.service.IndexService;
+import com.jamigo.shop.product.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,22 @@ public class IndexController {
         map.put("message",indexService.deleteOne(mainpageCarouselNo));
 
         return ResponseEntity.status(HttpStatus.OK).body(map);
+    }
+
+    @GetMapping("/index/getpopularproduct")
+    public ResponseEntity<List<Product>> getpopularproduct(){
+
+        List<Product> list = indexService.getpopularproduct();
+
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
+    @GetMapping("index/getDuringTimeAll")
+    public ResponseEntity<List<IndexVO>> getDuringTimeAll(){
+
+        List<IndexVO> list = indexService.getDuringTimeAll();
+
+        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
 }

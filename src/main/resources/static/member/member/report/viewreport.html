@@ -99,6 +99,38 @@
         background-color: #333;
         margin-top: 5px;
     }
+
+    /* 表格容器的樣式 */
+    .datatable-container {
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    /* 表格的樣式 */
+    .datatable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* 表頭儲存格的樣式 */
+    .datatable thead th {
+        background-color: #007497;
+        color: #fff;
+        padding: 8px;
+        text-align: center !important;
+        overflow: hidden;
+
+    }
+
+    /* 資料行的樣式 */
+    .datatable tbody td {
+        background-color: #fff;
+        padding: 8px;
+        text-align: center;
+        height: 132px;
+        vertical-align: middle;
+    }
 </style>
 
 <body>
@@ -294,10 +326,12 @@
             <div class="col-10 page-body">
 
                 <h2 class="main-title">查看檢舉結果</h2>
+                <div class="datatable-container">
 
-                <table id="all" class="display" style="width:100%">
+                    <table id="all" class="datatable display" style="width:100%">
 
-                </table>
+                    </table>
+                </div>
                 <div class="noarea"></div>
             </div>
         </div>
@@ -314,9 +348,11 @@
         $(document).ready(function () {
 
 
+            let memberNo = localStorage.getItem('memberNo');
+
             $.ajax({
                 type: 'GET',
-                url: '/Jamigo/memberreports/1',
+                url: '/Jamigo/memberreports/' + memberNo,
                 data: null,
                 dataType: 'json',
                 success: function (response) {

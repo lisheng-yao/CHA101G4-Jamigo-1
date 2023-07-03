@@ -16,59 +16,79 @@
 
         .form-field {
             margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
+        #imgcontainer {
+            width: 100%;
+            height: auto;
+            background-image: url("/Jamigo/index/首頁/images/平台查看檢舉.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
 
 <body>
-    <form>
-        <div class="form-field">
-            <label class="form-label" for="report-status">檢舉狀態:</label>
-            <span id="report-status"></span>
-        </div>
+    <div id="imgcontainer">
+        <form>
+            <div class="form-field">
+                <label class="form-label" for="report-status">檢舉狀態:</label>
+                <span id="report-status"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="product-name">商品名稱:</label>
-            <span id="product-name"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="product-name">商品名稱:</label>
+                <span id="product-name"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-content">檢舉內容:</label>
-            <span id="report-content"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-content">檢舉內容:</label>
+                <span id="report-content"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="member-name">會員名稱:</label>
-            <span id="member-name"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="member-name">會員名稱:</label>
+                <span id="member-name"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-count">該商品被檢舉次數:</label>
-            <span id="report-count"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-count">該商品被檢舉次數:</label>
+                <span id="report-count"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-time">檢舉時間:</label>
-            <span id="report-time"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-time">檢舉時間:</label>
+                <span id="report-time"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-response">客服回應:</label>
-            <span id="report-response"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-response">客服回應:</label>
+                <span id="report-response"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="response-time">回應時間:</label>
-            <span id="response-time"></span>
-        </div>
-        
-        
-        
-    </form>
+            <div class="form-field">
+                <label class="form-label" for="response-time">回應時間:</label>
+                <span id="response-time"></span>
+            </div>
 
+            <div class="form-field">
+                <label class="form-label" for="resport-image">檢舉圖片:</label>
+                <div id="previewAreaContainer">
+                    <div id="previewArea">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
+
 
     document.addEventListener("DOMContentLoaded", function () {
 
@@ -84,59 +104,87 @@
                 finish(response);
             },
             error: function (error) {
-                alert(error.status);
+                Swal.fire({
+                    icon: 'error',
+                    text: '工程師去買飯,請稍後再試。',
+                    title: error.status,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.reload();
+                    return;
+                })
             }
         });
-    });
-    function finish(response) {
+        function finish(response) {
 
-        //轉換處理狀態
-        if (response.reportStat == 0) {
-            response.reportStat = "未處理"
-        } else {
-            response.reportStat = "已處理"
+            //轉換處理狀態
+            if (response.reportStat == 0) {
+                response.reportStat = "未處理"
+            } else {
+                response.reportStat = "已處理"
+            }
+            //轉換時間格式
+            var Time1 = new Date(response.reportTime);
+            var year = Time1.getFullYear();
+            var month = ('0' + (Time1.getMonth() + 1)).slice(-2);
+            var day = ('0' + Time1.getDay()).slice(-2);
+            var hours = ('0' + Time1.getHours()).slice(-2);
+            var minutes = ('0' + Time1.getMinutes()).slice(-2);
+            var seconds = ('0' + Time1.getSeconds()).slice(-2);
+            var reportTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
+            if (response.responseTime) {
+                var Time2 = new Date(response.responseTime);
+                var year = Time2.getFullYear();
+                var month = ('0' + (Time2.getMonth() + 1)).slice(-2);
+                var day = ('0' + Time2.getDay()).slice(-2);
+                var hours = ('0' + Time2.getHours()).slice(-2);
+                var minutes = ('0' + Time2.getMinutes()).slice(-2);
+                var seconds = ('0' + Time2.getSeconds()).slice(-2);
+                var responseTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+            } else {
+                responseTime = '';
+            }
+
+
+
+            let reportResponse;
+            if (response.reportResponse == null) {
+                reportResponse = "尚未回覆";
+            } else {
+                reportResponse = response.reportResponse.replace(/\[|\]/g, '')
+            }
+
+            let reportstat = document.getElementById('report-status');
+            let productname = document.getElementById('product-name');
+            let reportcontent = document.getElementById('report-content');
+            let membername = document.getElementById('member-name');
+            let reportnumber = document.getElementById('report-count');
+            let reporttime = document.getElementById('report-time');
+            let reportresponse = document.getElementById('report-response');
+            let responsetime = document.getElementById('response-time');
+            let previewArea = document.getElementById('previewArea');
+
+            reportstat.innerText = response.reportStat
+            productname.innerText = response.productName
+            reportcontent.innerText = response.reportContent.replace(/\[|\]/g, '')
+            membername.innerText = response.memberName
+            reportnumber.innerText = response.reportNumber
+            reporttime.innerText = reportTime
+            reportresponse.innerText = reportResponse
+            responsetime.innerText = responseTime;
+
+            // 圖片載入
+            var byteArray = response.reportImage;
+            var imageUrl = 'data:image/png;base64,' + byteArray;
+            $('#previewArea').append(`<img src="${imageUrl}" />`);
+
         }
-        //轉換時間格式
-        var Time1 = new Date(response.reportTime);
-        var year = Time1.getFullYear();
-        var month = ('0' + (Time1.getMonth() + 1)).slice(-2);
-        var day = ('0' + Time1.getDay()).slice(-2);
-        var hours = ('0' + Time1.getHours()).slice(-2);
-        var minutes = ('0' + Time1.getMinutes()).slice(-2);
-        var seconds = ('0' + Time1.getSeconds()).slice(-2);
-        var reportTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-        
-        var Time2 = new Date(response.responseTime);
-        var year = Time2.getFullYear();
-        var month = ('0' + (Time2.getMonth() + 1)).slice(-2);
-        var day = ('0' + Time2.getDay()).slice(-2);
-        var hours = ('0' + Time2.getHours()).slice(-2);
-        var minutes = ('0' + Time2.getMinutes()).slice(-2);
-        var seconds = ('0' + Time2.getSeconds()).slice(-2);
-        var responseTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-
-        let reportstat = document.getElementById('report-status')
-        let productname = document.getElementById('product-name')
-        let reportcontent = document.getElementById('report-content')
-        let membername = document.getElementById('member-name')
-        let reportnumber = document.getElementById('report-count')
-        let reporttime = document.getElementById('report-time')
-        let reportresponse = document.getElementById('report-response')
-        let responsetime = document.getElementById('response-time')
-
-        reportstat.innerText = response.reportStat;
-        productname.innerText = response.productName;
-        reportcontent.innerText = response.reportContent.replace(/\[|\]/g, '');
-        membername.innerText = response.memberName;
-        reportnumber.innerText = response.reportNumber;
-        reporttime.innerText = reportTime;
-        reportresponse.innerText = response.reportResponse.replace(/\[|\]/g, '');
-        responsetime.innerText = responseTime;
-    }
+    });
 
 
 
-    
+
 
 
 

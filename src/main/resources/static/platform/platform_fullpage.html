@@ -489,11 +489,12 @@
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
-
+    <!-- sweet alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var imageInput = document.getElementById('imageUpload');
         var previewArea = document.getElementById('previewArea')
-
+        var image1;
         // 監聽圖片上傳的變化
         imageInput.addEventListener('change', function (event) {
             var file = event.target.files[0];
@@ -504,18 +505,26 @@
 
                 // 載入圖片後的處理
                 reader.onload = function () {
+                    image1 = new Image();
                     var imageSrc = reader.result;
                     //判斷圖片長寬
-                    var image1 = new Image();
                     image1.onload = function () {
                         var width = image1.width;
                         var height = image1.height;
                         if (width !== 1700 || height !== 1000) {
-                            alert("圖片尺寸不符合要求。請選擇一張尺寸為 1700x1000 的圖片。");
-                            return;
+                            Swal.fire({
+                                icon: 'error',
+                                text: '圖片尺寸不符合要求。請選擇一張尺寸為 1700x1000 的圖片。',
+                                title: "請重選唷",
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.reload();
+                                return;
+                            })
+                        } else {
+                            // 顯示上傳成功動畫
+                            showUploadSuccessAnimation();
                         }
-                        // 顯示上傳成功動畫
-                        showUploadSuccessAnimation();
                     }
                     // 在預覽區域顯示圖片
                     var previewArea = document.getElementById('previewArea');
@@ -524,8 +533,6 @@
                     previewArea.innerHTML = '<img src="' + imageSrc + '">';
                     // 設定圖片的資料 URL
                     image1.src = imageSrc;
-
-                    window.image1 = image1;
                 };
                 // 讀取圖片
                 reader.readAsDataURL(file);
@@ -546,61 +553,97 @@
         function submit() {
             var starttime = document.getElementById('starttime').value;
             var endtime = document.getElementById('endtime').value;
-            //錯誤判斷
+
+
             if (!image1) {
-                alert("請上傳圖片");
-                return;
-            }
+                Swal.fire({
+                    icon: 'warning',
+                    text: '請上傳圖片',
+                    title: "提醒",
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    return;
+                })
+            };
+            if (!starttime || !endtime) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: '請輸入時間',
+                    title: "提醒",
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    return;
+                })
+            };
             var now = new Date();
             var time1 = new Date(starttime);
             var time2 = new Date(endtime);
-            if (starttime == undefined || time2 == undefined) {
-                alert("請輸入時間")
-                return;
-            }
             if (time1.getTime() < now.getTime()) {
-                alert("開始時間請超過當前時間!請重新選擇");
-                return;
+                Swal.fire({
+                    icon: 'warning',
+                    text: '開始時間請超過當前時間!請重新選擇',
+                    title: "請重選唷",
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    return;
+                })
             }
             if (time1.getTime() > time2.getTime()) {
-                alert("結束時間請超過開始時間!請重新選擇");
-                return;
+                Swal.fire({
+                    icon: 'warning',
+                    text: '結束時間請超過開始時間!請重新選擇',
+                    title: "請重選唷",
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    return;
+                })
+            } else {
+                // 圖片轉成base64
+                // 將圖片繪製到 Canvas
+                var canvas = document.createElement('canvas');
+                canvas.width = image1.width;
+                canvas.height = image1.height;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(image1, 0, 0);
+
+                // 獲取圖片的資料 URL
+                var dataURL = canvas.toDataURL().split(',')[1];
+
+                // 送請求
+                formdata = {
+                    "mainpageCarouselPic": dataURL,
+                    "mainpageCarouselStartTime": starttime,
+                    "mainpageCarouselEndTime": endtime
+                };
+                alert(starttime);
+                alert(endtime);
+                $.ajax({
+                    type: 'POST',
+                    url: '/Jamigo/index/insert',
+                    data: JSON.stringify(formdata),
+                    contentType: 'application/json',
+                    processData: false,
+                    success: function (response) {
+                        Swal.fire({
+                            icon: 'success',
+                            text: '您已成功新增圖片',
+                            title: response,
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    },
+
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...出了點小問題',
+                            text: error.status,
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    }
+                })
             }
-
-            // 圖片轉成base64
-            // 將圖片繪製到 Canvas
-            var canvas = document.createElement('canvas');
-            canvas.width = image1.width;
-            canvas.height = image1.height;
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(image1, 0, 0);
-
-            // 獲取圖片的資料 URL
-            var dataURL = canvas.toDataURL().split(',')[1];
-
-            // 送請求
-            formdata = {
-                "mainpageCarouselPic": dataURL,
-                "mainpageCarouselStartTime": starttime,
-                "mainpageCarouselEndTime": endtime
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/Jamigo/index/insert',
-                data: JSON.stringify(formdata),
-                contentType: 'application/json',
-                processData: false,
-                success: function (response) {
-                    alert(response);
-                    window.location.reload();
-                },
-
-                error: function (error) {
-                    alert(error.status);
-                    window.location.reload();
-                }
-            })
         }
 
         //函式 上傳成功後顯示動畫
@@ -671,7 +714,11 @@
                 },
 
                 error: function (error) {
-                    alert(error.status);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...出了點小問題',
+                        text: error.status,
+                    });
                 }
             })
 
@@ -687,7 +734,7 @@
                         <img src="${imageUrl}" />
                         <p id="querystartime">${response[i].mainpageCarouselStartTime}</p>
                         <p id="queryendtime">${response[i].mainpageCarouselEndTime}</p>
-                        <div id="forbutton" value="${response[i].mainpageCarouselNo}" style="display:none;"></div>
+                        <div id="forbutton" data-src="${response[i].mainpageCarouselNo}" style="display:none;"></div>
                         <button id="delete" onclick='deleteone(event);'><i class="fa-regular fa-trash-can">刪除</i></button>
                         </div>`)
                 }
@@ -696,8 +743,8 @@
         //刪除按鈕 
         function deleteone(event) {
             var button = event.target;
-            var mainpageCarouselNo = button.previousElementSibling.getAttribute("value");
-alert(mainpageCarouselNo);
+            var mainpageCarouselNo = button.previousElementSibling.getAttribute("data-src");
+
             $.ajax({
                 type: 'GET',
                 url: '/Jamigo/index/delete/' + mainpageCarouselNo,
@@ -705,16 +752,24 @@ alert(mainpageCarouselNo);
                     success(response);
                 },
                 error: function (error) {
-                    alert(error.status);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...出了點小問題',
+                        text: error.status,
+                    });
                 }
             })
 
             function success(response) {
-                alert(response.message);
-                window.location.reload();
+                Swal.fire({
+                    icon: 'success',
+                    text: '您已成功刪除',
+                    title: response.message,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.reload();
+                })
             }
-
-
 
         }
 

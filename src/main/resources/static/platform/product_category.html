@@ -31,6 +31,53 @@
     <title>商品類別管理</title>
 
 </head>
+<style>
+    /* 刪除 */
+    .delete-button {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+    .delete-button:focus {
+        outline: none;
+    }
+
+    /* 新增CSS */
+
+    label {
+        font-weight: bold;
+    }
+
+    #category-input,
+    #name-input {
+        margin: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+    }
+
+    #addbutton {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #addbutton:hover {
+        background-color: #45a049;
+    }
+</style>
 
 <body>
 
@@ -251,68 +298,18 @@
             <div class="col-10 page-body">
                 <!-- 網頁內容主體  往下放-->
 
-                <select id="classSelect">
-                    <option value="">---選擇主類---</option>
-                    <option value="男裝">男裝</option>
-                    <option value="女裝">女裝</option>
-                    <option value="童裝">童裝</option>
-                </select>
 
-                <input type="text" id="input1">
-                <input type="text" id="input2">
-                <input type="text" id="input3">
-                <button id="addRow">加入類別</button>
-                <table id="example" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>主類別</th>
-                            <th>子類別</th>
-                            <th>上架人員名稱</th>
-                            <th>操作欄</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>男裝</th>
-                            <th>襯衫</th>
-                            <th>Peter</th>
-                            <th><button id="">下架</button></th>
-                        </tr>
-                        <tr>
-                            <td>男裝</td>
-                            <td>外套</td>
-                            <td>John</td>
-                            <td><button class="delete-button">下架</button></td>
-                        </tr>
-                        <tr>
-                            <td>童裝</td>
-                            <td>褲子</td>
-                            <td>Emma</td>
-                            <td><button class="delete-button">下架</button></td>
-                        </tr>
-                        <tr>
-                            <td>男裝</td>
-                            <td>襯衫</td>
-                            <td>Peter</td>
-                            <td><button class="delete-button">下架</button></td>
-                        </tr>
-                        <tr>
-                            <td>女裝</td>
-                            <td>裙子</td>
-                            <td>Mary</td>
-                            <td><button class="delete-button">下架</button></td>
-                        </tr>
-                    </tbody>
+                <table id="product_category_table" class="display" style="width:100%">
 
-                    <tfoot>
-                        <tr>
-                            <th>主類別</th>
-                            <th>子類別</th>
-                            <th>上架人員名稱</th>
-                            <th>操作欄</th>
-                        </tr>
-                    </tfoot>
                 </table>
+
+                <div class="create">
+                    <label for="category-input">加入類別:</label>
+                    <input type="text" id="category-input">
+                    <label for="name-input">新增人員:</label>
+                    <input type="text" id="name-input">
+                </div>
+                <button id="addbutton" onclick="add();">新增</button>
 
             </div>
 
@@ -333,49 +330,144 @@
                 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
             </script>
 </body>
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $(document).ready(function () {
-        var t = $('#example').DataTable(); // 初始化 DataTable，將表格綁定到 id 為 example 的元素上
 
-        $('#addRow').on('click', function () {
-            var input1 = $('#input1').val(); // 獲取第一個輸入框的值
-            var input2 = $('#input2').val(); // 獲取第二個輸入框的值
-            var input3 = $('#input3').val(); // 獲取第三個輸入框的值
-            //獲取下架紐
-            var delete_button = document.createElement("button");
-            delete_button.innerHTML = "下架";
-            delete_button.id = "button_delete";
 
-            // 使用 t.row.add() 方法在表格中添加一行，將輸入框的值作為新行數據
-            var newrow = t.row.add([input1, input2, input3, '']).draw(false).node();
-
-            //加入下架鈕
-            var lastcell = newrow.cells[newrow.cells.length - 1];
-            lastcell.appendChild(delete_button);
-
-            // 清空輸入框的值
-            $('#input1').val('');
-            $('#input2').val('');
-            $('#input3').val('');
-        });
-
-        // 下拉選單 搜尋主類和子類的事件
-        $('#classSelect').on('change', function () {
-            var classValue = $('#classSelect').val();
-
-            if (classValue) {
-                t.columns(0).search(classValue).draw();  //下拉選單的選項值與搜尋表格的欄位值連結，創造篩選功能
-            } else {
-                t.columns().search('').draw();
+        $.ajax({
+            type: 'GET',
+            url: '/Jamigo/shop/getAllCategory',
+            data: null,
+            dataType: 'json',
+            success: function (response) {
+                finish(response);
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.status,
+                })
             }
         });
 
-        //  新增類別後丟到server
+        function finish(response) {
+            var data1 = [];
 
-        // js:主類的下拉選單選項要由表格中主類的名稱動態生成
+            for (let i = 0; i < response.length; i++) {
 
-        // js:下架功能待新增 並動態更新欄位
+                data1.push({
+                    'productCatNo': i + 1,
+                    'productCatName': response[i].productCatName,
+                    'productCatPerson': response[i].productCatPerson,
+                    'productCount': response[i].productCount,
+                    'handle': ""
+                });
+            }
+            $('#product_category_table').DataTable({
+                scrollY: '300px',
+                scrollCollapse: true,
+                paging: false,
+                pageLength: 10,
+                info: false,
+                data: data1,
+                columns: [
+                    { data: 'productCatNo', title: "類別編號" },
+                    { data: 'productCatName', title: "類別名稱" },
+                    { data: 'productCatPerson', title: "新增人員" },
+                    { data: 'productCount', title: "已擁有商品數" },
+                    {
+                        data: 'handle', title: "操作",
+                        render: function (data, type, row) {
+                            return '<button class="delete-button" onclick="deletebutton(this);">刪除</button>'
+                        }
+                    }
+
+                ],
+
+
+            });
+        }
     });
+
+    function add() {
+
+        var categoryinput = document.getElementById('category-input').value;
+        var nameinput = document.getElementById('name-input').value;
+        var data = {
+            "productCatName": categoryinput,
+            "productCatPerson": nameinput
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Jamigo/shop/addOneCategory',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    text: '您已成功新增類別',
+                    title: response,
+                }).then(() => {
+                    window.location.reload();
+                })
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...出了點小問題',
+                    text: error.status,
+                });
+            }
+        });
+
+    }
+
+
+
+    function deletebutton(event) {
+
+        var row = $(event).closest('tr');
+        var rowdata = $(event).closest('table').DataTable().row(row).data();
+        if (rowdata.productCount !== 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: '抱歉~請注意',
+                text: '您無法刪除已引用該類別的商品，請通知櫃位先下架商品',
+            }).then(() => {
+                return;
+            })
+        }else{
+            $.ajax({
+                type: 'GET',
+                url: '/Jamigo/shop/deleteOne/' + rowdata.productCatNo,
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: '您已成功刪除類別',
+                        title: response,
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.reload();
+                    })
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...出了點小問題',
+                        text: error.status,
+                    });
+                }
+            });
+        }
+
+
+
+    }
+
 </script>
 
 </html>

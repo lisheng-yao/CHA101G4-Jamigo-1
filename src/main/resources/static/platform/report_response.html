@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>檢舉回覆</title>
 
     <style>
         .form-label {
@@ -16,63 +16,116 @@
 
         .form-field {
             margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
+        .form-textarea {
+            resize: none;
+        }
+
+        #previewAreaContainer {
+            width: 50%;
+            height: auto;
+
+        }
+
+        #previewAreaContainer img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #imgcontainer {
+            width: 100%;
+            height: auto;
+            background-image: url("/Jamigo/index/首頁/images/會員查看檢舉詳情.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* 提交按鈕 */
+        #subbutton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #subbutton:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <form>
-        <div class="form-field">
-            <label class="form-label" for="report-status">檢舉狀態:</label>
-            <span id="report-status"></span>
-        </div>
+    <div id="imgcontainer">
+        <form>
+            <div class="form-field">
+                <label class="form-label" for="report-status">檢舉狀態:</label>
+                <span id="report-status"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="product-name">商品名稱:</label>
-            <span id="product-name"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="product-name">商品名稱:</label>
+                <span id="product-name"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-content">檢舉內容:</label>
-            <span id="report-content"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-content">檢舉內容:</label>
+                <span id="report-content"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="member-name">會員名稱:</label>
-            <span id="member-name"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="member-name">會員名稱:</label>
+                <span id="member-name"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-count">該商品被檢舉次數:</label>
-            <span id="report-count"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-count">該商品被檢舉次數:</label>
+                <span id="report-count"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-time">檢舉時間:</label>
-            <span id="report-time"></span>
-        </div>
-        <!-- 回應內容 -->
-        <div class="form-field">
-            <label class="form-label" for="additional-comments">平台回覆:</label>
-            <textarea name="responseContent" id="additional-comments" class="form-textarea" cols="100%" rows="20"
-                placeholder="請回應處理內容"></textarea>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="resport-image">檢舉圖片:</label>
+                <div id="previewAreaContainer">
+                    <div id="previewArea">
+                    </div>
+                </div>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="other-options">其他選項:</label>
-            <select id="other-options" class="form-select" name="otherOptions">
-                <option value="" selected disabled>--------------請選擇--------------</option>
-                <option name="responseContent" value="已收到您的意見，將立即改善">已收到您的意見，將立即改善</option>
-                <option name="responseContent" value="檢舉屬實，將立即處理">檢舉屬實，將立即處理</option>
-                <option name="responseContent" value="謝謝您寶貴的意見">謝謝您寶貴的意見</option>
-            </select>
-        </div>
-        <button type="button" onclick="sub()">送出</button>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-time">檢舉時間:</label>
+                <span id="report-time"></span>
+            </div>
+
+            <div class="form-field">
+                <label class="form-label" for="additional-comments">平台回覆:</label>
+                <textarea name="responseContent" id="additional-comments" class="form-textarea" cols="70%" rows="10"
+                    placeholder="請回應處理內容"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label class="form-label" for="other-options">其他選項:</label>
+                <select id="other-options" class="form-select" name="otherOptions">
+                    <option value="" selected disabled>--------------請選擇--------------</option>
+                    <option name="responseContent" value="已收到您的意見，將立即改善">已收到您的意見，將立即改善</option>
+                    <option name="responseContent" value="檢舉屬實，將立即處理">檢舉屬實，將立即處理</option>
+                    <option name="responseContent" value="謝謝您寶貴的意見">謝謝您寶貴的意見</option>
+                </select>
+            </div>
+            <button id="subbutton" type="button" onclick="sub()">送出</button>
+    </div>
     </form>
+    </div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -89,7 +142,15 @@
                 finish(response);
             },
             error: function (error) {
-                alert(error.status);
+                Swal.fire({
+                    icon: 'error',
+                    text: '工程師馬上回來,請稍後再試。',
+                    title: error.status,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.reload();
+                    return;
+                })
             }
         });
     });
@@ -124,6 +185,12 @@
         membername.innerText = response.memberName;
         reportnumber.innerText = response.reportNumber;
         reporttime.innerText = reportTime;
+
+        // 圖片載入
+        var byteArray = response.reportImage;
+        var imageUrl = 'data:image/png;base64,' + byteArray;
+        $('#previewArea').append(`<img id="image" src="${imageUrl}" />`);
+
     }
 
 
@@ -141,40 +208,57 @@
 
 
         if (selectoption.length === 0 || textarea.val().trim() === '') {
-            alert("請填入回應內容");
-            return;
+            Swal.fire({
+                icon: 'warning',
+                text: '請輸入回覆訊息。',
+                title: '提醒~',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                return;
+            })
         } else {
             responseContentArray.push($(selectoption).val());
             responseContentArray.push($(textarea).val());
+
+            var formdata = {
+                'memberNo': memberNo,
+                'productNo': productNo,
+                'reportStat': reportStat,
+                'reportResponses': responseContentArray
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/Jamigo/updateOne',
+                data: JSON.stringify(formdata),
+                contentType: 'application/json',
+
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: '回覆成功',
+                        title: response.message,
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        sendCloseEvent();
+                        window.close();
+                    })
+                },
+
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: error.status,
+                        title: '工程師去買飯,請稍後再試',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.reload();
+                    })
+                }
+            })
         }
-
-        var formdata = {
-            'memberNo': memberNo,
-            'productNo': productNo,
-            'reportStat': reportStat,
-            'reportResponses': responseContentArray
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/Jamigo/updateOne',
-            data: JSON.stringify(formdata),
-            contentType: 'application/json',
-
-            success: function (response) {
-                alert(response.message);
-                sendCloseEvent();
-                window.close();
-            },
-
-            error: function (error) {
-                alert(error.reportContent);
-                window.location.reload();
-            }
-
-        })
     }
-    
+
     function sendCloseEvent() {
         // 向父窗口發送關閉事件的消息
         window.opener.postMessage('closeEvent', '*');
