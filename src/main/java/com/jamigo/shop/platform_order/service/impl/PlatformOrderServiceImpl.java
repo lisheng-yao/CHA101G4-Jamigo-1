@@ -23,10 +23,10 @@ import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -34,6 +34,7 @@ import java.io.StringWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,6 +58,10 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
     private CartService cartService;
     @Autowired
     private ProductPictureService productPictureService;
+
+    @Autowired
+    @Qualifier("taskExecutor")
+    private Executor taskExecutor;
 
 
     @Override
@@ -141,7 +146,6 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         return orderDetailMap;
     }
 
-    @Async
     @Override
     public String createPlatformOrder(PlatformOrder newPlatformOrder) {
 
@@ -243,16 +247,19 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
 //            cartService.deleteOneInCart(cartItem, memberNo);
 //        }
 
-        try {
-            sendEmail(savedPlatformOrder);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         if (savedPlatformOrder.getPaymentMethod() == 1)
             return ecpayCheckout(savedPlatformOrder);
+        else {
+            taskExecutor.execute(() -> {
+                try {
+                    sendEmail(savedPlatformOrder);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
-        return null;
+            return null;
+        }
     }
 
     public String ecpayCheckout(PlatformOrder newPlatformOrder) {
@@ -314,6 +321,14 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
                     counterOrder.setCounterOrderStat((byte) 20);
                     counterOrderRepository.save(counterOrder);
                 }
+
+                taskExecutor.execute(() -> {
+                    try {
+                        sendEmail(platformOrder);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             }
         }
     }

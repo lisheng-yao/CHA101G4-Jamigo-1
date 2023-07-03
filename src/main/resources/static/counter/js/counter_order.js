@@ -1,11 +1,11 @@
-const counterNo = 10;
+// const counterNo = 10;
 
 const $table = $('table#main_table');
 
 $(function () {
 
     $table.bootstrapTable('destroy').bootstrapTable({
-        url: `http://localhost:8080/Jamigo/shop/counter_order/counter/${counterNo}`,
+        url: `http://localhost:8080/Jamigo/shop/counter_order`,
         stickyHeader: true,
         columns: [
             {

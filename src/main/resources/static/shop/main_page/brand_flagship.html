@@ -109,51 +109,17 @@
                             <div class="main_menu menu_center menu_position">
                                 <nav>
                                     <ul>
-                                        <li><a href="shopping_main_page.html">商城首頁</a></li>
+                                        <li><a href="/Jamigo/shop/main_page/商城首頁.html">商城首頁</a></li>
 
-                                        <li><a class="active" href="brand_flagship.html">品牌旗艦館</a></li>
+                                        <li><a class="active" href="/Jamigo/shop/main_page/brand_flagship.html">品牌旗艦館</a></li>
 
                                         <!-- 目前把商品分類寫死，之後可以讓它活過來 -->
                                         <li class="mega_items"><a href="#">商品分類<i class="fa fa-angle-down"></i></a>
                                             <div class="mega_menu">
                                                 <ul class="mega_menu_inner">
-                                                    <!-- 大分類 -->
-                                                    <li><a href="#">紳仕潮流</a>
-                                                        <ul>
-                                                            <!-- 小分類 -->
-                                                            <li><a href="#">服飾</a></li>
-                                                            <li><a href="product_category_page.html">鞋子
-                                                                (目前只有這個能跳轉到分類頁)</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#">時尚女裝</a>
-                                                        <ul>
-                                                            <li><a href="#">服飾</a></li>
-                                                            <li><a href="#">鞋子</a></li>
-                                                        </ul>
-                                                    </li>
-
-                                                    <li><a href="#">美妝保養</a>
-                                                        <ul>
-                                                            <li><a href="#">臉部彩妝</a></li>
-                                                            <li><a href="#">臉部保養</a></li>
-                                                        </ul>
-                                                    </li>
-
-                                                    <li><a href="#">日用生活</a>
-                                                        <ul>
-                                                            <li><a href="#">餐飲美食</a></li>
-                                                            <li><a href="#">廚房用品</a></li>
-                                                            <li><a href="#">3C 家電</a></li>
-                                                        </ul>
-                                                    </li>
-
-                                                    <li><a href="#">婦嬰兒童</a>
-                                                        <ul>
-                                                            <li><a href="#">童裝</a></li>
-                                                            <li><a href="#">玩具</a></li>
-                                                        </ul>
-                                                    </li>
+                                                    <!--                                                    <li>-->
+                                                    <!--                                                        <a href="product_category_page.html">紳仕潮流</a>-->
+                                                    <!--                                                    </li>-->
                                                 </ul>
                                             </div>
                                         </li>
@@ -166,7 +132,7 @@
                                                     <a href="#"><i class="ion-close-round"></i></a>
                                                 </div>
                                                 <!-- 輸入完關鍵字，並按搜尋按鈕後，會跳轉到商品搜尋頁 -->
-                                                <form action="product_search_page.html" method="get">
+                                                <form action="/Jamigo/shop/main_page/product_search_page.html" method="get">
                                                     <input placeholder="輸入您要找的關鍵字" type="text" name="keyword">
                                                     <button type="submit"><span
                                                             class="icon icon-Search"></span></button>
@@ -181,8 +147,7 @@
                         <div class="col-lg-2">
                             <div class="header_account_area">
                                 <div class="header_account-list">
-                                    <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o"
-                                                                        aria-hidden="true"></i></a>
+                                    <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                                 </div>
                                 <div class="header_account-list  mini_cart_wrapper">
                                     <a href="/Jamigo/shop/shopping/cart_detail_page.html"><i
@@ -371,9 +336,12 @@
 
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
+<script src="assets/js/brand_flagship.js"></script>
+<script src="assets/js/product_category_header.js"></script>
+
 <script src="/Jamigo/shop/shopping/assets/js/product_detail_page.js"></script>
 <script src="/Jamigo/shop/shopping/assets/js/script.js"></script>
-<script src="assets/js/brand_flagship.js"></script>
+
 
 
 </body>
