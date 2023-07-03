@@ -1371,11 +1371,11 @@ textarea:-ms-input-placeholder {
 .mega_menu_inner {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
 }
 
 .mega_menu_inner>li {
-    flex: 1 0 20%;
+    flex: 0 0 20%;
     margin: 20px 10px;
 }
 
@@ -11223,9 +11223,15 @@ textarea:-ms-input-placeholder {
     width: 100%;
 }
 
-.modal_title h2 {
-    font-size: 16px;
-    text-transform: uppercase;
+.modal_product_name h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 26px;
+}
+
+.modal_counter_name h3 {
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 14px;
     line-height: 26px;
@@ -11299,12 +11305,12 @@ textarea:-ms-input-placeholder {
 
 .modal_price {
     margin-bottom: 12px;
+    font-size: 16px;
 }
 
 .modal_price span {
     font-weight: 600;
     color: #F53737;
-    font-size: 16px;
 }
 
 .modal_price span.old_price {
