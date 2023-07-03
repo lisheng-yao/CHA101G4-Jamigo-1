@@ -1,6 +1,6 @@
 let addCollect_btn = document.querySelector('.list-group-flush .list-group-item .btn-primary:last-child');
 
-let currentMemberNo = localStorage.getAttribute('memberNo');
+let currentMemberNo = localStorage.getItem('memberNo');
 let currentCounterNo = 0;
 
 // 獲取活動編號
