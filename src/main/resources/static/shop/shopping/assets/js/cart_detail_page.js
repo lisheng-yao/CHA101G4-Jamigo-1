@@ -67,13 +67,13 @@ let counterArea_head = `
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="counter_name" colspan="7"><a href="#">head_counterName</a></th>
+                                    <th class="counter_name" colspan="7"><a href="head_counterLink">head_counterName</a></th>
                                 </tr>
     
                                 <tr>
                                     <th class="prductNo_title" style="display: none">商品編號</th>
                                     <th class="product_thumb_title">商品圖片</th>
-                                    <th class="product_name_title">商品</th>
+                                    <th class="product_name_title">商品名稱</th>
                                     <th class="product_price_title">單價</th>
                                     <th class="product_quantity_title">數量</th>
                                     <th class="product_total_title">總價</th>
@@ -152,7 +152,8 @@ function showCartByCounter() {
                 cart_html += replaced_counterArea_foot; //結束前一個櫃位的table
             }
             //新增櫃位table標題
-            let replaced_counterArea_head = counterArea_head.replace("head_counterName", cartItems[i].counterName);
+            let counterLink = `/Jamigo/shop/counter/counter_mainPage.html?counterNo=${cartItems[i].counterNo}`;
+            let replaced_counterArea_head = counterArea_head.replace("head_counterName", cartItems[i].counterName).replace("head_counterLink", counterLink);
             cart_html += replaced_counterArea_head;
             //紀錄新櫃位編號
             currentCounterNo = cartItems[i].counterNo;
