@@ -330,13 +330,21 @@
             container.innerHTML += activityCard;
         });
     }
-
     populateData();
     //調用populateData函式，取得所有活動資料，並建立相對應的活動元素顯示在網頁上
-
-
 </script>
 <!-- //disable body scroll which navbar is in active -->
+
+<!-- 為了防止登入後跑版 -->
+<script>
+    var session = localStorage.getItem("memberNo");
+    if (session) {
+        var button = document.querySelector(".login-button");
+        button.hidden = true;
+    } else {
+        console.log("安安沒事，沒跑版");
+    }
+</script>
 
 <!-- bootstrap -->
 <script src="/Jamigo/index/頁首頁尾_final/js/bootstrap.js"></script>
