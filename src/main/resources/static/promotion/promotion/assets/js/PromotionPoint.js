@@ -501,21 +501,23 @@
                             const promotionType = row.promotionType;
                             const promotionMethod = row.promotionMethod;
                             let adminNo = '';
-                            if (row.adminNo != null) {
+                            if (row.adminNo !== null && row.adminNo !== "") {
                                 adminNo = row.adminNo;
                             }
                             let counterNo = '';
                             if (row.counterNo != null) {
                                 counterNo = row.counterNo
                             }
-                            str4_0 += `<option value="${promotionName2}" ${promotionName2 === promotionName4[h] ? 'selected' : ''}>${promotionName2}</option>`
-                            str3_0 += `<div id="span4Promotion${promotionName2}${h}" class="hiddenyee">
+                            if (adminNo !== "") {
+                                str4_0 += `<option value="${promotionName2}" ${promotionName2 === promotionName4[h] ? 'selected' : ''}>${promotionName2}</option>`
+                                str3_0 += `<div id="span4Promotion${promotionName2}${h}" class="hiddenyee">
                                 <span>管理員編號： ${adminNo}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
                                 <span>發放種類: ${promotionType}</span>
                                 <span>發放方式: ${promotionMethod}</span>
                                 </div>`
+                            }
                         }
                         str3.push(str3_0);
                         str3_0 = '';
@@ -530,22 +532,23 @@
                         const promotionMethod = row.promotionMethod;
 
                         let adminNo = '';
-                        if (row.adminNo != null) {
+                        if (row.adminNo !== null && row.adminNo !== "") {
                             adminNo = row.adminNo;
                         }
                         let counterNo = '';
-                        if (row.counterNo != null) {
+                        if (row.counterNo !== null) {
                             counterNo = row.counterNo
                         }
-
-                        str += `<option value="${promotionName2}" >${promotionName2}</option>`
-                        str2 += `<div id="span4Promotion${promotionName2}" class="hiddenyee">
+                        if (adminNo !== "") {
+                            str += `<option value="${promotionName2}" >${promotionName2}</option>`
+                            str2 += `<div id="span4Promotion${promotionName2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNo}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
                                 <span>發放種類: ${promotionType}</span>
                                 <span>發放方式: ${promotionMethod}</span>
                                 </div>`
+                        }
 
                     }
                     dynamicSpanPromotionName.innerHTML = str2;

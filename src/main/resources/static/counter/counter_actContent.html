@@ -13,10 +13,12 @@
 	crossorigin="anonymous">
 
 <!-- 新引入的CSS檔案或套件請由此往下放 -->
-
 <link rel="stylesheet"
 	href="/Jamigo/counter/assets/fontawsome/css/all.css">
-
+<!-- 引入sweetalert2 css CDN-->
+<link
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css"
+	rel="stylesheet" />
 <!-- 引入fontawsome -->
 <link rel="stylesheet" href="/Jamigo/counter/css/all.css">
 <!-- 引入Google font -->
@@ -29,180 +31,277 @@
 </head>
 
 <body>
+   <!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
+    <!-- 整頁的容器 -->
+    <div class="container-fluid whole-page">
+      <div class="row">
+        <div class="col my-2">
+          <span class="d-flex align-items-center logo-part">
+            <span class="logo-img mx-3">
+              <i class="fa-solid fa-hat-cowboy-side fa-xl"></i>
+            </span>
+            <span class="fs-3 fw-bold logo-name"> Jamigo </span>
+            <span class="fs-4 fw-bold counter-page"> 櫃位後臺管理系統 </span>
+            <button
+              type="button"
+              class="btn rounded-circle border-0 nav-btn home-btn"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              style="padding: 12px"
+              data-bs-title="返回首頁"
+            >
+              <i class="fa-solid fa-house fa-lg"></i>
+            </button>
+          </span>
+        </div>
+        <div class="col-auto my-2">
+          <ul class="nav justify-content-end d-flex align-items-center">
+            <li class="nav-item">
+              <!-- 通知訊息 -->
+              <div class="dropdown position-relative">
+                <button
+                  class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-bell"></i>
 
-	<!-- 整頁的容器 -->
-	<div class="container-fluid whole-page">
-		<div class="row">
-			<div class="col my-2">
-				<span class="d-flex align-items-center logo-part"> <span
-					class="logo-img mx-3"> <i
-						class="fa-solid fa-hat-cowboy-side fa-xl"></i>
-				</span> <span class="fs-3 fw-bold logo-name"> Jamigo </span> <span
-					class="fs-4 fw-bold counter-page"> 櫃位後臺管理系統 </span>
-					<button type="button"
-						class="btn rounded-circle border-0 nav-btn home-btn"
-						data-bs-toggle="tooltip" data-bs-placement="right"
-						style="padding: 12px;" data-bs-title="返回首頁">
-						<i class="fa-solid fa-house fa-lg"></i>
-					</button>
-				</span>
-			</div>
-			<div class="col-auto my-2">
-				<ul class="nav justify-content-end d-flex align-items-center">
-					<li class="nav-item">
-						<!-- 通知訊息 -->
-						<div class="dropdown position-relative">
-							<button
-								class="btn rounded-circle dropdown-button position-relative border-0 nav-btn"
-								type="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="fa-solid fa-bell"></i> <span
-									class="position-absolute top-5 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-									<span class="visually-hidden">New alerts</span>
-								</span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#"> </a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-							</ul>
-						</div>
-					</li>
-					<!-- 頭像 -->
-					<li class="nav-item"><a class="nav-link"> <img
-							src="https://picsum.photos/id/684/600" class="rounded-circle"
-							width="40" height="40" alt="">
-					</a></li>
-				</ul>
-			</div>
-		</div>
+                  <span class="visually-hidden">New alerts</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"> </a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <div id="counter-top-name" style="font-weight: bold"></div>
+            <!-- 頭像 -->
+            <li class="nav-item">
+              <a class="nav-link">
+                <img
+                  class="rounded-circle"
+                  width="40"
+                  height="40"
+                  alt=""
+                  id="head-pic"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-		<div class="row">
-			<!-- 側邊選單列表 -->
-			<div class="col-2 sidebar">
-				<!-- sidebar-menu主選單，sidebar-submenu子選單 -->
-				<div class="list-group rounded-bottom-0">
-					<a href="counter_setFrontPage.html"
-						class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-						<i class="fa-solid fa-eye me-2"></i> 前臺頁面管理
-					</a>
-				</div>
-				<div class="accordion accordion-flush border-start border-end"
-					id="accordionFlushSidebar">
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button
-								class="accordion-button collapsed fw-bold p-3 sidebar-menu"
-								type="button" data-bs-toggle="collapse"
-								data-bs-target="#flush-collapseOne" aria-expanded="false"
-								aria-controls="flush-collapseOne">
-								<i class="fa-solid fa-list me-2"></i> 商品與訂單管理
-							</button>
-						</h2>
-						<div id="flush-collapseOne" class="accordion-collapse collapse"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0 border-0">
-								<div class="list-group rounded-0">
-									<a href="counter_product.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 商品資料管理
-									</a> <a href="counter_order.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位訂單管理
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button
-								class="accordion-button collapsed fw-bold p-3 sidebar-menu"
-								type="button" data-bs-toggle="collapse"
-								data-bs-target="#flush-collapseTwo" aria-expanded="false"
-								aria-controls="flush-collapseTwo">
-								<i class="fa-solid fa-circle-info me-2"></i> 櫃位資料專區
-							</button>
-						</h2>
-						<div id="flush-collapseTwo" class="accordion-collapse collapse"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0">
-								<div class="list-group rounded-0">
-									<a href="counter_data.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位帳號資料管理
-									</a> <a href="counter_monthly.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位月結報表查詢
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button
-								class="accordion-button collapsed fw-bold p-3 sidebar-menu"
-								type="button" data-bs-toggle="collapse"
-								data-bs-target="#flush-collapseThree" aria-expanded="false"
-								aria-controls="flush-collapseThree">
-								<i class="fa-solid fa-gift me-2"></i> 櫃位優惠管理
-							</button>
-						</h2>
-						<div id="flush-collapseThree" class="accordion-collapse collapse"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0">
-								<div class="list-group rounded-0">
-									<a href="counter_coupon.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位折價票券管理
-									</a> <a href="counter_discountAct.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 櫃位優惠活動管理
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button fw-bold p-3 sidebar-menu"
-								type="button" data-bs-toggle="collapse"
-								data-bs-target="#flush-collapseFour" aria-expanded="true"
-								aria-controls="flush-collapseFour">
-								<i class="fa-solid fa-champagne-glasses me-2"></i> 線下活動管理
-							</button>
-						</h2>
-						<div id="flush-collapseFour"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionFlushSidebar">
-							<div class="accordion-body p-0">
-								<div class="list-group rounded-0">
-									<a href="counter_actApply.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 線下活動申請
-									</a> <a href="#"
-										class="list-group-item list-group-item-action sidebar-submenu active">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 活動內容管理
-									</a> <a href="counter_actHistory.html"
-										class="list-group-item list-group-item-action sidebar-submenu">
-										<i class="fa-solid fa-caret-right ms-2 me-1"></i> 活動歷史紀錄
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="list-group rounded-top-0">
-					<a href="counter_DM.html"
-						class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-						<i class="fa-regular fa-message me-2"></i> 客戶訊息回覆
-					</a> <a href="#"
-						class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
-						<i class="fa-solid fa-right-from-bracket me-2"></i> 登出
-					</a>
-				</div>
-			</div>
+      <div class="row">
+        <!-- 側邊選單列表 -->
+        <div class="col-2 sidebar">
+          <!-- sidebar-menu主選單，sidebar-submenu子選單 -->
+          <div class="list-group rounded-bottom-0">
+            <a
+              href="counter_carouselCtrl.html"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-solid fa-eye me-2"></i>
+              前臺頁面管理
+            </a>
+          </div>
+          <div
+            class="accordion accordion-flush border-start border-end"
+            id="accordionFlushSidebar"
+          >
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  <i class="fa-solid fa-list me-2"></i>
+                  商品與訂單管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0 border-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_product.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      商品資料管理
+                    </a>
+                    <a
+                      href="counter_order.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位訂單管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseTwo"
+                >
+                  <i class="fa-solid fa-circle-info me-2"></i>
+                  櫃位資料專區
+                </button>
+              </h2>
+              <div
+                id="flush-collapseTwo"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="counter_data.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位帳號資料管理
+                    </a>
+                    <a
+                      href="counter_monthly.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      櫃位月結報表查詢
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseThree"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseThree"
+                >
+                  <i class="fa-solid fa-gift me-2"></i>
+                  櫃位優惠管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseThree"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券種類管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      折價票券種類管理
+                    </a>
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位折價券活動管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      優惠活動種類管理
+                    </a>
+                    <a
+                      href="/Jamigo/promotion/promotion4counter/櫃位活動種類管理.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      折價券活動管理
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button fw-bold p-3 sidebar-menu"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseFour"
+                  aria-expanded="ture"
+                  aria-controls="flush-collapseFour"
+                >
+                  <i class="fa-solid fa-champagne-glasses me-2"></i>
+                  線下活動管理
+                </button>
+              </h2>
+              <div
+                id="flush-collapseFour"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#accordionFlushSidebar"
+              >
+                <div class="accordion-body p-0">
+                  <div class="list-group rounded-0">
+                    <a
+                      href="event_venueCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      線下活動申請
+                    </a>
+                    <a
+                      href="activity_orderCtrl.html"
+                      class="list-group-item list-group-item-action sidebar-submenu"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      報名訂單查詢
+                    </a>
+                    <a
+                      href="counter_actContent.html"
+                      class="list-group-item list-group-item-action sidebar-submenu active"
+                    >
+                      <i class="fa-solid fa-caret-right ms-2 me-1"></i>
+                      活動申請查詢
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-group rounded-top-0">
+            <a
+              href="#"
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+            >
+              <i class="fa-regular fa-message me-2"></i>
+              私訊服務
+            </a>
+            <a
+              href=""
+              class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
+              id="sing-out"
+            >
+              <i class="fa-solid fa-right-from-bracket me-2"></i>
+              登出
+            </a>
+          </div>
+        </div>
+
 			<!-- 網頁內容主體 -->
 			<div class="col-10 page-body">
 				<div class="col-10 page-body">
@@ -439,7 +538,7 @@ html {
 													<th><input type="text" class="form-control"
 														placeholder="場地編號" disabled /></th>
 													<th><input type="text" class="form-control"
-														placeholder="活動詳情" disabled /></th>
+														placeholder="活動修改" disabled /></th>
 												</tr>
 											</thead>
 											<!-- 活動管理頁面 -->
@@ -451,7 +550,7 @@ html {
 												<th>參與限制</th>
 												<th>審核狀態</th>
 												<th>場地編號</th>
-												<th>活動詳情</th>
+												<th>活動修改</th>
 											</tfoot>
 										</table>
 										<!-- Modal -->
@@ -460,52 +559,73 @@ html {
 											<div class="modal-dialog">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h1 class="modal-title fs-5">線下活動詳情</h1>
+														<h1 class="modal-title fs-5">活動內容修改</h1>
 														<button type="button" class="btn-close"
 															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
 													<div class="modal-body">
 														<table id="appdetail"
 															class="table controll-table detail-controll-table counter-detail-controll-table">
+
 															<tbody>
 																<!-- 活動詳情內容 -->
 																<tr>
 																	<th scope="row">活動名稱</th>
-																	<td class="activity-activityName"></td>
+																	<td id="activityName"
+																		class="editable activity-activityName"
+																		contenteditable="true"></td>
 																</tr>
+
 																<tr>
 																	<th scope="row">活動費用</th>
-																	<td class="activity-activityCost"></td>
+																	<td class="editable activity-activityCost"
+																		contenteditable="true"></td>
 																</tr>
 																<tr>
 																	<th scope="row">活動名額</th>
-																	<td class="activity-activityLimit"></td>
+																	<td class="editable activity-activityLimit"
+																		contenteditable="true"></td>
 																</tr>
 																<tr>
 																	<th scope="row">活動內容</th>
-																	<td class="activity-activityDetail"></td>
+																	<td id="activityDetail"
+																		class="editable activity-activityDetail"
+																		contenteditable="true"></td>
 																</tr>
+
 																<tr>
 																	<th scope="row">報名開始時間</th>
-																	<td class="activity-activityRegStartTime"></td>
+																	<td class="activity-activityRegStartTime"><input
+																		type="datetime-local"></td>
 																</tr>
+
 																<tr>
 																	<th scope="row">報名截止時間</th>
-																	<td class="activity-activityRegEndTime"></td>
+																	<td class="activity-activityRegEndTime"><input
+																		type="datetime-local"></td>
 																</tr>
+
 																<tr>
 																	<th scope="row">活動開始時間</th>
-																	<td class="activity-activityStartTime"></td>
+																	<td class="activity-activityStartTime"><input
+																		type="datetime-local"></td>
 																</tr>
+
 																<tr>
 																	<th scope="row">活動結束時間</th>
-																	<td class="activity-activityEndTime"></td>
+																	<td class="activity-activityEndTime"><input
+																		type="datetime-local"></td>
 																</tr>
+
+
+
 																<tr>
 																	<th scope="row">活動照片</th>
-																	<td class="activity-activityPic"><img id="actImg"
-																		src="" alt="活動照片"></td>
+																	<td class="activity-activityPic"><input
+																		id="imageInput" type="file" accept="image/*"></td>
 																</tr>
+
+
 															</tbody>
 														</table>
 													</div>
@@ -514,6 +634,8 @@ html {
 															data-bs-dismiss="modal">關閉</button>
 														<button type="button" class="btn btn-primary"
 															onclick="updateActivity(event)">修改資訊</button>
+
+
 													</div>
 												</div>
 											</div>
@@ -533,112 +655,238 @@ html {
 
 
 									<script>
-										var counterNo = 1;
+										//var counterNo = 1;
+
+										// 將欄位的鍵（key）和類型（type）放入全域變數 `fields`
+										const fields = [
+											{ key: 'activityName', type: 'string' },
+											{ key: 'activityCost', type: 'number' },
+											{ key: 'activityLimit', type: 'number' },
+											{ key: 'activityDetail', type: 'string' },
+											{ key: 'activityRegStartTime', type: 'date' },
+											{ key: 'activityRegEndTime', type: 'date' },
+											{ key: 'activityStartTime', type: 'date' },
+											{ key: 'activityEndTime', type: 'date' },
+											{ key: 'activityPic', type: 'image' }
+										];
 
 										function formatDate(dateString) {
-											const date = new Date(dateString);
-											const options = {
-												year: 'numeric',
-												month: 'long',
-												day: 'numeric',
-												hour: 'numeric',
-												minute: 'numeric',
-												timeZone: 'Asia/Taipei',
+											const dateParts = dateString.split('T');
+											const date = dateParts[0];
+											const time = dateParts[1];
+											const [year, month, day] = date.split('-');
+											const [hour, minute, second] = time.split(':');
 
-											};
-											return date.toLocaleString('zh-TW', options);
+											// 根據資料庫日期時間格式的順序組合日期時間字串
+											const formattedDate = `${year}-${month}-${day}T${hour}:${minute}`;
+
+											return formattedDate;
 										}
 
-										function updateActivity(event, activityData) { // 重命名參數 activity 為 activityData
-											event.preventDefault();
+										async function getActivityData() {
+											const form = document.getElementById('appdetail');
 
-											const fields = [
-												{ key: 'activityName', type: 'string', value: activityData.activityName },
-												{ key: 'activityCost', type: 'number', value: activityData.activityCost },
-												{ key: 'activityLimit', type: 'number', value: activityData.activityLimit },
-												{ key: 'activityDetail', type: 'string', value: activityData.activityDetail },
-												{ key: 'activityRegStartTime', type: 'date', value: formatDate(activityData.activityRegStartTime) },
-												{ key: 'activityRegEndTime', type: 'date', value: formatDate(activityData.activityRegEndTime) },
-												{ key: 'activityStartTime', type: 'date', value: formatDate(activityData.activityStartTime) },
-												{ key: 'activityEndTime', type: 'date', value: formatDate(activityData.activityEndTime) },
-												{ key: 'activityPic', type: 'image', value: activityData.activityPic }
-											];
+											let activityData = {};
+											fields.forEach(field => {
+												const element = form.querySelector(`.activity-${field.key}`);
+												let value;
+												if (field.type === 'image') {
+													value = element.querySelector('img').src;
+												} else if (field.type === 'string' || field.type === 'number') {
+													value = element.querySelector('input,textarea').value;
+												} else if (field.type === 'date') {
+													value = new Date(element.querySelector('input').value).toISOString();
+												}
+
+												activityData[field.key] = value;
+											});
+
+											return activityData;
+										}
+
+										// 更新活動內容的函數
+										async function updateActivity(event) {
+											event.preventDefault();
 
 											const form = document.getElementById('appdetail');
 											const activityNo = form.dataset.activityNo;
 
-											let activity = {}; // 定義新的物件
-											fields.forEach((field) => {
-												let cell = form.querySelector(`.activity-${field.key}`);
-												if (field.type === 'date') {
-													activity[field.key] = formatDate(new Date(cell.innerText));
-												} else {
-													activity[field.key] = cell.innerText;
-												}
-											});
+											// 取得活動資料
+											let activityData = await getActivityData();
 
-											axios.put('/Jamigo/backend/applyupdate/' + activityNo, activity)
-												.then(response => {
-													console.log('response.data:', response.data);
-													console.log('資料已更新');
+											// 將活動資料(除了圖片)以外的字段添加到新對象中
+											let dataToSend = {};
+											for (let field in activityData) {
+												if (field !== 'activityPic' && activityData.hasOwnProperty(field)) {
+													if (field === 'activityStartTime') {
+														dataToSend[field] = new Date(activityData[field]).toISOString();
+													} else {
+														dataToSend[field] = activityData[field];
+													}
+												}
+											}
+
+											// 發送更新请求到後端
+											axios.put(`/Jamigo/backend/applyupdate/${activityNo}`, dataToSend, {
+												headers: {
+													'Content-Type': 'application/json',
+												},
+											})
+												.then((response) => {
+													console.log('活動資訊已更新:', response.data);
+													Swal.fire({
+														text: "修改完成:)",
+														icon: 'success'
+													}).then((result) => {
+														if (result.isConfirmed) {
+															window.location.reload(); // 將 'your_redirect_url' 替換成你想跳轉的頁面的 URL
+														}
+													});
 												})
-												.catch(error => {
-													console.log('更新失敗', error);
+												.catch((error) => {
+													console.error('更新失敗:', error);
+													if (error.response) {
+														console.log(error.response.data);
+														console.log(error.response.status);
+														console.log(error.response.headers);
+													} else if (error.request) {
+														console.log(error.request);
+													} else {
+														console.log('Error', error.message);
+													}
 												});
 										}
 
-										axios.get(`/Jamigo/backend/couresult/${counterNo}`)
-											.then(response => {
-												const data = response.data;
-												console.log(response.data);
+										// 更新活動圖片的函數
+										async function updateImage(event) {
+											event.preventDefault();
+
+											const form = document.getElementById('appdetail');
+											const activityNo = form.dataset.activityNo;
+											const fileInput = document.querySelector('.activity-activityPic input[type="file"]');
+
+											if (!fileInput) {
+												throw new Error('Cannot find element with id "imageInput".');
+											}
+
+											// 檢查用戶是否選擇了文件
+											if (!fileInput.files || fileInput.files.length === 0) {
+												console.error('沒有選擇文件');
+												return;
+											}
+											const file = fileInput.files[0];
+
+											// 創建 FormData 對象
+											let formData = new FormData();
+
+											// 將文件添加到 FormData 中
+											formData.append('file', file);
+
+											// 發送更新請求到後端
+											axios.put(`/Jamigo/backend/couimage/${activityNo}`, formData, {
+												headers: {
+													'Content-Type': 'multipart/form-data',
+												},
+											})
+												.then((response) => {
+													console.log('圖片已更新:', response.data);
+
+												})
+												.catch((error) => {
+													console.error('更新失敗:', error);
+													if (error.response) {
+														console.log(error.response.data);
+														console.log(error.response.status);
+														console.log(error.response.headers);
+													} else if (error.request) {
+														console.log(error.request);
+													} else {
+														console.log('Error', error.message);
+													}
+												});
+										}
+
+										document.addEventListener('DOMContentLoaded', (event) => {
+											// 在提交活動訊息按鈕上添加點擊事件監聽器
+											document.querySelector('button.btn.btn-primary').addEventListener('click', updateActivity);
+
+
+											// 在選擇圖片框上添加更改事件監聽器
+											document.getElementById('imageInput').addEventListener('change', updateImage);
+										});
+
+										async function fetchCounterAndRelatedData() {
+											try {
+												// 從 session 獲取 counterNo
+												const response = await axios.get('/Jamigo/counter/counterAcc');
+												const counterNo = response.data.counterNo;
+												console.log('獲取到的 counterNo:', counterNo);
+
+												// 使用獲取到的 counterNo 獲取相關資料
+												const relatedDataRes = await axios.get(`/Jamigo/backend/couresult/${counterNo}`);
+												const relatedData = relatedDataRes.data;
+												console.log('獲取到的相關數據:', relatedData);
+
+
+
+												// axios.get(`/Jamigo/backend/couresult/${counterNo}`)
+												// 	.then(response => {
+												// 		const data = response.data;
+												// 		console.log(response.data);
 
 												const tbody = document.getElementById("actlist");
 
-												response.data.forEach(activity => {
+												relatedDataRes.data.forEach(activity => {
 													if (activity && activity.activityNo) {
 														let tr = document.createElement("tr");
-														let td1 = document.createElement("td");
-														td1.innerText = activity.activityNo;
-														td1.classList.add("activity-no");
-														tr.appendChild(td1);
-														let td2 = document.createElement("td");
-														td2.innerText = activity.counterNo;
-														td2.classList.add("activity-counterNo");
-														tr.appendChild(td2);
 
-														let td3 = document.createElement("td");
-														td3.innerText = activity.activityLev;
-														td3.classList.add("activity-activityLev");
-														tr.appendChild(td3);
-
-														let td4 = document.createElement("td");
-														td4.innerText = activity.activityApprovalStat;
-														td4.classList.add("activity-activityApprovalStat");
-														tr.appendChild(td4);
-
-														let td5 = document.createElement("td");
-														td5.innerText = activity.activityPlaceNo;
-														td5.classList.add("activity-activityPlaceNo");
-														tr.appendChild(td5);
-
-
+														['activityNo', 'counterNo', 'activityLev', 'activityApprovalStat', 'activityPlaceNo'].forEach(attr => {
+															let td = document.createElement("td");
+															td.classList.add(`activity-${attr}`);
+															if (attr === 'activityApprovalStat') {
+																if (activity[attr] === 1) {
+																	td.innerHTML = '<span class="label label-success"><i class="fa-solid fa-circle-check"></i>通過</span>';
+																} else if (activity[attr] === 0) {
+																	td.innerHTML = ' <span class="label label-reject"><i class="fa-solid fa-circle-exclamation"></i>未通過</span>';
+																} else if (activity[attr] === 2) {
+																	td.innerHTML = ' <span class="label label-danger"><i class="fa-solid fa-circle-exclamation"></i>待審核</span>';
+																}
+															} else if (attr === 'activityLev') {
+																if (activity[attr] === 0) {
+																	td.innerHTML = '<span class="label label-success">一般會員</span>';
+																} else if (activity[attr] === 1) {
+																	td.innerHTML = ' <span class="label label-danger">VIP</span>';
+																}
+															} else if (attr === 'activityPlaceNo') {
+																if (activity[attr] === 0) {
+																	td.innerHTML = '<span class="label label-success"></i>文創基地</span>';
+																} else if (activity[attr] === 1) {
+																	td.innerHTML = ' <span class="label label-reject"></i>露天廣場</span>';
+																} else if (activity[attr] === 2) {
+																	td.innerHTML = ' <span class="label label-danger"></i>森林劇場</span>';
+																}
+															} else {
+																td.innerText = activity[attr];
+															}
+															tr.appendChild(td);
+														});
 
 														let td6 = document.createElement("td");
 														let btnLink = document.createElement('a');
-														btnLink.setAttribute('href', '#');
-														btnLink.setAttribute('class', 'btn');
-														btnLink.setAttribute('data-bs-toggle', 'modal');
-														btnLink.setAttribute('data-bs-target', '#exampleModal');
+														btnLink.href = '#';
+														btnLink.className = 'btn';
+														btnLink.dataset.bsToggle = 'modal';
+														btnLink.dataset.bsTarget = '#exampleModal';
 														btnLink.dataset.activityNo = activity.activityNo;
-														btnLink.textContent = '詳細資訊';
+														btnLink.textContent = '內容修改';
 
 														let btnIcon = document.createElement('i');
+														btnIcon.className = 'fa-solid fa-circle-info';
+														btnLink.appendChild(btnIcon);
 
-														btnIcon.setAttribute('class', 'fa-solid fa-circle-info');
-														btnLink.appendChild(btnIcon);
-														btnLink.appendChild(btnIcon);
 														td6.appendChild(btnLink);
 														tr.appendChild(td6);
+
 														tbody.appendChild(tr);
 
 														btnLink.addEventListener('click', function (event) {
@@ -655,7 +903,6 @@ html {
 																		console.log('成功');
 
 																		const fields = [
-
 																			{ name: '活動名稱', key: 'activityName' },
 																			{ name: '活動費用', key: 'activityCost' },
 																			{ name: '活動名額', key: 'activityLimit' },
@@ -666,267 +913,305 @@ html {
 																			{ name: '活動結束時間', key: 'activityEndTime' },
 																			{ name: '活動照片', key: 'activityPic' }
 																		];
-
-
 																		fields.forEach((field) => {
 																			let cell = form.querySelector(`.activity-${field.key}`);
 
-																			if (field.key === 'activityPic') {
+																			if (cell) {
+																				// Clear the cell content before adding new content
+																				cell.innerHTML = '';
 
-																				let img = document.createElement('img');
-																				img.src = 'data:image/jpeg;base64,' + activity[field.key];
-																				img.alt = '活動照片';
-																				img.width = 150;
+																				if (field.key === 'activityPic') {
+																					let img = document.createElement('img');
+																					img.src = 'data:image/jpeg;base64,' + activity[field.key];
+																					img.alt = '活動照片';
+																					img.width = 150;
+																					// Append img to cell
+																					cell.appendChild(img);
 
-																				cell.appendChild(img);
+																					let fileInput = document.createElement('input');
+																					fileInput.type = 'file';
+																					fileInput.accept = 'image/*';
 
-																				let fileInput = document.createElement('input');
-																				fileInput.type = 'file';
-																				fileInput.addEventListener('change', function (e) {
-																					let file = e.target.files[0];
-																					let reader = new FileReader();
-																					reader.onloadend = function () {
-																						let base64Image = reader.result;
+																					// 增加以下内容
+																					fileInput.addEventListener('change', function (e) {
+																						let file = e.target.files[0];
+																						if (file) { // 只有當成功獲取到文件时，才調用 FileReader
+																							let reader = new FileReader();
 
-																						// Now you can send this base64Image to your server
-																						axios.post(`/Jamigo/backend/couninfo/${activityNo}/uploadImage`, { image: base64Image })
-																							.then(response => {
-																								console.log('Image upload success');
-																							})
-																							.catch(error => {
-																								console.log('Image upload failed', error);
-																							});
-																					};
-																					reader.readAsDataURL(file);
-																				});
+																							reader.onloadend = async function () {
+																								// Update the image data on the server. You might use axios.put()
+																								// After updating the server data, you can change the image source
+																								img.src = reader.result;
+																								// Save the base64 string to activityData
+																								let activityData = await getActivityData();
+																								activityData.activityPic = reader.result;
 
-										
-																				cell.appendChild(fileInput);
-																			} else {
-																				cell.textContent = activity[field.key];
-																			   }
-														                }); 
-														              } 
-														            });
-														        });
-														      }
-														    }); 
-														  }); 
+																								// Call the updateImage function
+																								await updateImage(e);
+																							};
+																							reader.readAsDataURL(file);
+																						} else {
+																							console.error('No file selected');
+																						}
+																					});
+
+																					// Append file input to cell
+																					cell.appendChild(fileInput);
+																				}
+																				else {
+
+																					let input;
+
+																					if (field.key === 'activityName' || field.key === 'activityDetail') {
+																						input = document.createElement('textarea');
+																						input.value = activity[field.key];
+																					} else if (field.key === 'activityRegStartTime' || field.key === 'activityRegEndTime' || field.key === 'activityStartTime' || field.key === 'activityEndTime') {
+																						input = document.createElement('input');
+																						input.type = 'datetime-local';
+																						input.value = formatDate(activity[field.key]);
+																					} else {
+																						input = document.createElement('input');
+																						input.type = 'text';
+																						input.value = activity[field.key];
+																					}
+
+																					// Append input to cell
+																					cell.appendChild(input);
+																				}
+																			}
+																		});
+																	} else {
+																		console.log('錯誤');
+																	}
+																});
+														});
+													}
+												});
+											} catch (error) {
+												console.error('獲取資料失敗:', error);
+											}
+										}
+
+										// 在進入頁面時調用這個函數
+										fetchCounterAndRelatedData();
+
+
+
 									</script>
 
 									<!-- 									// 活動詳情燈箱結束 -->
 									<script>
-															$("div.user-content").each(function () {
-																$(this).hide();
-																if ($(this).attr("id") == "main") {
-																	$(this).show();
-																}
-															});
+										$("div.user-content").each(function () {
+											$(this).hide();
+											if ($(this).attr("id") == "main") {
+												$(this).show();
+											}
+										});
 
-															$(".user-id").on("click", function (e) {
-																e.preventDefault();
-																var id = $(this).attr("data-related");
-																$("div.user-content").each(function () {
-																	$(this).hide();
-																	if ($(this).attr("id") == id) {
-																		$(this).show();
-																	}
-																});
-															});
+										$(".user-id").on("click", function (e) {
+											e.preventDefault();
+											var id = $(this).attr("data-related");
+											$("div.user-content").each(function () {
+												$(this).hide();
+												if ($(this).attr("id") == id) {
+													$(this).show();
+												}
+											});
+										});
 
-															$(document).ready(function () {
-																$(".btn-filter").on("click", function () {
-																	var $target = $(this).data("target");
-																	if ($target != "all") {
-																		$("tbody tr").css("display", "none");
-																		$('tbody tr[data-status="' + $target + '"]').fadeIn("slow");
-																	} else {
-																		$("tbody tr").css("display", "none").fadeIn("slow");
-																	}
-																});
-															});
-															// pagination
-															$.fn.pageMe = function (opts) {
-																var $this = this,
-																	defaults = {
-																		perPage: 7,
-																		showPrevNext: false,
-																		hidePageNumbers: false,
-																	},
-																	settings = $.extend(defaults, opts);
+										$(document).ready(function () {
+											$(".btn-filter").on("click", function () {
+												var $target = $(this).data("target");
+												if ($target != "all") {
+													$("tbody tr").css("display", "none");
+													$('tbody tr[data-status="' + $target + '"]').fadeIn("slow");
+												} else {
+													$("tbody tr").css("display", "none").fadeIn("slow");
+												}
+											});
+										});
+										// pagination
+										$.fn.pageMe = function (opts) {
+											var $this = this,
+												defaults = {
+													perPage: 7,
+													showPrevNext: false,
+													hidePageNumbers: false,
+												},
+												settings = $.extend(defaults, opts);
 
-																var listElement = $this;
-																var perPage = settings.perPage;
-																var children = listElement.children();
-																var pager = $(".pager");
+											var listElement = $this;
+											var perPage = settings.perPage;
+											var children = listElement.children();
+											var pager = $(".pager");
 
-																if (typeof settings.childSelector != "undefined") {
-																	children = listElement.find(settings.childSelector);
-																}
+											if (typeof settings.childSelector != "undefined") {
+												children = listElement.find(settings.childSelector);
+											}
 
-																if (typeof settings.pagerSelector != "undefined") {
-																	pager = $(settings.pagerSelector);
-																}
+											if (typeof settings.pagerSelector != "undefined") {
+												pager = $(settings.pagerSelector);
+											}
 
-																var numItems = children.length;
-																var numPages = Math.ceil(numItems / perPage);
+											var numItems = children.length;
+											var numPages = Math.ceil(numItems / perPage);
 
 
-																pager.data("curr", 0);
+											pager.data("curr", 0);
 
-																if (settings.showPrevNext) {
-																	$('<li><a href="#" class="prev_link">«</a></li>').appendTo(
-																		pager
-																	);
-																}
+											if (settings.showPrevNext) {
+												$('<li><a href="#" class="prev_link">«</a></li>').appendTo(
+													pager
+												);
+											}
 
-																var curr = 0;
-																while (numPages > curr && settings.hidePageNumbers == false) {
-																	$(
-																		'<li><a href="#" class="page_link">' +
-																		(curr + 1) +
-																		"</a></li>"
-																	).appendTo(pager);
-																	curr++;
-																}
+											var curr = 0;
+											while (numPages > curr && settings.hidePageNumbers == false) {
+												$(
+													'<li><a href="#" class="page_link">' +
+													(curr + 1) +
+													"</a></li>"
+												).appendTo(pager);
+												curr++;
+											}
 
-																if (settings.showPrevNext) {
-																	$('<li><a href="#" class="next_link">»</a></li>').appendTo(
-																		pager
-																	);
-																}
+											if (settings.showPrevNext) {
+												$('<li><a href="#" class="next_link">»</a></li>').appendTo(
+													pager
+												);
+											}
 
-																pager.find(".page_link:first").addClass("active");
-																pager.find(".prev_link").hide();
-																if (numPages <= 1) {
-																	pager.find(".next_link").hide();
-																}
-																pager.children().eq(1).addClass("active");
+											pager.find(".page_link:first").addClass("active");
+											pager.find(".prev_link").hide();
+											if (numPages <= 1) {
+												pager.find(".next_link").hide();
+											}
+											pager.children().eq(1).addClass("active");
 
-																children.hide();
-																children.slice(0, perPage).show();
+											children.hide();
+											children.slice(0, perPage).show();
 
-																pager.find("li .page_link").click(function () {
-																	var clickedPage = $(this).html().valueOf() - 1;
-																	goTo(clickedPage, perPage);
-																	return false;
-																});
-																pager.find("li .prev_link").click(function () {
-																	previous();
-																	return false;
-																});
-																pager.find("li .next_link").click(function () {
-																	next();
-																	return false;
-																});
+											pager.find("li .page_link").click(function () {
+												var clickedPage = $(this).html().valueOf() - 1;
+												goTo(clickedPage, perPage);
+												return false;
+											});
+											pager.find("li .prev_link").click(function () {
+												previous();
+												return false;
+											});
+											pager.find("li .next_link").click(function () {
+												next();
+												return false;
+											});
 
-																function previous() {
-																	var goToPage = parseInt(pager.data("curr")) - 1;
-																	goTo(goToPage);
-																}
+											function previous() {
+												var goToPage = parseInt(pager.data("curr")) - 1;
+												goTo(goToPage);
+											}
 
-																function next() {
-																	goToPage = parseInt(pager.data("curr")) + 1;
-																	goTo(goToPage);
-																}
+											function next() {
+												goToPage = parseInt(pager.data("curr")) + 1;
+												goTo(goToPage);
+											}
 
-																function goTo(page) {
-																	var startAt = page * perPage,
-																		endOn = startAt + perPage;
+											function goTo(page) {
+												var startAt = page * perPage,
+													endOn = startAt + perPage;
 
-																	children.css("display", "none").slice(startAt, endOn).show();
+												children.css("display", "none").slice(startAt, endOn).show();
 
-																	if (page >= 1) {
-																		pager.find(".prev_link").show();
-																	} else {
-																		pager.find(".prev_link").hide();
-																	}
+												if (page >= 1) {
+													pager.find(".prev_link").show();
+												} else {
+													pager.find(".prev_link").hide();
+												}
 
-																	if (page < numPages - 1) {
-																		pager.find(".next_link").show();
-																	} else {
-																		pager.find(".next_link").hide();
-																	}
+												if (page < numPages - 1) {
+													pager.find(".next_link").show();
+												} else {
+													pager.find(".next_link").hide();
+												}
 
-																	pager.data("curr", page);
-																	pager.children().removeClass("active");
-																	pager
-																		.children()
-																		.eq(page + 1)
-																		.addClass("active");
-																}
-															};
+												pager.data("curr", page);
+												pager.children().removeClass("active");
+												pager
+													.children()
+													.eq(page + 1)
+													.addClass("active");
+											}
+										};
 
-															$(document).ready(function () {
-																$("#user").pageMe({
-																	pagerSelector: "#myPager",
-																	showPrevNext: true,
-																	hidePageNumbers: false,
-																	perPage: 3,
-																});
-															});
+										$(document).ready(function () {
+											$("#user").pageMe({
+												pagerSelector: "#myPager",
+												showPrevNext: true,
+												hidePageNumbers: false,
+												perPage: 3,
+											});
+										});
 
-															//search filter
+										//search filter
 
-															/*
-																Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
-																*/
-															$(document).ready(function () {
-																$(".filterable .btn-filter1").click(function () {
-																	var $panel = $(this).parents(".filterable"),
-																		$filters = $panel.find(".filters input"),
-																		$tbody = $panel.find(".table tbody");
-																	if ($filters.prop("disabled") == true) {
-																		$filters.prop("disabled", false);
-																		$filters.first().focus();
-																	} else {
-																		$filters.val("").prop("disabled", true);
-																		$tbody.find(".no-result").remove();
-																		$tbody.find("tr").show();
-																	}
-																});
+										/*
+											Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
+											*/
+										$(document).ready(function () {
+											$(".filterable .btn-filter1").click(function () {
+												var $panel = $(this).parents(".filterable"),
+													$filters = $panel.find(".filters input"),
+													$tbody = $panel.find(".table tbody");
+												if ($filters.prop("disabled") == true) {
+													$filters.prop("disabled", false);
+													$filters.first().focus();
+												} else {
+													$filters.val("").prop("disabled", true);
+													$tbody.find(".no-result").remove();
+													$tbody.find("tr").show();
+												}
+											});
 
-																$(".filterable .filters input").keyup(function (e) {
-																	/* Ignore tab key */
-																	var code = e.keyCode || e.which;
-																	if (code == "9") return;
-																	/* Useful DOM data and selectors */
-																	var $input = $(this),
-																		inputContent = $input.val().toLowerCase(),
-																		$panel = $input.parents(".filterable"),
-																		column = $panel
-																			.find(".filters th")
-																			.index($input.parents("th")),
-																		$table = $panel.find(".table"),
-																		$rows = $table.find("tbody tr");
-																	/* Dirtiest filter function ever ;) */
-																	var $filteredRows = $rows.filter(function () {
-																		var value = $(this)
-																			.find("td")
-																			.eq(column)
-																			.text()
-																			.toLowerCase();
-																		return value.indexOf(inputContent) === -1;
-																	});
-																	/* Clean previous no-result if exist */
-																	$table.find("tbody .no-result").remove();
-																	/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
-																	$rows.show();
-																	$filteredRows.hide();
-																	/* Prepend no-result row if all rows are filtered */
-																	if ($filteredRows.length === $rows.length) {
-																		$table
-																			.find("tbody")
-																			.prepend(
-																				$(
-																					'<tr class="no-result text-center"><td colspan="' +
-																					$table.find(".filters th").length +
-																					'">No result found</td></tr>'
-																				)
-																			);
-																	}
-																});
-															});
+											$(".filterable .filters input").keyup(function (e) {
+												/* Ignore tab key */
+												var code = e.keyCode || e.which;
+												if (code == "9") return;
+												/* Useful DOM data and selectors */
+												var $input = $(this),
+													inputContent = $input.val().toLowerCase(),
+													$panel = $input.parents(".filterable"),
+													column = $panel
+														.find(".filters th")
+														.index($input.parents("th")),
+													$table = $panel.find(".table"),
+													$rows = $table.find("tbody tr");
+												/* Dirtiest filter function ever ;) */
+												var $filteredRows = $rows.filter(function () {
+													var value = $(this)
+														.find("td")
+														.eq(column)
+														.text()
+														.toLowerCase();
+													return value.indexOf(inputContent) === -1;
+												});
+												/* Clean previous no-result if exist */
+												$table.find("tbody .no-result").remove();
+												/* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+												$rows.show();
+												$filteredRows.hide();
+												/* Prepend no-result row if all rows are filtered */
+												if ($filteredRows.length === $rows.length) {
+													$table
+														.find("tbody")
+														.prepend(
+															$(
+																'<tr class="no-result text-center"><td colspan="' +
+																$table.find(".filters th").length +
+																'">No result found</td></tr>'
+															)
+														);
+												}
+											});
+										});
 
 									</script>
 								</div>
@@ -951,23 +1236,30 @@ html {
 			<!-- 新引入的JS檔案或套件請由此往下放 -->
 
 			<script>
-															const popoverTriggerList = document.querySelectorAll(
-																'[data-bs-toggle="popover"]'
-															);
-															const popoverList = [...popoverTriggerList].map(
-																(popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
-															);
+				const popoverTriggerList = document.querySelectorAll(
+					'[data-bs-toggle="popover"]'
+				);
+				const popoverList = [...popoverTriggerList].map(
+					(popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+				);
 			</script>
 
 			<script>
-															const tooltipTriggerList = document.querySelectorAll(
-																'[data-bs-toggle="tooltip"]'
-															);
-															const tooltipList = [...tooltipTriggerList].map(
-																(tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-															);
+				const tooltipTriggerList = document.querySelectorAll(
+					'[data-bs-toggle="tooltip"]'
+				);
+				const tooltipList = [...tooltipTriggerList].map(
+					(tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+				);
 
 			</script>
+			<!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
+
+			<script src="./js/counter-top.js"></script>
+			<!-- sweetalert2 -->
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+			<!-- =========================================== 這裡以上幫我複製貼上 ===================================================== -->
 </body>
 
 </html>

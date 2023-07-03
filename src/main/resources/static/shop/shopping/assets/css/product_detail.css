@@ -82,6 +82,11 @@ button.report_btn:hover{
     color: #ffffff;
 }
 
+.tored i{
+    color: red;
+    transition: transform 0.3s;
+}
+
 
 
 

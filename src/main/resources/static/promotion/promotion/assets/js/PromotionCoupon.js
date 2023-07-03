@@ -10,7 +10,7 @@
     let PromotionType = [];
     let promotionName4 = [];
     let couponTypeNo4 = [];
-    let promotionCouponNos=[];
+    let promotionCouponNos = [];
 
     function getAllPromotionCoupon() {
         console.log('進入getAllPromotionCoupon()')
@@ -568,11 +568,11 @@
                             const couponTypeNo2 = row.couponTypeNo;
                             const couponTypeName = row.couponTypeName;
                             let adminNod = "";
-                            if (row.adminNo != null) {
+                            if (row.adminNo !== null && row.adminNo !== "") {
                                 adminNod = row.adminNo;
                             }
                             let counterNo = "";
-                            if (row.counterNo != null) {
+                            if (row.counterNo !== null) {
                                 counterNo = row.counterNo;
                             }
                             // 處理日期格式
@@ -595,9 +595,9 @@
                             const couponConditions = row.couponConditions;
                             const couponPrice = row.couponPrice;
                             const couponLowest = row.couponLowest;
-
-                            str4_0 += `<option value="${couponTypeNo2}" ${couponTypeNo2 === couponTypeNo4[x] ? 'selected' : ''}>${couponTypeNo2} : ${couponTypeName}</option>`
-                            str3_0 += `<div id="span4CouponType${couponTypeNo2}${x}" class="hiddenyee">
+                            if (adminNod !== "") {
+                                str4_0 += `<option value="${couponTypeNo2}" ${couponTypeNo2 === couponTypeNo4[x] ? 'selected' : ''}>${couponTypeNo2} : ${couponTypeName}</option>`
+                                str3_0 += `<div id="span4CouponType${couponTypeNo2}${x}" class="hiddenyee">
                                 <span>管理員編號： ${adminNod}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
@@ -609,6 +609,7 @@
                                 <br>
                                 <span>使用說明: ${couponConditions}</span>
                                 </div>`
+                            }
                         }
                         str3.push(str3_0);
                         str3_0 = '';
@@ -621,7 +622,7 @@
                         const couponTypeNo2 = row.couponTypeNo;
                         const couponTypeName = row.couponTypeName;
                         let adminNod = "";
-                        if (row.adminNo != null) {
+                        if (row.adminNo !== null && row.adminNo !== "") {
                             adminNod = row.adminNo;
                         }
                         let counterNo = "";
@@ -648,8 +649,9 @@
                         const couponConditions = row.couponConditions;
                         const couponPrice = row.couponPrice;
                         const couponLowest = row.couponLowest;
-                        str += `<option value="${couponTypeNo2}" >${couponTypeNo2} : ${couponTypeName}</option>`
-                        str2 += `<div id="span4CouponType${couponTypeNo2}" class="hiddenyee">
+                        if (adminNod !== "") {
+                            str += `<option value="${couponTypeNo2}" >${couponTypeNo2} : ${couponTypeName}</option>`
+                            str2 += `<div id="span4CouponTypee${couponTypeNo2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNod}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
@@ -661,6 +663,7 @@
                                 <br>
                                 <span>使用說明: ${couponConditions}</span>
                                 </div>`
+                        }
 
                     }
                     dynamicSpansCouponTypeNo.innerHTML = str2;
@@ -677,6 +680,7 @@
                     Listener4SelectCoupontype()
                     setdiv4div4CouponType2()
 
+
                 });
             })
             .catch(function (err) {
@@ -689,7 +693,7 @@
 
     function setdiv4CouponType() {
         for (let i = 0; i <= CouponTypelength; i++) {
-            const div4CouponTypea = document.getElementById('span4CouponType' + i);
+            const div4CouponTypea = document.getElementById('span4CouponTypee' + i);
             if (div4CouponTypea) {
                 div4CouponType.push(div4CouponTypea);
             }
@@ -701,7 +705,7 @@
 
     function setdiv4div4CouponType2() {//ok
         for (let p = 0; p <= dataaccount; p++) {
-            for (let i = 0; i < CouponTypelength; i++) {
+            for (let i = 0; i <= CouponTypelength; i++) {
                 const div4CouponTypea = document.getElementById('span4CouponType' + i + p);
                 if (div4CouponTypea) {
                     div4CouponType2.push(div4CouponTypea);
@@ -729,7 +733,7 @@
         select4CouponType?.addEventListener('change', () => {
             const selectedValue = select4CouponType.value;
             div4CouponType.forEach(function (div) {
-                if (div.id === "span4CouponType" + selectedValue) {
+                if (div.id === "span4CouponTypee" + selectedValue) {
                     div.classList.remove("hiddenyee");
                 } else {
                     div.classList.add("hiddenyee");
@@ -775,22 +779,24 @@
                             promotionname.push(promotionName2);
                             const promotionType = row.promotionType;
                             const promotionMethod = row.promotionMethod;
-                            let adminNo = '';
-                            if (row.adminNo != null) {
+                            let adminNo = "";
+                            if (row.adminNo !== null && row.adminNo !== "") {
                                 adminNo = row.adminNo;
                             }
                             let counterNo = '';
-                            if (row.counterNo != null) {
+                            if (row.counterNo !== null) {
                                 counterNo = row.counterNo
                             }
-                            str4_0 += `<option value="${promotionName2}" ${promotionName2 === promotionName4[h] ? 'selected' : ''}>${promotionName2}</option>`
-                            str3_0 += `<div id="span4Promotion${promotionName2}${h}" class="hiddenyee">
+                            if (adminNo !== "") {
+                                str4_0 += `<option value="${promotionName2}" ${promotionName2 === promotionName4[h] ? 'selected' : ''}>${promotionName2}</option>`
+                                str3_0 += `<div id="span4Promotion${promotionName2}${h}" class="hiddenyee">
                                 <span>管理員編號： ${adminNo}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
                                 <span>發放種類: ${promotionType}</span>
                                 <span>發放方式: ${promotionMethod}</span>
                                 </div>`
+                            }
                         }
                         str3.push(str3_0);
                         str3_0 = '';
@@ -805,23 +811,23 @@
                         const promotionMethod = row.promotionMethod;
 
                         let adminNo = '';
-                        if (row.adminNo != null) {
+                        if (row.adminNo !== null && row.adminNo !== "") {
                             adminNo = row.adminNo;
                         }
                         let counterNo = '';
                         if (row.counterNo != null) {
                             counterNo = row.counterNo
                         }
-
-                        str += `<option value="${promotionName2}" >${promotionName2}</option>`
-                        str2 += `<div id="span4Promotion${promotionName2}" class="hiddenyee">
+                        if (adminNo !== "") {
+                            str += `<option value="${promotionName2}" >${promotionName2}</option>`
+                            str2 += `<div id="span4Promotion${promotionName2}" class="hiddenyee">
                                 <span>管理員編號： ${adminNo}</span>
                                 <span>欄位編號: ${counterNo}</span>
                                 <br>
                                 <span>發放種類: ${promotionType}</span>
                                 <span>發放方式: ${promotionMethod}</span>
                                 </div>`
-
+                        }
                     }
                     dynamicSpanPromotionName.innerHTML = str2;
                     select4promotionName.innerHTML = str;
@@ -933,7 +939,7 @@
         }
 
         for (let i = 0; i <= dataaccount; i++) {
-            avatarPreviews[i].src=`/Jamigo/promotion/promotion4pic/${promotionCouponNos[i]}`
+            avatarPreviews[i].src = `/Jamigo/promotion/promotion4pic/${promotionCouponNos[i]}`
             avatarUploads[i].addEventListener("change", function () {
                 const file = avatarUploads[i].files[0];
                 const reader = new FileReader();

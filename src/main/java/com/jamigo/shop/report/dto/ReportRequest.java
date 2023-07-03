@@ -18,7 +18,12 @@ public class ReportRequest {
 	private String reportResponse;
 	
 	private String[] reportResponses;
-	
+
+	private byte[] reportImage;
+
+
+
+
 	public Integer getProductNo() {
 		return productNo;
 	}
@@ -75,8 +80,11 @@ public class ReportRequest {
 		this.reportResponses = reportResponses;
 	}
 
-	
+	public byte[] getReportImage() {
+		return reportImage;
+	}
 
-	
-	
+	public void setReportImage(byte[] reportImage) {
+		this.reportImage = reportImage;
+	}
 }

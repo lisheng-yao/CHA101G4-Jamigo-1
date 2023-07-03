@@ -1,5 +1,7 @@
 package com.jamigo.chat.jedis;
 
-public class JedisHandleMessage {
+import redis.clients.jedis.JedisPool;
 
+public class JedisHandleMessage {
+//    private static JedisPool jedisPool = JedisPoolUtil.getJedisPool();
 }

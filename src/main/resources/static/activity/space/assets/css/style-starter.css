@@ -19301,7 +19301,7 @@ h5.sub-title {
 }
 
 .zs-enabled.overlay-dots .zs-slideshow:after {
-  background-image: url(dots.png);
+/*   background-image: url(dots.png); */
 }
 
 .zs-enabled .zs-slideshow:after {
@@ -19316,7 +19316,7 @@ h5.sub-title {
 }
 
 .zs-enabled.overlay-dots .zs-slideshow:after {
-  background: url(../images/dots.png);
+/*   background: url(../images/dots.png); */
 }
 
 #demo-1 {

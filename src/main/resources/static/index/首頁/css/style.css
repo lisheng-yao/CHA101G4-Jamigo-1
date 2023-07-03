@@ -45,6 +45,7 @@ nav {
             height: 88px;
             top: 5px
         }
+
         .main_before {
             padding-top: 2.5%;
         }
@@ -55,6 +56,7 @@ nav {
             height: 77px;
             top: 0px;
         }
+
         .main_before {
             padding-top: 1.5%;
         }
@@ -72,6 +74,7 @@ nav {
             height: 48px;
             top: 8px
         }
+
         .main_before {
             padding-top: 0.5%;
         }
@@ -312,7 +315,7 @@ nav {
     height: 470px;
     align-items: center;
     justify-content: center;
-    background-color: #defbff;
+    background-image: url('../images/fullpage02back.png');
 }
 
 /* swiperjs */
@@ -333,12 +336,18 @@ nav {
         opacity: 1;
     }
 
+    .swiper-pagination.swptwo {
+        position: relative;
+        bottom: 2px;
+        /* 調整分頁的垂直位置 */
+    }
+
     .image {
-        height: 180px;
-        width: 180px;
+        height: 190px;
+        width: 190px;
         border-radius: 50%;
         padding: 3px;
-        background-color: #0077ff;
+        background-color: #8ac1ff;
     }
 
     .image img {
@@ -364,7 +373,10 @@ nav {
         position: absolute;
         height: 50%;
         width: 100%;
-        background-color: #370189;
+        background-image: url("../images/fullpage02cardsback.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
         border-radius: 20px 20px 0 0;
         z-index: -9999;
     }
@@ -393,14 +405,24 @@ nav {
 
     .media-icons path {
         margin-top: 10px;
-        opacity: 0.6;
+        opacity: 0.7;
+        color: #8e8e8e;
         transition: all 0.3s ease;
         cursor: pointer;
     }
 
     .media-icons path:hover {
         opacity: 1;
+        color: red;
+        transform: scale(1.2);
     }
+
+    /* 追蹤愛心變紅色 */
+    .tored  path{
+        color: red;
+        transition: transform 0.3s;
+    }
+
 
     /* 內文 */
     .productname,
@@ -483,7 +505,7 @@ nav {
 .fullpage03container {
     width: 100%;
     height: 390px;
-    background-color: #0077ff;
+    background-image: url("../images/fullpage03\ back.png");
     display: flex;
     justify-content: center;
     align-items: center;

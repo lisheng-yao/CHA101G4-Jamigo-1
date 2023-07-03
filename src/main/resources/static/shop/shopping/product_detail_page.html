@@ -185,10 +185,10 @@
                     <div class="col-lg-2">
                         <div class="header_account_area">
                             <div class="header_account-list">
-                                <a href="#" title="查看追蹤清單"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                <a href="javascript:void(0)" onclick="goToWishListPage()" title="查看追蹤清單"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                             </div>
                             <div class="header_account-list  mini_cart_wrapper">
-                                <a href="/Jamigo/shop/shopping/cart_detail_page.html"><i
+                                <a href="javascript:void(0)" onclick="goToCartDetailPage()"><i
                                         class="icon icon-FullShoppingCart"></i><span
                                         class="item_count"></span></a>
                                 <!--mini cart-->
@@ -389,65 +389,27 @@
                         </div>
                         <!-- 加入追蹤清單 -->
                         <div class="add_wishlist my-3">
-                            <i class="fa-solid fa-heart-circle-plus fa-xl"></i>
+                            <a onclick="addWish(this)"><i class="fa-solid fa-heart-circle-plus fa-xl"></i></a>
                         </div>
 
                         <!-- 檢舉 -->
                         <div class="report_product my-3">
 
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn report_btn" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
+                            <!-- 跳轉到商品檢舉頁面 -->
+                            <button type="button" class="btn report_btn" onclick="openNewWindow(event);">
                                 <i class="fa-solid fa-flag fa-lg mr-1"></i>
                                 商品檢舉
                             </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label for="report_reason" class="form-label">檢舉事由</label>
-                                                <textarea class="form-control" id="report_reason"
-                                                          rows="4"></textarea>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="report_img" class="form-label">上傳檢舉照片</label>
-                                                <input class="form-control" type="file" id="report_img" multiple>
-
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <div id="imagePreview"></div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">取消
-                                            </button>
-                                            <button type="button" class="btn btn-primary">送出</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </form>
 
                     <div class="product_d_meta">
                         <span>商品類別：<a href="#" id="productCat"></a></span>
-                        <span>Tags:
-                                <a href="#">Creams</a>
-                                <a href="#">Lotions</a>
-                            </span>
+<!--                        <span>Tags:-->
+<!--                                <a href="#">Creams</a>-->
+<!--                                <a href="#">Lotions</a>-->
+<!--                        </span>-->
                     </div>
                     <!-- 櫃位私訊 -->
                     <div class="ask_product_detail my-3">
@@ -535,329 +497,6 @@
     </div>
 </div>
 <!--product info end-->
-
-
-<div class="product_area mb-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section_title">
-                    <h2><span>類似商品</span></h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="product_carousel product_column4 owl-carousel">
-                <div class="col-lg-3">
-                    <article class="single_product">
-                        <figure>
-                            <div class="product_thumb">
-                                <a class="primary_img" href="#"><img src="assets/img/product/product5.jpg"
-                                                                     alt=""></a>
-                                <a class="secondary_img" href="#"><img src="assets/img/product/product3.jpg"
-                                                                       alt=""></a>
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                             aria-hidden="true"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <figcaption class="product_content">
-                                <div class="product_rating">
-                                    <ul>
-                                        <div class="Stars" style="--rating: 4.5;"><span>4.5 (18)</span>
-                                        </div>
-                                    </ul>
-                                </div>
-                                <h5 class="counter_name">
-                                    <a
-                                            href="#">NikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNikeNike</a>
-                                </h5>
-                                <h4 class="product_name">
-                                    <a href="#">(多文字測試)鞋子1鞋子1鞋子1鞋子1鞋子1鞋子1鞋子1鞋子1鞋子1鞋子1鞋子1鞋子1</a>
-                                </h4>
-                                <div class="price_box">
-                                    <span class="current_price">NT$2200</span>
-                                </div>
-                                <div class="add_to_cart">
-                                    <a href="#" data-toggle="modal" data-target="#modal_box">加入購物車</a>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-
-                <div class="col-lg-3">
-                    <article class="single_product">
-                        <figure>
-                            <div class="product_thumb">
-                                <a class="primary_img" href="#"><img src="assets/img/product/product102.jpg"
-                                                                     alt=""></a>
-                                <a class="secondary_img" href="#"><img src="assets/img/product/product102.jpg"
-                                                                       alt=""></a>
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                             aria-hidden="true"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <figcaption class="product_content">
-                                <div class="product_rating">
-                                    <ul>
-                                        <div class="Stars" style="--rating: 2.1;"><span>2.1 (20)</span>
-                                        </div>
-                                    </ul>
-                                </div>
-                                <h5 class="counter_name"><a href="#">台灣自有品牌</a></h5>
-                                <h4 class="product_name"><a href="#">台灣的驕傲！ 藍 白 拖
-                                </a></h4>
-                                <div class="price_box">
-                                    <span class="current_price">NT$60</span>
-                                </div>
-                                <div class="add_to_cart">
-                                    <a href="#" data-toggle="modal" data-target="#modal_box">加入購物車</a>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-
-
-                <div class="col-lg-3">
-                    <article class="single_product">
-                        <figure>
-                            <div class="product_thumb">
-                                <a class="primary_img" href="#"><img src="assets/img/product/product7.jpg"
-                                                                     alt=""></a>
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                             aria-hidden="true"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <figcaption class="product_content">
-                                <div class="product_rating">
-                                    <ul>
-                                        <div class="Stars" style="--rating: 4.5;"><span>4.5 (18)</span>
-                                        </div>
-                                    </ul>
-                                </div>
-                                <h5 class="counter_name">
-                                    <a href="#">Nike</a>
-                                </h5>
-                                <h4 class="product_name">
-                                    <a href="#">鞋子2</a>
-                                </h4>
-                                <div class="price_box">
-                                    <span class="current_price">NT$2200</span>
-                                </div>
-                                <div class="add_to_cart">
-                                    <a href="#" data-toggle="modal" data-target="#modal_box">加入購物車</a>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-
-                <div class="col-lg-3">
-                    <article class="single_product">
-                        <figure>
-                            <div class="product_thumb">
-                                <a class="primary_img" href="#"><img src="assets/img/product/product6.jpg"
-                                                                     alt=""></a>
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                             aria-hidden="true"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <figcaption class="product_content">
-                                <div class="product_rating">
-                                    <ul>
-                                        <div class="Stars" style="--rating: 4.5;"><span>4.5 (18)</span>
-                                        </div>
-                                    </ul>
-                                </div>
-                                <h5 class="counter_name">
-                                    <a href="#">Nike</a>
-                                </h5>
-                                <h4 class="product_name">
-                                    <a href="#">鞋子3</a>
-                                </h4>
-                                <div class="price_box">
-                                    <span class="current_price">NT$2200</span>
-                                </div>
-                                <div class="add_to_cart">
-                                    <a href="#" data-toggle="modal" data-target="#modal_box">加入購物車</a>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-
-                <div class="col-lg-3">
-                    <article class="single_product">
-                        <figure>
-                            <div class="product_thumb">
-                                <a class="primary_img" href="#"><img src="assets/img/product/product10.jpg"
-                                                                     alt=""></a>
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                             aria-hidden="true"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <figcaption class="product_content">
-                                <div class="product_rating">
-                                    <ul>
-                                        <div class="Stars" style="--rating: 4.5;"><span>4.5 (18)</span>
-                                        </div>
-                                    </ul>
-                                </div>
-                                <h5 class="counter_name">
-                                    <a href="#">Nike</a>
-                                </h5>
-                                <h4 class="product_name">
-                                    <a href="#">鞋子4</a>
-                                </h4>
-                                <div class="price_box">
-                                    <span class="current_price">NT$2200</span>
-                                </div>
-                                <div class="add_to_cart">
-                                    <a href="#" data-toggle="modal" data-target="#modal_box">加入購物車</a>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal area start-->
-<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><i class="ion-android-close"></i></span>
-            </button>
-            <div class="modal_body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-5 col-sm-12">
-                            <div class="modal_tab">
-                                <div class="tab-content product-details-large">
-                                    <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="assets/img/product/productbig1.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab2" role="tabpanel">
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="assets/img/product/productbig2.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab3" role="tabpanel">
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="assets/img/product/productbig3.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab4" role="tabpanel">
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="assets/img/product/productbig4.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal_tab_button">
-                                    <ul class="nav product_navactive owl-carousel" role="tablist">
-                                        <li>
-                                            <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab"
-                                               aria-controls="tab1" aria-selected="false"><img
-                                                    src="assets/img/product/product1.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" data-toggle="tab" href="#tab2" role="tab"
-                                               aria-controls="tab2" aria-selected="false"><img
-                                                    src="assets/img/product/product2.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link button_three" data-toggle="tab" href="#tab3"
-                                               role="tab" aria-controls="tab3" aria-selected="false"><img
-                                                    src="assets/img/product/product3.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" data-toggle="tab" href="#tab4" role="tab"
-                                               aria-controls="tab4" aria-selected="false"><img
-                                                    src="assets/img/product/product8.jpg" alt=""></a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 col-md-7 col-sm-12">
-                            <div class="modal_right">
-                                <div class="modal_title mb-10">
-                                    <h2>Donec Ac Tempus</h2>
-                                </div>
-                                <div class="modal_price mb-10">
-                                    <span class="new_price">$64.99</span>
-                                    <span class="old_price">$78.99</span>
-                                </div>
-                                <div class="modal_description mb-15">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste
-                                        laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam
-                                        in quos qui nemo ipsum numquam, reiciendis maiores quidem aperiam, rerum vel
-                                        recusandae </p>
-                                </div>
-                                <div class="variants_selects">
-                                    <div class="variants_size">
-                                        <h2>size</h2>
-                                        <select class="select_option">
-                                            <option selected value="1">s</option>
-                                            <option value="1">m</option>
-                                            <option value="1">l</option>
-                                            <option value="1">xl</option>
-                                            <option value="1">xxl</option>
-                                        </select>
-                                    </div>
-                                    <div class="variants_color">
-                                        <h2>color</h2>
-                                        <select class="select_option">
-                                            <option selected value="1">purple</option>
-                                            <option value="1">violet</option>
-                                            <option value="1">black</option>
-                                            <option value="1">pink</option>
-                                            <option value="1">orange</option>
-                                        </select>
-                                    </div>
-                                    <div class="modal_add_to_cart">
-                                        <form action="#">
-                                            <input min="1" max="100" step="2" value="1" type="number">
-                                            <button type="submit">add to cart</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- modal area end-->
 
 </main>
 <footer>
@@ -950,6 +589,11 @@
 <script src="/Jamigo/shop/shopping/assets/js/product_detail_page.js"></script>
 
 <script src="/Jamigo/shop/shopping/assets/js/script.js"></script>
+
+<!-- Shawn-script -->
+<script src="/Jamigo/shop/shopping/assets/js/Shawn-script.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
