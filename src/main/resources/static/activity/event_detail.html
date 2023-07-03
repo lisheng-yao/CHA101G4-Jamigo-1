@@ -9,11 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Place favicon.ico in the root directory -->
+    <!-- 引入JQuery 的 CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- 引入 Axios 的 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS here -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/Jamigo/activity/detail/static/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/Jamigo/activity/detail/static/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/Jamigo/activity/detail/static/css/animate.min.css">
     <link rel="stylesheet" href="/Jamigo/activity/detail/static/css/magnific-popup.css">
     <link rel="stylesheet" href="/Jamigo/activity/detail/static/css/all.min.css">
@@ -30,7 +32,8 @@
     <!-- Font Awesome引用檔案 -->
     <link rel="stylesheet" href="/Jamigo/activity/space/footer/css/all.css">
     <!-- css本體 -->
-    <link rel="stylesheet" type="text/css" href="/Jamigo/activity/space/footer/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/Jamigo/activity/space/assets/css/style.css">
+    <!--     <link rel="stylesheet" type="text/css" href="/Jamigo/activity/space/footer/css/style.css"> -->
     <style>
         .btn1 {
             text-align: center;
@@ -108,40 +111,56 @@
 </head>
 
 <body>
-    <!-- navbar製作導航欄 bg 背景色 navbar-dark 深色主題 -->
     <nav class="navbar navbar-dark p-0 navbar-expand-lg">
         <div class="container">
-            <a href="#" class="navbar-brand"><img src="/Jamigo/activity/space/footer/images/JAMIGO_LOGO.gif" alt=""
-                    class="LOGO"></a>
-            <!-- data-bs-toggle = "collapse" 觸發導覽列縮放功能  -->
-            <!-- data-bs-target="#navbarSupportedContent"   導覽列指向的目標 -->
+            <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img
+                    src="/Jamigo/index/頁首頁尾_final/images/找百貨.png" alt="" class="LOGO"></a>
+            <img src="/Jamigo/index/頁首頁尾_final/images/頁首背景.gif" alt="" class="navbarimg">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- 將collapse 加入縮放清單  -->
-            <!-- ms-auto 項目自動靠右   me-auto 靠左 -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="button-01 nav-link" href="index.html">首頁</a></li>
-                    <li class="nav-item"><a class="button-01 nav-link" href="https://chat.openai.com/">線上商城</a></li>
-                    <li class="nav-item"><a class="button-01 nav-link" href="https://chat.openai.com/">文藝活動</a></li>
-                    <li class="nav-item"><a class="button-01 nav-link" href="https://chat.openai.com/">折扣快報</a></li>
-                    <li class="nav-item"><a class="button-01 nav-link" href="https://chat.openai.com/">客服系統</a></li>
-                    <li class="nav-item"><a class="button-01 nav-link" href="https://chat.openai.com/">會員專區</a></li>
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="/Jamigo/index/首頁/index.html"> 回首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="/Jamigo/shop/main_page/商城首頁.html">線上商城</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="/Jamigo/activity/event_space.html">文藝活動</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="button-01 nav-link"
+                            href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
+                    </li>
+                    <!--                                <li class="nav-item"> -->
+                    <!--                                    <a class="button-01 nav-link" href="*">客服系統</a> -->
+                    <!--                                </li> -->
+                    <li class="nav-item">
+                        <a class="button-01 nav-link" href="/Jamigo/frontend/前台會員管理首頁.html"
+                            onclick="check(event);">會員專區</a>
+                    </li>
                 </ul>
-                <!-- 導覽列右側 -->
-                <form class="form-inline">
-                    <div class="nav_icon">
-                        <div class="search-text ms-auto">
-                            <a href="#"><i class="nav-icon fa-regular fa-bell" style="color: #f5f5f5;"></i></a> <a
-                                href="#"><i class="nav-icon fa-regular fa-user" style="color: #f5f5f5;"></i></a>
-                            <a href="#"><i class="nav-icon fa-solid fa-magnifying-glass"
-                                    style="color: #ffffff;"></i></a> <input class="serch" type="text" value="Search"
-                                onfocus="this.value = ''">
-                        </div>
-                    </div>
-                </form>
+            </div>
+            <!--         導覽列右側 -->
+            <div id="signin">
+                <a href="/Jamigo/member/login/login.html">
+                    <button class="login-button">
+                        <i class="nav-icon fa-regular fa-user" style="color: #f5f5f5;"></i>
+                        會員登入/註冊
+                    </button>
+                </a>
+            </div>
+            <div id="memberinfo">
+                <div id="imgcontainer">
+                    <img src="#" alt="" id="memberimg">
+                </div>
+                <div class="memberinfo_container" id="signininfo">
+                    <span id="membername">HI! </span>
+                    <button id="logoutbutton" class="logout-button" onclick="opensignin();">登出</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -230,7 +249,8 @@
                                             </li>
                                             <li class="list-group-item"><i class="fal fa-dollar-sign"></i>
                                                 <span>活動費用</span> <span id="activity-cost-info"
-                                                    class="float-right"></span></li>
+                                                    class="float-right"></span>
+                                            </li>
                                             <li class="list-group-item"><i class="fal fa-users"></i>
                                                 <span>報名名額</span> <span id="registration-quota-info"
                                                     class="float-right"></span>
@@ -244,7 +264,8 @@
 
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <button class="btn btn-primary"
-                                                    style="border-radius: 5px; background: #01a5c0; margin-right: 5px;">我要報名</button>
+                                                    style="border-radius: 5px; background: #01a5c0; margin-right: 5px;"
+                                                    id="signup-btn">我要報名</button>
                                                 <button class="btn btn-primary"
                                                     style="border-radius: 5px; background: #01a5c0; margin-left: 2px;">收藏活動</button>
                                             </li>
@@ -263,156 +284,178 @@
         <!-- main-area-end -->
         <!------------------------------------ 頁尾開始 ----------------------------------->
     </main>
-    <div class="footer_section bg-dark text-light">
-        <div class="container_footer">
-            <div class="row">
-                <div class="col-lg-2 col-sm-6 col-xs-12">
-                    <h1 class="customer_text">合作資訊</h1>
-                    <div class="footer_lorem_text">
-                        <p>
-                            <a href="count_apply.html">櫃位申請</a>
-                        </p>
-                        <p>
-                            <a href="site_info.html">場地相關</a>
-                        </p>
-                        <p>
-                            <a href="talents_recruit.html">人才招募</a>
-                        </p>
+    <footer>
+        <div class="footer_section bg-dark text-light">
+            <div class="container_footer">
+                <div class="row">
+                    <div class="col-lg-2 col-sm-6 col-xs-12">
+                        <h1 class="customer_text">合作資訊</h1>
+                        <div class="footer_lorem_text">
+                            <p><a href="/Jamigo/index/首頁/count_apply.html">櫃位申請</a></p>
+                            <p><a href="/Jamigo/index/首頁/site_info.html">場地相關</a></p>
+                            <p><a href="/Jamigo/index/首頁/talents_recruit.html">人才招募</a></p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 col-xs-12">
-                    <h1 class="customer_text">關於我們</h1>
-                    <div class="footer_lorem_text">
-                        <p>
-                            <a href="shop_info.html">營業資訊</a>
-                        </p>
-                        <p>
-                            <a href="FAQ.html">FAQ中心</a>
-                        </p>
-                        <p>
-                            <a href="transpotation.html">交通資訊</a>
-                        </p>
+                    <div class="col-lg-2 col-sm-6 col-xs-12">
+                        <h1 class="customer_text">關於我們</h1>
+                        <div class="footer_lorem_text">
+                            <p><a href="/Jamigo/index/首頁/shop_info.html">營業資訊</a></p>
+                            <p><a href="/Jamigo/index/首頁/FAQ.html">FAQ中心</a></p>
+                            <p><a href="/Jamigo/index/首頁/transpotation.html">交通資訊</a></p>
 
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 col-xs-12">
-                    <h1 class="customer_text">會員相關</h1>
-                    <div class="footer_lorem_text">
-                        <p>
-                            <a href="pay_info.html">付款方式</a>
-                        </p>
-                        <p>
-                            <a href="deliver_info.html">配送流程</a>
-                        </p>
-                        <p>
-                            <a href="return_product.html">退換商品</a>
-                        </p>
+                    <div class="col-lg-2 col-sm-6 col-xs-12">
+                        <h1 class="customer_text">會員相關</h1>
+                        <div class="footer_lorem_text">
+                            <p><a href="/Jamigo/index/首頁/pay_info.html">付款方式</a></p>
+                            <p><a href="/Jamigo/index/首頁/deliver_info.html">配送流程</a></p>
+                            <p><a href="/Jamigo/index/首頁/return_product.html">退換商品</a></p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <h1 class="customer_text">聯絡我們</h1>
-                    <div class="footer_lorem_text">
-                        <p>
-                            JAMIGO 1234-5678 <br>桃園市中壢區復興路46號
-                        </p>
-                        <p>010-020-0340</p>
-                        <p>&copy;info@company.co</p>
+                    <div class="col-lg-3 col-sm-6 col-xs-12">
+                        <h1 class="customer_text">聯絡我們</h1>
+                        <div class="footer_lorem_text">
+                            <p>JAMIGO 1234-5678 <br>桃園市中壢區復興路46號</p>
+                            <p>010-020-0340</p>
+                            <p>&copy;info@company.co</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <img src="/Jamigo/activity/space/footer/images/footer_LOGO.png" alt="" class="footer_LOGO">
+                    <div class="col-lg-3 col-sm-6 col-xs-12">
+
+                        <img src="/Jamigo/index/頁首頁尾_final/images/footer_LOGO.png" alt="" class="footer_LOGO">
+                    </div>
                 </div>
             </div>
+            <div class="footer_icon">
+                <a href="#"><i class="footer-icon fa-brands fa-instagram fa-xl"></i></a>
+                <a href="#"></a><i class="footer-icon fa-brands fa-facebook fa-xl"></i></a>
+                <a href="#"></a><i class="footer-icon fa-brands fa-square-twitter fa-xl"></i></a>
+                <a href="#"></a><i class="footer-icon fa-brands fa-line fa-xl"></i></a>
+            </div>
         </div>
-        <div class="footer_icon">
-            <a href="#"><i class="footer-icon fa-brands fa-instagram fa-xl"></i></a>
-            <a href="#"></a><i class="footer-icon fa-brands fa-facebook fa-xl"></i></a>
-            <a href="#"></a><i class="footer-icon fa-brands fa-square-twitter fa-xl"></i></a> <a href="#"></a><i
-                class="footer-icon fa-brands fa-line fa-xl"></i></a>
-        </div>
-    </div>
-    <!-------------------------------------  頁尾結束 ---------------------------------->
-    <!-- JS here -->
-    <script>
-        //活動詳情
-        // 定義一個格式化日期的函數
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                timeZone: 'Asia/Taipei',
-                locale: 'zh-TW'//指定中文
-            };
-            return date.toLocaleString('zh-TW', options);
+    </footer>
+
+</body>
+<!-------------------------------------  頁尾結束 ---------------------------------->
+<!-- JS here -->
+<script>
+    //活動詳情
+    // 定義一個格式化日期的函數
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZone: 'Asia/Taipei',
+            locale: 'zh-TW'//指定中文
+        };
+        return date.toLocaleString('zh-TW', options);
+    }
+
+    //當網頁加載完成後將會被執行的函數,async表示一個是非同步函數，它允許在函數中使用await來等待Promise完成
+    window.onload = async function () {
+        try {
+            // 從URL中取出活動ID
+            const urlParams = new URLSearchParams(window.location.search);
+            //創建了一個 URLSearchParams 物件，該物件可以讓你操作 URL 的查詢字符串參數。
+            const activityId = urlParams.get('activityNo');//用於從查詢字符串中提取名為activityId的參數
+            // 向後端服務器請求活動數據
+            const response = await axios.get(`/Jamigo/backend/appinfo/${activityId}`);
+            const activity = response.data;
+
+            // 向後端服務器請求活動數據
+            // 使用活動數據來更新你的頁面
+            document.querySelector('#activity-pic').src = `data:image/jpeg;base64,${activity.activityPic}`;
+            document.querySelector('#activity-name').innerText = activity.activityName;
+            document.querySelector('#activity-detail').innerText = activity.activityDetail;
+            document.getElementById('activity-start-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityStartTime)}</div>`;
+            document.getElementById('activity-end-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityEndTime)}</div>`;
+            document.getElementById('registration-start-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityRegStartTime)}</div>`;
+            document.getElementById('registration-end-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityRegEndTime)}</div>`;
+            document.getElementById('activity-location-info').textContent = (activity.activityPlaceNo == 0) ? "文創基地" : "露天廣場";
+            document.getElementById('activity-cost-info').textContent = activity.activityCost + ' 元';
+            document.getElementById('registration-quota-info').textContent = activity.activityLimit + ' 位';
+            // 判斷並賦值活動等級
+            document.getElementById('registration-qualification-info').textContent = (activity.activityLev == 0) ? "一般會員" : "VIP會員";
+
+        } catch (error) {
+            // 如果在獲取數據過程中發生錯誤，則打印錯誤信息到控制台
+            console.error(error);
+            console.log("failed!");
         }
+    };
+    $(document).ready(async function () {
+        // 從 URL 查詢參數中取得 activityNo
+        const urlParams = new URLSearchParams(window.location.search);
+        const activityNo = urlParams.get('activityNo');
 
-        //當網頁加載完成後將會被執行的函數,async表示一個是非同步函數，它允許在函數中使用await來等待Promise完成
-        window.onload = async function () {
+        // 綁定按鈕點擊事件
+        $('#signup-btn').on('click', async function () {
             try {
-                // 從URL中取出活動ID
-                const urlParams = new URLSearchParams(window.location.search);
-                //創建了一個 URLSearchParams 物件，該物件可以讓你操作 URL 的查詢字符串參數。
-                const activityId = urlParams.get('activityNo');//用於從查詢字符串中提取名為activityId的參數
                 // 向後端服務器請求活動數據
-                const response = await axios.get(`/Jamigo/backend/appinfo/${activityId}`);
+                const response = await axios.get(`/Jamigo/backend/appinfo/${activityNo}`);
                 const activity = response.data;
+                console.log('用戶已報名活動：', activity);
 
-                // 向後端服務器請求活動數據
-                // 使用活動數據來更新你的頁面
-                document.querySelector('#activity-pic').src = `data:image/jpeg;base64,${activity.activityPic}`;
-                document.querySelector('#activity-name').innerText = activity.activityName;
-                document.querySelector('#activity-detail').innerText = activity.activityDetail;
-                document.getElementById('activity-start-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityStartTime)}</div>`;
-                document.getElementById('activity-end-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityEndTime)}</div>`;
-                document.getElementById('registration-start-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityRegStartTime)}</div>`;
-                document.getElementById('registration-end-info').innerHTML = `<div class="date-wrapper">${formatDate(activity.activityRegEndTime)}</div>`;
-                document.getElementById('activity-location-info').textContent = (activity.activityPlaceNo == 0) ? "文創基地" : "露天廣場";
-                document.getElementById('activity-cost-info').textContent = activity.activityCost + ' 元';
-                document.getElementById('registration-quota-info').textContent = activity.activityLimit + ' 位';
-                // 判斷並賦值活動等級
-                document.getElementById('registration-qualification-info').textContent = (activity.activityLev == 0) ? "一般會員" : "VIP會員";
+                // 在這裡可以做更多處理，例如將活動編號存入資料庫等
 
             } catch (error) {
-                // 如果在獲取數據過程中發生錯誤，則打印錯誤信息到控制台
-                console.error(error);
-                console.log("failed!");
+                console.error('Error:', error);
             }
-        };
+        });
+    });
 
-    </script>
+    //"我要報名"按鈕設定
+    window.addEventListener('load', function () {
+        // 從 URL 查詢參數中取得 activityNo
+        const urlParams = new URLSearchParams(window.location.search);
+        const activityNo = urlParams.get('activityNo');
+
+        document.querySelector('#signup-btn').addEventListener('click', function () {
+            console.log('用戶報名的活動編號是：', activityNo);
+
+            // 修改當前頁面的 URL，將 activityNo 作為查詢參數
+            window.location.href = `activity_orderSignUp.html?activityNo=${activityNo}`;
+
+            // 注意：這裡僅是一個示例，你需要根據你的需求來實現這部分代碼
+        });
+    });
+
+
+</script>
 
 
 
-    <script src="/Jamigo/activity/detail/static/js/modernizr-3.5.0.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/jquery-3.6.0.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/popper.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/bootstrap.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/slick.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/ajax-form.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/paroller.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/wow.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/js_isotope.pkgd.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/imagesloaded.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/parallax.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/jquery.waypoints.min.js"></script>
-    <script src="#"></script>
-    <script src="/Jamigo/activity/detail/static/js/jquery.scrollUp.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/jquery.meanmenu.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/parallax-scroll.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/jquery.magnific-popup.min.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/element-in-view.js"></script>
-    <script src="/Jamigo/activity/detail/static/js/main.js"></script>
+<script src="/Jamigo/activity/detail/static/js/modernizr-3.5.0.min.js"></script>
+<!-- <script src="/Jamigo/activity/detail/static/js/jquery-3.6.0.min.js"></script> -->
+<!-- <script src="/Jamigo/activity/detail/static/js/popper.min.js"></script> -->
+<!-- <script src="/Jamigo/activity/detail/static/js/bootstrap.min.js"></script> -->
+<script src="/Jamigo/activity/detail/static/js/slick.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/ajax-form.js"></script>
+<script src="/Jamigo/activity/detail/static/js/paroller.js"></script>
+<script src="/Jamigo/activity/detail/static/js/wow.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/js_isotope.pkgd.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/imagesloaded.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/parallax.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/jquery.waypoints.min.js"></script>
+<!-- <script src="#"></script> -->
+<script src="/Jamigo/activity/detail/static/js/jquery.scrollUp.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/jquery.meanmenu.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/parallax-scroll.js"></script>
+<script src="/Jamigo/activity/detail/static/js/jquery.magnific-popup.min.js"></script>
+<script src="/Jamigo/activity/detail/static/js/element-in-view.js"></script>
+<script src="/Jamigo/activity/detail/static/js/main.js"></script>
 
-    <!-- 頁首頁尾JS引用區 -->
-    <script src="/Jamigo/activity/space/footer/js/bootstrap.js"></script>
-    <!-- FontAwesome -->
-    <script src="/Jamigo/activity/space/footer/js/all.js"></script>
-    <!-- js -->
-    <script src="/Jamigo/activity/space/footer/js/script.js"></script>
+<!-- 頁首頁尾JS引用區 -->
+<script src="/Jamigo/activity/space/footer/js/bootstrap.js"></script>
+<!-- FontAwesome -->
+<script src="/Jamigo/activity/space/footer/js/all.js"></script>
+<!-- js -->
+<script src="/Jamigo/index/頁首頁尾_final/js/script.js"></script>
 </body>
 
 </html>
