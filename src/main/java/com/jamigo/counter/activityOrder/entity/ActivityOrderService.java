@@ -45,9 +45,11 @@ public class ActivityOrderService {
 		return repository.findAll();
 	}
 	
+	public List<ActivityOrderVO> getByCounterNO(Integer counterNo) {
+		return repository.getByCounterNo(counterNo);
+	}
+	
 	public void changePaidStat(ActivityOrderVO activityOrderVO) {
-		
-		System.out.println("執行更新setActivityPaymentStat");
 		
 		activityOrderVO.setActivityPaymentStat(Byte.valueOf((byte) 1));
 		
