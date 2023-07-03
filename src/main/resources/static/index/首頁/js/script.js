@@ -193,7 +193,7 @@ $(document).ready(function () {
             $('#cardbefore').append(`<div class="swiper-slide card">
             <div class="card-content">
             <div class="image">
-            <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${response[i].productNo}" alt="">
+            <img src="/Jamigo/shop/product_picture/product/${response[i].productNo}" alt="">
             </div>
             <div class="media-icons">
             <a onclick="addWish(this,${response[i].productNo});"><i class="fa-solid fa-heart" style="color: #f1f2f3;"></i></a>

@@ -8,11 +8,29 @@
 
 	<title>檢舉視窗</title>
 	<style>
+		html,
+		body {
+			height: 100%;
+		}
+
+		#imgcontainer {
+			width: 100%;
+			height: 100%;
+			background-image: url("/Jamigo/index/首頁/images/檢舉視窗.jpg");
+			background-repeat: no-repeat;
+			background-size: cover;
+			opacity: 0.9;
+			background-color: #333;
+		}
+
+
 		#reportForm {
 			width: 400px;
+			height: 80%;
+			opacity: 0.9;
+			background-color: darkcyan;
 			margin: 0 auto;
 			padding: 20px;
-			background-color: #f5f5f5;
 			border-radius: 10px;
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 		}
@@ -35,6 +53,7 @@
 			border: 1px solid #ccc;
 			border-radius: 4px;
 			font-size: 14px;
+			color: #333;
 		}
 
 		.report_checkbox {
@@ -67,10 +86,13 @@
 
 		.error {
 			color: red;
-			font-size: 12px;
+			font-size: 22px;
 		}
-		#previewAreaContainer{
+
+		#previewAreaContainer {
+			/* position: relative; */
 			display: none;
+			/* bottom: 10px; */
 
 		}
 
@@ -87,52 +109,63 @@
 				transform: scale(1);
 			}
 		}
+
+		#removebutton {
+			color: red;
+		}
+
+		.report_checkbox:checked+label {
+			font-weight: bold;
+		}
 	</style>
 </head>
 
 <body>
-	<div id="reportForm">
-		<label></label>
-		<div id="title_container">
-			<h2 class="title" id="title">檢舉申請</h2>
-		</div>
-
-		<input type="checkbox" class="report_checkbox" name="reportContent" value="破損瑕疵"
-			onclick="hideerror('reportContent_error')">
-		<label>破損瑕疵</label>
-		<input type="checkbox" class="report_checkbox" name="reportContent" value="尺寸與標籤不符"
-			onclick="hideerror('reportContent_error')">
-		<label>尺寸與標籤不符</label>
-		<input type="checkbox" class="report_checkbox" name="reportContent" value="假貨"
-			onclick="hideerror('reportContent_error')">
-		<label>假貨</label>
-		<input type="checkbox" class="report_checkbox" name="reportContent" value="價格標示異常"
-			onclick="hideerror('reportContent_error')">
-		<label>價格標示異常</label>
-		<input type="checkbox" class="report_checkbox" name="reportContent" value="照片與實物不符"
-			onclick="hideerror('reportContent_error')">
-		<label>照片與實物不符</label>
-		<input type="checkbox" class="report_checkbox" id="other_checkbox" onclick="hideerror('reportContent_error')">
-		<label>其他(請填寫)</label>
-		<div id="other_input_container">
-			<textarea name="reportContent" id="other_input" placeholder="請輸入檢舉內容" required></textarea>
-		</div><br>
-		<span class="error" id="reportContent_error"></span><br>
-
-		<input type="file" name="reportImage" accept="image/*" id="uploadimage">
-		<div id="previewAreaContainer">
-			<div id="previewArea">
+	<div id="imgcontainer">
+		<div id="reportForm">
+			<label></label>
+			<div id="title_container">
+				<h2 class="title" id="title">檢舉申請</h2>
 			</div>
-			<button id="removebutton" onclick="remove();"><i class="fa-regular fa-trash-can">刪除</i></button>
+
+			<input type="checkbox" class="report_checkbox" name="reportContent" value="破損瑕疵"
+				onclick="hideerror('reportContent_error')">
+			<label>破損瑕疵</label>
+			<input type="checkbox" class="report_checkbox" name="reportContent" value="尺寸與標籤不符"
+				onclick="hideerror('reportContent_error')">
+			<label>尺寸與標籤不符</label>
+			<input type="checkbox" class="report_checkbox" name="reportContent" value="假貨"
+				onclick="hideerror('reportContent_error')">
+			<label>假貨</label>
+			<input type="checkbox" class="report_checkbox" name="reportContent" value="價格標示異常"
+				onclick="hideerror('reportContent_error')">
+			<label>價格標示異常</label>
+			<input type="checkbox" class="report_checkbox" name="reportContent" value="照片與實物不符"
+				onclick="hideerror('reportContent_error')">
+			<label>照片與實物不符</label>
+			<input type="checkbox" class="report_checkbox" id="other_checkbox"
+				onclick="hideerror('reportContent_error')">
+			<label>其他(請填寫)</label>
+			<div id="other_input_container">
+				<textarea name="reportContent" id="other_input" placeholder="請輸入檢舉內容" required></textarea>
+			</div><br>
+			<span class="error" id="reportContent_error"></span><br>
+
+			<input type="file" name="reportImage" accept="image/*" id="uploadimage">
+			<div id="previewAreaContainer">
+				<div id="previewArea">
+				</div>
+				<button id="removebutton" onclick="remove();"><i class="fa-regular fa-trash-can">刪除</i></button>
+			</div>
+
+			<input type="hidden" name="reportStat" value="0">
+
+			<button type="button" id="submit_button" onclick="submit()">送出</button>
+
 		</div>
 
-		<input type="hidden" name="reportStat" value="0">
-
-		<button type="button" id="submit_button" onclick="submit()">送出</button>
-
+		<div id="report_result"></div>
 	</div>
-
-	<div id="report_result"></div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- sweet alert -->
@@ -174,7 +207,7 @@
 		// 檢查是否選擇了圖片
 		if (file) {
 			var previewAreaContainer = document.getElementById('previewAreaContainer');
-			previewAreaContainer.style.display='block';
+			previewAreaContainer.style.display = 'block';
 			var reader = new FileReader();
 
 			// 載入圖片後的處理
@@ -199,16 +232,6 @@
 
 
 	})
-
-	//函式 上傳成功後顯示動畫
-	function showUploadSuccessAnimation() {
-		var successAnimation = document.getElementById('uploadSuccessAnimation');
-		successAnimation.style.display = 'block';
-
-		// 添加動畫效果，例如使用CSS的animation屬性
-		successAnimation.classList.add('animate-success');
-	}
-
 
 	function submit() {
 		//檢舉內容轉成陣列

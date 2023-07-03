@@ -16,62 +16,73 @@
 
         .form-field {
             margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
+        #imgcontainer {
+            width: 100%;
+            height: auto;
+            background-image: url("/Jamigo/index/首頁/images/平台查看檢舉.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
 
 <body>
-    <form>
-        <div class="form-field">
-            <label class="form-label" for="report-status">檢舉狀態:</label>
-            <span id="report-status"></span>
-        </div>
+    <div id="imgcontainer">
+        <form>
+            <div class="form-field">
+                <label class="form-label" for="report-status">檢舉狀態:</label>
+                <span id="report-status"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="product-name">商品名稱:</label>
-            <span id="product-name"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="product-name">商品名稱:</label>
+                <span id="product-name"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-content">檢舉內容:</label>
-            <span id="report-content"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-content">檢舉內容:</label>
+                <span id="report-content"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="member-name">會員名稱:</label>
-            <span id="member-name"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="member-name">會員名稱:</label>
+                <span id="member-name"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-count">該商品被檢舉次數:</label>
-            <span id="report-count"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-count">該商品被檢舉次數:</label>
+                <span id="report-count"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-time">檢舉時間:</label>
-            <span id="report-time"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-time">檢舉時間:</label>
+                <span id="report-time"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="report-response">客服回應:</label>
-            <span id="report-response"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="report-response">客服回應:</label>
+                <span id="report-response"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="response-time">回應時間:</label>
-            <span id="response-time"></span>
-        </div>
+            <div class="form-field">
+                <label class="form-label" for="response-time">回應時間:</label>
+                <span id="response-time"></span>
+            </div>
 
-        <div class="form-field">
-            <label class="form-label" for="resport-image">檢舉圖片:</label>
-            <div id="previewAreaContainer">
-                <div id="previewArea">
+            <div class="form-field">
+                <label class="form-label" for="resport-image">檢舉圖片:</label>
+                <div id="previewAreaContainer">
+                    <div id="previewArea">
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </form>
+        </form>
 
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- sweet alert -->

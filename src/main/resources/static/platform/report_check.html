@@ -80,9 +80,42 @@
         background-color: #333;
         margin-top: 5px;
     }
-    #finish_wrapper{
+
+    #finish_wrapper {
         position: relative;
         padding-top: 20px;
+    }
+
+    /* 表格容器的樣式 */
+    .datatable-container {
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    /* 表格的樣式 */
+    .datatable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* 表頭儲存格的樣式 */
+    .datatable thead th {
+        background-color: #006c3c;
+        color: #fff;
+        padding: 8px;
+        text-align: center !important;
+        overflow: hidden;
+
+    }
+
+    /* 資料行的樣式 */
+    .datatable tbody td {
+        background-color: #fff;
+        padding: 8px;
+        text-align: center;
+        height: 132px;
+        vertical-align: middle;
     }
 </style>
 
@@ -305,14 +338,16 @@
             <div class="col-10 page-body">
 
                 <h2 class="main-title">商品檢舉審核系統</h2>
+                <div class="datatable-container">
+                    <table id="all" class="datatable display" style="width:100%">
 
-                <table id="all" class="display" style="width:100%">
+                    </table>
+                </div>
+                <div class="datatable-container">
+                    <table id="finish" class="datatable display" style="width:100%">
 
-                </table>
-
-                <table id="finish" class="display" style="width:100%">
-
-                </table>
+                    </table>
+                </div>
                 <!---------------------------------主體結束-------------------------------->
             </div>
         </div>
@@ -475,7 +510,7 @@
                         },
                         { data: 'reportTime', title: "檢舉日期" },
                         { data: 'reportNumber', title: "被檢舉次數" },
-                        { data: 'handle', title: "操作"}
+                        { data: 'handle', title: "操作" }
                     ],
                     columnDefs: [
                         {
@@ -514,7 +549,7 @@
             url = 'report_response.html?memberNo=' + rowData.memberNo + '&productNo=' + rowData.productNo;
 
             var width = 800;
-            var height = 400;
+            var height = 600;
             var left = (window.innerWidth - width) / 2;
             var top = (window.innerHeight - height) / 2;
             childWindow = window.open(url, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
