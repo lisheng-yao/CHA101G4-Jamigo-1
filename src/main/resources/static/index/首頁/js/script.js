@@ -279,7 +279,7 @@ function addcart(e) {
 }
 
 // 加入追蹤(還有css tored)
-function addWish(e,productNo) {
+function addWish(e, productNo) {
 
     var button = e;
 
@@ -313,8 +313,12 @@ function addWish(e,productNo) {
                     type: 'GET',
                     url: '/Jamigo/wishlist/deleteone/' + memberNo + "/" + response[i],
                     success: function (response) {
-                        alert("刪除")
-                        button.classList.remove('tored');
+                        Swal.fire({
+                            icon: 'success',
+                            title: '已取消追蹤',
+                        }).then(() => {
+                            button.classList.remove('tored');
+                        })
                         return;
                     },
                     error: function (error) {
@@ -334,7 +338,12 @@ function addWish(e,productNo) {
             type: 'GET',
             url: '/Jamigo/wishlist/addone/' + memberNo + "/" + productNo,
             success: function (response) {
-                alert("新增");
+                Swal.fire({
+                    title: '成功加入追蹤',
+                    icon: 'success',
+                }).then((result) => {
+
+                })
                 button.classList.add('tored');
                 return;
             },
@@ -353,12 +362,12 @@ function addWish(e,productNo) {
 }
 
 // fullpage 04
-$(document).ready(function () {
+// $(document).ready(function () {
 
 
 
 
-})
+// })
 
 
 

@@ -412,7 +412,6 @@
 
         $(document).ready(function () {
 
-
             let memberNo = localStorage.getItem('memberNo');
 
             $.ajax({
@@ -426,8 +425,8 @@
                     } else {
                         Swal.fire({
                             icon: 'info',
-                            text: '您並無檢舉紀錄!!請受曾某一拜',
-                            title: "恭喜!",
+                            text: '您尚無追蹤紀錄',
+                            title: "購物去吧~",
                             confirmButtonText: 'OK'
                         }).then(() => {
                             window.location.reload();
@@ -443,9 +442,7 @@
 
             function finish(response) {
                 let data1 = [];
-                let productno;
-
-
+            
                 for (let i = 0; i < response.length; i++) {
 
                     // 處理評價 人數/總評價數
@@ -484,7 +481,6 @@
                     }
 
                     evaltotalpeople = response[i].evalTotalPeople;
-                    productno = response[i].productNo;
                     data1.push({
                         'productPic': response[i].productNo,
                         'counterName': response[i].counterName,
@@ -493,13 +489,13 @@
                         'productInfo': response[i].productInfo,
                         'evalScore': stars + '(' + evaltotalpeople + ')',
                         'evalTotalPeople': evaltotalpeople,
-                        'handle': response[i].productNo,
-                        'data': `<div class = "saveCounterNo${response[i].productNo}" data-counterNo="${response[i].counterNo}" style="display:none;" ></div>
+                        'handle': response[i].productNo
+                    })
+                    $('.noarea').append(`<div class = "saveCounterNo${response[i].productNo}" data-counterNo="${response[i].counterNo}"></div>
                                 <div class = "saveCounterName${response[i].productNo}" data-counterName="${response[i].counterName}" style="display:none;" ></div>
                                 <div class = "saveProductNo${response[i].productNo}" data-productNo="${response[i].productNo}" style="display:none;" ></div>
                                 <div class = "saveProductName${response[i].productNo}" data-productName="${response[i].productName}" style="display:none;" ></div>
-                                <div class = "saveProductPrice${response[i].productNo}" data-productPrice="${response[i].productPrice}" style="display:none;" ></div>`
-                    })
+                                <div class = "saveProductPrice${response[i].productNo}" data-productPrice="${response[i].productPrice}" style="display:none;" ></div>`)
 
                 }
                 //初始化datatable函式 
@@ -541,22 +537,12 @@
                                 <button class="addCartbutton" value="${data}" onclick="addcart(event);">加入購物車</button></div>
                                 <div class="cancelbtncontainer"><button class="cancelbutton" onclick="remove(${data});"><i class="fa-regular fa-trash-can fa-xl"></i></button></div></div>`
                             }
-                        },
-                        { data: 'data' }
-                    ],
-                    columnDefs: [
-                        {
-                            target: 7,
-                            width: 0,
-                            visible: false,
-                            className: 'hidden-column'
-                        },
+                        }
                     ]
                 });
             }
 
             function fail(error) {
-                alert(error.status);
                 Swal.fire({
                     icon: 'info',
                     text: error.status,
@@ -603,8 +589,6 @@
                 cartItem: cartItem
             };
 
-            console.log(cartItem);
-
             $.ajax({
                 url: '/Jamigo/cart/addOneToCart',
                 method: 'POST',
@@ -619,7 +603,6 @@
                         confirmButtonText: '查看購物車',
                         cancelButtonText: '繼續購物'
                     }).then((result) => {
-
                         if (result.isConfirmed)
                             window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
                     })
