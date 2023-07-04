@@ -276,7 +276,7 @@ select.available_platformCoupon{
     border: 0;
     color: #ffffff;
     display: inline-block;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     height: 35px;
     line-height: 15px;
@@ -415,4 +415,30 @@ select.available_platformCoupon{
 span.memberOwnPoints{
     font-size: 18px;
     font-weight: 500;
+}
+
+/*空購物車用CSS*/
+.empty-title{
+    font-size: 30px;
+    margin-bottom: 25px;
+    color: #AAAAAA;
+}
+
+.empty-photo{
+    margin-bottom: 25px;
+}
+
+#empty-goshopping{
+    background-color: #F53737;
+    border-radius: 15px;
+    color: whitesmoke;
+    height: 60px;
+    width: 150px;
+    font-size: 18px;
+    margin-bottom: 25px;
+    transition: 0.3s;
+}
+
+#empty-goshopping:hover{
+    background: #222222;
 }
