@@ -1,5 +1,3 @@
-// const counterNo = 10;
-
 const $table = $('table#main_table');
 
 $(function () {

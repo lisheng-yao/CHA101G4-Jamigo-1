@@ -93,8 +93,7 @@ function recommendation_render() {
 
                                     <div class="action_links">
                                         <ul>
-                                            <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                                 aria-hidden="true"></i></a>
+                                            <li class="wishlist"><a onclick="addWish(this, ${item['productNo']});"><i class="fa-solid fa-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -192,8 +191,7 @@ function counter_area_render(counterNo) {
 
                                     <div class="action_links">
                                         <ul>
-                                            <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                                 aria-hidden="true"></i></a>
+                                            <li class="wishlist"><a onclick="addWish(this, ${item['productNo']});"><i class="fa-solid fa-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -276,8 +274,7 @@ function best_selling_render() {
 
                                     <div class="action_links">
                                         <ul>
-                                            <li class="wishlist"><a href="#" title="追蹤商品"><i class="fa fa-heart-o"
-                                                                                                 aria-hidden="true"></i></a>
+                                            <li class="wishlist"><a onclick="addWish(this, ${item['productNo']});"><i class="fa-solid fa-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>

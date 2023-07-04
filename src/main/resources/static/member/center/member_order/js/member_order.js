@@ -5,7 +5,6 @@ $(function () {
 
     $table.bootstrapTable('destroy').bootstrapTable({
         url: `http://localhost:8080/Jamigo/shop/platform_order/all/memberData/${memberNo}`,
-        stickyHeader: true,
         columns: [
             {
                 field: 'platformOrderNo',
