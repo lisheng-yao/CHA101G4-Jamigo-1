@@ -588,6 +588,17 @@
 
 </script>
 
+ <!-------------------------------------  登入調版 ---------------------------------->
+  <script>
+    var session = localStorage.getItem("memberNo");
+    if (session) {
+      var button = document.querySelector(".login-button");
+      button.hidden = true;
+    } else {
+      console.log("安安沒事，沒跑版");
+    }
+  </script>
+
 <script src="./detail/static/js/modernizr-3.5.0.min.js"></script>
 <script src="./detail/static/js/jquery-3.6.0.min.js"></script>
 <script src="./detail/static/js/popper.min.js"></script>

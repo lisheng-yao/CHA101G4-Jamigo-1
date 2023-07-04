@@ -1,4 +1,4 @@
-( ()=> {
+(() => {
     const memberAccount = document.querySelector('#memberAccount');
     const password = document.querySelector('#password');
     const errMsg = document.querySelector('#errMsg');
@@ -9,7 +9,7 @@
     let newlocation;
     if (currentPageUrl) {
         newlocation = currentPageUrl;
-    }else{
+    } else {
         newlocation = '../../frontEnd/前台會員管理首頁.html';
     }
 
@@ -17,7 +17,7 @@
         console.log("登入按鈕啟動");
         fetch('login', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 memberAccount: memberAccount.value,
                 memberPassword: password.value
@@ -27,12 +27,14 @@
             .then(resp => resp.json())
             .then(body => {
                 errMsg.textContent = '';
-                const {successful, message} = body;
+                const { successful, message } = body;
                 if (successful) {
-                    const {memberNo, memberAccount} = body;
+                    const { memberNo, memberAccount } = body;
                     localStorage.setItem('memberNo', memberNo);
                     localStorage.setItem('memberAccount', memberAccount);
                     localStorage.setItem('memberorcount', '0');
+                    
+                    localStorage.removeItem('currentPageUrl');
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -40,11 +42,11 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    setTimeout(function() {
+                    setTimeout(function () {
                         console.log("等1.5秒");
                         location = newlocation;
                     }, 1600);
-
+                    localStorage.removeItem('currentPageUrl');
                 } else {
                     errMsg.textContent = message;
                     Swal.fire({

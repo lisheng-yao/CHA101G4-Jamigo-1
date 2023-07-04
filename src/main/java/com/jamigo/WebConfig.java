@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/counter/**")
-                .addPathPatterns("/promotion/promotion4counter/***")
+                .addPathPatterns("/promotion/promotion4counter/*****")
                 .excludePathPatterns("/counter/login/**");
         registry.addInterceptor(adminLoginInterceptor)
         		.addPathPatterns("/platform/*****") // 設置需要攔截的 URL

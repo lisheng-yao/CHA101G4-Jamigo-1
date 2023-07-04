@@ -249,7 +249,7 @@ $("div.order_table").on("click", "div.create_order button", function () {
                             $('#allPayAPIForm').submit(); // 自動提交表單
                         }
                         else if (paymentMethod === '2')
-                            window.location.href = "shopping_main_page.html";
+                            window.location.href = "商城首頁.html";
                     })
                 },
 

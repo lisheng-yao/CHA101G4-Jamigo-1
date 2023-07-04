@@ -10,6 +10,7 @@ public class ProductForMainPageDTO {
     private Integer productNo;
     private String productName;
     private Integer productPrice;
+    private String productInfo;
     private Integer counterNo;
     private String counterName;
     private Integer evalTotalPeople;
