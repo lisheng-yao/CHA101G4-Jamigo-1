@@ -27,7 +27,7 @@ $(function(){
                             <span class="${productStatusColor}">${productStatusString}</span>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary edit_btn" id="${resp[e].productNo}" onclick="gotoEditPage(this.id)"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" class="btn border border-0 btn-primary edit_btn" id="${resp[e].productNo}" onclick="gotoEditPage(this.id)"><i class="fa-solid fa-pen-to-square"></i></button>
                         </td>
                     </tr>
                 `;

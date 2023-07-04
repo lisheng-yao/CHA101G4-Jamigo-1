@@ -76,6 +76,7 @@ $(function () {
 
     sendUpdateData(productNo);
     cancelEdit();
+    validPriceInput();
 });
 
 // function getCounterNo() {
@@ -199,4 +200,14 @@ function sendUpdateData(productNo) {
             window.location=`/Jamigo/counter/counter_product.html`;
         });
 
+    }
+
+    function validPriceInput(){
+        $('#productPrice').on('input', function() {
+            let value = $(this).val().trim();
+
+            if (!/^[\d]+$/.test(value)) {
+                $(this).val('');
+            }
+        });
     }

@@ -101,402 +101,370 @@
     </div>
 </nav>
 <main class="main_before">
-<!-- 商城 Header 從這裡開始-->
-<header>
-    <div class="main_header sticky-header">
-        <div class="container-fluid">
-            <div class="header_container">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <!-- 主導覽列 -->
-                        <div class="main_menu menu_center menu_position">
-                            <nav>
-                                <ul>
-                                    <li><a href="商城首頁.html">商城首頁</a></li>
+    <!-- 商城的 header Start -->
+    <header>
+        <div class="main_header sticky-header">
+            <div class="container-fluid">
+                <div class="header_container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <!-- 左側主導覽列 Start -->
+                            <div class="main_menu menu_center menu_position">
+                                <nav>
+                                    <ul>
+                                        <li><a href="/Jamigo/shop/main_page/商城首頁.html">商城首頁</a></li>
 
-                                    <li><a href="品牌旗艦館.html">品牌旗艦館</a></li>
+                                        <li><a href="/Jamigo/shop/main_page/brand_flagship.html">品牌旗艦館</a></li>
 
-                                    <!-- 現在商品分類可以活起來了 -->
-                                    <li class="mega_items"><a class="active" href="#">商品分類<i
-                                            class="fa fa-angle-down"></i></a>
-                                        <div class="mega_menu">
-                                            <ul class="mega_menu_inner">
-                                                <!-- 大分類 -->
-                                                <li><a href="#">紳仕潮流</a>
-                                                    <ul>
-                                                        <!-- 小分類 -->
-                                                        <li><a href="#">服飾</a></li>
-                                                        <li><a href="商品分類頁.html">鞋子
-                                                            (目前只有這個能跳轉到分類頁)</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">時尚女裝</a>
-                                                    <ul>
-                                                        <li><a href="#">服飾</a></li>
-                                                        <li><a href="#">鞋子</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li><a href="#">美妝保養</a>
-                                                    <ul>
-                                                        <li><a href="#">臉部彩妝</a></li>
-                                                        <li><a href="#">臉部保養</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li><a href="#">日用生活</a>
-                                                    <ul>
-                                                        <li><a href="#">餐飲美食</a></li>
-                                                        <li><a href="#">廚房用品</a></li>
-                                                        <li><a href="#">3C 家電</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li><a href="#">婦嬰兒童</a>
-                                                    <ul>
-                                                        <li><a href="#">童裝</a></li>
-                                                        <li><a href="#">玩具</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-
-                                    <li class="search_bar">
-                                        <a href="javascript:void(0)">商品搜尋&emsp;<span
-                                                class="icon icon-Search"></span></a>
-                                        <div class="dropdown_search">
-                                            <div class="search_close_btn">
-                                                <a href="#"><i class="ion-close-round"></i></a>
+                                        <!-- 目前把商品分類寫死，之後可以讓它活過來 -->
+                                        <li class="mega_items"><a class="active" href="#">商品分類<i
+                                                class="fa fa-angle-down"></i></a>
+                                            <div class="mega_menu">
+                                                <ul class="mega_menu_inner">
+                                                    <!--                                                    <li>-->
+                                                    <!--                                                        <a href="product_category_page.html">紳仕潮流</a>-->
+                                                    <!--                                                    </li>-->
+                                                </ul>
                                             </div>
+                                        </li>
 
-                                            <form action="商品搜尋頁.html" method="get">
-                                                <input placeholder="輸入您要找的關鍵字" type="text" name="keyword">
-                                                <button type="submit"><span
-                                                        class="icon icon-Search"></span></button>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <!--main menu end-->
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="header_account_area">
-                            <div class="header_account-list">
-                                <a href="javascript:void(0)" onclick="goToWishListPage()" title="查看追蹤清單"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                        <li class="search_bar">
+                                            <a href="javascript:void(0)">商品搜尋&emsp;<span
+                                                    class="icon icon-Search"></span></a>
+                                            <div class="dropdown_search">
+                                                <div class="search_close_btn">
+                                                    <a href="#"><i class="ion-close-round"></i></a>
+                                                </div>
+                                                <!-- 輸入完關鍵字，並按搜尋按鈕後，會跳轉到商品搜尋頁 -->
+                                                <form action="/Jamigo/shop/main_page/product_search_page.html"
+                                                      method="get">
+                                                    <input placeholder="輸入您要找的關鍵字" type="text" name="keyword">
+                                                    <button type="submit"><span
+                                                            class="icon icon-Search"></span></button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
-                            <div class="header_account-list  mini_cart_wrapper">
-                                <a href="javascript:void(0)" onclick="goToCartDetailPage()"><i
-                                        class="icon icon-FullShoppingCart"></i><span
-                                        class="item_count"></span></a>
-                                <!--mini cart-->
-                                <!--                                    <div class="mini_cart">-->
-
-                                <!--                                        <div class="recent_add mt-10">-->
-                                <!--                                            <span>近期加入</span>-->
-                                <!--                                        </div>-->
-
-                                <!--                                        <div class="cart_gallery">-->
-
-                                <!--                                            <div class="cart_item">-->
-                                <!--                                                <div class="cart_img">-->
-                                <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_info">-->
-                                <!--                                                    <a href="#">a</a>-->
-                                <!--                                                    <p>1 x <span> NT$100 </span></p>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_remove">-->
-                                <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-
-                                <!--                                            <div class="cart_item">-->
-                                <!--                                                <div class="cart_img">-->
-                                <!--                                                    <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_info">-->
-                                <!--                                                    <a href="#">bbb</a>-->
-                                <!--                                                    <p>4 x <span> NT$65 </span></p>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_remove">-->
-                                <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-                                <!--                                            <div class="cart_item">-->
-                                <!--                                                <div class="cart_img">-->
-                                <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_info">-->
-                                <!--                                                    <a href="#">cccccc</a>-->
-                                <!--                                                    <p>1 x <span> NT$60 </span></p>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_remove">-->
-                                <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-                                <!--                                            <div class="cart_item">-->
-                                <!--                                                <div class="cart_img">-->
-                                <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_info">-->
-                                <!--                                                    <a href="#">ddddddddd</a>-->
-                                <!--                                                    <p>2 x <span> NT$99 </span></p>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_remove">-->
-                                <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-                                <!--                                            <div class="cart_item">-->
-                                <!--                                                <div class="cart_img">-->
-                                <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_info">-->
-                                <!--                                                    <a href="#">eeeeeeeeeeee</a>-->
-                                <!--                                                    <p>1 x <span> NT$85 </span></p>-->
-                                <!--                                                </div>-->
-                                <!--                                                <div class="cart_remove">-->
-                                <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-
-                                <!--                                        </div>-->
-                                <!--                                        <div class="mini_cart_table">-->
-                                <!--                                            <div class="cart_table_border">-->
-                                <!--                                                <div class="cart_total mt-10">-->
-                                <!--                                                    <span>總金額：</span>-->
-                                <!--                                                    <span class="price">NT$125.00</span>-->
-                                <!--                                                </div>-->
-                                <!--                                            </div>-->
-                                <!--                                        </div>-->
-                                <!--                                        <div class="mini_cart_footer">-->
-                                <!--                                            <div class="cart_button">-->
-                                <!--                                                <a href="cart_detail_page.html"><i class="fa fa-shopping-cart"></i> 查看購物車</a>-->
-                                <!--                                            </div>-->
-
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-                                <!--mini cart end-->
-                            </div>
-
+                            <!-- 左側主導覽列 End -->
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<!--header area end-->
-
-
-<!--breadcrumbs area start-->
-<!-- <div class="breadcrumbs_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <h3>紳仕潮流 / 鞋子</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!--breadcrumbs area end-->
-
-<!--product details start-->
-<div class="product_details variable_product mt-100 mb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <div class="product-details-tab">
-                    <div id="img-1" class="zoomWrapper single-zoom">
-                        <a href="#">
-                            <img id="zoom1" src=""
-                                 data-zoom-image="" alt="big-1" class="w-100">
-                        </a>
-                    </div>
-                    <div class="single-zoom-thumb">
-                        <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update=""
-                                   data-image=""
-                                   data-zoom-image="" id="picture1">
-                                    <img id="pic1" src="" alt="zo-th-1" class="w-100"/>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update=""
-                                   data-image=""
-                                   data-zoom-image="" id="picture2">
-                                    <img id="pic2" src="" alt="zo-th-1" class="w-100"/>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update=""
-                                   data-image=""
-                                   data-zoom-image="" id="picture3">
-                                    <img id="pic3" src="" alt="zo-th-1" class="w-100"/>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update=""
-                                   data-image=""
-                                   data-zoom-image="" id="picture4">
-                                    <img id="pic4" src="" alt="zo-th-1" class="w-100"/>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="product_d_right">
-                    <div class="counter_link_area my-2">
-                        <a href="#" class="counter_name" id="counterName"></a>
-                    </div>
-                    <!--                        <div id="counterNo" style="display: none"></div>-->
-                    <form action="#">
-                        <h1 id="productName"></h1>
-
-                        <div class="price_area">
-                            <span class="product_priceTag">商品價格：</span>
-                            <span class="product_price" id="productPrice">NT$2200</span>
-                        </div>
-
-                        <div class="product_rating">
-                            <ul>
-                                <div class="Stars" style="--rating: 3.5;"><span>3.5 (2)</span>
+                        <div class="col-lg-2">
+                            <div class="header_account_area">
+                                <div class="header_account-list">
+                                    <a href="javascript:void(0)" onclick="goToWishListPage()" title="查看追蹤清單"><i
+                                            class="fa fa-heart-o" aria-hidden="true"></i></a>
                                 </div>
+                                <div class="header_account-list  mini_cart_wrapper">
+                                    <a href="javascript:void(0)" onclick="goToCartDetailPage()"><i
+                                            class="icon icon-FullShoppingCart"></i><span
+                                            class="item_count"></span></a>
+                                    <!--mini cart-->
+                                    <!--                                    <div class="mini_cart">-->
+
+                                    <!--                                        <div class="recent_add mt-10">-->
+                                    <!--                                            <span>近期加入</span>-->
+                                    <!--                                        </div>-->
+
+                                    <!--                                        <div class="cart_gallery">-->
+
+                                    <!--                                            <div class="cart_item">-->
+                                    <!--                                                <div class="cart_img">-->
+                                    <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_info">-->
+                                    <!--                                                    <a href="#">a</a>-->
+                                    <!--                                                    <p>1 x <span> NT$100 </span></p>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_remove">-->
+                                    <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                            <div class="cart_item">-->
+                                    <!--                                                <div class="cart_img">-->
+                                    <!--                                                    <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_info">-->
+                                    <!--                                                    <a href="#">bbb</a>-->
+                                    <!--                                                    <p>4 x <span> NT$65 </span></p>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_remove">-->
+                                    <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div class="cart_item">-->
+                                    <!--                                                <div class="cart_img">-->
+                                    <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_info">-->
+                                    <!--                                                    <a href="#">cccccc</a>-->
+                                    <!--                                                    <p>1 x <span> NT$60 </span></p>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_remove">-->
+                                    <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div class="cart_item">-->
+                                    <!--                                                <div class="cart_img">-->
+                                    <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_info">-->
+                                    <!--                                                    <a href="#">ddddddddd</a>-->
+                                    <!--                                                    <p>2 x <span> NT$99 </span></p>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_remove">-->
+                                    <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div class="cart_item">-->
+                                    <!--                                                <div class="cart_img">-->
+                                    <!--                                                    <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_info">-->
+                                    <!--                                                    <a href="#">eeeeeeeeeeee</a>-->
+                                    <!--                                                    <p>1 x <span> NT$85 </span></p>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="cart_remove">-->
+                                    <!--                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="mini_cart_table">-->
+                                    <!--                                            <div class="cart_table_border">-->
+                                    <!--                                                <div class="cart_total mt-10">-->
+                                    <!--                                                    <span>總金額：</span>-->
+                                    <!--                                                    <span class="price">NT$125.00</span>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="mini_cart_footer">-->
+                                    <!--                                            <div class="cart_button">-->
+                                    <!--                                                <a href="cart_detail_page.html"><i class="fa fa-shopping-cart"></i> 查看購物車</a>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--mini cart end-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--header area end-->
+
+
+    <!--breadcrumbs area start-->
+    <!-- <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <h3>紳仕潮流 / 鞋子</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!--breadcrumbs area end-->
+
+    <!--product details start-->
+    <div class="product_details variable_product mt-100 mb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product-details-tab">
+                        <div id="img-1" class="zoomWrapper single-zoom">
+                            <a href="#">
+                                <img id="zoom1" src=""
+                                     data-zoom-image="" alt="big-1" class="w-100">
+                            </a>
+                        </div>
+                        <div class="single-zoom-thumb">
+                            <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
+                                <li>
+                                    <a href="#" class="elevatezoom-gallery active" data-update=""
+                                       data-image=""
+                                       data-zoom-image="" id="picture1">
+                                        <img id="pic1" src="" alt="zo-th-1" class="w-100"/>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="elevatezoom-gallery active" data-update=""
+                                       data-image=""
+                                       data-zoom-image="" id="picture2">
+                                        <img id="pic2" src="" alt="zo-th-1" class="w-100"/>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="elevatezoom-gallery active" data-update=""
+                                       data-image=""
+                                       data-zoom-image="" id="picture3">
+                                        <img id="pic3" src="" alt="zo-th-1" class="w-100"/>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="elevatezoom-gallery active" data-update=""
+                                       data-image=""
+                                       data-zoom-image="" id="picture4">
+                                        <img id="pic4" src="" alt="zo-th-1" class="w-100"/>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
-                        <!-- <div class="product_variant spec my-2">
-                            <label class="my-auto">商品規格</label>
-                            <select class="select_option">
-                                <option value="1">S</option>
-                                <option value="2">M</option>
-                                <option value="3">L</option>
-                                <option value="4">XL</option>
-                                <option value="5">XXL</option>
-                            </select>
-                        </div> -->
-                        <div class="product_variant quantity">
-                            <label>商品數量</label>
-                            <input min="1" max="10" value="1" type="number" id="product_quantity">
-                            <button class="button" type="button" id="add_to_cart">放入購物車</button>
-
-                        </div>
-                        <!-- 加入追蹤清單 -->
-                        <div class="add_wishlist my-3">
-                            <a onclick="addWish(this)"><i class="fa-solid fa-heart-circle-plus fa-xl"></i></a>
-                        </div>
-
-                        <!-- 檢舉 -->
-                        <div class="report_product my-3">
-
-                            <!-- 跳轉到商品檢舉頁面 -->
-                            <button type="button" class="btn report_btn" onclick="openNewWindow(event);">
-                                <i class="fa-solid fa-flag fa-lg mr-1"></i>
-                                商品檢舉
-                            </button>
-
-                        </div>
-                    </form>
-
-                    <div class="product_d_meta">
-                        <span>商品類別：<a href="#" id="productCat"></a></span>
-<!--                        <span>Tags:-->
-<!--                                <a href="#">Creams</a>-->
-<!--                                <a href="#">Lotions</a>-->
-<!--                        </span>-->
-                    </div>
-                    <!-- 櫃位私訊 -->
-                    <div class="ask_product_detail my-3">
-                        <i class="fa-regular fa-circle-question fa-xl"></i>
                     </div>
                 </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<!--product details end-->
-
-<!--product info start-->
-<div class="product_d_info mb-95">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="product_d_inner">
-                    <div class="product_info_button">
-                        <ul class="nav" role="tablist">
-                            <li>
-                                <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info"
-                                   aria-selected="false">商品詳情</a>
-                            </li>
-
-                            <li>
-                                <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
-                                   aria-selected="false">商品評論 (2)</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="info" role="tabpanel">
-                            <div class="product_info_content">
-                                <p id="productInfo"></p>
-                            </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product_d_right">
+                        <div class="counter_link_area my-2">
+                            <a href="#" class="counter_name" id="counterName"></a>
                         </div>
+                        <!--                        <div id="counterNo" style="display: none"></div>-->
+                        <form action="#">
+                            <h1 id="productName"></h1>
 
-                        <div class="tab-pane fade" id="reviews" role="tabpanel">
-                            <div class="reviews_wrapper">
-
-                                <div class="reviews_comment_box">
-                                    <div class="comment_thmb">
-                                        <img src="assets/img/blog/comment2.jpg" alt="">
-                                    </div>
-                                    <div class="comment_text">
-                                        <div class="reviews_meta">
-                                            <div class="star_rating">
-                                                <ul>
-                                                    <div class="Stars" style="--rating: 5;"></div>
-                                                </ul>
-                                            </div>
-                                            <p><strong>吳崑豪</strong> - 2023/06/05</p>
-                                            <span>超讚</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="reviews_comment_box">
-                                    <div class="comment_thmb">
-                                        <img src="assets/img/blog/comment2.jpg" alt="">
-                                    </div>
-                                    <div class="comment_text">
-                                        <div class="reviews_meta">
-                                            <div class="star_rating">
-                                                <ul>
-                                                    <div class="Stars" style="--rating: 2;"></div>
-                                                </ul>
-                                            </div>
-                                            <p><strong>豪崑吳</strong> - 2023/06/04</p>
-                                            <span>超爛</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="price_area">
+                                <span class="product_priceTag">商品價格：</span>
+                                <span class="product_price" id="productPrice">NT$2200</span>
                             </div>
+
+                            <div class="product_rating">
+                                <ul>
+                                    <div class="Stars" style="--rating: 3.5;"><span>3.5 (2)</span>
+                                    </div>
+                                </ul>
+                            </div>
+                            <!-- <div class="product_variant spec my-2">
+                                <label class="my-auto">商品規格</label>
+                                <select class="select_option">
+                                    <option value="1">S</option>
+                                    <option value="2">M</option>
+                                    <option value="3">L</option>
+                                    <option value="4">XL</option>
+                                    <option value="5">XXL</option>
+                                </select>
+                            </div> -->
+                            <div class="product_variant quantity">
+                                <label>商品數量</label>
+                                <input min="1" max="10" value="1" type="number" id="product_quantity">
+                                <button class="button" type="button" id="add_to_cart">放入購物車</button>
+
+                            </div>
+                            <!-- 加入追蹤清單 -->
+                            <div class="add_wishlist my-3">
+                                <a onclick="addWish(this)"><i class="fa-solid fa-heart-circle-plus fa-xl"></i></a>
+                            </div>
+
+                            <!-- 檢舉 -->
+                            <div class="report_product my-3">
+
+                                <!-- 跳轉到商品檢舉頁面 -->
+                                <button type="button" class="btn report_btn" onclick="openNewWindow(event);">
+                                    <i class="fa-solid fa-flag fa-lg mr-1"></i>
+                                    商品檢舉
+                                </button>
+
+                            </div>
+                        </form>
+
+                        <div class="product_d_meta">
+                            <span>商品類別：<a href="#" id="productCat"></a></span>
+                            <!--                        <span>Tags:-->
+                            <!--                                <a href="#">Creams</a>-->
+                            <!--                                <a href="#">Lotions</a>-->
+                            <!--                        </span>-->
                         </div>
-
+                        <!-- 櫃位私訊 -->
+                        <div class="ask_product_detail my-3">
+                            <i class="fa-regular fa-circle-question fa-xl"></i>
+                        </div>
                     </div>
-
-
                 </div>
+
             </div>
         </div>
     </div>
-</div>
-<!--product info end-->
+    <!--product details end-->
+
+    <!--product info start-->
+    <div class="product_d_info mb-95">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product_d_inner">
+                        <div class="product_info_button">
+                            <ul class="nav" role="tablist">
+                                <li>
+                                    <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info"
+                                       aria-selected="false">商品詳情</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
+                                       aria-selected="false">商品評論 (2)</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="info" role="tabpanel">
+                                <div class="product_info_content">
+                                    <p id="productInfo"></p>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="reviews" role="tabpanel">
+                                <div class="reviews_wrapper">
+
+                                    <div class="reviews_comment_box">
+                                        <div class="comment_thmb">
+                                            <img src="assets/img/blog/comment2.jpg" alt="">
+                                        </div>
+                                        <div class="comment_text">
+                                            <div class="reviews_meta">
+                                                <div class="star_rating">
+                                                    <ul>
+                                                        <div class="Stars" style="--rating: 5;"></div>
+                                                    </ul>
+                                                </div>
+                                                <p><strong>吳崑豪</strong> - 2023/06/05</p>
+                                                <span>超讚</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="reviews_comment_box">
+                                        <div class="comment_thmb">
+                                            <img src="assets/img/blog/comment2.jpg" alt="">
+                                        </div>
+                                        <div class="comment_text">
+                                            <div class="reviews_meta">
+                                                <div class="star_rating">
+                                                    <ul>
+                                                        <div class="Stars" style="--rating: 2;"></div>
+                                                    </ul>
+                                                </div>
+                                                <p><strong>豪崑吳</strong> - 2023/06/04</p>
+                                                <span>超爛</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--product info end-->
 
 </main>
 <footer>
@@ -594,6 +562,8 @@
 <script src="/Jamigo/shop/shopping/assets/js/Shawn-script.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="/Jamigo/shop/main_page/assets/js/product_category_header.js"></script>
 
 </body>
 

@@ -100,120 +100,88 @@
     </div>
 </nav>
 <main class="main_before">
-<!-- 商城 Header 從這裡開始-->
-<header>
-    <div class="main_header sticky-header">
-        <div class="container-fluid">
-            <div class="header_container">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <!-- 主導覽列 -->
-                        <div class="main_menu menu_center menu_position">
-                            <nav>
-                                <ul>
-                                    <li><a href="商城首頁.html">商城首頁</a></li>
+    <!-- 商城的 header Start -->
+    <header>
+        <div class="main_header sticky-header">
+            <div class="container-fluid">
+                <div class="header_container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <!-- 左側主導覽列 Start -->
+                            <div class="main_menu menu_center menu_position">
+                                <nav>
+                                    <ul>
+                                        <li><a href="/Jamigo/shop/main_page/商城首頁.html">商城首頁</a></li>
 
-                                    <li><a href="品牌旗艦館.html">品牌旗艦館</a></li>
+                                        <li><a href="/Jamigo/shop/main_page/brand_flagship.html">品牌旗艦館</a></li>
 
-                                    <!-- 現在商品分類可以活起來了 -->
-                                    <li class="mega_items"><a href="#">商品分類<i class="fa fa-angle-down"></i></a>
-                                        <div class="mega_menu">
-                                            <ul class="mega_menu_inner">
-                                                <!-- 大分類 -->
-                                                <li><a href="#">紳仕潮流</a>
-                                                    <ul>
-                                                        <!-- 小分類 -->
-                                                        <li><a href="#">服飾</a></li>
-                                                        <li><a href="商品分類頁.html">鞋子
-                                                            (目前只有這個能跳轉到分類頁)</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">時尚女裝</a>
-                                                    <ul>
-                                                        <li><a href="#">服飾</a></li>
-                                                        <li><a href="#">鞋子</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li><a href="#">美妝保養</a>
-                                                    <ul>
-                                                        <li><a href="#">臉部彩妝</a></li>
-                                                        <li><a href="#">臉部保養</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li><a href="#">日用生活</a>
-                                                    <ul>
-                                                        <li><a href="#">餐飲美食</a></li>
-                                                        <li><a href="#">廚房用品</a></li>
-                                                        <li><a href="#">3C 家電</a></li>
-                                                    </ul>
-                                                </li>
-
-                                                <li><a href="#">婦嬰兒童</a>
-                                                    <ul>
-                                                        <li><a href="#">童裝</a></li>
-                                                        <li><a href="#">玩具</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-
-                                    <li class="search_bar">
-                                        <a href="javascript:void(0)">商品搜尋&emsp;<span
-                                                class="icon icon-Search"></span></a>
-                                        <div class="dropdown_search">
-                                            <div class="search_close_btn">
-                                                <a href="#"><i class="ion-close-round"></i></a>
+                                        <!-- 目前把商品分類寫死，之後可以讓它活過來 -->
+                                        <li class="mega_items"><a class="active" href="#">商品分類<i
+                                                class="fa fa-angle-down"></i></a>
+                                            <div class="mega_menu">
+                                                <ul class="mega_menu_inner">
+                                                    <!--                                                    <li>-->
+                                                    <!--                                                        <a href="product_category_page.html">紳仕潮流</a>-->
+                                                    <!--                                                    </li>-->
+                                                </ul>
                                             </div>
+                                        </li>
 
-                                            <form action="商品搜尋頁.html" method="get">
-                                                <input placeholder="輸入您要找的關鍵字" type="text" name="keyword">
-                                                <button type="submit"><span
-                                                        class="icon icon-Search"></span></button>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </nav>
+                                        <li class="search_bar">
+                                            <a href="javascript:void(0)">商品搜尋&emsp;<span
+                                                    class="icon icon-Search"></span></a>
+                                            <div class="dropdown_search">
+                                                <div class="search_close_btn">
+                                                    <a href="#"><i class="ion-close-round"></i></a>
+                                                </div>
+                                                <!-- 輸入完關鍵字，並按搜尋按鈕後，會跳轉到商品搜尋頁 -->
+                                                <form action="/Jamigo/shop/main_page/product_search_page.html"
+                                                      method="get">
+                                                    <input placeholder="輸入您要找的關鍵字" type="text" name="keyword">
+                                                    <button type="submit"><span
+                                                            class="icon icon-Search"></span></button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- 左側主導覽列 End -->
                         </div>
-                        <!--main menu end-->
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="header_account_area">
-                            <div class="header_account-list">
-                                <a href="javascript:void(0)" onclick="goToWishListPage()" title="查看追蹤清單"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                        <div class="col-lg-2">
+                            <div class="header_account_area">
+                                <div class="header_account-list">
+                                    <a href="javascript:void(0)" onclick="goToWishListPage()" title="查看追蹤清單"><i
+                                            class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--header area end-->
 
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <h3>
+                            <i class="fa-solid fa-cart-shopping mr-3"></i>購物車清單
+                        </h3>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</header>
-<!--header area end-->
+    <!--breadcrumbs area end-->
 
-<!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <h3>
-                        <i class="fa-solid fa-cart-shopping mr-3"></i>購物車清單
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--breadcrumbs area end-->
-
-<!--shopping cart area start -->
-<div class="shopping_cart_area mt-100">
-    <div class="container">
+    <!--shopping cart area start -->
+    <div class="shopping_cart_area mt-100">
+        <div class="container">
 
             <!--櫃位區塊-->
             <div id="cartPanel">
@@ -284,11 +252,11 @@
                                 </div>
                                 <div class="checkout_btn">
                                     <button type="button" class="go_shopping rounded-0 mr-2"
-                                            onclick="window.location.href='/Jamigo/shop/main_page/shopping_main_page.html'">
+                                            onclick="window.location.href='/Jamigo/shop/main_page/商城首頁.html'">
                                         <i class="fa-solid fa-cart-plus mr-1"></i>
                                         繼續購物
                                     </button>
-                                    <a href="#" id="checkout_confirm">確認結帳</a>
+                                    <a href="/Jamigo/shop/main_page/checkout.html" id="checkout_confirm">確認結帳</a>
                                 </div>
                             </div>
                         </div>
@@ -296,9 +264,9 @@
                 </div>
             </div>
             <!--coupon code area end-->
+        </div>
     </div>
-</div>
-<!--shopping cart area end -->
+    <!--shopping cart area end -->
 
 </main>
 <footer>
@@ -391,6 +359,8 @@
 <script src="/Jamigo/shop/shopping/assets/js/main.js"></script>
 
 <script src="/Jamigo/shop/shopping/assets/js/script.js"></script>
+
+<script src="/Jamigo/shop/main_page/assets/js/product_category_header.js"></script>
 
 </body>
 
