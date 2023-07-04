@@ -184,13 +184,26 @@ function pagination_render(productCount, perPage) {
     $("div.pagination ul").html(html_str);
 }
 
+$(document).on('click', '.pagination li', function() {
+
+    // 獲取被點擊的頁碼
+    page = parseInt($(this).children("a").text());
+
+    // 調用 get_products_by_category_render 函數
+    get_products_by_category_render(page, orderBy);
+
+    // 將被點擊的元素設為當前頁碼
+    $('.pagination li').removeClass('current');
+    $(this).addClass('current');
+});
+
 $(document).on("click", ".add_to_cart a", function () {
 
     productNo = parseInt($(this).closest("div.product_content").children("p.product_no").text());
 
     $.ajax({
         type: 'GET',
-        url: `/Jamigo/products/getProductForDetailPage/${productNo}`,
+        url: `http://localhost:8080/Jamigo/products/getProductForDetailPage/${productNo}`,
         success: function (response) {
 
             let html_str = "";
@@ -258,19 +271,6 @@ $(document).on("click", ".add_to_cart a", function () {
     })
 })
 
-$(document).on('click', '.pagination li', function() {
-
-    // 獲取被點擊的頁碼
-    page = parseInt($(this).children("a").text());
-
-    // 調用 get_products_by_category_render 函數
-    get_products_by_category_render(page, orderBy);
-
-    // 將被點擊的元素設為當前頁碼
-    $('.pagination li').removeClass('current');
-    $(this).addClass('current');
-});
-
 //取得會員編號
 function getMemberNo(){
 
@@ -313,7 +313,7 @@ $(document).on("click", "button.btn_add_to_cart", function () {
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify(cartData),
-        success: function (resp){
+        success: function (){
 
             Swal.fire({
                 title: '商品已加入購物車',

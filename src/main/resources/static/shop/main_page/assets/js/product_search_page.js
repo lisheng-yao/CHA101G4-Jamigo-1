@@ -3,6 +3,8 @@ let keyword = urlParams.get('keyword');
 let orderBy = 0;
 let productCount;
 
+let cartItems = [];
+
 $(document).ready(function () {
     printCartItemsCount();
     keyword_render();
@@ -56,9 +58,8 @@ function get_products_by_keyword(orderBy) {
                                     </a>
                                     <div class="action_links">
                                         <ul>
-                                            <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                    class="fa fa-heart-o"
-                                                    aria-hidden="true"></i></a></li>
+                                            <li class="wishlist"><a onclick="addWish(this, ${item['productNo']});"><i class="fa-solid fa-heart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -116,9 +117,8 @@ function get_products_by_keyword(orderBy) {
                                         <ul>
                                             <li class="add_to_cart"><a href="#" data-toggle="modal"
                                                                        data-target="#modal_box">加入購物車</a></li>
-                                            <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                    class="fa fa-heart-o"
-                                                    aria-hidden="true"></i></a></li>
+                                            <li class="wishlist"><a onclick="addWish(this, ${item['productNo']});"><i class="fa-solid fa-heart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -144,13 +144,25 @@ function get_products_by_keyword(orderBy) {
     })
 }
 
+$(document).on('click', '.pagination li', function() {
+    // 獲取被點擊的頁碼
+    page = parseInt($(this).children("a").text());
+
+    // 調用 get_products_by_category_render 函數
+    get_products_by_category_render(page, orderBy);
+
+    // 將被點擊的元素設為當前頁碼
+    $('.pagination li').removeClass('current');
+    $(this).addClass('current');
+});
+
 $(document).on("click", ".add_to_cart a", function () {
 
     productNo = parseInt($(this).closest("div.product_content").children("p.product_no").text());
 
     $.ajax({
         type: 'GET',
-        url: `/Jamigo/products/getProductForDetailPage/${productNo}`,
+        url: `http://localhost:8080/Jamigo/products/getProductForDetailPage/${productNo}`,
         success: function (response) {
 
             let html_str = "";
@@ -218,18 +230,6 @@ $(document).on("click", ".add_to_cart a", function () {
     })
 })
 
-$(document).on('click', '.pagination li', function() {
-    // 獲取被點擊的頁碼
-    page = parseInt($(this).children("a").text());
-
-    // 調用 get_products_by_category_render 函數
-    get_products_by_category_render(page, orderBy);
-
-    // 將被點擊的元素設為當前頁碼
-    $('.pagination li').removeClass('current');
-    $(this).addClass('current');
-});
-
 //取得會員編號
 function getMemberNo(){
 
@@ -272,7 +272,7 @@ $(document).on("click", "button.btn_add_to_cart", function () {
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify(cartData),
-        success: function (resp){
+        success: function (){
 
             Swal.fire({
                 title: '商品已加入購物車',
