@@ -1,8 +1,9 @@
-package com.jamigo.shop.others.service;
+package com.jamigo.shop.others.service.impl;
 
 import com.jamigo.counter.counter.dao.CounterRepository;
 import com.jamigo.shop.others.dto.ProductForMainPageDTO;
 import com.jamigo.shop.others.repo.ProductForMainPageRepository;
+import com.jamigo.shop.others.service.OtherService;
 import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.entity.ProductCategory;
 import com.jamigo.shop.product.repo.ProductCategoryRepository;
@@ -18,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class OtherServiceImpl implements OtherService{
+public class OtherServiceImpl implements OtherService {
 
     @Autowired
     private ProductForMainPageRepository productForMainPageRepository;
@@ -184,7 +185,7 @@ public class OtherServiceImpl implements OtherService{
     }
 
     @Override
-    public List<ProductForMainPageDTO> getProductsByKeyword(String keyword) {
+    public List<ProductForMainPageDTO> getProductsByKeyword(String keyword, Integer orderBy) {
 
         List<Product> allProducts = productRepository.findAll();
         Map<Product, Integer> lcsMap = new HashMap<>();
@@ -219,6 +220,22 @@ public class OtherServiceImpl implements OtherService{
 
             if (product.getProductStat())
                 productForMainPageDTOList.add(productForMainPageDTO);
+
+        }
+
+        switch(orderBy) {
+            case 1:
+                productForMainPageDTOList.sort(Comparator.comparingInt(ProductForMainPageDTO::getProductNo));
+                break;
+            case 3:
+                productForMainPageDTOList.sort(Comparator.comparing(ProductForMainPageDTO::getProductName));
+                break;
+            case 4:
+                productForMainPageDTOList.sort(Comparator.comparingInt(ProductForMainPageDTO::getProductPrice));
+                break;
+            case 5:
+                productForMainPageDTOList.sort(Comparator.comparingInt(ProductForMainPageDTO::getProductPrice).reversed());
+                break;
         }
 
         return productForMainPageDTOList;

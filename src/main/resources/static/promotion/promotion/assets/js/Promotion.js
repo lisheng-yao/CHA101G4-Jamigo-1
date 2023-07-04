@@ -1,6 +1,6 @@
 (() => {
     const tbody = document.querySelector('#tbody');
-
+    const localstorageadminNo = localStorage.getItem("adminNo");
 
     // ===============================VVV方法區VVV====================================
 
@@ -86,7 +86,7 @@
                                     <label for="recipientcNo${i}"
                                            class="col-form-label">管理員編號:</label>
                                     <input type="text" class="form-control"
-                                           id="recipientcNo${i}" value="" readonly>
+                                           id="recipientcNo${i}" value="${localstorageadminNo}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipientaNo${i}"
@@ -94,9 +94,7 @@
                                     <input type="text" class="form-control"
                                            id="recipientaNo${i}" value="" readonly>
                                 </div>
-                               
                             </form>
-
                         </div>
                         <div class="modal-footer">
                          <span id="msg"> </span>
@@ -239,6 +237,9 @@
 
     // ============================6.   newAPromotion()新增promotion========================
     const msg2 =document.querySelector('#msg2');
+    const recipientcNo4in = document.querySelector('#recipient-cNo');
+    recipientcNo4in.value=localstorageadminNo;
+
     function newAPromotion() {
         const recipientname4new = document.querySelector('#recipient-name').value;
         const recipienttype4new = document.querySelector('#recipient-type').value;

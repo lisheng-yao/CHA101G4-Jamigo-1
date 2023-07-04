@@ -10,11 +10,19 @@ $(document).ready(function () {
     product_category_name_render();
     getProductCountAndRender();
 
-    $('.list').on('click', '.option', function() {
-        let orderBy = $(this).attr("data-value");
-        get_products_by_category_render(1, orderBy);
-    });
+    change_sort_method();
 });
+
+function change_sort_method() {
+    $('.list').on('click', '.option', function() {
+
+        orderBy = $(this).attr("data-value");
+        get_products_by_category_render(1, orderBy);
+
+        $('.pagination li.current').removeClass('current');
+        $('.pagination li').first().addClass('current');
+    });
+}
 
 function product_category_name_render() {
 
@@ -37,6 +45,9 @@ function get_products_by_category_render(page, orderBy) {
         url: `/Jamigo/shop/product_category/${productCatNo}/products?page=${page}&orderBy=${orderBy}`,
         success: function (response) {
 
+
+            $('html, body').animate({scrollTop:0}, 'slow');
+
             let num = 0;
 
             let html_str = "";
@@ -45,9 +56,10 @@ function get_products_by_category_render(page, orderBy) {
 
                 num++;
 
-                let avg_rate;
+                let avg_rate = 0;
 
-                if (item['evalTotalPeople'] === 0) avg_rate = 0; else avg_rate = Math.round(item['evalTotalScore'] / item['evalTotalPeople'] * 10) / 10;
+                if (item['evalTotalPeople'] !== 0)
+                    avg_rate = Math.round(item['evalTotalScore'] / item['evalTotalPeople'] * 10) / 10;
 
                 html_str += `
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -132,6 +144,15 @@ function get_products_by_category_render(page, orderBy) {
             }
 
             $("div.shop_wrapper").html(html_str);
+
+            let viewMode = $("div.shop_wrapper").prev().find("button.active").data('role');
+
+            if (viewMode === 'grid_3')
+                $("div.shop_wrapper").children().addClass('col-lg-4 col-md-4 col-sm-6').removeClass('col-lg-3 col-12');
+            else if (viewMode === 'grid_4')
+                $("div.shop_wrapper").children().addClass('col-lg-3 col-md-4 col-sm-6').removeClass('col-lg-4 col-12');
+            else if (viewMode === 'grid_list')
+                $("div.shop_wrapper").children().addClass('col-12').removeClass('col-lg-3 col-lg-4 col-md-4 col-sm-6');
 
             $("div.page_amount").html(`<p>顯示第 ${1 + 12 * (page - 1)}-${num + 12 * (page - 1)} 件商品，共有 ${productCount} 件商品</p>`);
         }
@@ -238,6 +259,7 @@ $(document).on("click", ".add_to_cart a", function () {
 })
 
 $(document).on('click', '.pagination li', function() {
+
     // 獲取被點擊的頁碼
     page = parseInt($(this).children("a").text());
 

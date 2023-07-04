@@ -135,8 +135,22 @@ function showCartByCounter() {
     let cart_html = "";
     let currentCounterNo = -1;
     //如果購物車沒有商品
-    if (cartItems.length == 0) {
-        $("#cartPanel").html(`<div>購物車尚無商品</div>`);
+    let emptyCartHtml = `
+        <div class="emptyCart-area d-flex justify-content-center align-items-center flex-column my-3">
+            <div class="empty-title fw-bold">
+                購物車尚無商品
+            </div>
+            <div class="empty-photo">
+                <img src="/Jamigo/shop/shopping/assets/img/cart/shopping_cart.png" alt="" style="height: 250px; width: 250px">
+            </div>
+            <button type="button" class="go_shopping border border-0 fw-bold mr-2" id="empty-goshopping" onclick="window.location.href='/Jamigo/shop/main_page/shopping_main_page.html'">
+                <i class="fa-solid fa-cart-plus mr-1"></i>
+                前往購物
+            </button>
+        </div>
+    `;
+    if (cartItems.length === 0) {
+        $("#cartPanel").html(emptyCartHtml);
         $(".available_platformCoupon").html(`<option>尚無可使用的全館折價券</option>`)
         return;
     }
@@ -523,34 +537,6 @@ function putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal) 
     return canUseCounterCouponHtml;
 }
 
-
-//-----------------------------------把被選擇的折價券存入sessionStorage
-function packToSessionStorage() {
-    $("#checkout_confirm").on("click", function (e) {
-        e.preventDefault();
-        let discountInfo = {};
-        //------打包折價卷
-        let usedCoupons = [];
-        //-----1.counter
-        let counterCoupons = $(".available_counterCoupon");
-        for (let i = 0; i < counterCoupons.length; i++) {
-            if (counterCoupons.eq(i).val() != 0) {
-                usedCoupons.push(counterCoupons.eq(i).val());
-            }
-        }
-        //-----2.platform
-        let platformCoupon = $(".available_platformCoupon");
-        if (platformCoupon.val() != 0) {
-            usedCoupons.push(platformCoupon.val());
-        }
-        discountInfo.usedCoupons = usedCoupons;
-        //------打包點數
-        let memberUsedPoints = $(".memberPoint_usedDiscount").text();
-        discountInfo.memberUsedPoints = memberUsedPoints;
-        sessionStorage["discountInfo"] = JSON.stringify(discountInfo);
-    });
-}
-
 //櫃位折價券下拉選單change(選用折價券)
 function counterSelectChange() {
     availableCounterCoupons = $(".available_counterCoupon");
@@ -603,7 +589,7 @@ function platformSelectChange() {
             $(".memberPoint_usedDiscount").text(memberPoint_usedDiscount);
             // alert("您的折價金額已達上限，將會優先使用折價券折抵並退回多於點數!");
             Swal.fire({
-                icon: 'info',
+                icon: 'warning',
                 iconColor: '#DA6272',
                 title: '折抵金額已到達上限！',
                 text: '優先使用折價券折抵，無法使用的點數折抵將退回'
@@ -700,3 +686,43 @@ function putCanUsePlatformCoupons(memberCoupons, currentCounterNo, counterTotal)
 function goToWishListPage(){
     window.location = `/Jamigo/member/member/wishlist/wishlist.html`;
 }
+
+//-----------------------------------把使用的優惠資料存入sessionStorage
+function packToSessionStorage() {
+    $("#checkout_confirm").on("click", function (e) {
+        e.preventDefault();
+        if(cartItems.length === 0){
+            Swal.fire(
+                '無法結帳！',
+                '您的購物車內尚無任何商品',
+                'error'
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    window.location='/Jamigo/shop/main_page/shopping_main_page.html';
+                }
+            });
+            return;
+        }
+        let discountInfo = {};
+        //------打包折價卷
+        let usedCoupons = [];
+        //-----1.counter
+        let counterCoupons = $(".available_counterCoupon");
+        for (let i = 0; i < counterCoupons.length; i++) {
+            if (counterCoupons.eq(i).val() != 0) {
+                usedCoupons.push(counterCoupons.eq(i).val());
+            }
+        }
+        //-----2.platform
+        let platformCoupon = $(".available_platformCoupon");
+        if (platformCoupon.val() != 0) {
+            usedCoupons.push(platformCoupon.val());
+        }
+        discountInfo.usedCoupons = usedCoupons;
+        //------打包點數
+        let memberUsedPoints = $(".memberPoint_usedDiscount").text();
+        discountInfo.memberUsedPoints = memberUsedPoints;
+        sessionStorage["discountInfo"] = JSON.stringify(discountInfo);
+    });
+}
+
