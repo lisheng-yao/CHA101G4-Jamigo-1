@@ -184,7 +184,8 @@
 					<a href="#" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu">
 						<i class="fa-regular fa-message me-2"></i> 私訊服務
 					</a> <a href="" class="list-group-item list-group-item-action fw-bold p-3 sidebar-menu"
-						id="sing-out"> <i class="fa-solid fa-right-from-bracket me-2"></i> 登出
+						id="sing-out"> <i class="fa-solid fa-right-from-bracket me-2"></i>
+						登出
 					</a>
 				</div>
 			</div>
@@ -228,6 +229,23 @@
 
 					input[type="submit"]:hover {
 						background-color: #0056b3;
+
+						.center-text {
+							text-align: center;
+							margin-bottom: 0px;
+							/* 調整為需要的值，以達到最佳效果 */
+						}
+
+						.center-text {
+							text-align: center;
+							margin-bottom: 0px;
+						}
+
+						.flex-container {
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+						}
 					}
 				</style>
 				<div class="container-fluid back-end-box">
@@ -235,25 +253,23 @@
 						<div class=" panel panel-default panel-table filterable">
 							<div class="panel-heading">
 								<div class="row align-items-center">
-									<div class="col col-xs-6">
-										<h4>
-											<i class="fa-regular fa-address-book"></i> 櫃位活動申請頁面
-										</h4>
-									</div>
+									<div class="col col-xs-6"></div>
 
 
 								</div>
+
 								</head>
 
 								<body>
 									<form action="activity_apply" method="post">
-										<!-- <div class="vector-img-one">
-                            <img src="static/picture/qq.png" width="100" alt="">
-                        </div> -->
-										<h3 class="center-text">活動申請表單</h3>
-										<p>
-											<b>-----請詳細填寫資訊------</b>
-										</p>
+										<div style="text-align: center;">
+											<h3 class="center-text">活動申請表單</h3>
+											<div class="flex-container">
+<!-- 												<b>-----請詳細填寫資訊------</b> -->
+												<img src="/Jamigo/platform/activity/assets/p.png"
+													alt="Your Image Description" style="width: 120px; height: 120px;">
+											</div>
+										</div>
 										<label for="counterNo">櫃位編號:</label> <input type="text" id="counterNo"
 											name="counterNo"> <label for="activityName">活動名稱:</label> <input type="text"
 											id="activityName" name="activityName"> <label
@@ -312,29 +328,6 @@
 							});
 
 							//填寫表格的相關驗證
-							// 監聽活動名稱輸入
-							document.getElementById('activityName').addEventListener('input', function (e) {
-								let activityName = e.target.value.trim();
-
-								// 檢查活動名稱是否有效
-								if (activityName === '') {
-									e.target.setCustomValidity('請輸入有效的活動名稱！');
-								} else {
-									e.target.setCustomValidity('');
-								}
-							});
-
-							// 監聽活動內容輸入
-							document.getElementById('activityDetail').addEventListener('input', function (e) {
-								let activityDetail = e.target.value.trim();
-
-								// 檢查活動內容是否有效
-								if (activityDetail === '') {
-									e.target.setCustomValidity('請輸入有效的活動內容！');
-								} else {
-									e.target.setCustomValidity('');
-								}
-							});
 
 							// 監聽提交按鈕點擊
 							document.querySelector('form').addEventListener('submit', function (e) {
@@ -353,6 +346,32 @@
 								let activityStartTime = new Date(document.getElementById('activityStartTime').value);
 								let activityEndTime = new Date(document.getElementById('activityEndTime').value);
 
+								// 监听活动名称输入
+								document.getElementById('activityName').addEventListener('input', function (e) {
+									let activityName = e.target.value.trim();
+
+									// 檢查活動名稱是否有效
+									if (activityName === '') {
+										e.target.setCustomValidity('請輸入有效的活動名稱！');
+									} else if (!/^[a-zA-Z0-9\s]+$/.test(activityName)) {
+										e.target.setCustomValidity('活動名稱只能包含字母、數字和空格！');
+									} else {
+										e.target.setCustomValidity('');
+									}
+								});
+
+								// 監聽活動內容輸入
+								document.getElementById('activityDetail').addEventListener('input', function (e) {
+									let activityDetail = e.target.value.trim();
+
+									// 檢查活動內容是否有效
+									if (activityDetail === '') {
+										e.target.setCustomValidity('請輸入有效的活動內容！');
+									} else {
+										e.target.setCustomValidity('');
+									}
+								});
+
 								// 檢查活動名稱是否為字串
 								if (typeof activityName !== 'string' || activityName.trim() === '') {
 									Swal.fire({
@@ -363,10 +382,19 @@
 								}
 
 								// 檢查所有必填欄位都不為空
-								if (activityName.trim() === '' || activityCost.trim() === '' || activityLimit.trim() === '' || activityPlaceNo.trim() === '' || activityLev.trim() === '' || activityDetail.trim() === '' || activityPic === 0) {
+								if (activityName.trim() === '' || activityCost.trim() === '' || activityLimit.trim() === '' || activityPlaceNo.trim() === '' || activityLev.trim() === '' || activityDetail.trim() === '') {
 									Swal.fire({
 										icon: 'error',
-										text: '所有欄位都不能為空，並且必須上傳圖片！',
+										text: '欄位不能為空，請檢查',
+									});
+									return;
+								}
+
+								// 檢查圖片欄位必須選擇圖片
+								if (activityPic === 0) {
+									Swal.fire({
+										icon: 'error',
+										text: '請上傳活動圖片',
 									});
 									return;
 								}
@@ -408,7 +436,6 @@
 										});
 									});
 							});
-
 
 
 						</script>
