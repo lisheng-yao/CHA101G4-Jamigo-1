@@ -24,7 +24,10 @@
     const confirmbtn2 = document.querySelector('#confirmbtn2');
     const cancelbtn2 = document.querySelector('#cancelbtn2');
     const msg = document.querySelector('#msg');
-    const memberId = localStorage.getItem('memberNo');
+    let memberId = localStorage.getItem('memberNo');
+    if (typeof memberId === 'undefined' || memberId === null ||memberId ==="") {
+        memberId = sessionStorage.getItem('memberNo');
+    }
 
     const inputoldmemberPassword = document.querySelector('#oldmemberPassword')
     const inputnewmemberPassword = document.querySelector('#newmemberPassword')
@@ -119,6 +122,7 @@
                     avatarPreview.style.display = "block";
                     avatarPlaceholder.style.display = "none";
                 } else {
+                    avatarpreview.src = `/Jamigo/member/member/image/gray.jpg`;
                     avatarPreview.style.display = "none";
                     avatarPlaceholder.style.display = "block";
                 }

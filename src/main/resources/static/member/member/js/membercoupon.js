@@ -1,5 +1,8 @@
 (() => {
-    const memberId = localStorage.getItem('memberNo');
+    let memberId = localStorage.getItem('memberNo');
+    if (typeof memberId === 'undefined' || memberId === null ||memberId ==="") {
+        memberId = sessionStorage.getItem('memberNo');
+    }
     // ===============================VVV方法區VVV====================================
 
     // ============================1.查資料回來getAllPromotion() 拿到字串和筆數========================
