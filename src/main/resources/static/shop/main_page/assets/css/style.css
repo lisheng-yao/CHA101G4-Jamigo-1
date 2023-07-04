@@ -3135,15 +3135,15 @@ textarea:-ms-input-placeholder {
 
 .label_product span.label_sale {
     top: 15px;
-    right: 13px;
+    left: 13px;
     text-transform: uppercase;
     color: #ffffff;
     background: #F53737;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    height: 24px;
+    height: 25px;
     line-height: 24px;
-    width: 56px;
+    width: 65px;
     text-align: center;
     display: block;
     border-radius: 18px;
@@ -3187,7 +3187,7 @@ textarea:-ms-input-placeholder {
     font-size: 18px;
     line-height: 24px;
     font-weight: 500;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     margin: 0;
 
     min-height: 50px;
@@ -3209,7 +3209,7 @@ textarea:-ms-input-placeholder {
     font-size: 14px;
     line-height: 24px;
     font-weight: 500;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     margin: 0;
     color: rgba(0, 0, 0, 0.6);
 
@@ -4366,7 +4366,7 @@ textarea:-ms-input-placeholder {
 .testimonial_author a {
     font-size: 20px;
     line-height: 16px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 
 .testimonial_author a:hover {
@@ -11939,4 +11939,14 @@ textarea:-ms-input-placeholder {
     .privacy_content.section_3 h2 {
         margin-bottom: 12px;
     }
+}
+
+.tored i {
+    color: red;
+    transition: transform 0.3s;
+}
+
+li.wishlist i:hover {
+    color: red;
+    transition: transform 0.3s;
 }

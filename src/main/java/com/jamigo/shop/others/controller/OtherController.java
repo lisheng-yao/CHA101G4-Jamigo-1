@@ -100,8 +100,8 @@ public class OtherController {
     }
 
     @GetMapping("/shop/product_search")
-    public ResponseEntity<?> getProductsByKeyword(@RequestParam String keyword) {
-        List<ProductForMainPageDTO> productForMainPageDTOList = otherService.getProductsByKeyword(keyword);
+    public ResponseEntity<?> getProductsByKeyword(@RequestParam String keyword, @RequestParam Integer orderBy) {
+        List<ProductForMainPageDTO> productForMainPageDTOList = otherService.getProductsByKeyword(keyword, orderBy);
 
         if (productForMainPageDTOList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productForMainPageDTOList);

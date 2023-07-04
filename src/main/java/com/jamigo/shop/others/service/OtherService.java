@@ -22,7 +22,7 @@ public interface OtherService {
 
     Integer getProductAmountByCategory(Integer productCatNo);
 
-    List<ProductForMainPageDTO> getProductsByKeyword(String keyword);
+    List<ProductForMainPageDTO> getProductsByKeyword(String keyword, Integer orderBy);
 
     int getLCSLength(String str1, String str2);
 }

@@ -1,14 +1,25 @@
 let urlParams = new URLSearchParams(window.location.search);
 let keyword = urlParams.get('keyword');
-
+let orderBy = 0;
 let productCount;
 
 $(document).ready(function () {
     printCartItemsCount();
     keyword_render();
 
-    get_products_by_keyword();
+    get_products_by_keyword(0);
+    change_sort_method();
 });
+
+function change_sort_method() {
+    $('.list').on('click', '.option', function() {
+        orderBy = $(this).attr("data-value");
+        get_products_by_keyword(orderBy);
+
+        $('.pagination li.current').removeClass('current');
+        $('.pagination li').first().addClass('current');
+    });
+}
 
 function keyword_render() {
 
@@ -16,11 +27,11 @@ function keyword_render() {
     $("div.breadcrumbs_area div.breadcrumb_content").html(html_str);
 }
 
-function get_products_by_keyword() {
+function get_products_by_keyword(orderBy) {
 
     return $.ajax({
         type: 'GET',
-        url: `/Jamigo/shop/product_search?keyword=${keyword}`,
+        url: `/Jamigo/shop/product_search?keyword=${keyword}&orderBy=${orderBy}`,
         success: function (response) {
 
             let num = 0;
@@ -36,7 +47,7 @@ function get_products_by_keyword() {
                 if (item['evalTotalPeople'] === 0) avg_rate = 0; else avg_rate = Math.round(item['evalTotalScore'] / item['evalTotalPeople'] * 10) / 10;
 
                 html_str += `
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <article class="single_product">
                             <figure>
                                 <div class="product_thumb">
@@ -54,16 +65,18 @@ function get_products_by_keyword() {
                                 <div class="product_content grid_content">
 
                                     <p class="product_no" style="display: none">${item['productNo']}</p>
-
+                                    
                                     <div class="product_rating">
                                         <ul>
                                             <div class="Stars" style="--rating: ${avg_rate};"><span>${avg_rate} (${item['evalTotalPeople']})</span>
                                             </div>
                                         </ul>
                                     </div>
+                                    <!-- 櫃位名稱 -->
                                     <h5 class="counter_name">
                                         <a href="/Jamigo/shop/counter/counter_mainPage.html?counterNo=${item['counterNo']}">${item['counterName']}</a>
                                     </h5>
+                                    <!-- 商品名稱 -->
                                     <h4 class="product_name">
                                         <a href="/Jamigo/shop/shopping/product_detail_page.html?productNo=${item['productNo']}">${item['productName']}</a>
                                     </h4>
@@ -77,7 +90,7 @@ function get_products_by_keyword() {
                                 <div class="product_content list_content">
 
                                     <p class="product_no" style="display: none">${item['productNo']}</p>
-
+                                    
                                     <div class="product_rating">
                                         <ul>
                                             <div class="Stars" style="--rating: ${avg_rate};"><span>${avg_rate} (${item['evalTotalPeople']})</span>
@@ -117,7 +130,16 @@ function get_products_by_keyword() {
 
             $("div.shop_wrapper").html(html_str);
 
-            // $("div.page_amount").html(`<p>顯示第 ${1 + 12 * (page - 1)}-${num + 12 * (page - 1)} 件商品，共有 ${productCount} 件商品</p>`);
+            let viewMode = $("div.shop_wrapper").prev().find("button.active").data('role');
+
+            if (viewMode === 'grid_3')
+                $("div.shop_wrapper").children().addClass('col-lg-4 col-md-4 col-sm-6').removeClass('col-lg-3 col-12');
+            else if (viewMode === 'grid_4')
+                $("div.shop_wrapper").children().addClass('col-lg-3 col-md-4 col-sm-6').removeClass('col-lg-4 col-12');
+            else if (viewMode === 'grid_list')
+                $("div.shop_wrapper").children().addClass('col-12').removeClass('col-lg-3 col-lg-4 col-md-4 col-sm-6');
+
+            $("div.page_amount").html(`<p>顯示第 ${1}-${num} 件商品，共有 ${num} 件商品</p>`);
         }
     })
 }
