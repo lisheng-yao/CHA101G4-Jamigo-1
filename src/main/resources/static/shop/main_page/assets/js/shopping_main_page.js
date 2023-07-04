@@ -45,7 +45,7 @@ function news_render() {
 
                 html_str += `
                     <a href="${item['shopCarouselUrl']}">
-                        <div class="single_slider d-flex align-items-center" data-bgimg="/Jamigo/DBPicReader?shopCarouselNo=${item['shopCarouselNo']}">
+                        <div class="single_slider d-flex align-items-center" data-bgimg="/Jamigo/DBPicReader?shopCarouselNo=${item['shopCarouselNo']}" style="background-image: url('/Jamigo/DBPicReader?shopCarouselNo=${item['shopCarouselNo']}');">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-12">
