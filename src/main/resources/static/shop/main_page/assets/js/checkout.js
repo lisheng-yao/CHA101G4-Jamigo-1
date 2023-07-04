@@ -18,6 +18,8 @@ $(document).ready(function () {
     check_buyer_data();
 });
 
+
+
 function setupRadioButtons(name, id) {
     // 為 radio button 和相關的 label 加上 click 事件處理器
     $(`input[type=radio][name=${name}], label[for^=${id}]`).click(function (event) {

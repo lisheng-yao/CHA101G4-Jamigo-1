@@ -5,17 +5,19 @@ $(document).ready(async function () {
 
     printCartItemsCount();
 
-    await news_render();
-    await recommendation_render();
-    await counter_area_render(1);
+    // 使用 Promise.all() 等待 news_render, recommendation_render, counter_area_render(1), best_selling_render 這幾個函式都完成
+    await Promise.all([news_render(), recommendation_render(), counter_area_render(1), best_selling_render()]);
+
+    // 等待 counter_area_render(2) 完成
     await counter_area_render(2);
-    await best_selling_render();
+
+    // 執行 owl_carousel_init()
     owl_carousel_init();
 });
 
 function news_render() {
 
-    fetch("/Jamigo/ShopCarouselServlet")
+    return fetch("/Jamigo/ShopCarouselServlet")
         .then((response) => response.json())
         .then((data) => {
             let html_str = "";
@@ -62,7 +64,7 @@ function news_render() {
             }
 
             $("div.slider_area").html(html_str);
-        })
+        });
 
 }
 
@@ -477,6 +479,13 @@ $(document).on("click", "button.btn_add_to_cart", function () {
     console.log($(this).closest("div.modal_right").find("div.modal_counter_name"));
 
     let memberNo = getMemberNo();
+
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+
     let counterName = $(this).closest("div.modal_right").find("div.modal_counter_name").text().trim();
     let counterNo = parseInt($(this).closest("div.modal_right").find("p.counter_no").text());
     let productName = $(this).closest("div.modal_right").find("div.modal_product_name").text().trim();
@@ -499,7 +508,7 @@ $(document).on("click", "button.btn_add_to_cart", function () {
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify(cartData),
-        success: function (resp){
+        success: function (){
 
             Swal.fire({
                 title: '商品已加入購物車',
@@ -516,13 +525,27 @@ $(document).on("click", "button.btn_add_to_cart", function () {
 
 function printCartItemsCount(){
     let memberNo = getMemberNo();
-    $.ajax({
-        url: `/Jamigo/cart/getCartList/${memberNo}`,
-        method: "GET",
-        async: false,
-        success: function (respCartItems){
-            cartItems = respCartItems;
-            $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
-        }
-    });
+    if(!memberNo){
+        $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+    }else {
+        $.ajax({
+            url: `/Jamigo/cart/getCartList/${memberNo}`,
+            method: "GET",
+            async: false,
+            success: function (respCartItems){
+                cartItems = respCartItems;
+                $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+            }
+        });
+    }
+}
+
+function goToCartDetailPage(){
+    let memberNo = getMemberNo();
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+    window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
 }

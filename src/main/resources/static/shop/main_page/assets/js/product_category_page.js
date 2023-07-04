@@ -5,6 +5,8 @@ let orderBy = 1;
 let perPage = 12; // 每頁顯示的商品數
 let productCount;
 
+let cartItems = [];
+
 $(document).ready(function () {
     printCartItemsCount();
     product_category_name_render();
@@ -71,9 +73,8 @@ function get_products_by_category_render(page, orderBy) {
                                     </a>
                                     <div class="action_links">
                                         <ul>
-                                            <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                    class="fa fa-heart-o"
-                                                    aria-hidden="true"></i></a></li>
+                                            <li class="wishlist"><a onclick="addWish(this, ${item['productNo']});"><i class="fa-solid fa-heart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -131,9 +132,8 @@ function get_products_by_category_render(page, orderBy) {
                                         <ul>
                                             <li class="add_to_cart"><a href="#" data-toggle="modal"
                                                                        data-target="#modal_box">加入購物車</a></li>
-                                            <li class="wishlist"><a href="#" title="追蹤商品"><i
-                                                    class="fa fa-heart-o"
-                                                    aria-hidden="true"></i></a></li>
+                                            <li class="wishlist"><a onclick="addWish(this, ${item['productNo']});"><i class="fa-solid fa-heart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -284,6 +284,13 @@ $(document).on("click", "button.btn_add_to_cart", function () {
     console.log($(this).closest("div.modal_right").find("div.modal_counter_name"));
 
     let memberNo = getMemberNo();
+
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+
     let counterName = $(this).closest("div.modal_right").find("div.modal_counter_name").text().trim();
     let counterNo = parseInt($(this).closest("div.modal_right").find("p.counter_no").text());
     let productName = $(this).closest("div.modal_right").find("div.modal_product_name").text().trim();
@@ -323,13 +330,27 @@ $(document).on("click", "button.btn_add_to_cart", function () {
 
 function printCartItemsCount(){
     let memberNo = getMemberNo();
-    $.ajax({
-        url: `/Jamigo/cart/getCartList/${memberNo}`,
-        method: "GET",
-        async: false,
-        success: function (respCartItems){
-            cartItems = respCartItems;
-            $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
-        }
-    });
+    if(!memberNo){
+        $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+    }else {
+        $.ajax({
+            url: `/Jamigo/cart/getCartList/${memberNo}`,
+            method: "GET",
+            async: false,
+            success: function (respCartItems){
+                cartItems = respCartItems;
+                $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+            }
+        });
+    }
+}
+
+function goToCartDetailPage(){
+    let memberNo = getMemberNo();
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+    window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
 }
