@@ -305,7 +305,7 @@
                 <div class="row align-items-center productCtrl-header mb-3">
                     <div class="col-6">
                         <!-- Button trigger modal -->
-                        <button type="button add-prod" class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                        <button type="button add-prod" class="btn btn-primary fw-bold border border-0" data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop" id="addProduct-btn">
                             <i class="fa-solid fa-circle-plus me-1"></i>
                             新增商品項目
@@ -370,10 +370,10 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
+                                        <button type="button" class="btn btn-danger fw-bold"
                                                 data-bs-dismiss="modal">取消
                                         </button>
-                                        <button type="button" class="btn btn-primary" id="addProduct-confirm">確認新增
+                                        <button type="button" class="btn btn-primary fw-bold" id="addProduct-confirm">確認新增
                                         </button>
                                     </div>
                                 </div>
@@ -390,7 +390,7 @@
                 </div>
                 <div class="row productCtrl-body">
                     <table class="table">
-                        <thead>
+                        <thead id="productList-thead">
                         <tr>
                             <th scope="col">商品類別</th>
                             <!-- <th scope="col">商品圖片</th>-->

@@ -690,7 +690,7 @@ function goToWishListPage(){
 //-----------------------------------把使用的優惠資料存入sessionStorage
 function packToSessionStorage() {
     $("#checkout_confirm").on("click", function (e) {
-        e.preventDefault();
+        // e.preventDefault();
         if(cartItems.length === 0){
             Swal.fire(
                 '無法結帳！',

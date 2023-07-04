@@ -1365,11 +1365,11 @@ textarea:-ms-input-placeholder {
 .mega_menu_inner {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
 }
 
 .mega_menu_inner>li {
-    flex: 1 0 20%;
+    flex: 0 0 20%;
     margin: 20px 10px;
 }
 

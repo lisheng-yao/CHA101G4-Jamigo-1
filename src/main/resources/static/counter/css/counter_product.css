@@ -1,3 +1,16 @@
+button#addProduct-btn{
+    padding: 10px 12px;
+    transition: 0.3s;
+}
+
+button#addProduct-btn:hover{
+    background-color: #3261AB;
+}
+
+.table{
+    margin-bottom: 25px;
+}
+
 th,
 td {
     text-align: center;
@@ -19,5 +32,34 @@ td {
 }
 
 button.edit_btn{
-    /*padding: */
+    transition: 0.3s;
+}
+
+button.edit_btn:hover{
+    background-color:  #3261AB;
+}
+
+#productList-thead tr{
+    background-color: #E3E3E3;
+    height: 30px;
+}
+
+.table thead th:first-child {
+    border-top-left-radius: 20px;
+}
+
+.table thead th:last-child {
+    border-top-right-radius: 20px;
+}
+
+.table thead th {
+    padding-top: 18px;
+    padding-bottom: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    border-bottom: 2px solid #8E8E8E;
+}
+
+.product-list tr:hover{
+    background-color: #E3E3E3;
 }
