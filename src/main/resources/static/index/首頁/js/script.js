@@ -60,25 +60,7 @@ function check(event) {
 //  fullpage01 
 $(document).ready(function () {
 
-    // 初始化swiper
-    var swiper = new Swiper(".mySwiper1", {
-        effect: "coverflow",
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false, // 使用者互動後是否停止自動播放
-        },
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: "auto",
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-        },
-    });
+
 
 
     $.ajax({
@@ -108,10 +90,28 @@ $(document).ready(function () {
 
             $('#imgeditcontainer').append(`
         <div class="swiper-slide">
-            <img src="${imageUrl}" />`)
+            <img src="${imageUrl}"></div>`)
         }
     }
-
+    // 初始化swiper
+    var swiper = new Swiper(".mySwiper1", {
+        effect: "coverflow",
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false, // 使用者互動後是否停止自動播放
+        },
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+    });
 
 });
 
@@ -199,10 +199,10 @@ $(document).ready(function () {
             <a onclick="addWish(this,${response[i].productNo});"><i class="fa-solid fa-heart" style="color: #f1f2f3;"></i></a>
             </div>
             <h4 class="productname">${response[i].productName}</h4>
-            <div class="productcontent">${response[i].productInfo}
-            </div>
+            <div class="procontentcontainer"><div class="productcontent">${response[i].productInfo}
+            </div></div>
             <div class="evaluate">
-            ${stars}(${response[i].evalTotalPeople})
+            ${stars}(${response[i].evalTotalPeople})已售出:${response[i].productSaleNum}件
             </div>
             <div class="button">
             <h5>特價:${response[i].productPrice}元</h5>

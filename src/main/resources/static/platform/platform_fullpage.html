@@ -582,19 +582,9 @@
                     return;
                 })
             };
-            var now = new Date();
             var time1 = new Date(starttime);
             var time2 = new Date(endtime);
-            if (time1.getTime() < now.getTime()) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: '開始時間請超過當前時間!請重新選擇',
-                    title: "請重選唷",
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    return;
-                })
-            }
+
             if (time1.getTime() > time2.getTime()) {
                 Swal.fire({
                     icon: 'warning',

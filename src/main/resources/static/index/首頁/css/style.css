@@ -438,8 +438,13 @@ nav {
         font-size: 20;
         font-weight: 600;
     }
-
+    .procontentcontainer{
+        width: 100%;
+        height: 90px;
+    }
     .productcontent {
+        width: 100%;
+        height: 80%;
         font-size: 15;
         font-weight: 500;
         display: -webkit-box;
@@ -523,7 +528,7 @@ nav {
 
 .fullpage03container .container1 {
     width: 100%;
-    height: 390px;
+    height: 430px;
 
     display: flex;
     /* justify-content: center; */
@@ -554,7 +559,7 @@ nav {
 
 .cards .card1 {
     position: relative;
-    height: 390px;
+    height: 430px;
     background-color: #323444;
     border-radius: 30px;
     padding: 30px 35px;
