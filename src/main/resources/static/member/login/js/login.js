@@ -3,6 +3,8 @@
     const password = document.querySelector('#password');
     const errMsg = document.querySelector('#errMsg');
     const btn1 = document.querySelector('#btn1');
+    const remember=document.querySelector('#remember')
+
     console.log("login.js啟動");
 
     const currentPageUrl = localStorage.getItem('currentPageUrl');
@@ -29,12 +31,16 @@
                 errMsg.textContent = '';
                 const { successful, message } = body;
                 if (successful) {
-                    const { memberNo, memberAccount } = body;
-                    localStorage.setItem('memberNo', memberNo);
-                    localStorage.setItem('memberAccount', memberAccount);
-                    localStorage.setItem('memberorcount', '0');
-                    
-                    localStorage.removeItem('currentPageUrl');
+                    const {memberNo, memberAccount} = body;
+                    const checkboxValue =remember.checked;
+                    if(checkboxValue){
+                        localStorage.setItem('memberNo', memberNo);
+                        localStorage.setItem('memberAccount', memberAccount);
+                        localStorage.setItem('memberorcount', '0');
+                    }
+                    sessionStorage.setItem('memberNo', memberNo);
+                    sessionStorage.setItem('memberAccount', memberAccount);
+                    sessionStorage.setItem('memberorcount', '0');
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
