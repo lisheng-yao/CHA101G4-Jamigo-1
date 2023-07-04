@@ -243,6 +243,13 @@ $(document).on("click", "button.btn_add_to_cart", function () {
     console.log($(this).closest("div.modal_right").find("div.modal_counter_name"));
 
     let memberNo = getMemberNo();
+
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+
     let counterName = $(this).closest("div.modal_right").find("div.modal_counter_name").text().trim();
     let counterNo = parseInt($(this).closest("div.modal_right").find("p.counter_no").text());
     let productName = $(this).closest("div.modal_right").find("div.modal_product_name").text().trim();
@@ -282,13 +289,27 @@ $(document).on("click", "button.btn_add_to_cart", function () {
 
 function printCartItemsCount(){
     let memberNo = getMemberNo();
-    $.ajax({
-        url: `/Jamigo/cart/getCartList/${memberNo}`,
-        method: "GET",
-        async: false,
-        success: function (respCartItems){
-            cartItems = respCartItems;
-            $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
-        }
-    });
+    if(!memberNo){
+        $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+    }else {
+        $.ajax({
+            url: `/Jamigo/cart/getCartList/${memberNo}`,
+            method: "GET",
+            async: false,
+            success: function (respCartItems){
+                cartItems = respCartItems;
+                $(".main_header .mini_cart_wrapper .item_count").text(cartItems.length);
+            }
+        });
+    }
+}
+
+function goToCartDetailPage(){
+    let memberNo = getMemberNo();
+    if (!memberNo) {
+        localStorage.setItem('currentPageUrl', window.location.href);
+        window.location = '/Jamigo/member/login/login.html';
+        return;
+    }
+    window.location = `/Jamigo/shop/shopping/cart_detail_page.html`;
 }
