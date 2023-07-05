@@ -229,10 +229,13 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
-                                            <a href="./space/footer/index.html">回首頁</a>
+                                            <a href="/Jamigo/index/首頁/index.html">回首頁</a>
                                         </li>
                                         <li class="breadcrumb-item active">
-                                            <a href="../活動專區/活動專區.html">活動專區</a>
+                                            <a
+                                                    href="/Jamigo/promotion/promotion_list/promotion_space.html"
+                                            >活動專區</a
+                                            >
                                         </li>
                                     </ol>
                                 </nav>
@@ -263,9 +266,9 @@
                                     <h5 id="activity-name" class="font-weight-bold mb-4"></h5>
                                     <p id="activity-detail">活動內容:</p>
                                     <!-- <button class="btn btn-primary btn-block mb-2"
-                                                          style="border-radius: 5px; background: #01a5c0;">我要報名</button>
-                                                      <button class="btn btn-primary btn-block"
-                                                          style="border-radius: 5px; background: #01a5c0;">收藏活動</button> -->
+                                                                        style="border-radius: 5px; background: #01a5c0;">我要報名</button>
+                                                                    <button class="btn btn-primary btn-block"
+                                                                        style="border-radius: 5px; background: #01a5c0;">收藏活動</button> -->
                                 </div>
                             </div>
                         </div>
@@ -279,9 +282,9 @@
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <!--
-                                                            <li class="list-group-item"><i class="fal fa-user"></i>
-                                                                <span>活動名稱</span> <span id="activity-name-info"
-                                                                class="float-right"></span></li> -->
+                                                                            <li class="list-group-item"><i class="fal fa-user"></i>
+                                                                                <span>活動名稱</span> <span id="activity-name-info"
+                                                                                class="float-right"></span></li> -->
                                         <li class="list-group-item">
                                             <i class="fal fa-calendar"></i>
                                             <span>折價券活動名稱</span>
@@ -361,12 +364,24 @@
                                                     class="float-right"
                                             ></span>
                                         </li>
-                                        <button
-                                                type="button"
-                                                class="btn btn-primary d-grid gap-2 col-6 mt-3 mx-auto" id="newbutton"
-                                        >
-                                            立即領取
-                                        </button>
+                                        <div id="dhave">
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-primary d-grid gap-2 col-6 mt-3 mx-auto"
+                                                    id="newbutton"
+                                            >
+                                                立即領取
+                                            </button>
+                                        </div>
+
+                                        <div id="have" hidden>
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-secondary d-grid gap-2 col-6 mt-3 mx-auto"
+                                            >
+                                                已領取
+                                            </button>
+                                        </div>
                                     </ul>
                                 </section>
                             </aside>
@@ -506,6 +521,43 @@
             )}</div>`;
             let couponTypeNo = pc.couponTypeNo;
             getCouponType(couponTypeNo);
+
+            const memberNoa2 = localStorage.getItem("memberNo");
+            var divh = document.getElementById("have");
+            var divd = document.getElementById("dhave");
+
+            const urlParams2 = new URLSearchParams(window.location.search);
+            //創建了一個 URLSearchParams 物件，該物件可以讓你操作 URL 的查詢字符串參數。
+            const promotionCouponNo2 = urlParams2.get("promotionCouponNo"); //用於從查詢字符串中提取名為activityId的參數
+            // 向後端服務器請求活動數據
+            // console.log(
+            //   "memberNoa" + memberNoa2 + "promotionCouponNo" + promotionCouponNo2
+            // );
+            //
+
+
+            fetch("newMemberCoupon", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    memberNo: memberNoa2,
+                    promotionCouponNo: promotionCouponNo2,
+                }),
+            })
+                .then((resp) => resp.json())
+                .then((body) => {
+                    console.log(body);
+                    const {successful, message} = body;
+                    if (successful) {
+                        console.log("看來你沒領過喔~ 領看看!");
+                    } else {
+                        divh.removeAttribute("hidden");
+                        divd.setAttribute("hidden", true);
+                    }
+                });
+
         } catch (error) {
             // 如果在獲取數據過程中發生錯誤，則打印錯誤信息到控制台
             console.error(error);
@@ -538,66 +590,75 @@
     };
     (() => {
         const memberNoa = localStorage.getItem("memberNo");
-        const newbutton = document.querySelector('#newbutton');
+        const newbutton = document.querySelector("#newbutton");
+        var divh = document.getElementById("have");
+        var divd = document.getElementById("dhave");
 
         const urlParams = new URLSearchParams(window.location.search);
         //創建了一個 URLSearchParams 物件，該物件可以讓你操作 URL 的查詢字符串參數。
         const promotionCouponNo = urlParams.get("promotionCouponNo"); //用於從查詢字符串中提取名為activityId的參數
         // 向後端服務器請求活動數據
-        console.log("memberNoa" + memberNoa + "promotionCouponNo" + promotionCouponNo);
+        console.log(
+            "memberNoa" + memberNoa + "promotionCouponNo" + promotionCouponNo
+        );
+
         function getCoupon(memberNoa, promotionCouponNo) {
-            fetch('newMemberCoupon', {
-                method: 'POST',
+            fetch("newMemberCoupon", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     memberNo: memberNoa,
-                    promotionCouponNo: promotionCouponNo
+                    promotionCouponNo: promotionCouponNo,
                 }),
             })
-                .then(resp => resp.json())
-                .then(body => {
+                .then((resp) => resp.json())
+                .then((body) => {
                     console.log(body);
                     const {successful, message} = body;
                     if (successful) {
                         Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: '成功取得折價券!',
+                            position: "center",
+                            icon: "success",
+                            title: "成功取得折價券!",
                             showConfirmButton: false,
-                            timer: 1500
-                        }).then(() => {
-                            location.reload()
+                            timer: 1500,
                         })
+                            .then(() => {
+                                divh.removeAttribute("hidden");
+                                divd.setAttribute("hidden", true);
+                            })
+                            .then(() => {
+                                location.reload();
+                            });
                     } else {
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
+                            icon: "error",
+                            title: "Oops...",
                             text: `${message}`,
-                            footer: '<a href=""></a>'
-                        })
+                            footer: '<a href=""></a>',
+                        });
                     }
                 });
         }
 
-        newbutton.addEventListener('click', () => {
+        newbutton.addEventListener("click", () => {
             getCoupon(memberNoa, promotionCouponNo);
-        })
+        });
     })();
-
 </script>
 
- <!-------------------------------------  登入調版 ---------------------------------->
-  <script>
+<!-------------------------------------  登入調版 ---------------------------------->
+<script>
     var session = localStorage.getItem("memberNo");
     if (session) {
-      var button = document.querySelector(".login-button");
-      button.hidden = true;
+        var button = document.querySelector(".login-button");
+        button.hidden = true;
     } else {
-      console.log("安安沒事，沒跑版");
+        console.log("安安沒事，沒跑版");
     }
-  </script>
+</script>
 
 <script src="./detail/static/js/modernizr-3.5.0.min.js"></script>
 <script src="./detail/static/js/jquery-3.6.0.min.js"></script>
