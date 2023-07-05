@@ -231,3 +231,9 @@ function addWish(e) {
         })
     }
 }
+
+function goToCategoryPage(){
+    $("#productCat").on("click", function (){
+        window.location = `/Jamigo/shop/main_page/product_category_page.html?productCatNo=${product.productCategory.productCatNo}`;
+    });
+}
