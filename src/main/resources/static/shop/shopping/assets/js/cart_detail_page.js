@@ -143,7 +143,7 @@ function showCartByCounter() {
             <div class="empty-photo">
                 <img src="/Jamigo/shop/shopping/assets/img/cart/shopping_cart.png" alt="" style="height: 250px; width: 250px">
             </div>
-            <button type="button" class="go_shopping border border-0 fw-bold mr-2" id="empty-goshopping" onclick="window.location.href='/Jamigo/shop/main_page/shopping_main_page.html'">
+            <button type="button" class="go_shopping border border-0 fw-bold mr-2" id="empty-goshopping" onclick="window.location.href='/Jamigo/shop/main_page/商城首頁.html'">
                 <i class="fa-solid fa-cart-plus mr-1"></i>
                 前往購物
             </button>
@@ -690,15 +690,15 @@ function goToWishListPage(){
 //-----------------------------------把使用的優惠資料存入sessionStorage
 function packToSessionStorage() {
     $("#checkout_confirm").on("click", function (e) {
-        // e.preventDefault();
+        e.preventDefault();
         if(cartItems.length === 0){
-            Swal.fire(
-                '無法結帳！',
-                '您的購物車內尚無任何商品',
-                'error'
-            ).then((result) => {
+            Swal.fire({
+                icon: 'error',
+                title: '無法結帳！',
+                text: '您的購物車內尚無商品可以結帳'
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location='/Jamigo/shop/main_page/shopping_main_page.html';
+                    window.location='/Jamigo/shop/main_page/商城首頁.html';
                 }
             });
             return;
@@ -723,6 +723,7 @@ function packToSessionStorage() {
         let memberUsedPoints = $(".memberPoint_usedDiscount").text();
         discountInfo.memberUsedPoints = memberUsedPoints;
         sessionStorage["discountInfo"] = JSON.stringify(discountInfo);
+        window.location = `/Jamigo/shop/main_page/checkout.html`;
     });
 }
 

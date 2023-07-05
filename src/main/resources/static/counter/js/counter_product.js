@@ -85,7 +85,7 @@ function addProduct(){
         if(productCatNo == "0" || productName.trim() == "" || productPrice.trim() == "" || productInfo.trim() == ""){
             Swal.fire({
                 icon: 'error',
-                title: '商品資料未填寫完整',
+                title: '新增失敗！',
                 text: '請完成所有商品資料欄位填寫再新增',
             });
             return;
@@ -102,11 +102,19 @@ function addProduct(){
                 productStat: productStat
             }),
             success: function (){
-                console.log("成功!");
-                var addProductModal = document.getElementById("staticBackdrop");
-                console.log(addProductModal);
-                $(addProductModal).modal("hide");
-                location.reload();
+                // console.log("成功!");
+                Swal.fire({
+                    icon: 'success',
+                    title: '新增成功！',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function () {
+                    let addProductModal = document.getElementById("staticBackdrop");
+                    console.log(addProductModal);
+                    $(addProductModal).modal("hide");
+                    location.reload();
+                });
+
             },
             error: function(xhr, textStatus, errorThrown) {
                 console.log(xhr, textStatus, errorThrown);
