@@ -19,6 +19,7 @@ $(function (){
             $("#counterNo").text(product.counterNo);
             $("#productName").text(product.productName);
             $("#productPrice").text(product.productPrice);
+            $("#productCat_breadcrumb").text(product.productCategory.productCatName);
             $("#productCat").text(product.productCategory.productCatName);
             $("#productInfo").text(product.productInfo);
             $("input[name='productStatus'][value='" + transProductStat + "']").prop("checked", true);
