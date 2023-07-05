@@ -57,6 +57,10 @@ body{
 }
 .card-item.track .activity-track-icon .fa-heart{
     font-weight: 900;
+    pointer-events: none;
+}
+.activity-track-icon.remove{
+    
 }
 .activity-track-icon i{
     position: relative;
