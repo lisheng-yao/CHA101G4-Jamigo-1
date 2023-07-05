@@ -120,11 +120,11 @@
                 if (memberPic4json ==="有圖") {
                     avatarpreview.src = `/Jamigo/member/member_data/${memberNo}`;
                     avatarPreview.style.display = "block";
-                    avatarPlaceholder.style.display = "none";
+                    // avatarPlaceholder.style.display = "none";
                 } else {
                     avatarpreview.src = `/Jamigo/member/member/image/gray.jpg`;
                     avatarPreview.style.display = "none";
-                    avatarPlaceholder.style.display = "block";
+                    // avatarPlaceholder.style.display = "block";
                 }
                 memberpassword4edit = memberPassword;
 
