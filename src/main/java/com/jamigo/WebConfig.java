@@ -14,6 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
     private LoginInterceptor loginInterceptor;
     @Autowired
     private AdminLoginInterceptor adminLoginInterceptor;
+    @Autowired
+    private MemberLonginInterceptor memberLonginInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -23,7 +25,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/counter/login/**");
         registry.addInterceptor(adminLoginInterceptor)
         		.addPathPatterns("/platform/*****") // 設置需要攔截的 URL
-        		.excludePathPatterns("/platform/login/**"); 
+        		.excludePathPatterns("/platform/login/**");
+        registry.addInterceptor(memberLonginInterceptor)
+                .addPathPatterns("/member/member/****"); // 設置需要攔截的 URL
+//                .excludePathPatterns("/platform/login/**");
     }
     
 

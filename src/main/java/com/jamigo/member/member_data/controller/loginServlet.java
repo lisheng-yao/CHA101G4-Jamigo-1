@@ -39,6 +39,7 @@ public class loginServlet extends HttpServlet {
             final HttpSession session = request.getSession();
             session.setAttribute("loggedin", true);
             session.setAttribute("memberData", memberData);
+            session.setAttribute("memberNo", memberData.getMemberNo());
         }
         writePojo2Json(response, memberData);
     }
