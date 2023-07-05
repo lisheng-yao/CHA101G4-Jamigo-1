@@ -58,10 +58,12 @@ function opensignin() {
     const logout = document.querySelector('#logoutbutton');
     logout.addEventListener('click', () => {
         opensignin();
-        localStorage.setItem('memberNo', '');
-        localStorage.setItem('memberAccount', '');
-        sessionStorage.setItem('memberNo', '');
-        sessionStorage.setItem('memberAccount', '');
+        localStorage.removeItem('memberNo');
+        localStorage.removeItem('memberAccount');
+        localStorage.removeItem('memberorcount');
+        sessionStorage.removeItem('memberNo');
+        sessionStorage.removeItem('memberAccount');
+        sessionStorage.removeItem('memberorcount');
         console.log("登出");
         fetch("log_out")
             .then(
