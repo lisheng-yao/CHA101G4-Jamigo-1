@@ -25,19 +25,26 @@ public class ActivityCollectionEntity implements Serializable {
 	@Id
 	private Integer memberNo;
 
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "activityNo",
-				insertable = false, updatable = false)
-	private Activity activity;
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "activityNo",
+//				insertable = false, updatable = false, nullable = true)
+//	private Activity activity;
 	
 	public ActivityCollectionEntity() {}
 
-	public ActivityCollectionEntity(Integer activityNo, Integer memberNo, Activity activity) {
+	
+//	public ActivityCollectionEntity(Integer activityNo, Integer memberNo, Activity activity) {
+//		this.activityNo = activityNo;
+//		this.memberNo = memberNo;
+//		this.activity = activity;
+//	}
+
+	public ActivityCollectionEntity(Integer activityNo, Integer memberNo) {
+		super();
 		this.activityNo = activityNo;
 		this.memberNo = memberNo;
-		this.activity = activity;
 	}
+
 
 	public Integer getActivityNo() {
 		return activityNo;
@@ -55,12 +62,12 @@ public class ActivityCollectionEntity implements Serializable {
 		this.memberNo = memberNo;
 	}
 
-	public Activity getActivity() {
-		return activity;
-	}
-
-	public void setActivity(Activity activity) {
-		this.activity = activity;
-	}
+//	public Activity getActivity() {
+//		return activity;
+//	}
+//
+//	public void setActivity(Activity activity) {
+//		this.activity = activity;
+//	}
 	
 }

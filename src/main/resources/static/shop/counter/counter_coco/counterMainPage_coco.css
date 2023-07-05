@@ -6,6 +6,16 @@
     --bacGray: #f1f1f1;
 }
 
+.navbar .container{
+    position: relative;
+    top: 0;
+}
+.main_before{
+    padding-top: 0;
+}
+#counterNav{
+    color: #000 !important;
+}
 
 /* 輪播圖更換模板 */
 .carousel-item{
@@ -204,7 +214,10 @@
 }
 
 
-
+.shop_wrapper{
+    width: 1200px;
+    margin: 0 auto;
+}
 
 .shop_toolbar_wrapper{
     border-left: none;
