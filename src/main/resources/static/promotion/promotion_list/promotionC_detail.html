@@ -266,9 +266,9 @@
                       <h5 id="activity-name" class="font-weight-bold mb-4"></h5>
                       <p id="activity-detail">活動內容:</p>
                       <!-- <button class="btn btn-primary btn-block mb-2"
-                                                                        style="border-radius: 5px; background: #01a5c0;">我要報名</button>
-                                                                    <button class="btn btn-primary btn-block"
-                                                                        style="border-radius: 5px; background: #01a5c0;">收藏活動</button> -->
+                                                                                      style="border-radius: 5px; background: #01a5c0;">我要報名</button>
+                                                                                  <button class="btn btn-primary btn-block"
+                                                                                      style="border-radius: 5px; background: #01a5c0;">收藏活動</button> -->
                     </div>
                   </div>
                 </div>
@@ -282,9 +282,9 @@
                       </div>
                       <ul class="list-group list-group-flush">
                         <!--
-                                                                            <li class="list-group-item"><i class="fal fa-user"></i>
-                                                                                <span>活動名稱</span> <span id="activity-name-info"
-                                                                                class="float-right"></span></li> -->
+                                                                                            <li class="list-group-item"><i class="fal fa-user"></i>
+                                                                                                <span>活動名稱</span> <span id="activity-name-info"
+                                                                                                class="float-right"></span></li> -->
                         <li class="list-group-item">
                           <i class="fal fa-calendar"></i>
                           <span>折價券活動名稱</span>
@@ -593,7 +593,27 @@
                     divd.setAttribute("hidden", true);
                   })
                   .then(() => {
-                    location.reload();
+                    // location.reload();
+                  })
+                  .then(async () => {
+                    // 從URL中取出活動ID
+                    const urlParams = new URLSearchParams(
+                      window.location.search
+                    );
+                    //創建了一個 URLSearchParams 物件，該物件可以讓你操作 URL 的查詢字符串參數。
+                    const promotionCouponNo =
+                      urlParams.get("promotionCouponNo"); //用於從查詢字符串中提取名為activityId的參數
+                    // 向後端服務器請求活動數據
+                    const response = await axios.get(
+                      `/Jamigo/coupons/${promotionCouponNo}`
+                    );
+                    const pc2 = response.data;
+
+                    // 向後端服務器請求活動數據
+                    // 使用活動數據來更新你的頁面
+
+                    document.getElementById("get-amount").innerText =
+                      pc2.getAmount;
                   });
               } else {
                 Swal.fire({
@@ -602,6 +622,8 @@
                   text: `${message}`,
                   footer: '<a href=""></a>',
                 });
+                divh.removeAttribute("hidden");
+                divd.setAttribute("hidden", true);
               }
             });
         }
@@ -648,7 +670,7 @@
     <!-- FontAwesome -->
     <script src="./space/footer/js/all.js"></script>
     <!-- js -->
-<!--    <script src="/Jamigo/index/頁首頁尾_final/js/script.js"></script>-->
+    <!--    <script src="/Jamigo/index/頁首頁尾_final/js/script.js"></script>-->
 
     <script src="/Jamigo/frontEnd/js/script.js"></script>
   </body>
