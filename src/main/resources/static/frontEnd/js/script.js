@@ -56,7 +56,7 @@ function opensignin() {
 
 
     const logout = document.querySelector('#logoutbutton');
-    logout.addEventListener('click', () => {
+    logout?.addEventListener('click', () => {
         opensignin();
         localStorage.removeItem('memberNo');
         localStorage.removeItem('memberAccount');
@@ -67,11 +67,8 @@ function opensignin() {
         console.log("登出");
         fetch("log_out")
             .then(
-                window.location.href = "/Jamigo/member/login/login.html"
+                window.location.href = "/Jamigo/index/首頁/index.html"
                 )
-
-
-
     })
 
 })();
