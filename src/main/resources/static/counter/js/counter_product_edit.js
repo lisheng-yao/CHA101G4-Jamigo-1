@@ -90,6 +90,7 @@ function getProductCatOptions() {
     $.ajax({
         url: `/Jamigo/products/getAllCategories`,
         method: "GET",
+        async: false,
         success: function (resp) {
             console.log(resp);
             let options_html = ``;

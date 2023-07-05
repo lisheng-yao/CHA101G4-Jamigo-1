@@ -25,6 +25,13 @@ td {
     text-overflow: ellipsis;
 }
 
+.prod-name{
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .preview-image {
     max-width: 100px;
     /* 設定最大寬度 */
