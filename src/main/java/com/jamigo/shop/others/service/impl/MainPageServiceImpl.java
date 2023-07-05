@@ -3,7 +3,7 @@ package com.jamigo.shop.others.service.impl;
 import com.jamigo.counter.counter.dao.CounterRepository;
 import com.jamigo.shop.others.dto.ProductForMainPageDTO;
 import com.jamigo.shop.others.repo.ProductForMainPageRepository;
-import com.jamigo.shop.others.service.OtherService;
+import com.jamigo.shop.others.service.MainPageService;
 import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.entity.ProductCategory;
 import com.jamigo.shop.product.repo.ProductCategoryRepository;
@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class OtherServiceImpl implements OtherService {
+public class MainPageServiceImpl implements MainPageService {
 
     @Autowired
     private ProductForMainPageRepository productForMainPageRepository;
