@@ -402,18 +402,18 @@ input[type="submit"]:hover {
 
 
 								// 監聽活動名稱輸入狀態
-								document.getElementById('activityName').addEventListener('input', function (e) {
-									let activityName = e.target.value.trim();
+// 								document.getElementById('activityName').addEventListener('input', function (e) {
+// 									let activityName = e.target.value.trim();
 
-									// 檢查活動名稱是否有效
-									if (activityName === '') {
-										e.target.setCustomValidity('請輸入有效的活動名稱！');
-									} else if (!/^[a-zA-Z0-9\s]+$/.test(activityName)) {
-										e.target.setCustomValidity('活動名稱只能包含字母、數字和空格！');
-									} else {
-										e.target.setCustomValidity('');
-									}
-								});
+// 									// 檢查活動名稱是否有效
+// // 									if (activityName === '') {
+// // 										e.target.setCustomValidity('請輸入有效的活動名稱！');
+// // 									} else if (!/^[a-zA-Z0-9\s]+$/.test(activityName)) {
+// // 										e.target.setCustomValidity('活動名稱只能包含字母、數字和空格！');
+// // 									} else {
+// // 										e.target.setCustomValidity('');
+// // 									}
+// // 								});
 
 								// 監聽活動內容輸入
 								document.getElementById('activityDetail').addEventListener('input', function (e) {
@@ -458,7 +458,7 @@ input[type="submit"]:hover {
 								if (activityRegStartTime >= activityRegEndTime) {
 									Swal.fire({
 										icon: 'error',
-										text: '報名開始時間不能晚於或等於報名結束時間！',
+										text: '報名開始時間不能晚於報名截止時間！',
 									});
 									return;
 								}
@@ -467,7 +467,7 @@ input[type="submit"]:hover {
 								if (activityStartTime <= activityRegEndTime) {
 									Swal.fire({
 										icon: 'error',
-										text: '活動開始時間必須晚於報名截止時間！',
+										text: '活動開始時間不能早於報名截止時間！',
 									});
 									return;
 								}
