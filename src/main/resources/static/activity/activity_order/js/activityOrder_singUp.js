@@ -1,4 +1,4 @@
-//let credit_card_info = document.querySelector('.credit-card-info-box');
+let credit_card_info = document.querySelector('.credit-card-info-box');
 let mobile_pay = document.querySelector('.mobile-pay-box');
 let pay_way_group = document.querySelectorAll('.pay-way');
 let select_number_of_people = document.querySelector('.select-number-of-people select');
@@ -23,6 +23,9 @@ let activity_attendee_email_input = document.querySelector('#activity-attendee-e
 let activity_attendee_phone_input = document.querySelector('#activity-attendee-phone');
 let activity_attendee_num_select = document.querySelector('#activity-attendee-more-num');
 let activity_attendee_coupon = document.querySelector('#activity-attendee-coupon');
+let pay_way_credit_card = document.querySelector('#pay-way-credit-card');
+
+let couponInfo = {couponTypeNo0 : 0};
 
 // 報名等級
 let activityLev_DB;
@@ -153,62 +156,72 @@ activity_form_submit.addEventListener('click', () => {
 		if(result.isConfirmed){
 			let more_attendee_num = activity_attendee_num_select.value - 1;
 	
-		axios.post('/Jamigo/activityOrder/insert', {
-			activityNo : activity_activityNo_input.value,
-			memberNo : activity_attendee_memberNo_input.value,
-			activityPaymentStat : 0,
-			memberCouponNo : activity_attendee_coupon.value == 0 ? null : activity_attendee_coupon.value,
-			numberOfAttendee : more_attendee_num
-		}, {headers : {'Content-Type' : 'application/json'}})
-		.then(resp_activity => {
-			console.log('activityOrderNo' + resp_activity.data);
-			return resp_activity.data;
-		})
-		.then(data_activity => {
-			if(more_attendee_num > 0) {
-				let more_attendee_arr = [];
-				for(let i = 1; i <= more_attendee_num; i++) {
-					let more_attendee = {
-						activityOrderNo : data_activity,
-						attendeeName : document.querySelector(`#activity-attendee-more-name-input${i}`).value,
-						attendeeGender : document.querySelector(`#activity-attendee-more-gender-male-input${i}`).checked ?
-										1 : 2,
-						attendeeAge : document.querySelector(`#activity-attendee-more-age-input${i}`).value
+			axios.post('/Jamigo/activityOrder/insert', {
+				activityNo : activity_activityNo_input.value,
+				memberNo : activity_attendee_memberNo_input.value,
+				activityPaymentStat : pay_way_credit_card.checked ? 1 : 0,
+				memberCouponNo : activity_attendee_coupon.value == 0 ? null : activity_attendee_coupon.value,
+				numberOfAttendee : more_attendee_num
+			}, {headers : {'Content-Type' : 'application/json'}})
+			.then(resp_activity => {
+				console.log('activityOrderNo' + resp_activity.data);
+				return resp_activity.data;
+			})
+			.then(data_activity => {
+				if(more_attendee_num > 0) {
+					let more_attendee_arr = [];
+					for(let i = 1; i <= more_attendee_num; i++) {
+						let more_attendee = {
+							activityOrderNo : data_activity,
+							attendeeName : document.querySelector(`#activity-attendee-more-name-input${i}`).value,
+							attendeeGender : document.querySelector(`#activity-attendee-more-gender-male-input${i}`).checked ?
+											1 : 2,
+							attendeeAge : document.querySelector(`#activity-attendee-more-age-input${i}`).value
+						}
+						more_attendee_arr.push(more_attendee);
 					}
-					more_attendee_arr.push(more_attendee);
+					
+					axios.post('/Jamigo/activityAttendee/insert', more_attendee_arr, {headers : {'Content-Type':'application/json'}})
+					.then(resp_attendee => {
+						console.log(resp_attendee);
+					})
+					.catch(err_attendee => console.log(err_attendee))
 				}
-				
-				axios.post('/Jamigo/activityAttendee/insert', more_attendee_arr, {headers : {'Content-Type':'application/json'}})
-				.then(resp_attendee => {
-					console.log(resp_attendee);
-				})
-				.catch(err_attendee => console.log(err_attendee))
-			}
-			console.log('data_activity' + data_activity);
-			return data_activity;
-		})
-		.then(data_attendee => {
-			console.log(data_attendee);
-			data_attendee = parseInt(data_attendee);
-			const requestBody = new URLSearchParams();
-			requestBody.append('activityOrderNo', data_attendee);
-			axios.post(`/Jamigo/activityOrder/ecpayCheckout`, requestBody.toString(), {headers : {
-				'Content-Type' : 'application/x-www-form-urlencoded'
-			}})
-			.then(resp_ecpayCheckout => {
-				return resp_ecpayCheckout.data;
+				console.log('data_activity' + data_activity);
+				return data_activity;
 			})
-			.then(data_ecpayCheckout => {
-				let ele = document.createElement('div');
-				ele.setAttribute('id', 'responseData');
-				ele.innerHTML = data_ecpayCheckout;
-				console.log(document.querySelector('body'));
-				document.querySelector('body').append(ele);
-				document.querySelector('#allPayAPIForm').submit();
+			.then(data_attendee => {
+				if(pay_way_credit_card.checked) {
+					Swal.fire({
+						icon: 'success',
+						title: '付款成功',
+						text: '線下活動付款成功!',
+						confirmButtonText: "確認"
+					  })
+					  .then(() => window.location.href="/Jamigo/member/center/activity_memberSignUp/member_activityMemberSignUp.html")
+				} else {
+					console.log(data_attendee);
+					data_attendee = parseInt(data_attendee);
+					const requestBody = new URLSearchParams();
+					requestBody.append('activityOrderNo', data_attendee);
+					axios.post(`/Jamigo/activityOrder/ecpayCheckout`, requestBody.toString(), {headers : {
+						'Content-Type' : 'application/x-www-form-urlencoded'
+					}})
+					.then(resp_ecpayCheckout => {
+						return resp_ecpayCheckout.data;
+					})
+					.then(data_ecpayCheckout => {
+						let ele = document.createElement('div');
+						ele.setAttribute('id', 'responseData');
+						ele.innerHTML = data_ecpayCheckout;
+						console.log(document.querySelector('body'));
+						document.querySelector('body').append(ele);
+						document.querySelector('#allPayAPIForm').submit();
+					})
+					.catch(err_ecpayCheckout => console.log(err_ecpayCheckout))
+				}
 			})
-			.catch(err_ecpayCheckout => console.log(err_ecpayCheckout))
-		})
-		.catch(err_activity => console.log(err_activity))
+			.catch(err_activity => console.log(err_activity))
 		}
 	})
 })
@@ -216,23 +229,25 @@ activity_form_submit.addEventListener('click', () => {
 // HTML動態生成
 
 // 付款方式選擇，並跑出對應的選項
-//document.querySelector('.pay-way-credit-card-box').addEventListener('click', () => {
-//    credit_card_info.classList.add('show');
-//    mobile_pay.classList.remove('show');
-//})
+document.querySelector('.pay-way-credit-card-box').addEventListener('click', () => {
+   	credit_card_info.classList.add('show');
+   	mobile_pay.classList.remove('show');
+})
 document.querySelector('.pay-way-mobile-box').addEventListener('click', () => {
     mobile_pay.classList.add('show');
-//    credit_card_info.classList.remove('show');
+	credit_card_info.classList.remove('show');
 })
-document.querySelector('.pay-way-ATM-box').addEventListener('click', () => {
-    mobile_pay.classList.remove('show');
-//    credit_card_info.classList.remove('show');
-})
+// document.querySelector('.pay-way-ATM-box').addEventListener('click', () => {
+//     mobile_pay.classList.remove('show');
+// //    credit_card_info.classList.remove('show');
+// })
 
 // 選擇人數後更新額外參加人數的欄位
 select_number_of_people.addEventListener('change', () => {
+	let couponNum = `couponTypeNo${activity_attendee_coupon.value}`;
+	let discount = couponInfo[couponNum];
 	// 更新總金額
-	total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value);
+	total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
     
 	// 抓取選擇後的人數
     let num = select_number_of_people.value - 1;
@@ -244,10 +259,15 @@ select_number_of_people.addEventListener('change', () => {
     }else if(num < attendee_more_num) {
         let lackFormNum = attendee_more_num - num;
         for(let i = 0; i < lackFormNum; i++)		
-				document.querySelector('.activity-attendee-more').lastChild.remove();
+			document.querySelector('.activity-attendee-more').lastChild.remove();
     }
 })
 
+activity_attendee_coupon.addEventListener('change', () => {
+	let couponNum = `couponTypeNo${activity_attendee_coupon.value}`;
+	let discount = couponInfo[couponNum];
+	total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
+})
 
 // 自動生成額外參加人數的欄位
 function autoCreateForm(startIndex) {
@@ -292,18 +312,39 @@ function autoCreateForm(startIndex) {
 // 動態生成優惠select欄位
 getCouponSelect();
 function getCouponSelect(){
-	axios.get("/Jamigo/promotion/promotion/getAllPromotionCoupon")
+	axios.get(`/Jamigo/cart/getMemberCoupons/${currentMemberNo}`)
 	.then(resp => {return resp.data})
 	.then(datas => {
+		console.log(datas);
 		for(let i = 0; i < datas.length; i++) {
 			let element = document.createElement('option');
-			element.setAttribute('value', datas[i].promotionCouponNo);
-			element.innerText = datas[i].promotionCouponName;
+			element.setAttribute('value', datas[i].couponTypeNo);
+			// element.setAttribute('data-price', datas[i].couponPrice);
+			element.innerText = datas[i].couponTypeName;
 			activity_attendee_coupon.append(element);
+			couponInfo[`couponTypeNo${datas[i].couponTypeNo}`] = datas[i].couponPrice;
+			couponInfo[`couponLowest${datas[i].couponTypeNo}`] = datas[i].couponLowest;
 		}
+		console.log(couponInfo);
 	})
 	.catch(err => console.log(err))
 }
 
+// 錯誤判斷
+function inputAttendeeMoreName_reject(ele) {
+	let flag = true;
+	let error_text = '';
+	let value = ele.value;
+	let parent = ele.parentElement;
+	let parentSibling = parent.nextElementSibling;
+	let err = parentSibling.lastElementChild;
 
+ 	if(value == null || value.trim() == 0) {
+   		flag = false;
+   		error_text = `請輸入${ele.nextElementSibling.innerText}`;
+	}
+
+	error_text_controll(flag, err, error_text);
+	return flag;
+}
 

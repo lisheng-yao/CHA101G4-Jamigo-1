@@ -20,7 +20,7 @@ $(function(){
                     <tr>
                         <td>${resp[e].productCategory.productCatName}</td>
 <!--                        <td><img src="/Jamigo/shop/product_picture/product/${resp[e].productNo}" alt="" style="height: 50px; width: 50px;"></td>-->
-                        <td>${resp[e].productName}</td>
+                        <td class="prod-name">${resp[e].productName}</td>
                         <td>${resp[e].productPrice}</td>
                         <td class="prod-description">${resp[e].productInfo}</td>
                         <td>
@@ -60,7 +60,7 @@ function getProductCatOptions(){
             method: "GET",
             success: function (resp){
                 console.log(resp);
-                let options_html = `<option value="0">選擇商品類別</option>`;
+                let options_html = `<option value="">選擇商品類別</option>`;
                 for (let e in resp){
                     options_html += `
                         <option value="${resp[e].productCatNo}">${resp[e].productCatName}</option>
@@ -82,7 +82,7 @@ function addProduct(){
         let productPrice = $("#productPrice").val();
         let productInfo = $("#productDescription").val();
         let productStat = $("input[name='productStatus']:checked").val() === "1" ? "true" : "false";
-        if(productCatNo == "0" || productName.trim() == "" || productPrice.trim() == "" || productInfo.trim() == ""){
+        if(productCatNo == "" || productName.trim() == "" || productPrice.trim() == "" || productInfo.trim() == ""){
             Swal.fire({
                 icon: 'error',
                 title: '新增失敗！',

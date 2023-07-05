@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jamigo.activity.attendee.entity.ActivityAttendeeService;
@@ -24,6 +23,8 @@ import com.jamigo.activity.attendee.entity.ActivityAttendeeVO;
 import com.jamigo.counter.activityOrder.entity.ActivityOrderDTO;
 import com.jamigo.counter.activityOrder.entity.ActivityOrderService;
 import com.jamigo.counter.activityOrder.entity.ActivityOrderVO;
+import com.jamigo.promotion.CouponType.Dao.CouponTypeDao;
+import com.jamigo.promotion.CouponType.Entity.CouponType;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
@@ -37,6 +38,9 @@ public class ActivityOrderController {
 	
 	@Autowired
 	ActivityAttendeeService activityAttendeeService;
+	
+	@Autowired
+    private CouponTypeDao couponTypeDao;
 	
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody ActivityOrderVO activityOrderVO){
@@ -126,7 +130,9 @@ public class ActivityOrderController {
         
         Integer attendeeNum = vo.getNumberOfAttendee() + 1;
         Integer money = vo.getActivity().getActivityCost();
-        Integer totalPay = money * attendeeNum;
+        CouponType coupon = couponTypeDao.selectById(vo.getMemberCouponNo());
+        Integer discount = coupon.getCouponPrice();
+        Integer totalPay = money * attendeeNum - discount;
         
         AllInOne all = new AllInOne("");
 
@@ -168,6 +174,10 @@ public class ActivityOrderController {
         }
     }
     
+    @GetMapping("/getCurrentCoupon/{couponTypeNo}")
+    public CouponType getCurrentCoupon(@PathVariable Integer couponTypeNo) {
+    	return couponTypeDao.selectById(couponTypeNo);
+    }
 //    @GetMapping("/paidResult_test/{activityOrderNo}")
 //    public void checkPaidResult(@PathVariable Integer activityOrderNo) {
 //    	System.out.println("activityOrderNo" +activityOrderNo);

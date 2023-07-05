@@ -27,7 +27,9 @@ public class WebConfig implements WebMvcConfigurer {
         		.addPathPatterns("/platform/*****") // 設置需要攔截的 URL
         		.excludePathPatterns("/platform/login/**");
         registry.addInterceptor(memberLonginInterceptor)
-                .addPathPatterns("/member/member/****"); // 設置需要攔截的 URL
+                .addPathPatterns("/member/member/****") // 設置需要攔截的 URL
+                .addPathPatterns("/frontEnd/**")
+                .addPathPatterns("/member/center/****");
 //                .excludePathPatterns("/platform/login/**");
     }
     
