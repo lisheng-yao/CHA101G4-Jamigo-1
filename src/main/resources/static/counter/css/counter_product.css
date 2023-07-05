@@ -5,6 +5,7 @@ button#addProduct-btn{
 
 button#addProduct-btn:hover{
     background-color: #3261AB;
+    cursor: pointer;
 }
 
 .table{
@@ -37,6 +38,7 @@ button.edit_btn{
 
 button.edit_btn:hover{
     background-color:  #3261AB;
+    cursor: pointer;
 }
 
 #productList-thead tr{

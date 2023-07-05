@@ -19,6 +19,7 @@ $(function (){
             $("#counterNo").text(product.counterNo);
             $("#productName").text(product.productName);
             $("#productPrice").text(product.productPrice);
+            $("#productCat_breadcrumb").text(product.productCategory.productCatName);
             $("#productCat").text(product.productCategory.productCatName);
             $("#productInfo").text(product.productInfo);
             $("input[name='productStatus'][value='" + transProductStat + "']").prop("checked", true);
@@ -230,4 +231,10 @@ function addWish(e) {
             }
         })
     }
+}
+
+function goToCategoryPage(){
+    $("#productCat").on("click", function (){
+        window.location = `/Jamigo/shop/main_page/product_category_page.html?productCatNo=${product.productCategory.productCatNo}`;
+    });
 }
