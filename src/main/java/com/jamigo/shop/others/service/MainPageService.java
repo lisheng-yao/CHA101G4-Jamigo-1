@@ -1,12 +1,11 @@
 package com.jamigo.shop.others.service;
 
 import com.jamigo.shop.others.dto.ProductForMainPageDTO;
-import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.entity.ProductCategory;
 
 import java.util.List;
 
-public interface OtherService {
+public interface MainPageService {
 
     List<ProductForMainPageDTO> getRecommendation();
 
