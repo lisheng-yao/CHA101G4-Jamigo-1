@@ -1,8 +1,7 @@
 package com.jamigo.shop.others.controller;
 
 import com.jamigo.shop.others.dto.ProductForMainPageDTO;
-import com.jamigo.shop.others.service.OtherService;
-import com.jamigo.shop.product.entity.Product;
+import com.jamigo.shop.others.service.MainPageService;
 import com.jamigo.shop.product.entity.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +14,12 @@ import java.util.List;
 public class OtherController {
 
     @Autowired
-    private OtherService otherService;
+    private MainPageService mainPageService;
 
     @GetMapping("/shop/recommendation")
     public ResponseEntity<?> getRecommendation() {
 
-        List<ProductForMainPageDTO> productForMainPageDTOList = otherService.getRecommendation();
+        List<ProductForMainPageDTO> productForMainPageDTOList = mainPageService.getRecommendation();
 
         if (productForMainPageDTOList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productForMainPageDTOList);
@@ -31,7 +30,7 @@ public class OtherController {
     @GetMapping("/shop/recommendation/counter/{counterNo}")
     public ResponseEntity<?> getCounterRecommendation(@PathVariable Integer counterNo) {
 
-        List<ProductForMainPageDTO> productForMainPageDTOList = otherService.getCounterRecommendation(counterNo);
+        List<ProductForMainPageDTO> productForMainPageDTOList = mainPageService.getCounterRecommendation(counterNo);
 
         if (productForMainPageDTOList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productForMainPageDTOList);
@@ -42,7 +41,7 @@ public class OtherController {
     @GetMapping("/shop/best_selling")
     public ResponseEntity<?> getBestSelling() {
 
-        List<ProductForMainPageDTO> productForMainPageDTOList = otherService.getBestSelling();
+        List<ProductForMainPageDTO> productForMainPageDTOList = mainPageService.getBestSelling();
 
         if (productForMainPageDTOList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productForMainPageDTOList);
@@ -53,7 +52,7 @@ public class OtherController {
     @GetMapping("/shop/main_page/product_category")
     public ResponseEntity<?> getAllProductCategory() {
 
-        List<ProductCategory> productCategoryList = otherService.getAllProductCategory();
+        List<ProductCategory> productCategoryList = mainPageService.getAllProductCategory();
 
         if (productCategoryList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productCategoryList);
@@ -65,7 +64,7 @@ public class OtherController {
     public ResponseEntity<?> getProductCategoryById(
             @PathVariable Integer productCatNo) {
 
-        ProductCategory productCategory = otherService.getProductCategoryById(productCatNo);
+        ProductCategory productCategory = mainPageService.getProductCategoryById(productCatNo);
 
         if (productCategory != null)
             return ResponseEntity.status(HttpStatus.OK).body(productCategory);
@@ -79,7 +78,7 @@ public class OtherController {
             @RequestParam Integer page,
             @RequestParam Integer orderBy) {
 
-        List<ProductForMainPageDTO> productForMainPageDTOList = otherService.getProductsByCategory(productCatNo, page, orderBy);
+        List<ProductForMainPageDTO> productForMainPageDTOList = mainPageService.getProductsByCategory(productCatNo, page, orderBy);
 
         if (productForMainPageDTOList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productForMainPageDTOList);
@@ -91,7 +90,7 @@ public class OtherController {
     public ResponseEntity<?> getProductAmountByCategory(
             @PathVariable Integer productCatNo) {
 
-        Integer product_amount = otherService.getProductAmountByCategory(productCatNo);
+        Integer product_amount = mainPageService.getProductAmountByCategory(productCatNo);
 
         if (product_amount != null)
             return ResponseEntity.status(HttpStatus.OK).body(product_amount);
@@ -101,7 +100,7 @@ public class OtherController {
 
     @GetMapping("/shop/product_search")
     public ResponseEntity<?> getProductsByKeyword(@RequestParam String keyword, @RequestParam Integer orderBy) {
-        List<ProductForMainPageDTO> productForMainPageDTOList = otherService.getProductsByKeyword(keyword, orderBy);
+        List<ProductForMainPageDTO> productForMainPageDTOList = mainPageService.getProductsByKeyword(keyword, orderBy);
 
         if (productForMainPageDTOList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productForMainPageDTOList);
