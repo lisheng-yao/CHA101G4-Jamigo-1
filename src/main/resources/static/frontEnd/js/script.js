@@ -62,7 +62,12 @@ function opensignin() {
         localStorage.setItem('memberAccount', '');
         sessionStorage.setItem('memberNo', '');
         sessionStorage.setItem('memberAccount', '');
-        window.location.href = "/Jamigo/member/login/login.html";
+        fetch("/log_out")
+            .then(
+                window.location.href = "/Jamigo/member/login/login.html"
+                )
+
+
     })
 
 })();
