@@ -578,126 +578,6 @@ textarea:-ms-input-placeholder {
 /* 2. Home 1 Header css here */
 /* 01. header css here */
 
-/* -----------------------------------------------頁首開始----------------------------------------- */
-
-/* 設定頁首區域 */
-nav.navbar .container {
-    margin-left: 50px;
-    margin-right: 0px;
-    padding-right: 0px;
-}
-
-nav.navbar {
-    background-color: rgb(50, 56, 64);
-    /* position: fixed; */
-    top: 0px;
-    width: 100%;
-    z-index: 100;
-    opacity: 0.95;
-}
-
-nav.navbar .navbar-brand {
-    width: 20%;
-    height: 80px;
-}
-
-nav.navbar .LOGO {
-    max-width: 72%;
-    height: auto;
-}
-
-nav.navbar .navbar-nav .nav-link {
-    margin-bottom: 10px;
-}
-
-/* CSS  導覽列按鈕美化 */
-nav.navbar .button-01 {
-    all: unset;
-    width: 60px;
-    height: 20px;
-    font-size: 16px;
-    background: transparent;
-    border: none;
-    position: relative;
-    color: #f0f0f0;
-    cursor: pointer;
-    z-index: 1;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    margin-right: 25px;
-}
-
-nav.navbar .button-01::after,
-.button-01::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: -99999;
-    transition: all .4s;
-}
-
-nav.navbar .button-01::before {
-    transform: translate(0%, 0%);
-    width: 100%;
-    height: 100%;
-    background: #28282d;
-    border-radius: 10px;
-}
-
-nav.navbar .button-01::after {
-    transform: translate(10px, 10px);
-    width: 35px;
-    height: 35px;
-    background: #ffffff15;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 50px;
-}
-
-nav.navbar .button-01:hover::before {
-    transform: translate(5%, 20%);
-    width: 110%;
-    height: 110%;
-}
-
-nav.navbar .button-01:hover::after {
-    border-radius: 10px;
-    transform: translate(0, 0);
-    width: 100%;
-    height: 100%;
-}
-
-nav.navbar .button-01:active::after {
-    transition: 0s;
-    transform: translate(0, 5%);
-}
-
-/* js判斷是否為當前頁面後套入的css */
-nav.navbar .collapse .active {
-    color: yellow !important
-}
-
-/* 小icon */
-nav.navbar .nav-icon {
-    margin-right: 8px;
-}
-
-nav.navbar .svg-inline--fa {
-    height: 22px;
-}
-
-/* ----------------------------------------------頁首結束----------------------------------- */
-
-
-
-
 .off_canvars_overlay {
     width: 100%;
     height: 100%;
@@ -1491,11 +1371,11 @@ nav.navbar .svg-inline--fa {
 .mega_menu_inner {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
 }
 
 .mega_menu_inner>li {
-    flex: 1 0 20%;
+    flex: 0 0 20%;
     margin: 20px 10px;
 }
 
@@ -3255,15 +3135,15 @@ nav.navbar .svg-inline--fa {
 
 .label_product span.label_sale {
     top: 15px;
-    right: 13px;
+    left: 13px;
     text-transform: uppercase;
     color: #ffffff;
     background: #F53737;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    height: 24px;
+    height: 25px;
     line-height: 24px;
-    width: 56px;
+    width: 65px;
     text-align: center;
     display: block;
     border-radius: 18px;
@@ -3307,7 +3187,7 @@ nav.navbar .svg-inline--fa {
     font-size: 18px;
     line-height: 24px;
     font-weight: 500;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     margin: 0;
 
     min-height: 50px;
@@ -3329,7 +3209,7 @@ nav.navbar .svg-inline--fa {
     font-size: 14px;
     line-height: 24px;
     font-weight: 500;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     margin: 0;
     color: rgba(0, 0, 0, 0.6);
 
@@ -4486,7 +4366,7 @@ nav.navbar .svg-inline--fa {
 .testimonial_author a {
     font-size: 20px;
     line-height: 16px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 
 .testimonial_author a:hover {
@@ -4718,9 +4598,9 @@ nav.navbar .svg-inline--fa {
 }
 
 /*brand css here*/
-.brand_area {
-    margin-bottom: 87px;
-}
+/*.brand_area {*/
+/*    margin-bottom: 87px;*/
+/*}*/
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .brand_area {
@@ -4865,47 +4745,6 @@ nav.navbar .svg-inline--fa {
 }
 
 /*  07. footer area css here */
-/* 設定頁尾區域 */
-.footer_section {
-    padding-top: 30px;
-    padding-bottom: 10px;
-    width: 100%;
-    float: left;
-    height: auto;
-    background-color: rgb(50, 56, 64) !important;
-}
-
-/* 頁尾大標題 */
-.customer_text {
-    width: 100%;
-    float: left;
-    font-size: 24px;
-    margin-left: 30px;
-
-    font-weight: 500;
-
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-/* 頁尾小標題 */
-.footer_lorem_text {
-    float: left;
-    font-size: 16px;
-    margin-left: 40px;
-
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-}
-
-.footer_lorem_text :hover {
-    color: yellow;
-}
-
-.footer_LOGO {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
 
 .footer_top {
     padding: 97px 0 91px;
@@ -5984,17 +5823,17 @@ nav.navbar .svg-inline--fa {
 }
 
 .shop_toolbar_btn>button.btn-grid-3 {
-    background: url(bkg_grid.png) no-repeat scroll center center;
+    background: url(../img/icon/bkg_grid.png) no-repeat scroll center center;
     width: 20px;
     height: 20px;
 }
 
 .shop_toolbar_btn>button.btn-grid-3.active {
-    background: url(bkg_grid_hover.png) no-repeat scroll center center !important;
+    background: url(../img/icon/bkg_grid_hover.png) no-repeat scroll center center !important;
 }
 
 .shop_toolbar_btn>button.btn-grid-4 {
-    background: url(bkg_grid4.png) no-repeat scroll center center;
+    background: url(../img/icon/bkg_grid4.png) no-repeat scroll center center;
     width: 30px;
     height: 20px;
 }
@@ -6012,17 +5851,17 @@ nav.navbar .svg-inline--fa {
 }
 
 .shop_toolbar_btn>button.btn-grid-4.active {
-    background: url(bkg_grid4_hover.png) no-repeat scroll center center !important;
+    background: url(../img/icon/bkg_grid4_hover.png) no-repeat scroll center center !important;
 }
 
 .shop_toolbar_btn>button.btn-list {
-    background: url(bkg_list.png) no-repeat scroll center center;
+    background: url(../img/icon/bkg_list.png) no-repeat scroll center center;
     width: 20px;
     height: 20px;
 }
 
 .shop_toolbar_btn>button.btn-list.active {
-    background: url(bkg_list_hover.png) no-repeat scroll center center !important;
+    background: url(../img/icon/bkg_list_hover.png) no-repeat scroll center center !important;
 }
 
 .product_content.list_content {
@@ -11384,9 +11223,15 @@ nav.navbar .svg-inline--fa {
     width: 100%;
 }
 
-.modal_title h2 {
-    font-size: 16px;
-    text-transform: uppercase;
+.modal_product_name h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 26px;
+}
+
+.modal_counter_name h3 {
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 14px;
     line-height: 26px;
@@ -11460,12 +11305,12 @@ nav.navbar .svg-inline--fa {
 
 .modal_price {
     margin-bottom: 12px;
+    font-size: 16px;
 }
 
 .modal_price span {
     font-weight: 600;
     color: #F53737;
-    font-size: 16px;
 }
 
 .modal_price span.old_price {
@@ -12094,4 +11939,14 @@ nav.navbar .svg-inline--fa {
     .privacy_content.section_3 h2 {
         margin-bottom: 12px;
     }
+}
+
+.tored i {
+    color: red;
+    transition: transform 0.3s;
+}
+
+li.wishlist i:hover {
+    color: red;
+    transition: transform 0.3s;
 }

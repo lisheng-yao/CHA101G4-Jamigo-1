@@ -1,5 +1,6 @@
 package com.jamigo.member.actitvityCollection.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jamigo.activity.activity_approve.service.ActivityService;
+import com.jamigo.member.actitvityCollection.entity.ActivityCollectionDTO;
 import com.jamigo.member.actitvityCollection.entity.ActivityCollectionEntity;
 import com.jamigo.member.actitvityCollection.entity.ActivityCollectionService;
 
@@ -21,17 +24,28 @@ public class ActivityCollectionController {
 	@Autowired
 	ActivityCollectionService service;
 	
+	@Autowired
+	ActivityService activityService;
+	
 	@GetMapping("/getAll")
 	public List<ActivityCollectionEntity> getAll() {
 		return service.getAll();
 	}
 
 	@GetMapping("/getByMemberNo/{memberNo}")
-	public List<ActivityCollectionEntity> getByMemberNo(@PathVariable Integer memberNo) {
-		return service.getByMemberNo(memberNo);
+	public List<ActivityCollectionDTO> getByMemberNo(@PathVariable Integer memberNo) {
+		List<ActivityCollectionEntity> activityCollectionList = service.getByMemberNo(memberNo);
+		List<ActivityCollectionDTO> dtoList = new ArrayList<>();
+		for(ActivityCollectionEntity entity : activityCollectionList) {
+			ActivityCollectionDTO dto = new ActivityCollectionDTO();
+			dto.setActivityCollectionEntity(entity);
+			dto.setActivity(activityService.getActDetail(entity.getActivityNo()));
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 
-	@GetMapping("/deleteByEntity")
+	@PostMapping("/deleteByEntity")
 	public ResponseEntity<?> deleteByEntity(@RequestBody ActivityCollectionEntity entity) {
 		service.delete(entity);
 		return ResponseEntity.ok("刪除成功");

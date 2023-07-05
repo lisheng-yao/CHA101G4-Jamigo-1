@@ -28,6 +28,7 @@ $(function () {
         type: "GET",
         success: function (productWithPics) {
             console.log(productWithPics);
+            product = productWithPics;
             // $("#categoryEdit").val(productWithPics.productCategory.productCatNo);
             let categoryEdit = document.getElementById("categoryEdit");
             for (let i = 0; i < categoryEdit.length; i++) {
@@ -77,6 +78,7 @@ $(function () {
     sendUpdateData(productNo);
     cancelEdit();
     validPriceInput();
+    goToDetailPage(productNo);
 });
 
 // function getCounterNo() {
@@ -124,7 +126,7 @@ function sendUpdateData(productNo) {
         if(productCatNo == "0" || productName == "" || productPrice == "" || productInfo == ""){
             Swal.fire({
                 icon: 'error',
-                title: '新增失敗！',
+                title: '修改失敗！',
                 text: '商品基本資料欄位未填寫完整',
             })
             return;
@@ -132,7 +134,7 @@ function sendUpdateData(productNo) {
         if($('input[name="productStatus"]:checked').val() === "1" && document.getElementById("imagePreview1").src === ""){
             Swal.fire({
                 icon: 'error',
-                title: '新增失敗！',
+                title: '修改失敗！',
                 text: '必須至少上傳No.1商品照片才可以上架商品',
             })
             return;
@@ -209,5 +211,19 @@ function sendUpdateData(productNo) {
             if (!/^[\d]+$/.test(value)) {
                 $(this).val('');
             }
+        });
+    }
+
+    function goToDetailPage(productNo){
+        $("#detailPage-link").on("click", function (){
+            if($('input[name="productStatus"]:checked').val() === "0" || ($('input[name="productStatus"]:checked').val() === "1" && document.getElementById("imagePreview1").src === "")){
+                Swal.fire({
+                    icon: 'warning',
+                    title: '無法查看！',
+                    text: '本商品非上架狀態無法查看商城詳情頁面'
+                })
+                return;
+            }
+            window.location = `/Jamigo/shop/shopping/product_detail_page.html?productNo=${productNo}`;
         });
     }

@@ -29,50 +29,47 @@
 
 
     /*---slider activation---*/
-    $('.slider_area').owlCarousel({
-        animateOut: 'fadeOut',
-        loop: true,
-        nav: true,
-        autoplay: true,
-        autoplayTimeout: 8000,
-        items: 1,
-        dots: true,
-        navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
-    });
+    // $('.slider_area').owlCarousel({
+    //     animateOut: 'fadeOut',
+    //     loop: true,
+    //     nav: true,
+    //     autoplay: true,
+    //     autoplayTimeout: 8000,
+    //     items: 1,
+    //     dots: true,
+    //     navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+    // });
 
     /*---product column4 activation---*/
-
-    $('.product_column4').each(function () {
-
-        $(this).on('changed.owl.carousel initialized.owl.carousel', function (event) {
-            $(this).find('.owl-item').removeClass('last').eq(event.item.index + event.page.size - 1).addClass('last');
-        }).owlCarousel({
-            loop: $(this).find('.single_product').length >= 4,
-            nav: true,
-            autoplay: false,
-            autoplayTimeout: 8000,
-            items: 4,
-            dots: false,
-            navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-            responsiveClass: true,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                450: {
-                    items: 2,
-                },
-                768: {
-                    items: 3,
-                },
-                992: {
-                    items: 4,
-                },
-
-
-            }
-        });
-    });
+    // $('.product_column4').each(function () {
+    //
+    //     $(this).on('changed.owl.carousel initialized.owl.carousel', function (event) {
+    //         $(this).find('.owl-item').removeClass('last').eq(event.item.index + event.page.size - 1).addClass('last');
+    //     }).owlCarousel({
+    //         loop: $(this).find('.single_product').length >= 4,
+    //         nav: true,
+    //         autoplay: false,
+    //         autoplayTimeout: 8000,
+    //         items: 4,
+    //         dots: false,
+    //         navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+    //         responsiveClass: true,
+    //         responsive: {
+    //             0: {
+    //                 items: 1,
+    //             },
+    //             450: {
+    //                 items: 2,
+    //             },
+    //             768: {
+    //                 items: 3,
+    //             },
+    //             992: {
+    //                 items: 4,
+    //             },
+    //         }
+    //     });
+    // });
 
 
     // $('.product_column4').on('changed.owl.carousel initialized.owl.carousel', function (event) {
@@ -145,35 +142,35 @@
     });
 
 
-    $('.product_column3').each(function () {
-
-        $(this).on('changed.owl.carousel initialized.owl.carousel', function (event) {
-            $(this).find('.owl-item').removeClass('last').eq(event.item.index + event.page.size - 1).addClass('last');
-        }).owlCarousel({
-            loop: $(this).find('.single_product').length >= 3,
-            nav: true,
-            autoplay: false,
-            autoplayTimeout: 8000,
-            items: 3,
-            dots: false,
-            navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-            responsiveClass: true,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                450: {
-                    items: 2,
-                },
-                768: {
-                    items: 3,
-                },
-                992: {
-                    items: 3,
-                },
-            }
-        });
-    });
+    // $('.product_column3').each(function () {
+    //
+    //     $(this).on('changed.owl.carousel initialized.owl.carousel', function (event) {
+    //         $(this).find('.owl-item').removeClass('last').eq(event.item.index + event.page.size - 1).addClass('last');
+    //     }).owlCarousel({
+    //         loop: $(this).find('.single_product').length >= 3,
+    //         nav: true,
+    //         autoplay: false,
+    //         autoplayTimeout: 8000,
+    //         items: 3,
+    //         dots: false,
+    //         navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+    //         responsiveClass: true,
+    //         responsive: {
+    //             0: {
+    //                 items: 1,
+    //             },
+    //             450: {
+    //                 items: 2,
+    //             },
+    //             768: {
+    //                 items: 3,
+    //             },
+    //             992: {
+    //                 items: 3,
+    //             },
+    //         }
+    //     });
+    // });
 
 
 

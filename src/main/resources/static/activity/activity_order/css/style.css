@@ -79,6 +79,7 @@
 .book-form .form-radio input:checked ~ label{
 	background-color: var(--ciColor);
 }
+/* .book-form .form-radio label::before{ */
 .book-form .form-radio label::before{
 	content: "";
 	width: 32%;
@@ -100,12 +101,17 @@
 .book-form .form-radio .form-radio-text{
 	padding-top: 10px;
 }
-.book-form .mobile-line-pay-box label::before {
+/* .book-form .mobile-line-pay-box label::before {
 	width: 30%;
 	padding-bottom: 30%;
 	margin-top: 6.241732%;
-	/* margin-top: auto; */
 	background-image: url(../images/LINE-Pay.png);
+} */
+.book-form .mobile-line-pay-box label::before {
+	width: 33.594625%;
+	padding-bottom: 20.156775%;
+	margin-top: 2%;
+	background-image: url(../images/logo300x180.png);
 }
 .book-form .mobile-google-pay-box label::before {
 	background-image: url(../images/GPay_Acceptance_Mark_800.png);
@@ -313,7 +319,7 @@ body{
     border:1px solid #000;
 	box-sizing: border-box;
 }
-.book-form input[type="text"],.book-form input[type="email"]:disabled{
+.signUp-form input[type="text"],.book-form input[type="email"]:disabled{
 	cursor: not-allowed;
 }
 select#country option, select#country1 option {

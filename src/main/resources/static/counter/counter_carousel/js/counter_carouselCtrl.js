@@ -3,10 +3,12 @@ let carousel_controll_infoBox = document.querySelector('.carousel-img-controll-i
 let carousel_controll_pic = document.querySelector('.carousel-img-controll-item .carousel-img-controll-pic');
 let delet_btn = document.querySelector(".btn-danger");
 
+let currentCounterNo = localStorage.getItem('counterNo');
+
 window.addEventListener("DOMContentLoaded", () =>{
   // 先查出所有櫃位
   // 目前先查櫃位編號為1的
-  getCounterAllInfo(1);
+  getCounterAllInfo(currentCounterNo);
 
 })
 

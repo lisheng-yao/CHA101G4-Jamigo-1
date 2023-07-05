@@ -1,5 +1,8 @@
 let activityPace = document.querySelector('.form-content-edit .row');
+// let addCollection_btn = document.querySelector('.activity-track-icon i');
 
+let currentMemberNo = localStorage.getItem('memberNo');
+let currentActivityNo;
 
 getActivityCollection(1);
 function getActivityCollection(memberNo){
@@ -38,15 +41,41 @@ function createCardItem(data){
             </div>
             <div class="card-text">
             <i class="fa-regular fa-clock"></i>
-            <p class="card-text-startTime">${data.activity.activityRegStartTime}</p>
+            <p class="card-text-startTime">${data.activity.activityRegStartTime.split('T')[0]}</p>
             <i class="fa-solid fa-chevron-right"></i>
-            <p class="card-text-endTime">${data.activity.activityRegEndTime}</p>
+            <p class="card-text-endTime">${data.activity.activityRegEndTime.split('T')[0]}</p>
             </div>
         </div>
         <div class="button-group mt-auto">
-            <a href="#" class="btn btn-outline-primary mt-3">活動詳情</a>
-            <a href="#" class="btn btn-primary mt-3">立即報名</a>
+            <a href="/Jamigo/activity/event_detail.html?activityNo=${data.activity.activityNo}" class="btn btn-outline-primary mt-3">活動詳情</a>
+            <a href="/Jamigo/activity/activity_orderSignUp.html?activityNo=${data.activity.activityNo}" class="btn btn-primary mt-3">立即報名</a>
         </div>`;
 
     activityPace.lastElementChild.innerHTML = html;
 }
+
+activityPace.addEventListener('click', e =>{
+    if(e.target.classList.contains('activity-track-icon')) {
+        let parent = e.target.parentElement;
+        let addCollection_btn = parent.querySelector('.activity-track-icon');
+        let link = parent.querySelector('.button-group a:last-child').href;
+        let prarm = link.split('?')[1];
+        let currentActivityNo = new URLSearchParams(prarm).get("activityNo");
+
+        axios.post('/Jamigo/activityCollection/deleteByEntity', {
+            activityNo : currentActivityNo,
+            memberNo : currentMemberNo
+        } , {
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        })
+        .then(resp => {
+            activityPace.innerHTML = '';
+            console.log(resp);
+            getActivityCollection(1);
+        })
+        .catch(err => console.log(err))
+
+    }
+})
