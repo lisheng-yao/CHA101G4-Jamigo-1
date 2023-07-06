@@ -78,7 +78,7 @@
                             promotionExpireDate,
                             `<a href="/Jamigo/promotion/promotion_list/promotionC_detail.html?promotionCouponNo=${promotionCouponNo}"><button type="button" class="btn btn-outline-primary">詳情</button></a>`,
                             `<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}" ${promotionName !== null && promotionName.includes("櫃位") ? `style="display:none"` : ''}>修改
+                    data-bs-target="#exampleModal${i}" data-bs-whatever="@mdo" id="editbutton${i}" ${promotionName !== null && promotionName.includes("全館") ? '' : `style="display:none"`}>修改
             </button>
             <div class="modal fade" id="exampleModal${i}" tabIndex="-1"
                  aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -185,11 +185,11 @@
                             <button type="button" class="btn btn-secondary editbutton"
                                     data-bs-dismiss="modal" id="cancle${i}">取消
                             </button>
-                            <button type="button" class="btn btn-primary" id="confirm${i}">修改</button>
+                            <button type="button" class="btn btn-primary" id="confirm${i}" >修改</button>
                         </div>
                     </div>
                 </div>
-            </div>`, `<button type="button" class="btn btn-primary" id="delete${i}" ${promotionName !== null && promotionName.includes("櫃位") ? `style="display:none"` : ''}>刪除</button>`
+            </div>`, `<button type="button" class="btn btn-primary" id="delete${i}" ${promotionName !== null && promotionName.includes("全館") ? '' : `style="display:none"`}>刪除</button>`
 
                         ]);
                     }
