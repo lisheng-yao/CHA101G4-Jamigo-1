@@ -196,7 +196,7 @@ $(document).ready(function () {
             <img src="/Jamigo/shop/product_picture/product/${response[i].productNo}" alt="">
             </div>
             <div class="media-icons">
-            <a onclick="addWish(this,${response[i].productNo});"><i class="fa-solid fa-heart" style="color: #f1f2f3;"></i></a>
+            <a onclick="addWish(this,${response[i].productNo});"><i class="fa-solid fa-heart" ></i></a>
             </div>
             <h4 class="productname">${response[i].productName}</h4>
             <div class="procontentcontainer"><div class="productcontent">${response[i].productInfo}
@@ -219,6 +219,38 @@ $(document).ready(function () {
         }
 
     }
+
+
+//     let memberno = localStorage.getItem('memberNo');
+//     if (!memberno) {
+//         localStorage.setItem('currentPageUrl', window.location.href);
+//         window.location = '/Jamigo/member/login/login.html';
+//     } else {
+//         $.ajax({
+//             type: 'GET',
+//             url: '/Jamigo/index/getwished' + memberno,
+//             data: null,
+//             dataType: 'json',
+//             success: function (response) {
+//                 success2(response);
+//             },
+//             error: function (error) {
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Oops...出了點小問題',
+//                     text: error.status,
+//                 });
+//             }
+//         })
+//     }
+// function success2(response){
+
+
+
+// }
+
+
+
 
 });
 
