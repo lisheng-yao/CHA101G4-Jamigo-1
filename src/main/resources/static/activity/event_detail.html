@@ -384,49 +384,101 @@
             // 判斷並賦值活動等級
             document.getElementById('registration-qualification-info').textContent = (activity.activityLev == 0) ? "一般會員" : "VIP會員";
 
+            // 獲取 memberLevelNo 和 activityLev
+            const memberLevelNo = Number(localStorage.getItem('memberLevelNo'));
+            const activityLev = activity.activityLev;
+            document.querySelector('#signup-btn').addEventListener('click', function () {
+                console.log('用戶報名的活動編號是：', activityId);
+
+                if ((memberLevelNo !== 2 && memberLevelNo !== 3) && activityLev === 1) {
+                    // 如果條件不符合，顯示一個 sweet alert 並返回
+                    Swal.fire({
+                        title: 'Sorry！',
+                        text: '此活動只能由VIP會員報名。',
+                        icon: 'error',
+                        confirmButtonText: '確定'
+                    });
+                    return;
+                }
+
+                // 修改當前頁面的 URL，將 activityNo 作為查詢參數
+                window.location.href = `activity_orderSignUp.html?activityNo=${activityId}`;
+            });
         } catch (error) {
             // 如果在獲取數據過程中發生錯誤，則打印錯誤信息到控制台
             console.error(error);
             console.log("failed!");
         }
     };
-    $(document).ready(async function () {
-        // 從 URL 查詢參數中取得 activityNo
-        const urlParams = new URLSearchParams(window.location.search);
-        const activityNo = urlParams.get('activityNo');
 
-        // 綁定按鈕點擊事件
-        $('#signup-btn').on('click', async function () {
-            try {
-                // 向後端服務器請求活動數據
-                const response = await axios.get(`/Jamigo/backend/appinfo/${activityNo}`);
-                const activity = response.data;
-                console.log('用戶已報名活動：', activity);
+    // $(document).ready(async function () {
+    //     // 從 URL 查詢參數中取得 activityNo
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const activityNo = urlParams.get('activityNo');
 
-                // 在這裡可以做更多處理，例如將活動編號存入資料庫等
+    //     // 綁定按鈕點擊事件
+    //     $('#signup-btn').on('click', async function () {
+    //         try {
+    //             // 向後端服務器請求活動數據
+    //             const response = await axios.get(`/Jamigo/backend/appinfo/${activityNo}`);
+    //             const activity = response.data;
+    //             console.log('用戶已報名活動：', activity);
 
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        });
-    });
+    //             // 在這裡可以做更多處理，例如將活動編號存入資料庫等
 
-    //"我要報名"按鈕設定
-    window.addEventListener('load', function () {
-        // 從 URL 查詢參數中取得 activityNo
-        const urlParams = new URLSearchParams(window.location.search);
-        const activityNo = urlParams.get('activityNo');
+    //         } catch (error) {
+    //             console.error('Error:', error);
+    //         }
+    //     });
+    // });
 
-        document.querySelector('#signup-btn').addEventListener('click', function () {
-            console.log('用戶報名的活動編號是：', activityNo);
+    // //"我要報名"按鈕設定
+    // window.addEventListener('load', function () {
+    //     // 從 URL 查詢參數中取得 activityNo
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const activityNo = urlParams.get('activityNo');
 
-            // 修改當前頁面的 URL，將 activityNo 作為查詢參數
-            window.location.href = `activity_orderSignUp.html?activityNo=${activityNo}`;
+    //     document.querySelector('#signup-btn').addEventListener('click', function () {
+    //         console.log('用戶報名的活動編號是：', activityNo);
 
-            // 注意：這裡僅是一個示例，你需要根據你的需求來實現這部分代碼
-        });
-    });
+    //         // 修改當前頁面的 URL，將 activityNo 作為查詢參數
+    //         window.location.href = `activity_orderSignUp.html?activityNo=${activityNo}`;
+
+    //         // 注意：這裡僅是一個示例，你需要根據你的需求來實現這部分代碼
+    //     });
+    // });
+
+    // 獲取到當前會員編號 currentMemberNo
+    let myMemberNo = localStorage.getItem('memberNo');
+
+    // 檢查 localStorage 是否已存在 levelNo
+    let levelNo = localStorage.getItem('levelNo');
+
+    //     console.log("aaa");
+
+    if (!levelNo) {
+        // 如果 levelNo 不存在，則發起請求獲取會員的 levelNo
+        axios.get(`/Jamigo/memberLevelDetail_1/${myMemberNo}`)
+            .then(response => {
+                // 假設後端返回的數據中包含 levelNo 欄位
+                levelNo = response.data;
+                //                 console.log(levelNo);
+                console.log(response.data);
+
+                // 將 levelNo 存儲到 localStorage 中
+                localStorage.setItem('levelNo', levelNo);
+            })
+            .catch(error => {
+                console.error('錯誤:', error);
+            });
+    }
+
+    // 可以在後續使用 levelNo 變量
+    //console.log(levelNo);
+
 </script>
+
+
 
 <!-- 為了防止登入後跑版 -->
 <script>
@@ -439,7 +491,8 @@
     }
 </script>
 
-
+<!-- sweetalert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/Jamigo/activity/detail/static/js/modernizr-3.5.0.min.js"></script>
 <!-- <script src="/Jamigo/activity/detail/static/js/jquery-3.6.0.min.js"></script> -->
 <!-- <script src="/Jamigo/activity/detail/static/js/popper.min.js"></script> -->
@@ -464,12 +517,11 @@
 <script src="/Jamigo/index/頁首頁尾_final/js/bootstrap.js"></script>
 <!-- FontAwesome -->
 <script src="/Jamigo/index/頁首頁尾_final/js/all.js"></script>
-<!-- <!-- 頁首頁尾JS --> -->
-<!-- <!-- <script src="/Jamigo/index/頁首頁尾_final/js/script.js"></script> --> 
+<!-- js -->
+<script src="/Jamigo/frontEnd/js/script.js"></script>
+
 <!--CoCo的收藏JS  -->
 <script src="/Jamigo/activity/activity_collection/activity_collection.js"></script>
-
-<script src="/Jamigo/frontEnd/js/script.js"></script>
 
 
 </body>

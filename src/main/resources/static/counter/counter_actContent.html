@@ -11,6 +11,10 @@
 	rel="stylesheet"
 	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
 	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+	crossorigin="anonymous"></script>
 
 <!-- 新引入的CSS檔案或套件請由此往下放 -->
 <link rel="stylesheet"
@@ -369,6 +373,15 @@ html {
 	text-shadow: none;
 }
 
+.btn-ret {
+	color: #fff;
+	background-image: none;
+	background-color: #27099d !important;
+	border-color: #4cae4c;
+	box-shadow: none;
+	text-shadow: none;
+}
+
 .btn-pink {
 	background-color: #e8206a;
 	color: #ffffff;
@@ -421,10 +434,10 @@ html {
 												<button type="button" class="btn btn-success btn-filter"
 													data-target="verifed">通過</button>
 												<button type="button" class="btn btn-danger btn-filter"
-													data-target="not-verifed">
-													<!-- <i class="fa-solid fa-circle-exclamation"></i> -->
-													未審核
-												</button>
+													data-target="not-verifed">未審核</button>
+												<button type="button" class="btn btn-ret btn-filter"
+													data-target="reject">退單</button>
+
 												<button class="btn btn-pink btn-filter1">
 													<span class="glyphicon glyphicon-filter"></span> Filter
 												</button>
@@ -558,22 +571,22 @@ html {
 									//var counterNo = 1;
 									// 將欄位的鍵（key）和類型（type）放入全域變數 `fields`
 									// 定義一個格式化日期的函數
-function formatDateLocal(dateStr) {
-    // 檢查 dateStr 是否已经是 'yyyy-mm-ddThh:mm' 格式
-    let dt = new Date(dateStr);
-    if (isNaN(dt)) {
-        console.error('無效的日期字串: ', dateStr);
-        return '';
-    }
+									function formatDateLocal(dateStr) {
+										// 檢查 dateStr 是否已经是 'yyyy-mm-ddThh:mm' 格式
+										let dt = new Date(dateStr);
+										if (isNaN(dt)) {
+											console.error('無效的日期字串: ', dateStr);
+											return '';
+										}
 
-    let year = dt.getFullYear();
-    let month = (dt.getMonth() + 1).toString().padStart(2, '0'); // JS 中的月份是从 0 开始的
-    let day = dt.getDate().toString().padStart(2, '0');
-    let hours = dt.getHours().toString().padStart(2, '0');
-    let minutes = dt.getMinutes().toString().padStart(2, '0');
+										let year = dt.getFullYear();
+										let month = (dt.getMonth() + 1).toString().padStart(2, '0'); // JS 中的月份是从 0 开始的
+										let day = dt.getDate().toString().padStart(2, '0');
+										let hours = dt.getHours().toString().padStart(2, '0');
+										let minutes = dt.getMinutes().toString().padStart(2, '0');
 
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-}
+										return `${year}-${month}-${day}T${hours}:${minutes}`;
+									}
 									const fields = [
 										{ key: 'activityName', type: 'string' },
 										{ key: 'activityCost', type: 'number' },
@@ -738,7 +751,6 @@ function formatDateLocal(dateStr) {
 											// 		console.log(response.data);
 
 											const tbody = document.getElementById("actlist");
-
 											relatedDataRes.data.forEach(activity => {
 												if (activity && activity.activityNo) {
 													let tr = document.createElement("tr");
@@ -749,10 +761,13 @@ function formatDateLocal(dateStr) {
 														if (attr === 'activityApprovalStat') {
 															if (activity[attr] === 1) {
 																td.innerHTML = '<span class="label label-success"><i class="fa-solid fa-circle-check"></i>通過</span>';
+																tr.setAttribute("data-status", "verifed");
 															} else if (activity[attr] === 0) {
 																td.innerHTML = ' <span class="label label-reject"><i class="fa-solid fa-circle-exclamation"></i>未通過</span>';
+																tr.setAttribute("data-status", "reject");
 															} else if (activity[attr] === 2) {
 																td.innerHTML = ' <span class="label label-danger"><i class="fa-solid fa-circle-exclamation"></i>待審核</span>';
+																tr.setAttribute("data-status", "not-verifed");
 															}
 														} else if (attr === 'activityLev') {
 															if (activity[attr] === 0) {
@@ -769,7 +784,7 @@ function formatDateLocal(dateStr) {
 																td.innerHTML = ' <span class="label label-danger"></i>森林劇場</span>';
 															}
 														} else {
-															td.innerText = activity[attr];
+															td.textContent = activity[attr];  // 若不是activityApprovalStat，直接顯示值
 														}
 														tr.appendChild(td);
 													});
@@ -1076,9 +1091,7 @@ function formatDateLocal(dateStr) {
 											var $input = $(this),
 												inputContent = $input.val().toLowerCase(),
 												$panel = $input.parents(".filterable"),
-												column = $panel
-													.find(".filters th")
-													.index($input.parents("th")),
+												column = $panel.find(".filters th").index($input.parents("th")),
 												$table = $panel.find(".table"),
 												$rows = $table.find("tbody tr");
 											/* Dirtiest filter function ever ;) */
@@ -1100,11 +1113,7 @@ function formatDateLocal(dateStr) {
 												$table
 													.find("tbody")
 													.prepend(
-														$(
-															'<tr class="no-result text-center"><td colspan="' +
-															$table.find(".filters th").length +
-															'">No result found</td></tr>'
-														)
+														$('<tr class="no-result text-center"><td colspan="' + $table.find(".filters th").length + '">No result found</td></tr>')
 													);
 											}
 										});
@@ -1115,21 +1124,9 @@ function formatDateLocal(dateStr) {
 						</div>
 					</div>
 
-					<script
-						src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-						integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-						crossorigin="anonymous"></script>
-
 				</div>
 			</div>
 		</div>
-
-		<!-- 			<!-- 引入bootstrap CDN -->
-		-->
-		<!-- 			<script -->
-		<!-- 				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" -->
-		<!-- 				integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" -->
-		<!-- 				crossorigin="anonymous"></script> -->
 
 		<!-- 新引入的JS檔案或套件請由此往下放 -->
 
@@ -1151,6 +1148,7 @@ function formatDateLocal(dateStr) {
 			);
 
 		</script>
+
 		<!-- =========================================== 這裡以下幫我複製貼上 ===================================================== -->
 
 		<script src="./js/counter-top.js"></script>
