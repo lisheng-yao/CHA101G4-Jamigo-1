@@ -265,7 +265,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CouponInfoDTO> getCouponsByMemberNo(Integer memberNo) {
-        String sql = "SELECT mc.memberCouponNo, mc.couponTypeNo, ct.couponTypeName, ct.couponPrice, ct.couponLowest, ct.counterNo " +
+        String sql = "SELECT mc.memberCouponNo, mc.couponTypeNo, ct.couponConditions, ct.couponPrice, ct.couponLowest, ct.counterNo " +
                      "FROM member_coupon mc " +
                      "JOIN coupon_type ct ON mc.couponTypeNo = ct.couponTypeNo " +
                      "WHERE mc.memberNo = :memberNo AND mc.couponUsedStat = 0 AND ct.couponExpireDate > current_timestamp();";
@@ -276,7 +276,7 @@ public class CartServiceImpl implements CartService {
             couponInfoDTO.setMemberCouponNo(rs.getInt("memberCouponNo"));
             couponInfoDTO.setCounterNo(rs.getInt("counterNo"));
             couponInfoDTO.setCouponTypeNo(rs.getInt("couponTypeNo"));
-            couponInfoDTO.setCouponTypeName(rs.getString("couponTypeName"));
+            couponInfoDTO.setCouponConditions(rs.getString("couponConditions"));
             couponInfoDTO.setCouponPrice(rs.getInt("couponPrice"));
             couponInfoDTO.setCouponLowest(rs.getInt("couponLowest"));
             return couponInfoDTO;
