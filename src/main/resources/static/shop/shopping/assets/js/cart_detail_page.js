@@ -529,7 +529,7 @@ function putCanUseCounterCoupons(memberCoupons, currentCounterNo, counterTotal) 
     for (let i = 0; i < canUseCounterCoupons.length; i++) {
         canUseCounterCouponHtml += `
             <option value="memberCouponNo=${canUseCounterCoupons[i].memberCouponNo},couponTypeNo=${canUseCounterCoupons[i].couponTypeNo}">
-            ${canUseCounterCoupons[i].couponTypeName}, 折抵金額-${canUseCounterCoupons[i].couponPrice}
+            ${canUseCounterCoupons[i].couponConditions}, 折抵金額-${canUseCounterCoupons[i].couponPrice}
             </option>
         `;
     }
@@ -592,7 +592,7 @@ function platformSelectChange() {
                 icon: 'warning',
                 iconColor: '#DA6272',
                 title: '折抵金額已到達上限！',
-                text: '優先使用折價券折抵，無法使用的點數折抵將退回'
+                text: '優先使用折價券折抵，將退回等值會員點數'
             })
         }
         
@@ -679,7 +679,7 @@ function putCanUsePlatformCoupons(memberCoupons, currentCounterNo, counterTotal)
     for (let i = 0; i < canUseCounterCoupons.length; i++) {
         canUseCounterCouponHtml += `
             <option value="memberCouponNo=${canUseCounterCoupons[i].memberCouponNo},couponTypeNo=${canUseCounterCoupons[i].couponTypeNo}">
-            ${canUseCounterCoupons[i].couponTypeName}, 折抵金額-${canUseCounterCoupons[i].couponPrice}
+            ${canUseCounterCoupons[i].couponConditions}, 折抵金額-${canUseCounterCoupons[i].couponPrice}
             </option>
         `;
     }
