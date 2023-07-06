@@ -23,10 +23,12 @@ let carousel_upfile_info = document.querySelector(".carousel-img-upfile-info");
 let carousel_insertFile_btn = document.querySelector(".button-group .carousel-img-insertFile-btn");
 let carousel_editFile_btn = document.querySelector(".button-group .carousel-img-editFile-btn");
 
+let currentCounterNo = localStorage.getItem('counterNo');
+
 // 裝formData用的
 let img_data;
 // ------------------------------------------------------------------------------------------------
-
+console.log(currentCounterNo);
 // 新增輪播圖
 carousel_insertFile_btn?.addEventListener('click', async () => {
 	// 檢查欄位
@@ -60,7 +62,7 @@ function insertCarousel() {
 			console.log('傳送1')
 			// 第一次請求
 			await axios.post('/Jamigo/counterCarousel/insert', {
-				counterNo: inputCounterNo.value,
+				counterNo: currentCounterNo,
 				counterCarouselText: inputText.value,
 				counterCarouselStartTime: `${inputStartDate.value} ${inputStartTime.value}:00`,
 				counterCarouselEndTime: `${inputEndDate.value} ${inputEndTime.value}:00`,
@@ -148,7 +150,7 @@ async function updateCarousel() {
 			// 第一次請求，送出文字內容
 			await axios.post('/Jamigo/counterCarousel/update', {
 				counterCarouselNo: inputNo.value,
-				counterNo: inputCounterNo.value,
+				counterNo: currentCounterNo,
 				counterCarouselText: inputText.value,
 				counterCarouselStartTime: `${inputStartDate.value} ${inputStartTime.value}:00`,
 				counterCarouselEndTime: `${inputEndDate.value} ${inputEndTime.value}:00`,

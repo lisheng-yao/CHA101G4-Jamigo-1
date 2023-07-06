@@ -220,6 +220,11 @@
     font-size: 1.5rem;
     font-weight: 700;
 }
+/* .carousel-img-controll-item .carousel-img-controll-infoNo::before{
+    content: "\23";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+} */
 .carousel-img-controll-item .carousel-img-controll-infoNo::after{
     content: "";
     position: absolute;
@@ -245,8 +250,32 @@
     color: #6984ad;
 }
 .carousel-img-controll-infoText{
+    position: relative;
+    display: flex;
+    flex-direction: column;
     padding: 20px;
-    color: #555;
+    margin: 20px 0;
+    color: #999;
+} 
+.carousel-img-controll-infoText::before,
+.carousel-img-controll-infoText::after{
+    content: "";
+    position: absolute;
+    height: 1px;
+    left: 10px;
+    right: 10px;
+    background-color: #ccc;
+}
+.carousel-img-controll-infoText::before{
+    top: 0;
+}
+.carousel-img-controll-infoText::after{
+    bottom: 0;
+}
+.carousel-img-controll-infoNo-text{
+    padding-top: 4px;
+    color: #333;
+    font-size: 16px;
 }
 .carousel-img-controll-item .carousel-img-controll-startTime,
 .carousel-img-controll-item .carousel-img-controll-endTime {
@@ -290,4 +319,20 @@
 .carousel-img-controll-item .carousel-img-controll-btnGroup{
     margin-top: auto;
     align-self: flex-end;
+}
+.input-group-carousel-text .input-group-text::before{
+    content: "\f031";
+    display: block;
+    padding-right: 0.5em;
+    font-family: 'Font Awesome 6 Free';
+}
+.form-item-startDate label.input-group-text::before,
+.form-item-endDate label.input-group-text::before{
+    content: "\f073";
+    font-weight: 500;
+}
+.form-item-startTime label.input-group-text::before,
+.form-item-endTime label.input-group-text::before{
+    content: "\f017";
+    font-weight: 500;
 }

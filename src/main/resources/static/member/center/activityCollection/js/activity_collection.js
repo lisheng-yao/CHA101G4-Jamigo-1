@@ -4,7 +4,7 @@ let activityPace = document.querySelector('.form-content-edit .row');
 let currentMemberNo = localStorage.getItem('memberNo');
 let currentActivityNo;
 
-getActivityCollection(1);
+getActivityCollection(currentMemberNo);
 function getActivityCollection(memberNo){
     axios.get(`/Jamigo/activityCollection/getByMemberNo/${memberNo}`)
     .then(resp => {

@@ -27,4 +27,8 @@ public class ActivityCollectionService {
 		reopsitory.delete(entity);
 	}
 	
+	public ActivityCollectionEntity isActivityAdd(Integer activityNo, Integer memberNo) {
+		return reopsitory.findByActivityCollectionEntity(activityNo, memberNo);
+	}
+	
 }
