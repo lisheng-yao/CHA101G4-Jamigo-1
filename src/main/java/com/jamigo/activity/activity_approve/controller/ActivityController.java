@@ -54,6 +54,7 @@ public class ActivityController {
 			@RequestParam("activityRegEndTime") String activityRegEndTimeStr,
 			@RequestParam("activityStartTime") String activityStartTimeStr,
 			@RequestParam("activityEndTime") String activityEndTimeStr, @RequestParam("activityLev") Byte activityLev) {
+		
 		// HTML表單不能直接傳遞LocalDateTime對象，所以在server端要將接收到的字串轉換為LocalDateTime
 		LocalDateTime activityRegStartTime = LocalDateTime.parse(activityRegStartTimeStr);
 		LocalDateTime activityRegEndTime = LocalDateTime.parse(activityRegEndTimeStr);

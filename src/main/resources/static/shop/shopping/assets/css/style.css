@@ -6783,6 +6783,21 @@ textarea:-ms-input-placeholder {
     line-height: 28px;
 }
 
+.product_info_content pre {
+    line-height: 28px;
+}
+
+pre {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #717171;
+}
+
 .product_d_table {
     padding: 10px 0 22px;
 }
