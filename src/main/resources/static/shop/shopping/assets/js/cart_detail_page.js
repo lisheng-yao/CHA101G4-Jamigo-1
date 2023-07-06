@@ -604,7 +604,7 @@ function memberPointChange() {
 
     $(".memberPoints_input").on("input", function () {
         let pointsMax = parseInt($(this).attr("max"));
-        //取得會員點數折抵金額
+        //取得會員欲使用會員點數
         let memberPoint_usedDiscount = $(this).val();
         //取得館內折抵金碩
         let platformDiscount = parseInt($(".platform_usedDiscount").text());
@@ -654,7 +654,10 @@ function printCartTail() {
     let availablePlatformCoupons = putCanUseCounterCoupons(memberCoupons, 0, afterCounterDiscountTotal);
     $(".available_platformCoupon").html(availablePlatformCoupons);
 
-    $(".memberOwnPoints").text(memberOwnPoints);
+    $(".memberOwnPoints").text(memberOwnPoints); //會員可使用點數
+
+    $(".memberPoints_input").val(0); //欲使用會員點數
+    $(".memberPoint_usedDiscount").text(0); //會員點數折抵
     // $(".memberPoints_input").on("input", function (){
     //     let memberUsedPoint = $(".memberPoint_usedDiscount").text($(this).val());
     //     if(memberUsedPoint == ""){
@@ -696,10 +699,6 @@ function packToSessionStorage() {
                 icon: 'error',
                 title: '無法結帳！',
                 text: '您的購物車內尚無商品可以結帳'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location='/Jamigo/shop/main_page/商城首頁.html';
-                }
             });
             return;
         }
