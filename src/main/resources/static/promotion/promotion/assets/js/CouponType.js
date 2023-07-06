@@ -379,7 +379,7 @@
             body: JSON.stringify({
                 // couponTypeNo: coupontypeNo4new,
                 couponTypeName: coupontypeName4new,
-                adminNo: coupontypecNo4new.value,
+                adminNo: coupontypecNo4new,
                 counterNo: coupontypeaNo4new,
                 couponCreateDate: coupontypeDate4new,
                 couponConditions: coupontypeConditions4new,

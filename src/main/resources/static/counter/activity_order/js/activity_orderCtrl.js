@@ -1,3 +1,5 @@
+
+
 let currentCounterNo = localStorage.getItem('counterNo');
 
 window.addEventListener("DOMContentLoaded", () =>{
@@ -5,6 +7,7 @@ window.addEventListener("DOMContentLoaded", () =>{
   getAllactivityOrder(currentCounterNo);
 
 })
+
 
 function getAllactivityOrder(counterNo) {
   let xhr = new XMLHttpRequest();

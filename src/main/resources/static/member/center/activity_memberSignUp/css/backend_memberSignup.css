@@ -99,7 +99,7 @@ body{
     font-size: 12px;
 }
 .card-text p{
-    margin: 0;
+    margin: 0 12px;
     color: #86b7fe;
 }
 

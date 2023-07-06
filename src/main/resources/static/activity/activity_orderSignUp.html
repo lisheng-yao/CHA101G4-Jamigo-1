@@ -130,7 +130,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="lower-content">
           <div class="row">
             <div class="text-column col-lg-4 col-md-4 col-sm-12">
-              <div class="inner-column">
+              <div class="inner-column position-sticky">
                 <div class="sidebar-widget lh-base">
                   <section class="widget widget_search">
                     <div class="upper-box">
@@ -260,34 +260,44 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     <!-- 非會員餐與者資料 -->
                     <div class="activity-attendee-more">
-                      <!-- <h2 class="book-appointment-title text-start">第${startIndex}位額外參與者資料</h2>
-                      <div class="phone_email">
-                          <label>姓名</label>
-                          <div class="form-text">
-                              <input id="activity-attendee-more-name-input${startIndex}" type="text" name="activity-attendee-more-name" placeholder="" required="">
-                          </div>
-                      </div>
-                      <div class="phone_email">
-                          <div class="row">
-                              <div class="form-radio col-3 attendee-gender mt-3">
-                              <input type="radio" id="activity-attendee-moregender-male-input${startIndex}" name="activity-attendee-more-gender-male${startIndex}" checked>
-                                  <label for="activity-attendee-more-gender-male-input${startIndex}" class="attendee-gender-male">
-                                      <div class="form-radio-text">男</div>
-                                  </label>
-                              </div>
-                              <div class="form-radio col-3 attendee-gender mt-3">
-                                  <input type="radio" id="activity-attendee-more-gender-female-input${startIndex}" name="activity-attendee-moregender-female${startIndex}">
-                                  <label for="activity-attendee-more-gender-female-input${startIndex}" class="attendee-gender-female"> 
-                                      <div class="form-radio-text">女</div>
-                                  </label>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="phone_email">
-                          <label>年紀</label>
-                          <div class="form-text">
-                              <input type="text" id="activity-attendee-more-age-input${startIndex}" name="activity-attendee-more-age" placeholder="" required="">
-                          </div>
+                      <!-- <div class="book-form agileits-login activity-form">
+                        <h2 class="book-appointment-title text-start">第${startIndex}位額外參與者資料</h2>
+                        <div class="phone_email">
+                            <label>姓名</label>
+                            <div class="form-text">
+                                <input id="activity-attendee-more-name-input${startIndex}" onblur="inputAttendeeMoreName_reject(this)" tabindex="0" type="text" name="activity-attendee-more-name" placeholder="" required="">
+                                <div class="error_text">
+                                  <i class="fa-solid fa-circle-exclamation"></i>
+                                  <span>錯誤訊息</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phone_email">
+                            <div class="row">
+                                <div class="form-radio col-3 attendee-gender mt-3">
+                                <input type="radio" id="activity-attendee-more-gender-male-input${startIndex}" name="activity-attendee-more-gender${startIndex}" checked>
+                                    <label for="activity-attendee-more-gender-male-input${startIndex}" class="attendee-gender-male">
+                                        <div class="form-radio-text">男</div>
+                                    </label>
+                                </div>
+                                <div class="form-radio col-3 attendee-gender mt-3">
+                                    <input type="radio" id="activity-attendee-more-gender-female-input${startIndex}" name="activity-attendee-more-gender${startIndex}">
+                                    <label for="activity-attendee-more-gender-female-input${startIndex}" class="attendee-gender-female"> 
+                                        <div class="form-radio-text">女</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phone_email">
+                            <label>年紀</label>
+                            <div class="form-text">
+                                <input type="text" id="activity-attendee-more-age-input${startIndex}" onblur="inputAttendeeMoreAge_reject(this)" tabindex="0" name="activity-attendee-more-age" placeholder="" required="">
+                                <div class="error_text">
+                                  <i class="fa-solid fa-circle-exclamation"></i>
+                                  <span>錯誤訊息</span>
+                                </div>
+                            </div>
+                        </div>
                       </div> -->
                     </div>
                     <!-- 選擇優惠券 -->
@@ -346,13 +356,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="phone_email">
                           <label>卡號</label>
                           <div class="form-text">
-                            <input id="" type="text" name="credit-card-num" placeholder="" required="">
+                            <input id="credit-card-num" type="text" name="credit-card-num" placeholder="" required="">
+                            <div class="error_text">
+                              <i class="fa-solid fa-circle-exclamation"></i>
+                              <span>錯誤訊息</span>
+                            </div>
                           </div>
                         </div>
                         <div class="phone_email phone_email1">
-                          <label>卡片背面後三碼</label>
+                          <label>後三碼</label>
                           <div class="form-text">
-                            <input type="text" name="email" placeholder="" required="">
+                            <input id="credit-card-num-end3" type="text" name="credit-card-num-end3" placeholder="" required="">
+                            <div class="error_text">
+                              <i class="fa-solid fa-circle-exclamation"></i>
+                              <span>錯誤訊息</span>
+                            </div>
                           </div>
                         </div>
                         <div class="phone_email phone_email1">
@@ -360,11 +378,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <span>到期日</span>
                           </div>
                           <div class="row">
-                            <div class="col-6">
+                            <div class="col-6 credit-card-year">
                               <label>到期年分</label>
                               <div class="section_room">
-                                <select id="coupon_input" onchange="change_country(this.value)" class="frm-field required sect">
-                                  <option value="AX">選擇年分</option>
+                                <select id="credit-card-year-select" onchange="selectCreditCardYear_reject(this)" class="frm-field required sect">
+                                  <option value="0">選擇年分</option>
                                   <option value="23">23</option>
                                   <option value="24">24</option>
                                   <option value="25">25</option>
@@ -385,13 +403,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                   <option value="40">40</option>
                                   <option value="41">41</option>
                                 </select>
+                                <div class="error_text">
+                                  <i class="fa-solid fa-circle-exclamation"></i>
+                                  <span>錯誤訊息</span>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 credit-card-month">
                               <label>到期月份</label>
                               <div class="section_room">
-                                <select id="coupon_input" onchange="change_country(this.value)" class="frm-field required sect">
-                                  <option value="AX">選擇月份</option>
+                                <select id="credit-card-month-select" onchange="selectCreditCardMonth_reject(this)" class="frm-field required sect">
+                                  <option value="0">選擇月份</option>
                                   <option value="1">1</option>
                                   <option value="2">2</option>
                                   <option value="3">3</option>
@@ -405,6 +427,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                   <option value="11">11</option>
                                   <option value="12">12</option>
                                 </select>
+                                <div class="error_text">
+                                  <i class="fa-solid fa-circle-exclamation"></i>
+                                  <span>錯誤訊息</span>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -532,6 +558,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="/Jamigo/index/頁首頁尾_final/js/script.js"></script>
 
     <!-- 可可的js -->
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- 報名表單用的js -->

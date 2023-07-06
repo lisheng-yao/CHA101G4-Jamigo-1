@@ -3,11 +3,13 @@ package com.jamigo.shop.others.controller;
 import com.jamigo.shop.others.dto.ProductForMainPageDTO;
 import com.jamigo.shop.others.service.MainPageService;
 import com.jamigo.shop.product.entity.ProductCategory;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -100,7 +102,13 @@ public class OtherController {
 
     @GetMapping("/shop/product_search")
     public ResponseEntity<?> getProductsByKeyword(@RequestParam String keyword, @RequestParam Integer orderBy) {
-        List<ProductForMainPageDTO> productForMainPageDTOList = mainPageService.getProductsByKeyword(keyword, orderBy);
+        List<ProductForMainPageDTO> productForMainPageDTOList = null;
+
+        try {
+            productForMainPageDTOList = mainPageService.betterSearchProducts(keyword, orderBy);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         if (productForMainPageDTOList != null)
             return ResponseEntity.status(HttpStatus.OK).body(productForMainPageDTOList);

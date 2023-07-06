@@ -203,7 +203,7 @@ $(document).on("click", ".add_to_cart a", function () {
 
     $.ajax({
         type: 'GET',
-        url: `http://localhost:8080/Jamigo/products/getProductForDetailPage/${productNo}`,
+        url: `/Jamigo/products/getProductForDetailPage/${productNo}`,
         success: function (response) {
 
             let html_str = "";

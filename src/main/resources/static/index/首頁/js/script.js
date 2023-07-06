@@ -1,3 +1,19 @@
+// 創建一個<link>元素
+var linkElement = document.createElement("link");
+
+// 設定<link>元素的屬性
+linkElement.rel = "icon";
+linkElement.href = "/Jamigo/index/首頁/images/icon.ico";
+linkElement.type = "image/x-icon";
+
+// 獲取<head>元素
+var headElement = document.getElementsByTagName("head")[0];
+
+// 添加<link>元素到<head>元素中
+headElement.appendChild(linkElement);
+
+
+
 
 //判斷當前頁面，導覽列按鈕停留
 const currentPage = window.location.href;
@@ -26,12 +42,22 @@ function opensignin() {
     const memberid = localStorage.getItem('memberNo');
     const memberaccount = localStorage.getItem('memberAccount');
     checklogin();//確認登入方法
-
+    
     function checklogin() {
         if (memberid) {
             openmemberinfo();
-            memberimg.src = `/Jamigo/member/member_data/${memberid}`;
-            membername.innerText = 'HI!  ' + memberaccount;
+            let img = new Image();
+            img.onload = function () {
+                // 图片加载成功
+                memberimg.src = `/Jamigo/member/member_data/${memberid}`;
+            };
+            img.onerror = function () {
+                // 图片加载失败，使用默认图片路径
+                memberimg.src = '/Jamigo/member/member/image/gray.jpg';
+            };
+            img.src = `/Jamigo/member/member_data/${memberid}`;
+
+            membername.innerText = 'HI! ' + memberaccount;
         }
     }
 
@@ -59,8 +85,6 @@ function check(event) {
 
 //  fullpage01 
 $(document).ready(function () {
-
-
 
 
     $.ajax({
@@ -124,7 +148,7 @@ $(document).ready(function () {
         data: null,
         dataType: 'json',
         success: function (response) {
-            success(response);
+            success(response, addwished);
         },
         error: function (error) {
             Swal.fire({
@@ -135,7 +159,7 @@ $(document).ready(function () {
         }
     })
 
-    function success(response) {
+    function success(response, callback) {
 
         // 初始化輪播套件
         var swiper = new Swiper(".mySwiper2", {
@@ -196,7 +220,7 @@ $(document).ready(function () {
             <img src="/Jamigo/shop/product_picture/product/${response[i].productNo}" alt="">
             </div>
             <div class="media-icons">
-            <a onclick="addWish(this,${response[i].productNo});"><i class="fa-solid fa-heart" style="color: #f1f2f3;"></i></a>
+            <div class="saveproNo" data-productno="${response[i].productNo}"><a onclick="addWish(this,${response[i].productNo});"><i class="fa-solid fa-heart" ></i></a></div>
             </div>
             <h4 class="productname">${response[i].productName}</h4>
             <div class="procontentcontainer"><div class="productcontent">${response[i].productInfo}
@@ -217,10 +241,48 @@ $(document).ready(function () {
             </div>
             </div>`)
         }
-
+        callback();
     }
 
+    function addwished() {
+        let memberno = localStorage.getItem('memberNo');
+        if (!memberno) {
+            return;
+        } else {
+            $.ajax({
+                type: 'GET',
+                url: '/Jamigo/wishlist/checkWishedByMemberNo/' + memberno,
+                success: function (response) {
+                    success2(response);
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '後台停電ㄌ...請稍後再試',
+                        text: error.status,
+                    });
+                }
+            });
+            function success2(response) {
+                let allprodiv = $('.saveproNo');
+
+                allprodiv.each(function () {
+                    let saveprono = $(this).data('productno');
+
+                    if (response.includes(saveprono)) {
+                        $(this).children().first().addClass('tored');
+                    }
+                })
+
+            };
+        }
+    }
 });
+
+
+
+
+
 
 function gotoEditPage(id) {
     window.location = `/Jamigo/shop/shopping/product_detail_page.html?productNo=${id}`;
@@ -262,7 +324,6 @@ function addcart(e) {
         data: JSON.stringify(cartData),
         contentType: 'application/json',
         success: function (response) {
-
             Swal.fire({
                 title: '成功加入購物車',
                 icon: 'success',

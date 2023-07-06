@@ -1,16 +1,35 @@
 let activityPace = document.querySelector('.form-content-edit .row');
+let currentMemberNo = localStorage.getItem('memberNo');
+
+// 判斷上一頁是不是付款頁
+    
+preUrl();
+function preUrl() {
+	let url = location.search;
+	let URLParam = new URLSearchParams(url).get('redirect');
+	if (URLParam) {
+	    Swal.fire({
+	      icon: 'success',
+	      title: '付款成功',
+	      text: '線下活動付款成功!',
+	      confirmButtonText: "確認"
+	   })
+	}
+}
 
 
-getActivityOrder(1);
+
+getActivityOrder(currentMemberNo);
 function getActivityOrder(memberNo){
     axios.get(`/Jamigo/activityOrder/getActivityOrderByMemberNo/${memberNo}`)
     .then(resp => {
-        console.log(resp);
-        return resp.data;
+      return resp.data;
     })
     .then(datas => {
-        for(let data of datas) {
-            createCardItem(data);
+      // console.log(datas);
+      for(let data of datas) {
+          // console.log(data);
+          createCardItem(data);
         }
     })
     .catch(err => console.log(err))
@@ -44,14 +63,14 @@ function createCardItem(data){
             </div>
         </div>
         <div class="button-group mt-auto">
-            <a href="#" class="btn btn-outline-primary mt-3">活動詳情</a>
-            <a href="#" class="btn btn-primary mt-3">填寫評論</a>
+            <a href="/Jamigo/activity/event_detail.html?activityNo=${data.activityNo}" class="btn btn-outline-primary mt-3">活動詳情</a>
+            <a href="/Jamigo/member/center/activity_memberSignUp/member_activityScore.html?activityOrderNo=${data.activityOrderNo}" class="btn btn-primary mt-3">填寫評論</a>
         </div>`;
 
     activityPace.lastElementChild.innerHTML = html;
 }
 
-document.querySelector('.panel-table').addEventListener('click', e => {
+document.querySelector('.panel-body').addEventListener('click', e => {
   if(e.target.matches('.btn-info')) {
     let activityOrder = "";
     let parentEle = e.target.parentElement;

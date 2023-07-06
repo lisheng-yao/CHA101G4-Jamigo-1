@@ -3,11 +3,16 @@ package com.jamigo.shop.others.service.impl;
 import com.jamigo.counter.counter.dao.CounterRepository;
 import com.jamigo.shop.others.dto.ProductForMainPageDTO;
 import com.jamigo.shop.others.repo.ProductForMainPageRepository;
+import com.jamigo.shop.others.service.LuceneService;
 import com.jamigo.shop.others.service.MainPageService;
 import com.jamigo.shop.product.entity.Product;
 import com.jamigo.shop.product.entity.ProductCategory;
 import com.jamigo.shop.product.repo.ProductCategoryRepository;
 import com.jamigo.shop.product.repo.ProductRepository;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,8 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class MainPageServiceImpl implements MainPageService {
@@ -30,9 +35,11 @@ public class MainPageServiceImpl implements MainPageService {
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
 
-
     @Autowired
     private CounterRepository counterRepository;
+
+    @Autowired
+    private LuceneService luceneService;
 
     @Override
     public List<ProductForMainPageDTO> getRecommendation() {
@@ -185,63 +192,56 @@ public class MainPageServiceImpl implements MainPageService {
     }
 
     @Override
-    public List<ProductForMainPageDTO> getProductsByKeyword(String keyword, Integer orderBy) {
-
+    public List<ProductForMainPageDTO> searchProducts(String keyword, Integer orderBy) {
         List<Product> allProducts = productRepository.findAll();
         Map<Product, Integer> lcsMap = new HashMap<>();
+        keyword = keyword.toLowerCase();
 
         for (Product product : allProducts) {
-            int lcsLength = getLCSLength(product.getProductName(), keyword);
+            int lcsLength = getLCSLength(product.getProductName().toLowerCase(), keyword);
             if (lcsLength > 1) {
                 lcsMap.put(product, lcsLength);
             }
         }
 
         // Sort and filter products by the length of LCS in descending order
-        List<Product> sortedProducts = allProducts.stream()
-                .filter(p -> lcsMap.getOrDefault(p, 0) > 0)
-                .sorted((p1, p2) -> lcsMap.get(p2) - lcsMap.get(p1))
-                .collect(Collectors.toList());
+        List<Product> sortedProducts = new ArrayList<>(lcsMap.keySet());
+        sortedProducts.sort((p1, p2) -> lcsMap.get(p2) - lcsMap.get(p1));
 
         List<ProductForMainPageDTO> productForMainPageDTOList = new ArrayList<>();
 
         for (Product product : sortedProducts) {
-            ProductForMainPageDTO productForMainPageDTO = new ProductForMainPageDTO();
-            productForMainPageDTO.setProductNo(product.getProductNo());
-            productForMainPageDTO.setProductName(product.getProductName());
-            productForMainPageDTO.setProductPrice(product.getProductPrice());
-            productForMainPageDTO.setProductInfo(product.getProductInfo());
-            productForMainPageDTO.setCounterNo(product.getCounterNo());
+            if (product.getProductStat()) {
+                ProductForMainPageDTO productForMainPageDTO = new ProductForMainPageDTO();
+                productForMainPageDTO.setProductNo(product.getProductNo());
+                productForMainPageDTO.setProductName(product.getProductName());
+                productForMainPageDTO.setProductPrice(product.getProductPrice());
+                productForMainPageDTO.setProductInfo(product.getProductInfo());
+                productForMainPageDTO.setCounterNo(product.getCounterNo());
 
-            counterRepository.findById(product.getCounterNo()).ifPresent(counter -> productForMainPageDTO.setCounterName(counter.getCounterName()));
+                counterRepository.findById(product.getCounterNo()).ifPresent(counter -> productForMainPageDTO.setCounterName(counter.getCounterName()));
 
-            productForMainPageDTO.setEvalTotalPeople(product.getEvalTotalPeople());
-            productForMainPageDTO.setEvalTotalScore(product.getEvalTotalScore());
-
-            if (product.getProductStat())
+                productForMainPageDTO.setEvalTotalPeople(product.getEvalTotalPeople());
+                productForMainPageDTO.setEvalTotalScore(product.getEvalTotalScore());
                 productForMainPageDTOList.add(productForMainPageDTO);
-
+            }
         }
 
-        switch(orderBy) {
-            case 1:
-                productForMainPageDTOList.sort(Comparator.comparingInt(ProductForMainPageDTO::getProductNo));
-                break;
-            case 3:
-                productForMainPageDTOList.sort(Comparator.comparing(ProductForMainPageDTO::getProductName));
-                break;
-            case 4:
-                productForMainPageDTOList.sort(Comparator.comparingInt(ProductForMainPageDTO::getProductPrice));
-                break;
-            case 5:
-                productForMainPageDTOList.sort(Comparator.comparingInt(ProductForMainPageDTO::getProductPrice).reversed());
-                break;
+        Map<Integer, Comparator<ProductForMainPageDTO>> comparatorMap = new HashMap<>();
+        comparatorMap.put(1, Comparator.comparingInt(ProductForMainPageDTO::getProductNo));
+        comparatorMap.put(3, Comparator.comparing(ProductForMainPageDTO::getProductName));
+        comparatorMap.put(4, Comparator.comparingInt(ProductForMainPageDTO::getProductPrice));
+        comparatorMap.put(5, Comparator.comparingInt(ProductForMainPageDTO::getProductPrice).reversed());
+
+        Comparator<ProductForMainPageDTO> comparator = comparatorMap.get(orderBy);
+        if (comparator != null) {
+            productForMainPageDTOList.sort(comparator);
         }
 
         return productForMainPageDTOList;
     }
 
-
+    @Override
     public int getLCSLength(String str1, String str2) {
         int m = str1.length();
         int n = str2.length();
@@ -261,5 +261,60 @@ public class MainPageServiceImpl implements MainPageService {
         }
 
         return dp[m][n];
+    }
+
+    @Override
+    public List<ProductForMainPageDTO> betterSearchProducts(String keyword, Integer orderBy) throws IOException, ParseException {
+        luceneService.clearIndex();
+
+        List<Product> allProducts = productRepository.findAll();
+
+        // Build index with Lucene
+        for (Product product : allProducts) {
+            luceneService.indexDocument(product.getProductNo().toString(), product.getProductName().toLowerCase());
+        }
+
+        // Search with Lucene
+        TopDocs topDocs = luceneService.searchIndex(keyword.toLowerCase());
+        List<Product> searchedProducts = new ArrayList<>();
+        for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
+            Document doc = luceneService.getDocument(scoreDoc.doc);
+
+            Product product = productRepository.findById(Integer.parseInt(doc.get("id"))).orElse(null);
+
+            if (product != null)
+                searchedProducts.add(product);
+        }
+
+        List<ProductForMainPageDTO> productForMainPageDTOList = new ArrayList<>();
+        for (Product product : searchedProducts) {
+            if (product.getProductStat()) {
+                ProductForMainPageDTO productForMainPageDTO = new ProductForMainPageDTO();
+                productForMainPageDTO.setProductNo(product.getProductNo());
+                productForMainPageDTO.setProductName(product.getProductName());
+                productForMainPageDTO.setProductPrice(product.getProductPrice());
+                productForMainPageDTO.setProductInfo(product.getProductInfo());
+                productForMainPageDTO.setCounterNo(product.getCounterNo());
+
+                counterRepository.findById(product.getCounterNo()).ifPresent(counter -> productForMainPageDTO.setCounterName(counter.getCounterName()));
+
+                productForMainPageDTO.setEvalTotalPeople(product.getEvalTotalPeople());
+                productForMainPageDTO.setEvalTotalScore(product.getEvalTotalScore());
+                productForMainPageDTOList.add(productForMainPageDTO);
+            }
+        }
+
+        Map<Integer, Comparator<ProductForMainPageDTO>> comparatorMap = new HashMap<>();
+        comparatorMap.put(1, Comparator.comparingInt(ProductForMainPageDTO::getProductNo));
+        comparatorMap.put(3, Comparator.comparing(ProductForMainPageDTO::getProductName));
+        comparatorMap.put(4, Comparator.comparingInt(ProductForMainPageDTO::getProductPrice));
+        comparatorMap.put(5, Comparator.comparingInt(ProductForMainPageDTO::getProductPrice).reversed());
+
+        Comparator<ProductForMainPageDTO> comparator = comparatorMap.get(orderBy);
+        if (comparator != null) {
+            productForMainPageDTOList.sort(comparator);
+        }
+
+        return productForMainPageDTOList;
     }
 }

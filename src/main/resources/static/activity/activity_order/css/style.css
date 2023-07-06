@@ -5,6 +5,9 @@
 	--ciColor: #ffc107;
 	--bacGray: #f1f1f1;
 }
+.inner-column{
+	top: 88px;
+}
 .main_title_section{
 	padding: 40px 0;
 }
@@ -68,16 +71,30 @@
 	position: absolute;	
 }
 .book-form .form-radio label{
+	box-sizing: border-box;
 	display: flex;
 	padding: 20px 0;
 	flex-direction: column;
 	align-items: center;
-	border: 1px solid #000;
+	border: 2px solid #000;
 	border-radius: 10px;
+}
+.credit-card-year .error_text,
+.credit-card-month .error_text,
+.phone_email .error_text{
+	display: none;
+	padding-top: 8px;
+	padding-left: 4px;
+	color: #d95e50;
+}
+.credit-card-year.show .error_text,
+.credit-card-month.show .error_text,
+.phone_email.show .error_text{
+	display: block;
 }
 .book-form .form-radio:hover label,
 .book-form .form-radio input:checked ~ label{
-	background-color: var(--ciColor);
+	border: 2px solid var(--ciColor);
 }
 /* .book-form .form-radio label::before{ */
 .book-form .form-radio label::before{
@@ -309,7 +326,9 @@ body{
 	margin-top:.5em!important;
 }
 /*-- reservation --*/
-.book-form input[type="text"],.book-form input[type="email"], select {
+.book-form input[type="text"],
+.book-form input[type="number"],
+.book-form input[type="email"], select {
     width: 100%;
     color: #777;
     font-size: 1.4em;
@@ -319,7 +338,8 @@ body{
     border:1px solid #000;
 	box-sizing: border-box;
 }
-.signUp-form input[type="text"],.book-form input[type="email"]:disabled{
+.signUp-form input[type="text"],
+.book-form input[type="email"]:disabled{
 	cursor: not-allowed;
 }
 select#country option, select#country1 option {
@@ -343,7 +363,7 @@ select#country option, select#country1 option {
 .section_room {
     position: relative;
 	font-family: sans-serif;
-} 
+}
 .span1_of_1 {
     list-style: none;
     width: 100%;

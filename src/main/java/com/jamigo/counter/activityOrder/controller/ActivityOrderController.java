@@ -1,11 +1,14 @@
 package com.jamigo.counter.activityOrder.controller;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -156,7 +159,8 @@ public class ActivityOrderController {
     @PostMapping("/paidResult/{activityOrderNo}")
     public void checkPaidResult(
             @PathVariable Integer activityOrderNo,
-            @RequestBody String formData) {
+            @RequestBody String formData,
+            HttpServletResponse resp) {
     	System.out.println("activityOrderNo" +activityOrderNo);
     	Map<String, String> map = new HashMap<String, String>();
 
@@ -171,6 +175,11 @@ public class ActivityOrderController {
         	ActivityOrderVO orderVo = activityOrderService.getById(activityOrderNo);
         	orderVo.setActivityPaymentStat(Byte.valueOf((byte) 1));
         	activityOrderService.update(orderVo);
+        }
+        try {
+        	resp.sendRedirect("/Jamigo/member/center/activity_memberSignUp/member_activityMemberSignUp.html?redirect=true");
+        } catch (IOException e) {
+        	e.printStackTrace();
         }
     }
     

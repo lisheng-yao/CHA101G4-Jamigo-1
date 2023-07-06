@@ -22,7 +22,7 @@ public interface ProductForMainPageRepository extends JpaRepository<Product, Int
     List<Product> getRandomCounterProducts(Integer counterNo, Integer randNum);
 
     @Query(value = "select * from product " +
-            "where productSaleNum > 0 and productStat = 1 " +
+            "where productStat = 1 " +
             "ORDER BY productSaleNum DESC LIMIT 5", nativeQuery = true)
     List<Product> getBestSellingProducts();
 

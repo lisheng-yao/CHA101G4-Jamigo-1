@@ -1,6 +1,7 @@
 package com.jamigo.shop.counter_order.service;
 
 import com.jamigo.shop.counter_order.dto.CounterOrderForTableDTO;
+import com.jamigo.shop.counter_order.dto.EditCounterOrderDTO;
 import com.jamigo.shop.counter_order.dto.ProductDetailForCounterOrderDTO;
 import com.jamigo.shop.platform_order.dto.ProductDetailForPlatformOrderDTO;
 
@@ -11,4 +12,6 @@ public interface CounterOrderService {
     List<CounterOrderForTableDTO> getCounterOrderByCounterNo(Integer counterNo);
 
     List<ProductDetailForCounterOrderDTO> getCounterOrderDetailById(Integer counterOrderNo);
+
+    void editCounterOrderDetailStat(Integer counterOrderNo, EditCounterOrderDTO editCounterOrderDTO);
 }

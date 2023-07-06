@@ -24,6 +24,10 @@ let activity_attendee_phone_input = document.querySelector('#activity-attendee-p
 let activity_attendee_num_select = document.querySelector('#activity-attendee-more-num');
 let activity_attendee_coupon = document.querySelector('#activity-attendee-coupon');
 let pay_way_credit_card = document.querySelector('#pay-way-credit-card');
+let creditCardNum_input = document.querySelector('#credit-card-num');
+let creditCardNumEnd3_input = document.querySelector('#credit-card-num-end3');
+let creditCardYear_select = document.querySelector('#credit-card-year-select');
+let creditCardMonth_select = document.querySelector('#credit-card-month-select');
 
 let couponInfo = {couponTypeNo0 : 0};
 
@@ -44,9 +48,9 @@ getMemberInfo(currentMemberNo);
 
 // 獲取活動編號
 let currentCounterNo = getActivityNo();
+
 // 拿取活動資訊
 getActivity(currentCounterNo);
-
 function getActivityNo(){
     let url = location.search;
 	return new URLSearchParams(url).get('activityNo');
@@ -74,16 +78,7 @@ function getActivity(id) {
 	axios.get(`/Jamigo/backend/appdetail/${id}`)
 	.then(resp => {return resp.data})
 	.then(data => {
-		console.log(data);
-		// let [startDate, startTime] = data.activityStartTime.split('T');
-		// let [endDate, endTime] = data.activityEndTime.split('T');
-		// let [singUp_startDate, singUp_startTime] = data.activityRegStartTime.split('T');
-		// let [singUp_endDate, singUp_endTime] = data.activityRegEndTime.split('T');
-		
-		// let activityStartTime = data.activityStartTime.replace('T', ' ');
-		// let activityEndTime = data.activityEndTime.replace('T', ' ');
-		// let activityRegStartTime = data.activityRegStartTime.replace('T', ' ');
-		// let activityRegEndTime = data.activityRegEndTime.replace('T', ' ');
+		// console.log(data);
 		activity_activityNo_input.value = data.activityNo;
 		activity_name.innerText = data.activityName;
 		activity_statrDate.innerText = formatDate(data.activityStartTime);
@@ -142,8 +137,33 @@ function activityPlace(index){
 	}
 }
 
-// 傳至後端
+// 點擊送出按鈕，並作錯誤判斷
 activity_form_submit.addEventListener('click', () => {
+	let inputAttendeeMoreName_flag = true;
+	let inputAttendeeMoreAge_flag = true;
+	for(let i = 1; i <= activity_attendee_num_select.value - 1; i++) {
+		let attendeeMoreName = document.querySelector(`#activity-attendee-more-name-input${i}`);
+		let attendeeMoreAge = document.querySelector(`#activity-attendee-more-age-input${i}`);
+		if(!inputAttendeeMoreName_reject(attendeeMoreName)){
+			inputAttendeeMoreName_flag = false;
+		}
+		
+		if(!inputAttendeeMoreAge_reject(attendeeMoreAge)) {
+			inputAttendeeMoreAge_flag = false;
+		}
+	}
+	
+	let inputCreditCardNum_flag = inputCreditCardNum_reject();
+	let inputCreditCardNumEnd3_falg = inputCreditCardNumEnd3_reject();
+	let selectCreditCardYear_falg = selectCreditCardYear_reject(creditCardYear_select);
+	let selectCreditCardMonth_flag = selectCreditCardMonth_reject(creditCardMonth_select);
+	if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag){
+		form_submit();
+	}
+})
+
+// 送出表單
+function form_submit() {
 	Swal.fire({
 	    title: '確定送出報名?',
 	    icon: 'warning',
@@ -224,7 +244,7 @@ activity_form_submit.addEventListener('click', () => {
 			.catch(err_activity => console.log(err_activity))
 		}
 	})
-})
+}
 
 // HTML動態生成
 
@@ -281,7 +301,11 @@ function autoCreateForm(startIndex) {
         <div class="phone_email">
             <label>姓名</label>
             <div class="form-text">
-                <input id="activity-attendee-more-name-input${startIndex}" tabindex="0" type="text" name="activity-attendee-more-name" placeholder="" required="">
+                <input id="activity-attendee-more-name-input${startIndex}" onblur="inputAttendeeMoreName_reject(this)" tabindex="0" type="text" name="activity-attendee-more-name" placeholder="" required="">
+				<div class="error_text">
+					<i class="fa-solid fa-circle-exclamation"></i>
+					<span>錯誤訊息</span>
+				</div>
             </div>
         </div>
         <div class="phone_email">
@@ -303,7 +327,11 @@ function autoCreateForm(startIndex) {
         <div class="phone_email">
             <label>年紀</label>
             <div class="form-text">
-                <input type="text" id="activity-attendee-more-age-input${startIndex}" tabindex="0" name="activity-attendee-more-age" placeholder="" required="">
+                <input type="text" id="activity-attendee-more-age-input${startIndex}" onblur="inputAttendeeMoreAge_reject(this)" tabindex="0" name="activity-attendee-more-age" placeholder="" required="">
+				<div class="error_text">
+					<i class="fa-solid fa-circle-exclamation"></i>
+					<span>錯誤訊息</span>
+				</div>
             </div>
         </div>`;
     activity_attendee_more.lastChild.innerHTML = html;
@@ -315,7 +343,7 @@ function getCouponSelect(){
 	axios.get(`/Jamigo/cart/getMemberCoupons/${currentMemberNo}`)
 	.then(resp => {return resp.data})
 	.then(datas => {
-		console.log(datas);
+		// console.log(datas);
 		for(let i = 0; i < datas.length; i++) {
 			let element = document.createElement('option');
 			element.setAttribute('value', datas[i].couponTypeNo);
@@ -325,26 +353,128 @@ function getCouponSelect(){
 			couponInfo[`couponTypeNo${datas[i].couponTypeNo}`] = datas[i].couponPrice;
 			couponInfo[`couponLowest${datas[i].couponTypeNo}`] = datas[i].couponLowest;
 		}
-		console.log(couponInfo);
+		// console.log(couponInfo);
 	})
 	.catch(err => console.log(err))
 }
 
 // 錯誤判斷
+
+// 檢查姓名
 function inputAttendeeMoreName_reject(ele) {
 	let flag = true;
 	let error_text = '';
 	let value = ele.value;
-	let parent = ele.parentElement;
-	let parentSibling = parent.nextElementSibling;
-	let err = parentSibling.lastElementChild;
 
  	if(value == null || value.trim() == 0) {
    		flag = false;
-   		error_text = `請輸入${ele.nextElementSibling.innerText}`;
+   		error_text = `請輸入姓名`;
 	}
 
-	error_text_controll(flag, err, error_text);
+	error_text_controll(flag, ele, error_text);
 	return flag;
 }
 
+// 檢查年紀
+function inputAttendeeMoreAge_reject(ele) {
+	let flag = true;
+	let error_text = '';
+	let value = ele.value;
+	
+	if (value <= 0) {
+		flag = false;
+		error_text = '請輸入正確的年紀';
+   	} else if(value == null || value.trim() == 0) {
+   		flag = false;
+   		error_text = `請輸入${ele.nextElementSibling.innerText}`;
+	} else if(isNaN(value)) {
+   		flag = false;
+   		error_text = `請輸入正確的年紀`;
+	}
+
+	error_text_controll(flag, ele, error_text);
+	return flag;
+}
+
+// 檢查卡號
+creditCardNum_input.addEventListener('blur', () => inputCreditCardNum_reject())
+function inputCreditCardNum_reject() {
+	let flag = true;
+	let error_text = '';
+	let value = creditCardNum_input.value;
+
+	let numericPattern = /^[0-9]*$/;
+
+ 	if(value == null || value.trim() == 0) {
+   		flag = false;
+   		error_text = `請輸入卡號`;
+	} else if(!numericPattern.test(value)) {
+		flag = false;
+   		error_text = `請輸入正確的數字`;
+	}
+
+	error_text_controll(flag, creditCardNum_input, error_text);
+	return flag;
+}
+
+// 檢查後三碼
+creditCardNumEnd3_input.addEventListener('blur', () => inputCreditCardNumEnd3_reject())
+function inputCreditCardNumEnd3_reject() {
+	let flag = true;
+	let error_text = '';
+	let value = creditCardNumEnd3_input.value;
+
+	let numericPattern = /^\d{3}$/;
+
+ 	if(value == null || value.trim() == 0) {
+   		flag = false;
+   		error_text = `請輸入後三碼`;
+	} else if(!numericPattern.test(value)) {
+		flag = false;
+   		error_text = `請輸入正確的數字`;
+	}
+
+	error_text_controll(flag, creditCardNumEnd3_input, error_text);
+	return flag;
+}
+
+// 判斷年分
+function selectCreditCardYear_reject(ele) {
+	let flag = true;
+	let error_text = '';
+	let value = ele.value;
+	console.log(value);
+	if(value == null || value == 0) {
+		flag = false;
+		error_text = `請選擇到期年分`;
+	}
+
+	error_text_controll(flag, ele, error_text);
+	return flag;
+}
+
+// 判斷月分
+function selectCreditCardMonth_reject(ele) {
+	let flag = true;
+	let error_text = '';
+	let value = ele.value;
+	if(value == null || value == 0) {
+		flag = false;
+		error_text = `請選擇到期月分`;
+	}
+
+	error_text_controll(flag, ele, error_text);
+	return flag;
+}
+
+// 檢查flag判斷要添加錯誤訊息還是移除錯誤訊息
+function error_text_controll(flag, item, error_text) {
+	let itemParent = item.parentElement;
+	let itemSibling = item.nextElementSibling;
+	if(flag) {
+	  itemParent.parentElement.classList.remove('show');
+	} else {
+	  itemSibling.lastElementChild.innerText = error_text;
+	  itemParent.parentElement.classList.add('show');
+	}
+  }

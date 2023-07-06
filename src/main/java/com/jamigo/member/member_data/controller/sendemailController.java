@@ -19,8 +19,10 @@ public class sendemailController {
     }
 
     @PostMapping("/member/login/forgot")
-    public void forgotmail(@RequestBody MemberData memberData) {
-        sendEmail4forgot.sendMail(memberData);
+    public boolean forgotmail(@RequestBody MemberData memberData) {
+        boolean res= sendEmail4forgot.sendMail(memberData);
+        System.out.println(res);
+        return res;
     }
 
 
