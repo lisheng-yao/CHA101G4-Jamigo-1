@@ -87,6 +87,7 @@
 	border: 2px solid #000;
 	border-radius: 10px;
 }
+.activity-coupon .error_text,
 .credit-card-year .error_text,
 .credit-card-month .error_text,
 .phone_email .error_text{
@@ -95,6 +96,7 @@
 	padding-left: 4px;
 	color: #d95e50;
 }
+.activity-coupon.show .error_text,
 .credit-card-year.show .error_text,
 .credit-card-month.show .error_text,
 .phone_email.show .error_text{

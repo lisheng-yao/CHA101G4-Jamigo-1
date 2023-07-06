@@ -39,7 +39,7 @@ function render(activityOrders) {
     let data_status = result[1];
     html += `
       <tr data-status="${data_status}">
-        <td data-value="${activityOrder.activityNo}">${activityOrder.activityOrderNo}</td>
+        <td data-value="${activityOrder.activityOrderNo}">${activityOrder.activityOrderNo}</td>
         <td>${activityOrder.activity.activityName}</td>
         <td>${localTime}</td>
         <td>${activityOrder.numberOfAttendee ? activityOrder.numberOfAttendee + 1 : 1}</td>

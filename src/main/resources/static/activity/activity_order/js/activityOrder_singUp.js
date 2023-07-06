@@ -29,7 +29,7 @@ let creditCardNumEnd3_input = document.querySelector('#credit-card-num-end3');
 let creditCardYear_select = document.querySelector('#credit-card-year-select');
 let creditCardMonth_select = document.querySelector('#credit-card-month-select');
 
-let couponInfo = {couponTypeNo0 : 0};
+let couponInfo = {couponPrice0 : 0, couponLowest0 : 0};
 
 // 報名等級
 let activityLev_DB;
@@ -47,10 +47,11 @@ let currentMemberNo = localStorage.getItem('memberNo');
 getMemberInfo(currentMemberNo);
 
 // 獲取活動編號
-let currentCounterNo = getActivityNo();
+let currentActivityNo = getActivityNo();
+let currentCounterNo;
 
 // 拿取活動資訊
-getActivity(currentCounterNo);
+getActivity(currentActivityNo);
 function getActivityNo(){
     let url = location.search;
 	return new URLSearchParams(url).get('activityNo');
@@ -63,7 +64,7 @@ function getMemberInfo(id){
 				{header : {'Content-Type' : 'application/json'}})
 	.then(resp => {return resp.data})
 	.then(data => {
-		console.log(data);
+		// console.log(data);
 		if(data.levelNo) {}
 		activity_attendee_memberNo_input.value = data.memberNo;
 		activity_attendee_name_input.value = data.memberName;
@@ -94,7 +95,7 @@ function getActivity(id) {
 		activity_pic.src = `data:image/png;base64, ${data.activityPic}`
 		total_pay_money.innerText = data.activityCost;
 		
-
+		currentCounterNo = data.counterNo;
 		activityLev_DB = data.activityLev + 1;
 	})
 	.then(() => {
@@ -149,7 +150,7 @@ activity_form_submit.addEventListener('click', () => {
 	let inputCreditCardNumEnd3_falg = true;
 	let selectCreditCardYear_falg = true;
 	let selectCreditCardMonth_flag = true;
-
+	let activity_coupon_flag = activity_coupon_reject();
 	if(pay_way_credit_card.checked) {
 		inputCreditCardNum_flag = inputCreditCardNum_reject();
 		inputCreditCardNumEnd3_falg = inputCreditCardNumEnd3_reject();
@@ -166,7 +167,7 @@ activity_form_submit.addEventListener('click', () => {
 				inputAttendeeMoreAge_flag = false;
 			}
 		}
-		if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag){
+		if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag && activity_coupon_flag){
 			form_submit();
 		}
 	} else {
@@ -190,7 +191,7 @@ function form_submit() {
 			let more_attendee_num = activity_attendee_num_select.value - 1;
 	
 			axios.post('/Jamigo/activityOrder/insert', {
-				activityNo : currentCounterNo,
+				activityNo : currentActivityNo,
 				memberNo : currentMemberNo,
 				activityPaymentStat : pay_way_credit_card.checked ? 1 : 0,
 				memberCouponNo : activity_attendee_coupon.value == 0 ? null : activity_attendee_coupon.value,
@@ -297,10 +298,27 @@ select_number_of_people.addEventListener('change', () => {
 })
 
 activity_attendee_coupon.addEventListener('change', () => {
-	let couponNum = `couponTypeNo${activity_attendee_coupon.value}`;
-	let discount = couponInfo[couponNum];
-	total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
+	activity_coupon_reject();
 })
+function activity_coupon_reject(){
+	let flag = true;
+	let error_text = '';
+	let value = activity_attendee_coupon.value;
+	let couponLowest = couponInfo[`couponLowest${value}`];
+	let discount = couponInfo[`couponPrice${value}`];
+	console.log(discount);
+	// console.log('couponLowest' + couponLowest);
+	// console.log(total_pay_money.innerText >= couponLowest);
+	if(total_pay_money.innerText >= couponLowest)
+		total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
+	else {
+		flag = false;
+		error_text = `未達使用門檻`;
+	}
+	error_text_controll(flag, activity_attendee_coupon, error_text);
+	return flag;
+
+}
 
 // 自動生成額外參加人數的欄位
 function autoCreateForm(startIndex) {
@@ -356,17 +374,19 @@ function getCouponSelect(){
 	axios.get(`/Jamigo/cart/getMemberCoupons/${currentMemberNo}`)
 	.then(resp => {return resp.data})
 	.then(datas => {
-		console.log(datas);
+		datas = datas.filter(data => {
+			return data.counterNo == currentCounterNo || data.counterNo == 0
+		})
 		for(let i = 0; i < datas.length; i++) {
 			let element = document.createElement('option');
 			element.setAttribute('value', datas[i].couponTypeNo);
-			// element.setAttribute('data-price', datas[i].couponPrice);
-			element.innerText = datas[i].couponConditions;
+			element.innerText = `消費滿${datas[i].couponLowest}折${datas[i].couponPrice}`;
+			// element.innerText = datas[i].couponConditions;
 			activity_attendee_coupon.append(element);
-			couponInfo[`couponTypeNo${datas[i].couponTypeNo}`] = datas[i].couponPrice;
+			couponInfo[`couponPrice${datas[i].couponTypeNo}`] = datas[i].couponPrice;
 			couponInfo[`couponLowest${datas[i].couponTypeNo}`] = datas[i].couponLowest;
 		}
-		// console.log(couponInfo);
+		console.log(datas);
 	})
 	.catch(err => console.log(err))
 }
