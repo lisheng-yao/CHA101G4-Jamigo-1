@@ -42,12 +42,22 @@ function opensignin() {
     const memberid = localStorage.getItem('memberNo');
     const memberaccount = localStorage.getItem('memberAccount');
     checklogin();//確認登入方法
-
+    
     function checklogin() {
         if (memberid) {
             openmemberinfo();
-            memberimg.src = `/Jamigo/member/member_data/${memberid}`;
-            membername.innerText = 'HI!  ' + memberaccount;
+            let img = new Image();
+            img.onload = function () {
+                // 图片加载成功
+                memberimg.src = `/Jamigo/member/member_data/${memberid}`;
+            };
+            img.onerror = function () {
+                // 图片加载失败，使用默认图片路径
+                memberimg.src = '/Jamigo/member/member/image/gray.jpg';
+            };
+            img.src = `/Jamigo/member/member_data/${memberid}`;
+
+            membername.innerText = 'HI! ' + memberaccount;
         }
     }
 
@@ -255,15 +265,15 @@ $(document).ready(function () {
             });
             function success2(response) {
                 let allprodiv = $('.saveproNo');
-    
+
                 allprodiv.each(function () {
                     let saveprono = $(this).data('productno');
-    
+
                     if (response.includes(saveprono)) {
                         $(this).children().first().addClass('tored');
                     }
                 })
-    
+
             };
         }
     }
