@@ -7,7 +7,6 @@ let currentCounterNo = localStorage.getItem('counterNo');
 
 window.addEventListener("DOMContentLoaded", () =>{
   // 先查出所有櫃位
-  // 目前先查櫃位編號為1的
   getCounterAllInfo(currentCounterNo);
 
 })
@@ -63,7 +62,7 @@ function render(datas) {
 	              修改輪播圖
 	            </a>
                 <button type="button" class="btn delete-btn btn-danger">
-                  <i class="fa-solid fa-pen-to-square"></i>
+				  <i class="fa-solid fa-trash-can"></i>
                   刪除輪播圖
                 </button>
 	          </div>

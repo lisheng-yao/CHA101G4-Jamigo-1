@@ -1,15 +1,22 @@
 let addCollect_btn = document.querySelector('.list-group-flush .list-group-item .btn-primary:last-child');
 
 let currentMemberNo = localStorage.getItem('memberNo');
-let currentActivityNo = 0;
 
 // 獲取活動編號
-getActivityNo();
+let currentActivityNo = getActivityNo();
 function getActivityNo(){
     let url = location.search;
-	currentActivityNo = new URLSearchParams(url).get('activityNo');
+	return new URLSearchParams(url).get('activityNo');
 }
 
+isActivityNoAdded(currentMemberNo, currentActivityNo);
+function isActivityNoAdded(currentMemberNo, currentActivityNo) {
+    axios.get(`/Jamigo/activityCollection/isActivityAdd/${currentMemberNo}/${currentActivityNo}`)
+    .then(resp => {
+        addCollect_btn.click();
+    })
+    .catch(err => console.log(err))
+}
 // 執行收藏
 addCollect_btn.addEventListener('click', () => {
     // 加入收藏
@@ -28,7 +35,7 @@ addCollect_btn.addEventListener('click', () => {
         addCollect_btn.style.backgroundColor = '#01a5c0';
         addCollect_btn.innerText = '收藏活動';
         axios.post('/Jamigo/activityCollection/deleteByEntity', {
-            activityNo : currentCounterNo,
+            activityNo : currentActivityNo,
             memberNo : currentMemberNo
         })
         .then(resp => console.log(resp.data))

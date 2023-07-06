@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,8 @@ public class ActivityCollectionController {
 	
 	@Autowired
 	ActivityService activityService;
+
+	private ActivityCollectionEntity activityAdd;
 	
 	@GetMapping("/getAll")
 	public List<ActivityCollectionEntity> getAll() {
@@ -45,6 +48,16 @@ public class ActivityCollectionController {
 		return dtoList;
 	}
 
+	@GetMapping("/isActivityAdd/{memberNo}/{activityNo}")
+	public ResponseEntity<String> isActivityAdd(@PathVariable Integer activityNo, @PathVariable Integer memberNo) {
+		activityAdd = service.isActivityAdd(activityNo, memberNo);
+		if(activityAdd != null) {
+			return ResponseEntity.ok("已收藏");
+		}else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未收藏");
+		}
+	}
+	
 	@PostMapping("/deleteByEntity")
 	public ResponseEntity<?> deleteByEntity(@RequestBody ActivityCollectionEntity entity) {
 		service.delete(entity);

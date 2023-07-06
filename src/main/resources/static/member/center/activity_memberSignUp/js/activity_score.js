@@ -4,8 +4,14 @@ let inputName = document.querySelector('#inputName');
 let activity_scores = document.querySelectorAll('.form-item-activity-score-content input');
 let inputExp = document.querySelector('#inputExp');
 let inputExp_error = document.querySelector('.form-item-exp .error-text span');
-
+let currentActivityOrderNo;
 let submit = document.querySelector('.upload-btn');
+
+currentActivityOrderNo = getActivityOrderNo();
+function getActivityOrderNo(){
+    let url = location.search;
+	return new URLSearchParams(url).get('activityOrderNo');
+}
 
 submit.addEventListener('click', () => {
 	let inputExp_flag = inputExp_reject();
@@ -41,7 +47,7 @@ function submitScore() {
 					text: '活動評分送出成功!',
 					confirmButtonText: "確認"
 				})
-			.then(() => window.location.href="./counter_carouselCtrl.html")
+			.then(() => window.location.href="./member_activityMemberSignUp.html")
 			})
 			.catch(error => {
 				Swal.fire({
@@ -54,8 +60,9 @@ function submitScore() {
 	})
 }
 
-// 先拿訂單編號為3的
-getActivityInfo(3);
+// 拿訂單編號
+getActivityInfo(currentActivityOrderNo);
+
 // 獲取活動
 function getActivityInfo(activityOrderNo){
 	axios.get(`/Jamigo/activityOrder/getActivityOrderById/${activityOrderNo}`)
