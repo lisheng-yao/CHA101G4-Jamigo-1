@@ -61,6 +61,7 @@ function opensignin() {
         localStorage.removeItem('memberNo');
         localStorage.removeItem('memberAccount');
         localStorage.removeItem('memberorcount');
+        localStorage.removeItem('levelNo');
         sessionStorage.removeItem('memberNo');
         sessionStorage.removeItem('memberAccount');
         sessionStorage.removeItem('memberorcount');
