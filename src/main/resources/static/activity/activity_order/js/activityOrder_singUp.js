@@ -63,6 +63,8 @@ function getMemberInfo(id){
 				{header : {'Content-Type' : 'application/json'}})
 	.then(resp => {return resp.data})
 	.then(data => {
+		console.log(data);
+		if(data.levelNo) {}
 		activity_attendee_memberNo_input.value = data.memberNo;
 		activity_attendee_name_input.value = data.memberName;
 		activity_attendee_email_input.value = data.memberEmail;
@@ -91,8 +93,9 @@ function getActivity(id) {
 		activity_memberLevel.innerText = data.activityLev == 0 ? '一般會員' : 'VIP會員';
 		activity_pic.src = `data:image/png;base64, ${data.activityPic}`
 		total_pay_money.innerText = data.activityCost;
+		
 
-		activityLev_DB = data.activityLev;
+		activityLev_DB = data.activityLev + 1;
 	})
 	.then(() => {
 		if(activityLev_member < activityLev_DB) {
@@ -141,25 +144,35 @@ function activityPlace(index){
 activity_form_submit.addEventListener('click', () => {
 	let inputAttendeeMoreName_flag = true;
 	let inputAttendeeMoreAge_flag = true;
-	for(let i = 1; i <= activity_attendee_num_select.value - 1; i++) {
-		let attendeeMoreName = document.querySelector(`#activity-attendee-more-name-input${i}`);
-		let attendeeMoreAge = document.querySelector(`#activity-attendee-more-age-input${i}`);
-		if(!inputAttendeeMoreName_reject(attendeeMoreName)){
-			inputAttendeeMoreName_flag = false;
-		}
-		
-		if(!inputAttendeeMoreAge_reject(attendeeMoreAge)) {
-			inputAttendeeMoreAge_flag = false;
-		}
-	}
 	
-	let inputCreditCardNum_flag = inputCreditCardNum_reject();
-	let inputCreditCardNumEnd3_falg = inputCreditCardNumEnd3_reject();
-	let selectCreditCardYear_falg = selectCreditCardYear_reject(creditCardYear_select);
-	let selectCreditCardMonth_flag = selectCreditCardMonth_reject(creditCardMonth_select);
-	if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag){
+	let inputCreditCardNum_flag = true;
+	let inputCreditCardNumEnd3_falg = true;
+	let selectCreditCardYear_falg = true;
+	let selectCreditCardMonth_flag = true;
+
+	if(pay_way_credit_card.checked) {
+		inputCreditCardNum_flag = inputCreditCardNum_reject();
+		inputCreditCardNumEnd3_falg = inputCreditCardNumEnd3_reject();
+		selectCreditCardYear_falg = selectCreditCardYear_reject(creditCardYear_select);
+		selectCreditCardMonth_flag = selectCreditCardMonth_reject(creditCardMonth_select);
+		for(let i = 1; i <= activity_attendee_num_select.value - 1; i++) {
+			let attendeeMoreName = document.querySelector(`#activity-attendee-more-name-input${i}`);
+			let attendeeMoreAge = document.querySelector(`#activity-attendee-more-age-input${i}`);
+			if(!inputAttendeeMoreName_reject(attendeeMoreName)){
+				inputAttendeeMoreName_flag = false;
+			}
+			
+			if(!inputAttendeeMoreAge_reject(attendeeMoreAge)) {
+				inputAttendeeMoreAge_flag = false;
+			}
+		}
+		if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag){
+			form_submit();
+		}
+	} else {
 		form_submit();
 	}
+	
 })
 
 // 送出表單
@@ -177,8 +190,8 @@ function form_submit() {
 			let more_attendee_num = activity_attendee_num_select.value - 1;
 	
 			axios.post('/Jamigo/activityOrder/insert', {
-				activityNo : activity_activityNo_input.value,
-				memberNo : activity_attendee_memberNo_input.value,
+				activityNo : currentCounterNo,
+				memberNo : currentMemberNo,
 				activityPaymentStat : pay_way_credit_card.checked ? 1 : 0,
 				memberCouponNo : activity_attendee_coupon.value == 0 ? null : activity_attendee_coupon.value,
 				numberOfAttendee : more_attendee_num
@@ -211,6 +224,7 @@ function form_submit() {
 				return data_activity;
 			})
 			.then(data_attendee => {
+				console.log(data_attendee);
 				if(pay_way_credit_card.checked) {
 					Swal.fire({
 						icon: 'success',
@@ -220,7 +234,6 @@ function form_submit() {
 					  })
 					  .then(() => window.location.href="/Jamigo/member/center/activity_memberSignUp/member_activityMemberSignUp.html")
 				} else {
-					console.log(data_attendee);
 					data_attendee = parseInt(data_attendee);
 					const requestBody = new URLSearchParams();
 					requestBody.append('activityOrderNo', data_attendee);
@@ -343,12 +356,12 @@ function getCouponSelect(){
 	axios.get(`/Jamigo/cart/getMemberCoupons/${currentMemberNo}`)
 	.then(resp => {return resp.data})
 	.then(datas => {
-		// console.log(datas);
+		console.log(datas);
 		for(let i = 0; i < datas.length; i++) {
 			let element = document.createElement('option');
 			element.setAttribute('value', datas[i].couponTypeNo);
 			// element.setAttribute('data-price', datas[i].couponPrice);
-			element.innerText = datas[i].couponTypeName;
+			element.innerText = datas[i].couponConditions;
 			activity_attendee_coupon.append(element);
 			couponInfo[`couponTypeNo${datas[i].couponTypeNo}`] = datas[i].couponPrice;
 			couponInfo[`couponLowest${datas[i].couponTypeNo}`] = datas[i].couponLowest;
