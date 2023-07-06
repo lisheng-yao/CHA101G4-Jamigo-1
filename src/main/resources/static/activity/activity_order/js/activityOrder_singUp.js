@@ -65,7 +65,6 @@ function getMemberInfo(id){
 	.then(resp => {return resp.data})
 	.then(data => {
 		// console.log(data);
-		if(data.levelNo) {}
 		activity_attendee_memberNo_input.value = data.memberNo;
 		activity_attendee_name_input.value = data.memberName;
 		activity_attendee_email_input.value = data.memberEmail;
@@ -81,7 +80,7 @@ function getActivity(id) {
 	axios.get(`/Jamigo/backend/appdetail/${id}`)
 	.then(resp => {return resp.data})
 	.then(data => {
-		// console.log(data);
+		console.log(data);
 		activity_activityNo_input.value = data.activityNo;
 		activity_name.innerText = data.activityName;
 		activity_statrDate.innerText = formatDate(data.activityStartTime);
@@ -97,6 +96,9 @@ function getActivity(id) {
 		
 		currentCounterNo = data.counterNo;
 		activityLev_DB = (data.activityLev + 1) == 1 ? 1 : 3;
+	})
+	.then(() => {
+		getCouponSelect();;
 	})
 	.then(() => {
 		if(activityLev_member < activityLev_DB) {
@@ -150,23 +152,24 @@ activity_form_submit.addEventListener('click', () => {
 	let inputCreditCardNumEnd3_falg = true;
 	let selectCreditCardYear_falg = true;
 	let selectCreditCardMonth_flag = true;
+	for(let i = 1; i <= activity_attendee_num_select.value - 1; i++) {
+		let attendeeMoreName = document.querySelector(`#activity-attendee-more-name-input${i}`);
+		let attendeeMoreAge = document.querySelector(`#activity-attendee-more-age-input${i}`);
+		if(!inputAttendeeMoreName_reject(attendeeMoreName)){
+			inputAttendeeMoreName_flag = false;
+		}
+		
+		if(!inputAttendeeMoreAge_reject(attendeeMoreAge)) {
+			inputAttendeeMoreAge_flag = false;
+		}
+	}
 	let activity_coupon_flag = activity_coupon_reject();
 	if(pay_way_credit_card.checked) {
 		inputCreditCardNum_flag = inputCreditCardNum_reject();
 		inputCreditCardNumEnd3_falg = inputCreditCardNumEnd3_reject();
 		selectCreditCardYear_falg = selectCreditCardYear_reject(creditCardYear_select);
 		selectCreditCardMonth_flag = selectCreditCardMonth_reject(creditCardMonth_select);
-		for(let i = 1; i <= activity_attendee_num_select.value - 1; i++) {
-			let attendeeMoreName = document.querySelector(`#activity-attendee-more-name-input${i}`);
-			let attendeeMoreAge = document.querySelector(`#activity-attendee-more-age-input${i}`);
-			if(!inputAttendeeMoreName_reject(attendeeMoreName)){
-				inputAttendeeMoreName_flag = false;
-			}
-			
-			if(!inputAttendeeMoreAge_reject(attendeeMoreAge)) {
-				inputAttendeeMoreAge_flag = false;
-			}
-		}
+		
 		if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag && activity_coupon_flag){
 			form_submit();
 		}
@@ -278,8 +281,7 @@ document.querySelector('.pay-way-mobile-box').addEventListener('click', () => {
 
 // 選擇人數後更新額外參加人數的欄位
 select_number_of_people.addEventListener('change', () => {
-	let couponNum = `couponTypeNo${activity_attendee_coupon.value}`;
-	let discount = couponInfo[couponNum];
+	let discount = couponInfo[`couponPrice${activity_attendee_coupon.value}`];
 	// 更新總金額
 	total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
     
@@ -369,14 +371,17 @@ function autoCreateForm(startIndex) {
 }
 
 // 動態生成優惠select欄位
-getCouponSelect();
+
 function getCouponSelect(){
 	axios.get(`/Jamigo/cart/getMemberCoupons/${currentMemberNo}`)
 	.then(resp => {return resp.data})
 	.then(datas => {
+		console.log(currentCounterNo);
+		console.log(datas);
 		datas = datas.filter(data => {
 			return data.counterNo == currentCounterNo || data.counterNo == 0
 		})
+		console.log(datas);
 		for(let i = 0; i < datas.length; i++) {
 			let element = document.createElement('option');
 			element.setAttribute('value', datas[i].couponTypeNo);

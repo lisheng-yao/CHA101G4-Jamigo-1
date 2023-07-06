@@ -206,6 +206,7 @@
 }
 .discount-grid-content p:hover a{
     color: #fff;
+    background-color: var(--ciColor);
 }
 
 .introduce-grids .effect-lexi {
