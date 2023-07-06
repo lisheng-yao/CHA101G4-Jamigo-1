@@ -31,6 +31,9 @@ import com.jamigo.activity.activity_approve.model.Activity;
 import com.jamigo.activity.activity_approve.service.ActivityService;
 import com.jamigo.counter.counter.entity.Counter;
 import com.jamigo.counter.counter.service.CounterService;
+import com.jamigo.member.member_data.dao.MemberDataDAO;
+import com.jamigo.member.member_level.dao.MemberLevelDetailRepository;
+import com.jamigo.member.member_level.model.MemberLevelDetail;
 
 @RestController
 public class ActivityController {
@@ -39,6 +42,9 @@ public class ActivityController {
 	
 	@Autowired
 	CounterService counterService;
+	
+	@Autowired
+	MemberLevelDetailRepository memberLevelDetailRepository;
 	
 	// 新增線下活動申請表
 	@PostMapping(value = "/backend/appform", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // 把input寫入的資料傳進去
@@ -201,5 +207,14 @@ public class ActivityController {
     	
     	return (Counter) session.getAttribute("counter");
     }
+    
+    @Autowired
+    private MemberDataDAO memberDataDAO;
+    
+    @GetMapping("/memberLevelDetail_1/{id}")
+	public int getMemberLevelDetail(@PathVariable int id){
+    
+		return memberDataDAO.selectById(id).getLevelNo();
+	}
 
 }
