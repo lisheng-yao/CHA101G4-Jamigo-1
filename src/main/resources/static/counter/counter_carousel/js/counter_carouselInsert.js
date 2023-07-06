@@ -380,6 +380,9 @@ function endDateTime_reject(endDate, endTime) {
 	let error_text = '';
 	let startDateTime = new Date(`${inputStartDate.value} ${inputStartTime.value}`)
 	let endDateTime = new Date(`${endDate} ${endTime}`);
+	console.log(startDateTime);
+	console.log(endDateTime);
+	console.log(startDateTime > endDateTime);
 	if(endDateTime < startDateTime) {
 		flag = false;
 		error_text = '結束時間不能比開始時間早'
@@ -389,12 +392,12 @@ function endDateTime_reject(endDate, endTime) {
 	return flag;
 }
 function insertImg_reject() {
-	console.log('圖片判斷');
+	// console.log('圖片判斷');
 	let flag = true;
 	let error_text = '';
-	console.log('img_data ?? true: ' + img_data ?? true);
+	// console.log('img_data ?? true: ' + img_data ?? true);
 	if(!(img_data ?? false)) {
-		console.log('沒有圖片');
+		// console.log('沒有圖片');
 		flag = false;
 		error_text = '需選取上傳圖片'
 	}
@@ -405,6 +408,8 @@ function insertImg_reject() {
 // 檢查flag判斷要添加錯誤訊息還是移除錯誤訊息
 function error_text_controll(flag, item, error_text) {
 	let itemParent = item.parentElement;
+	console.log('rrrrrrrrrrr');
+	console.log(itemParent);
 	if(flag) {
 	  itemParent.parentElement.classList.remove('show');
 	} else {
