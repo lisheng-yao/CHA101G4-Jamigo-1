@@ -16,7 +16,7 @@ public class SendEmail4forgot {
     private MemberService memberService;
 
 
-    public void sendMail(MemberData memberData) {
+    public boolean sendMail(MemberData memberData) {
 
         try {
             Properties props = new Properties();
@@ -35,20 +35,25 @@ public class SendEmail4forgot {
             });
 
             String password4forgot = memberService.forgot(memberData);
+            if (password4forgot != null) {
+                String email = memberData.getMemberEmail();
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(myGmail));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                message.setSubject("Jamigo忘記密碼");//標題
+                message.setText("這是您的密碼 ：" + password4forgot);//內容
 
-            String email = memberData.getMemberEmail();
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(myGmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject("Jamigo忘記密碼");//標題
-            message.setText("這是您的密碼 ：" + password4forgot);//內容
-
-            Transport.send(message);
+                Transport.send(message);
 //			mailSender.send(message);
-            System.out.println("傳送成功!");
+                System.out.println("傳送成功!");
+                return true;
+            } else {
+                return false;
+            }
         } catch (MessagingException e) {
             System.out.println("傳送失敗!");
             e.printStackTrace();
+            return false;
         }
     }
 
