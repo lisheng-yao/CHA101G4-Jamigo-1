@@ -8,6 +8,7 @@ $(function (){
     $.ajax({
         url: `/Jamigo/products/getProductForDetailPage/${productNo}`,
         type: "GET",
+        async: false,
         success: function (productWithPics, addWished) {
             console.log(productWithPics);
             product = productWithPics;
@@ -53,7 +54,8 @@ $(function (){
             console.error(xhr);
         }
     });
-    //加入購物稱
+    preventAddCart();
+    //加入購物車
     addToCart(productNo);
 });
 
@@ -272,5 +274,15 @@ function addwished() {
             })
 
         };
+    }
+}
+
+function preventAddCart(){
+    if(product.productStat === false){
+        let addToCart_btn = document.getElementById("add_to_cart");
+        addToCart_btn.parentNode.removeChild(addToCart_btn);
+        // $("#add_to_cart").prop("disabled", true);
+        // window.location = '/Jamigo/shop/main_page/商城首頁.html';
+        return;
     }
 }
