@@ -3,7 +3,8 @@ let password = document.querySelector('#login-password');
 let login_btn = document.querySelector('.content-input-field button');
 
 password.addEventListener('keyup', e => {
-	if(e.code === 'Enter') autoCreatForm();	
+	if(e.code === 'Enter')
+		login_btn.click();	
 })
 
 //checkLogin();
@@ -33,7 +34,7 @@ login_btn.addEventListener('click', () => {
 		adminName : account.value,
 		adminPassword : password.value	
 	}
-	// console.log(admin)
+	console.log(admin)
 	let url = "/Jamigo/administrator/login"
 	
 	fetch(url, {
