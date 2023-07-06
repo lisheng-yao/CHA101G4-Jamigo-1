@@ -8,7 +8,7 @@ $(function (){
     $.ajax({
         url: `/Jamigo/products/getProductForDetailPage/${productNo}`,
         type: "GET",
-        success: function (productWithPics) {
+        success: function (productWithPics, addWished) {
             console.log(productWithPics);
             product = productWithPics;
 
@@ -25,6 +25,7 @@ $(function (){
             $("input[name='productStatus'][value='" + transProductStat + "']").prop("checked", true);
             $("#productSaleNum").val(product.productSaleNum);
             $("#reportNumber").val(product.reportNumber);
+            $(".saveproNo").attr("data-productno", product.productNo);
             // $("#evalTotalPeople").val(productWithPics.evalTotalPeople);
             // $("#evalTotalScore").val(productWithPics.evalTotalScore);
             // $("#evalAvg").innerText(productWithPics.evalTotalScore / productWithPics.evalTotalPeople);
@@ -46,6 +47,7 @@ $(function (){
                 });
                 $(`#pic${i+1}:not(.cloned)`).attr('src', pic);
             }
+            addwished();
         },
         error: function (xhr, textStatus, errorThrown) {
             console.error(xhr);
@@ -237,4 +239,38 @@ function goToCategoryPage(){
     $("#productCat").on("click", function (){
         window.location = `/Jamigo/shop/main_page/product_category_page.html?productCatNo=${product.productCategory.productCatNo}`;
     });
+}
+
+function addwished() {
+    let memberno = localStorage.getItem('memberNo');
+    if (!memberno) {
+        return;
+    } else {
+        $.ajax({
+            type: 'GET',
+            url: '/Jamigo/wishlist/checkWishedByMemberNo/' + memberno,
+            success: function (response) {
+                success2(response);
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '後台停電ㄌ...請稍後再試',
+                    text: error.status,
+                });
+            }
+        });
+        function success2(response) {
+            let allprodiv = $('.saveproNo');
+
+            allprodiv.each(function () {
+                let saveprono = $(this).data('productno');
+
+                if (response.includes(saveprono)) {
+                    $(this).children().first().addClass('tored');
+                }
+            })
+
+        };
+    }
 }
