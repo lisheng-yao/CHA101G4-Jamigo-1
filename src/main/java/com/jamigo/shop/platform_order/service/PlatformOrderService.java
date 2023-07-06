@@ -1,6 +1,7 @@
 package com.jamigo.shop.platform_order.service;
 
 import com.jamigo.shop.cart.dto.CartDTO;
+import com.jamigo.shop.platform_order.dto.CreatePlatformOrderDTO;
 import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
 import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
@@ -30,7 +31,7 @@ public interface PlatformOrderService {
 
     Map<String, CounterOrderForPlatformOrderDTO> getPlatformOrderDetailById(Integer platformOrderNo);
 
-    String createPlatformOrder(PlatformOrder newPlatformOrder);
+    String createPlatformOrder(CreatePlatformOrderDTO newPlatformOrder);
 
     void changePaidStat(Integer platformOrderNo, String formData);
 

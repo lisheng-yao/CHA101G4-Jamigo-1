@@ -11,6 +11,7 @@ $(function () {
                 title: '平台訂單編號',
                 align: 'center',
                 valign: 'middle',
+                width: 150,
                 formatter: platformOrderNoFormatter
             },
             {
@@ -56,13 +57,15 @@ $(function () {
                 field: 'orderTime',
                 title: '下單時間',
                 align: 'center',
-                valign: 'middle'
+                valign: 'middle',
+                width: 200
             },
             {
                 field: 'operation',
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
+                width: 250,
                 formatter: '<button type="button" class="btn btn-primary full-info" data-bs-toggle="modal" data-bs-target="#orderDetailModal" data-bs-whatever="@mdo">其他資訊</button>' +
                     '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderEditModal" data-bs-whatever="@mdo">更改狀態</button>'
             }
@@ -99,9 +102,6 @@ function platformOrderStatFormatter(value) {
     else if (value === 70) {
         return '<span class="badge rounded-pill text-bg-success">訂單完成</span>'
     }
-    else if (value === 80) {
-        return '<span class="badge rounded-pill text-bg-danger">訂單異常</span>'
-    }
 }
 
 function paymentStatFormatter(value) {
@@ -115,7 +115,7 @@ function paymentStatFormatter(value) {
 
 function paymentMethodFormatter(value) {
     if (value === 1) {
-        return '<span class="badge rounded-pill text-bg-info">綠界金流</span>';
+        return '<span class="badge rounded-pill text-bg-info">綠界</span>';
     }
     else if (value === 2) {
         return '<span class="badge rounded-pill text-bg-info">貨到付款</span>';
@@ -173,7 +173,7 @@ $table.on("click", "button.full-info", function () {
             if (res.paymentMethod === 1) {
                 modal_body.innerHTML += `
                     <div>
-                        <p><b>付款方式：</b>綠界金流</p>
+                        <p><b>付款方式：</b>綠界</p>
                 `;
             }
             else if (res.paymentMethod === 2) {
@@ -375,31 +375,3 @@ $table.on("click", "button.full-info", function () {
         }
     })
 });
-
-/*
-                    modal_body.innerHTML += `
-
-
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="2">原總金額</th>
-                                        <th>$1000</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">折價券折抵</th>
-                                        <th>$-100</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">點數折抵</th>
-                                        <th>$-100</th>
-                                    </tr>
-                                    <tr class="order_total">
-                                        <th colspan="2">訂單實付金額</th>
-                                        <th>$800</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    `;
-
-                     */

@@ -113,3 +113,7 @@ table#main_table tbody td span {
     font-size: 14px;
     text-align: left;
 }
+
+.table-responsive table tbody tr td.cart_info {
+    width: 370px;
+}

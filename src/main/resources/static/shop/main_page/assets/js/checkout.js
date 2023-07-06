@@ -1,13 +1,19 @@
+// 取得會員編號
 const memberNo = parseInt(localStorage.getItem("memberNo"));
 
-const totalCoupon = 0;
-const totalPoints = 1000;
+const discountInfo = JSON.parse(sessionStorage.getItem("discountInfo"));
+
+let usedCoupons = discountInfo.usedCoupons;
+let totalCoupon = 0;
+let totalPoints = parseInt(discountInfo.memberUsedPoints);
 
 let memberAddress;
 let levelName;
 let levelFeedback;
 
-$(document).ready(function () {
+$(document).ready(async function () {
+
+    await getMemberCoupons();
 
     setupRadioButtons('payment_method', 'payment');
     setupRadioButtons('shipping_method', 'shipping');
@@ -18,7 +24,42 @@ $(document).ready(function () {
     check_buyer_data();
 });
 
+//取回會員的所有折價券
+function getMemberCoupons() {
+    return $.ajax({
+        url: `/Jamigo/cart/getMemberCoupons/${memberNo}`,
+        method: "GET",
+        async: false,
+        contentType: "application/json",
+        success: function (resp) {
 
+            totalCoupon = 0;
+
+            for (let str of usedCoupons) {
+                // 首先，我們使用 "," 將字串切割為 array
+                let params = str.split(',');
+
+                // 接著，我們創建一個空物件來存放我們的結果
+                let obj = {};
+
+                // 然後，我們將每個參數進行處理
+                params.forEach(param => {
+                    let parts = param.split('=');
+                    obj[parts[0]] = isNaN(parts[1]) ? parts[1] : Number(parts[1]);
+                });
+
+
+                for (let j of resp) {
+                    if (obj["memberCouponNo"] === j.memberCouponNo && obj["couponTypeNo"] === j.couponTypeNo) {
+                        totalCoupon += j.couponPrice;
+                    }
+                }
+            }
+
+        }
+    });
+
+}
 
 function setupRadioButtons(name, id) {
     // 為 radio button 和相關的 label 加上 click 事件處理器
@@ -51,7 +92,7 @@ function autoFillMemberData(memberNo) {
 
     $.ajax({
         type: "GET",
-        url: `http://localhost:8080/Jamigo/shop/platform_order/memberData/${memberNo}`,
+        url: `/Jamigo/shop/platform_order/memberData/${memberNo}`,
         success: function (response) {
             $("input#buyerName").val(response.memberName);
             $("input#buyerPhone").val(response.memberPhone);
@@ -69,7 +110,7 @@ function autoFillMemberData(memberNo) {
 function getCartInfo(memberNo) {
     $.ajax({
         type: "GET",
-        url: `http://localhost:8080/Jamigo/shop/platform_order/cart/${memberNo}`,
+        url: `/Jamigo/shop/platform_order/cart/${memberNo}`,
         success: function (response) {
 
             let totalPaid = 0;
@@ -90,7 +131,7 @@ function getCartInfo(memberNo) {
                     html_str +=
                         `<tr>
                             <td class="cart_img">
-                                <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${item['productNo']}" alt="">
+                                <img src="/Jamigo/shop/product_picture/product/${item['productNo']}" alt="">
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>
@@ -181,6 +222,16 @@ $("div.order_table").on("click", "div.create_order button", function () {
             let invoiceMethod = $("input[name='invoice_method']:checked").val();
             let invoiceGui = $("input.invoice_gui").val();
 
+            let transformedData = usedCoupons.map(coupon => {
+                let parts = coupon.split(",");
+                let obj = {};
+                parts.forEach(part => {
+                    let [key, value] = part.split("=");
+                    obj[key] = parseInt(value, 10);
+                });
+                return obj;
+            });
+
             let platform_order_data = {
                 memberNo: memberNo,
                 buyerName: buyerName,
@@ -192,14 +243,14 @@ $("div.order_table").on("click", "div.create_order button", function () {
                 deliveryAddress: deliveryAddress,
                 invoiceMethod: invoiceMethod,
                 invoiceGui: invoiceGui,
-                totalCoupon: totalCoupon,
+                memberCouponIdList: transformedData,
                 totalPoints: totalPoints
             }
 
             // if (paymentMethod === '1') {
             //     $.ajax({
             //         type: "POST",
-            //         url: "http://localhost:8080/Jamigo/shop/platform_order/ecpayCheckout",
+            //         url: "/Jamigo/shop/platform_order/ecpayCheckout",
             //         data: form_data,
             //         contentType: "application/x-www-form-urlencoded",
             //
@@ -234,7 +285,7 @@ $("div.order_table").on("click", "div.create_order button", function () {
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/Jamigo/shop/platform_order",
+                url: "/Jamigo/shop/platform_order",
                 data: JSON.stringify(platform_order_data),
                 contentType: "application/json",
 

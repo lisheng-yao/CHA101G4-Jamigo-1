@@ -1,6 +1,7 @@
 package com.jamigo.shop.platform_order.controller;
 
 import com.jamigo.shop.cart.dto.CartDTO;
+import com.jamigo.shop.platform_order.dto.CreatePlatformOrderDTO;
 import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
 import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +107,7 @@ public class PlatformOrderController {
 
     @PostMapping("/shop/platform_order")
     public String createPlatformOrder(
-            @RequestBody PlatformOrder newPlatformOrder) {
+            @RequestBody CreatePlatformOrderDTO newPlatformOrder) {
 
         return platformOrderService.createPlatformOrder(newPlatformOrder);
     }
@@ -112,9 +115,16 @@ public class PlatformOrderController {
     @PostMapping("/shop/platform_order/{platformOrderNo}/paidResult")
     public void checkPaidResult(
             @PathVariable("platformOrderNo") Integer platformOrderNo,
-            @RequestBody String formData) {
+            @RequestBody String formData,
+            HttpServletResponse resp) {
 
         platformOrderService.changePaidStat(platformOrderNo, formData);
+
+        try {
+            resp.sendRedirect("/Jamigo/member/center/member_order/member_order.html?redirected=true");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @GetMapping("/shop/platform_order/all/memberData/{memberNo}")

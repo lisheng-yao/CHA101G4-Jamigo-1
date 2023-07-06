@@ -1129,7 +1129,7 @@ textarea:-ms-input-placeholder {
 
 .search_close_btn {
     position: absolute;
-    top: 50px;
+    top: 100px;
     right: 103px;
 }
 
@@ -4497,6 +4497,19 @@ textarea:-ms-input-placeholder {
 
 .testimonial_container2 .testimonial_carousel .owl-stage-outer {
     padding: 10px 0;
+}
+
+.testimonial_container2 .col-lg-4 {
+    display: flex;
+}
+
+.testimonial_container2 .col-lg-4 .single-testimonial{
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial_container2 .col-lg-4 .testimonial_thumb{
+    margin: auto 0;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -11940,6 +11953,8 @@ textarea:-ms-input-placeholder {
         margin-bottom: 12px;
     }
 }
+
+
 
 .tored i {
     color: red;

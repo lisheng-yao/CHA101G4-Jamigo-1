@@ -1,11 +1,14 @@
 package com.jamigo.shop.counter_order.service.impl;
 
 import com.jamigo.shop.counter_order.dto.CounterOrderForTableDTO;
+import com.jamigo.shop.counter_order.dto.EditCounterOrderDTO;
+import com.jamigo.shop.counter_order.dto.EditOrderDetailDTO;
 import com.jamigo.shop.counter_order.dto.ProductDetailForCounterOrderDTO;
 import com.jamigo.shop.counter_order.entity.CounterOrder;
 import com.jamigo.shop.counter_order.repo.CounterOrderRepository;
 import com.jamigo.shop.counter_order.service.CounterOrderService;
 import com.jamigo.shop.counter_order_detail.entity.CounterOrderDetail;
+import com.jamigo.shop.counter_order_detail.entity.CounterOrderDetailId;
 import com.jamigo.shop.counter_order_detail.repo.CounterOrderDetailRepository;
 import com.jamigo.shop.platform_order.dto.ProductDetailForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
@@ -89,5 +92,64 @@ public class CounterOrderServiceImpl implements CounterOrderService {
         }
 
         return productDetailForCounterOrderDTOList;
+    }
+
+    @Override
+    public void editCounterOrderDetailStat(Integer counterOrderNo, EditCounterOrderDTO editCounterOrderDTO) {
+
+        List<EditOrderDetailDTO> editCounterOrderDTOList = editCounterOrderDTO.getEditOrderDetailDTOList();
+
+        for (var item : editCounterOrderDTOList) {
+
+            CounterOrderDetailId id = new CounterOrderDetailId();
+            id.setCounterOrderNo(counterOrderNo);
+            id.setProductNo(item.getProductNo());
+
+            CounterOrderDetail counterOrderDetail = counterOrderDetailRepository.findById(id).orElse(null);
+
+            if (counterOrderDetail != null) {
+
+                counterOrderDetail.setOrderDetailStat(item.getOrderDetailStat());
+                counterOrderDetailRepository.save(counterOrderDetail);
+            }
+        }
+
+        List<CounterOrderDetail> counterOrderDetailList = counterOrderDetailRepository.findAllByIdCounterOrderNo(counterOrderNo);
+
+        boolean allPickUp = true;
+
+        for (var item : counterOrderDetailList) {
+            if (item.getOrderDetailStat() == 20) {
+                allPickUp = false;
+                break;
+            }
+        }
+
+        CounterOrder counterOrder = counterOrderRepository.findById(counterOrderNo).orElse(null);
+        Integer platformOrderNo;
+
+        if (allPickUp && counterOrder != null) {
+            counterOrder.setCounterOrderStat((byte) 30);
+            counterOrderRepository.save(counterOrder);
+
+            platformOrderNo = counterOrder.getPlatformOrderNo();
+            List<CounterOrder> counterOrderList = counterOrderRepository.findAllByPlatformOrderNo(platformOrderNo);
+
+            boolean allCounterPickUp = true;
+
+            for (var item : counterOrderList) {
+                if (item.getCounterOrderStat() == 20) {
+                    allCounterPickUp = false;
+                    break;
+                }
+            }
+
+            PlatformOrder platformOrder = platformOrderRepository.findById(platformOrderNo).orElse(null);
+
+            if (allCounterPickUp && platformOrder != null) {
+                platformOrder.setPlatformOrderStat((byte) 30);
+                platformOrderRepository.save(platformOrder);
+            }
+        }
     }
 }
