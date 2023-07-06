@@ -96,7 +96,7 @@ function getActivity(id) {
 		total_pay_money.innerText = data.activityCost;
 		
 		currentCounterNo = data.counterNo;
-		activityLev_DB = data.activityLev + 1;
+		activityLev_DB = (data.activityLev + 1) == 1 ? 1 : 3;
 	})
 	.then(() => {
 		if(activityLev_member < activityLev_DB) {
