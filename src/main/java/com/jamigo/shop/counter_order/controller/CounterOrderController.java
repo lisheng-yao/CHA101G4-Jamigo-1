@@ -2,14 +2,13 @@ package com.jamigo.shop.counter_order.controller;
 
 import com.jamigo.counter.counter.entity.Counter;
 import com.jamigo.shop.counter_order.dto.CounterOrderForTableDTO;
+import com.jamigo.shop.counter_order.dto.EditCounterOrderDTO;
 import com.jamigo.shop.counter_order.dto.ProductDetailForCounterOrderDTO;
 import com.jamigo.shop.counter_order.service.CounterOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -45,4 +44,11 @@ public class CounterOrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @PutMapping("/shop/counter_order/{counterOrderNo}/detail")
+    public void getCounterOrderDetail(
+            @PathVariable("counterOrderNo") Integer counterOrderNo,
+            @RequestBody EditCounterOrderDTO editCounterOrderDTO) {
+
+        counterOrderService.editCounterOrderDetailStat(counterOrderNo, editCounterOrderDTO);
+    }
 }

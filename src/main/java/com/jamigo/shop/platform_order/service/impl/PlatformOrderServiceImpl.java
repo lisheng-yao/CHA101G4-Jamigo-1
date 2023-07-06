@@ -1,9 +1,15 @@
 package com.jamigo.shop.platform_order.service.impl;
 
+import com.jamigo.member.member_coupon.dao.MemberCouponDao;
+import com.jamigo.member.member_coupon.entity.MemberCoupon;
 import com.jamigo.member.member_data.dao.MemberDataDAO;
+import com.jamigo.promotion.CouponType.Dao.CouponTypeDao;
+import com.jamigo.promotion.CouponType.Entity.CouponType;
 import com.jamigo.shop.cart.dto.CartDTO;
 import com.jamigo.shop.cart.service.CartService;
-import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
+import com.jamigo.shop.order_detail_coupon.entity.OrderDetailCoupon;
+import com.jamigo.shop.order_detail_coupon.repo.OrderDetailCouponRepository;
+import com.jamigo.shop.platform_order.dto.*;
 import com.jamigo.member.member_data.entity.MemberData;
 import com.jamigo.member.member_level.dao.MemberLevelDetailRepository;
 import com.jamigo.member.member_level.model.MemberLevelDetail;
@@ -12,12 +18,11 @@ import com.jamigo.shop.counter_order.repo.CounterOrderRepository;
 import com.jamigo.shop.counter_order_detail.entity.CounterOrderDetail;
 import com.jamigo.shop.counter_order_detail.entity.CounterOrderDetailId;
 import com.jamigo.shop.counter_order_detail.repo.CounterOrderDetailRepository;
-import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
-import com.jamigo.shop.platform_order.dto.PlatformOrderDetailDTO;
-import com.jamigo.shop.platform_order.dto.ProductDetailForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import com.jamigo.shop.platform_order.repo.PlatformOrderRepository;
 import com.jamigo.shop.platform_order.service.PlatformOrderService;
+import com.jamigo.shop.product.entity.Product;
+import com.jamigo.shop.product.repo.ProductRepository;
 import com.jamigo.shop.product_picture.service.ProductPictureService;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
@@ -51,6 +56,8 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
     @Autowired
     private MemberLevelDetailRepository memberLevelDetailRepository;
     @Autowired
+    private ProductRepository productRepository;
+    @Autowired
     private Configuration configuration;
     @Autowired
     private JavaMailSender javaMailSender;
@@ -58,6 +65,12 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
     private CartService cartService;
     @Autowired
     private ProductPictureService productPictureService;
+    @Autowired
+    private MemberCouponDao memberCouponDao;
+    @Autowired
+    private CouponTypeDao couponTypeDao;
+    @Autowired
+    private OrderDetailCouponRepository orderDetailCouponRepository;
 
     @Autowired
     @Qualifier("taskExecutor")
@@ -147,9 +160,11 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
     }
 
     @Override
-    public String createPlatformOrder(PlatformOrder newPlatformOrder) {
+    public String createPlatformOrder(CreatePlatformOrderDTO newCreatePlatformOrderDTO) {
 
-        Integer memberNo = newPlatformOrder.getMemberNo();
+        newCreatePlatformOrderDTO.setOrderTime(new Timestamp(System.currentTimeMillis()));
+
+        Integer memberNo = newCreatePlatformOrderDTO.getMemberNo();
 
         // 透過 JSON 資料中的會員編號，取得該會員的購物車資料
         List<CartDTO> cartDTOList = cartService.findAllCartItem(memberNo);
@@ -160,21 +175,31 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
                 .mapToInt(cartItem -> cartItem.getProductPrice() * cartItem.getQuantity())
                 .sum();
 
-        // 計算訂單實付金額
-        int actuallyPaid = totalPaid - newPlatformOrder.getTotalCoupon() - newPlatformOrder.getTotalPoints();
+        int totalCoupon = 0;
 
-        // 查詢會員等級資訊，計算回饋點數時會用到
-        MemberData memberData = memberDataDAO.selectById(newPlatformOrder.getMemberNo());
-        MemberLevelDetail memberLevelDetail = memberLevelDetailRepository.findById(Integer.valueOf(memberData.getLevelNo())).orElse(null);
-        // 計算回饋點數
-        int levelFeedback = (memberLevelDetail != null) ? memberLevelDetail.getLevelFeedback() : 1;
-        int rewardPoints = Math.round(actuallyPaid / 10.0f * levelFeedback);
 
+
+        PlatformOrder newPlatformOrder = new PlatformOrder();
+        newPlatformOrder.setMemberNo(memberNo);
+        newPlatformOrder.setBuyerName(newCreatePlatformOrderDTO.getBuyerName());
+        newPlatformOrder.setBuyerPhone(newCreatePlatformOrderDTO.getBuyerPhone());
+        newPlatformOrder.setBuyerEmail(newCreatePlatformOrderDTO.getBuyerEmail());
+        newPlatformOrder.setPaymentMethod(newCreatePlatformOrderDTO.getPaymentMethod());
+        newPlatformOrder.setPickupMethod(newCreatePlatformOrderDTO.getPickupMethod());
+        newPlatformOrder.setDeliveryCountry(newCreatePlatformOrderDTO.getDeliveryCountry());
+        newPlatformOrder.setDeliveryAddress(newCreatePlatformOrderDTO.getDeliveryAddress());
+        newPlatformOrder.setInvoiceMethod(newCreatePlatformOrderDTO.getInvoiceMethod());
+        newPlatformOrder.setInvoiceGui(newCreatePlatformOrderDTO.getInvoiceGui());
         newPlatformOrder.setTotalPaid(totalPaid);
-        newPlatformOrder.setActuallyPaid(actuallyPaid);
-        newPlatformOrder.setRewardPoints(rewardPoints);
+        newPlatformOrder.setTotalCoupon(totalCoupon);
+        newPlatformOrder.setTotalPoints(newCreatePlatformOrderDTO.getTotalPoints());
+//        newPlatformOrder.setActuallyPaid(actuallyPaid);
+        newPlatformOrder.setActuallyPaid(0);
+//        newPlatformOrder.setRewardPoints(rewardPoints);
+        newPlatformOrder.setRewardPoints(0);
+        newPlatformOrder.setOrderTime(newCreatePlatformOrderDTO.getOrderTime());
 
-        switch (newPlatformOrder.getPaymentMethod()) {
+        switch (newCreatePlatformOrderDTO.getPaymentMethod()) {
 
             case 1:
                 newPlatformOrder.setPlatformOrderStat((byte) 10);
@@ -186,17 +211,39 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
                 newPlatformOrder.setPaymentStat((byte) 0);
         }
 
-        newPlatformOrder.setOrderTime(new Timestamp(System.currentTimeMillis()));
-
-
         // 更新訂單資訊
         PlatformOrder savedPlatformOrder = platformOrderRepository.save(newPlatformOrder);
 
-
-        // 拆單
         // 取得平台訂單編號
         Integer platformOrderNo = savedPlatformOrder.getPlatformOrderNo();
 
+        for (var id : newCreatePlatformOrderDTO.getMemberCouponIdList()) {
+
+            MemberCoupon memberCoupon = memberCouponDao.findById(id).orElse(null);
+
+            if (memberCoupon != null) {
+
+                CouponType couponType = couponTypeDao.selectById(memberCoupon.getMemberCouponId().getCouponTypeNo());
+
+                if (couponType.getCounterNo() == null) {
+                    totalCoupon += couponType.getCouponPrice();
+
+                    OrderDetailCoupon newOrderDetailCoupon = new OrderDetailCoupon();
+                    newOrderDetailCoupon.setPlatformOrderNo(platformOrderNo);
+                    OrderDetailCoupon savedOrderDetailCoupon = orderDetailCouponRepository.save(newOrderDetailCoupon);
+
+                    memberCoupon.setCouponUsedStat((byte) 1);
+                    memberCoupon.setCouponUsedTime(newCreatePlatformOrderDTO.getOrderTime());
+                    memberCoupon.setOrderDetailCouponNo(savedOrderDetailCoupon.getOrderDetailCouponNo());
+
+                    memberCouponDao.save(memberCoupon);
+                }
+
+            }
+        }
+
+
+        // 拆單
         Map<Integer, List<CartDTO>> cartMap = cartDTOList.stream()
                 .collect(Collectors.groupingBy(CartDTO::getCounterNo));
 
@@ -234,25 +281,78 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
                 counterOrderDetailRepository.save(newCounterOrderDetail);
 
                 counterTotalPaid += product.getProductPrice() * product.getQuantity();
+
+                Product p = productRepository.findById(product.getProductNo()).orElse(null);
+
+                if (p != null)
+                    p.setProductSaleNum(p.getProductSaleNum() + product.getQuantity());
+
             }
 
             savedCounterOrder.setTotalPaid(counterTotalPaid);
-            savedCounterOrder.setActuallyPaid(counterTotalPaid);
+
+            int counterActuallyPaid = counterTotalPaid;
+
+            for (var id : newCreatePlatformOrderDTO.getMemberCouponIdList()) {
+
+                MemberCoupon memberCoupon = memberCouponDao.findById(id).orElse(null);
+
+                if (memberCoupon != null) {
+
+                    CouponType couponType = couponTypeDao.selectById(memberCoupon.getMemberCouponId().getCouponTypeNo());
+
+                    if (Objects.equals(couponType.getCounterNo(), counterNo)) {
+                        totalCoupon += couponType.getCouponPrice();
+                        counterActuallyPaid -= couponType.getCouponPrice();
+
+                        OrderDetailCoupon newOrderDetailCoupon = new OrderDetailCoupon();
+                        newOrderDetailCoupon.setCounterOrderNo(counterOrderNo);
+                        OrderDetailCoupon savedOrderDetailCoupon = orderDetailCouponRepository.save(newOrderDetailCoupon);
+
+                        memberCoupon.setCouponUsedStat((byte) 1);
+                        memberCoupon.setCouponUsedTime(newCreatePlatformOrderDTO.getOrderTime());
+                        memberCoupon.setOrderDetailCouponNo(savedOrderDetailCoupon.getOrderDetailCouponNo());
+
+                        memberCouponDao.save(memberCoupon);
+                    }
+
+                }
+            }
+
+
+            savedCounterOrder.setActuallyPaid(counterActuallyPaid);
 
             counterOrderRepository.save(savedCounterOrder);
         }
 
-        // 刪除會員所有存放在購物車的商品
-//        for (var cartItem : cartDTOList) {
-//            cartService.deleteOneInCart(cartItem, memberNo);
-//        }
+        int actuallyPaid = totalPaid - totalCoupon - newCreatePlatformOrderDTO.getTotalPoints();
 
-        if (savedPlatformOrder.getPaymentMethod() == 1)
-            return ecpayCheckout(savedPlatformOrder);
+        // 查詢會員等級資訊，計算回饋點數時會用到
+        MemberData memberData = memberDataDAO.selectById(newCreatePlatformOrderDTO.getMemberNo());
+        memberData.setMemberPoints(memberData.getMemberPoints() - newCreatePlatformOrderDTO.getTotalPoints());
+
+        MemberLevelDetail memberLevelDetail = memberLevelDetailRepository.findById(Integer.valueOf(memberData.getLevelNo())).orElse(null);
+        // 計算回饋點數
+        int levelFeedback = (memberLevelDetail != null) ? memberLevelDetail.getLevelFeedback() : 1;
+        int rewardPoints = Math.round(actuallyPaid / 10.0f * levelFeedback);
+
+        savedPlatformOrder.setTotalCoupon(totalCoupon);
+        savedPlatformOrder.setActuallyPaid(actuallyPaid);
+        savedPlatformOrder.setRewardPoints(rewardPoints);
+        PlatformOrder finalPlatformOrder = platformOrderRepository.save(savedPlatformOrder);
+
+
+        // 刪除會員所有存放在購物車的商品
+        for (var cartItem : cartDTOList) {
+            cartService.deleteOneInCart(cartItem, memberNo);
+        }
+
+        if (finalPlatformOrder.getPaymentMethod() == 1)
+            return ecpayCheckout(finalPlatformOrder);
         else {
             taskExecutor.execute(() -> {
                 try {
-                    sendEmail(savedPlatformOrder);
+                    sendEmail(finalPlatformOrder);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -289,6 +389,7 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         return form;
     }
 
+    @Override
     public void changePaidStat(Integer platformOrderNo, String formData) {
 
         Map<String, String> map = new HashMap<String, String>();
@@ -333,6 +434,7 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         }
     }
 
+    @Override
     public void sendEmail(PlatformOrder platformOrder) throws Exception {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -356,6 +458,7 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         javaMailSender.send(mimeMessage);
     }
 
+    @Override
     public String getEmailContent(PlatformOrder platformOrder, Map<String, byte[]> images) throws Exception {
 
         StringWriter stringWriter = new StringWriter();

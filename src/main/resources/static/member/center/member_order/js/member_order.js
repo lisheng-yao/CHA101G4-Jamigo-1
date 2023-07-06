@@ -1,7 +1,16 @@
 const $table = $('table#main_table');
-const memberNo = 1;
+const memberNo = parseInt(localStorage.getItem("memberNo"));
 
 $(function () {
+
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('redirected') === 'true') {
+        Swal.fire({
+            title: '付款成功',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        })
+    }
 
     $table.bootstrapTable('destroy').bootstrapTable({
         url: `http://localhost:8080/Jamigo/shop/platform_order/all/memberData/${memberNo}`,
