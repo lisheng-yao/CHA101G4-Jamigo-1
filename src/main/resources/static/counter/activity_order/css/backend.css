@@ -170,8 +170,8 @@ body{
     display: block;
     width: 100%;
 }
-.back-end-box .panel-heading .label-notEnabled.active,
-.back-end-box .panel-heading .label-notEnabled:hover,
+/* .back-end-box .panel-heading .label-notEnabled.active,
+.back-end-box .panel-heading .label-notEnabled:hover, */
 .back-end-box .label-notEnabled,
 .back-end-box td .label-notEnabled,
 .controll-box-form-select .form-option-selected .label-notEnabled{
@@ -180,8 +180,8 @@ body{
     outline: 1px solid transparent;
 
 }
-.back-end-box .panel-heading .label-success.active,
-.back-end-box .panel-heading .label-success:hover,
+/* .back-end-box .panel-heading .label-success.active,
+.back-end-box .panel-heading .label-success:hover, */
 .back-end-box .label-success,
 .back-end-box td .label-success,
 .controll-box-form-select .form-option-selected .label-success{
@@ -190,8 +190,8 @@ body{
     outline: 1px solid transparent;
 
 }
-.back-end-box .panel-heading .label-danger.active,
-.back-end-box .panel-heading .label-danger:hover,
+/* .back-end-box .panel-heading .label-danger.active,
+.back-end-box .panel-heading .label-danger:hover, */
 .back-end-box .label-danger,
 .back-end-box td .label-danger,
 .controll-box-form-select .form-option-selected .label-danger{
@@ -200,7 +200,7 @@ body{
     outline: 1px solid transparent;
 }
 
-.back-end-box .panel-heading .btn{
+/* .back-end-box .panel-heading .btn{
     background-color: #fff;
     transition: all .5s;
 }
@@ -217,9 +217,9 @@ body{
     background-color: #fff;
     color: #5b4fff;
     outline: 1px solid #5b4fff;
-}
-.back-end-box .panel-heading .label-all.active,
-.back-end-box .panel-heading .label-all:hover,
+} */
+/* .back-end-box .panel-heading .label-all.active,
+.back-end-box .panel-heading .label-all:hover, */
 .back-end-box .label-all{
     color: #5b4fff;
     background-color: #e0deff;
