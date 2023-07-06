@@ -46,7 +46,7 @@ function opensignin() {
             };
             img.onerror = function() {
                 // 图片加载失败，使用默认图片路径
-                memberimg.src = '/Jamigo/frontEnd/images/somebody.jpg';
+                memberimg.src = '/Jamigo/member/member/image/gray.jpg';
             };
             img.src = `/Jamigo/member/member_data/${memberid}`;
 
