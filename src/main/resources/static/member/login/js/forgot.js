@@ -12,8 +12,10 @@
                 memberEmail :memberEmail.value
             }),
         })
-            .then(response => {
-                if (response.ok) {
+            .then(response => response.json())
+            .then(res => {
+                console.log(res);
+                if (res) {
                     Swal.fire({
                         position: 'center',
                         icon: 'success',

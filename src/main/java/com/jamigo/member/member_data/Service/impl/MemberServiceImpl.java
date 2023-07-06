@@ -69,8 +69,6 @@ public class MemberServiceImpl implements MemberService {
             memberData.setSuccessful(false);
             return  null;
         }
-
-
             String password = selectr.getMemberPassword();
             return password;
 
