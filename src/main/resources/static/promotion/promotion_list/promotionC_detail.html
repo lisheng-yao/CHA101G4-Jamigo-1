@@ -504,8 +504,24 @@
             pc.promotionCouponName;
           document.querySelector("#promotion-name").innerText =
             pc.promotionName;
-          document.querySelector("#get-couponL-lmit-level").innerText =
-            pc.getCouponLimitLevel;
+          var couponLimitLevel = pc.getCouponLimitLevel;
+          var couponLevelText;
+
+          switch (couponLimitLevel) {
+            case 1:
+              couponLevelText = "銅";
+              break;
+            case 2:
+              couponLevelText = "銀";
+              break;
+            case 3:
+              couponLevelText = "金";
+              break;
+            default:
+              couponLevelText = "未知";
+          }
+
+          document.querySelector("#get-couponL-lmit-level").innerText = couponLevelText;
           document.querySelector("#amount-of-coupon").innerText =
             pc.amountOfCoupon;
           document.querySelector("#get-amount").innerText = pc.getAmount;
