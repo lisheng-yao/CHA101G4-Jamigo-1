@@ -2,6 +2,7 @@ package com.jamigo.shop.platform_order.service;
 
 import com.jamigo.shop.cart.dto.CartDTO;
 import com.jamigo.shop.platform_order.dto.CreatePlatformOrderDTO;
+import com.jamigo.shop.platform_order.dto.EditPlatformOrderDTO;
 import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
 import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
@@ -40,4 +41,6 @@ public interface PlatformOrderService {
     String getEmailContent(PlatformOrder platformOrder, Map<String, byte[]> images) throws Exception;
 
     List<PlatformOrder> getAllPlatformOrderByMemberNo(Integer memberNo);
+
+    void editPlatformOrderStat(Integer platformOrderNo, EditPlatformOrderDTO editPlatformOrderDTO);
 }

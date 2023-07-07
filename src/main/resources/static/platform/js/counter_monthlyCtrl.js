@@ -8,7 +8,7 @@ $(function () {
         columns: [
             {
                 field: 'cutNo',
-                title: '抽成月結編號',
+                title: '月結編號',
                 align: 'center',
                 valign: 'middle',
                 formatter: cutNoFormatter
@@ -21,24 +21,10 @@ $(function () {
                 formatter: monthlyTimeFormatter
             },
             {
-                field: 'counterNo',
-                title: '櫃位編號',
+                field: 'counterName',
+                title: '專櫃名稱',
                 align: 'center',
-                valign: 'middle',
-            },
-            {
-                field: 'monthly',
-                title: '抽成前月結金額',
-                align: 'center',
-                valign: 'middle',
-                formatter: moneyFormatter
-            },
-            {
-                field: 'cutMonthly',
-                title: '抽成後實收金額',
-                align: 'center',
-                valign: 'middle',
-                formatter: moneyFormatter
+                valign: 'middle'
             },
             {
                 field: 'cutPayStat',
@@ -46,13 +32,34 @@ $(function () {
                 align: 'center',
                 valign: 'middle',
                 formatter: cutPayStatFormatter
+            },
+            {
+                field: 'monthly',
+                title: '專櫃當月收入',
+                align: 'center',
+                valign: 'middle',
+                formatter: moneyFormatter
+            },
+            {
+                field: 'cutPercent',
+                title: '抽成比例',
+                align: 'center',
+                valign: 'middle',
+                formatter: cutPercentFormatter
+            },
+            {
+                field: 'cutMoney',
+                title: '抽成金額',
+                align: 'center',
+                valign: 'middle',
+                formatter: moneyFormatter
             }
         ],
     });
 })
 
-function cutNoFormatter(value) {
-    return '#' + value;
+function cutPercentFormatter(value) {
+    return (value * 100) + '%';
 }
 
 function moneyFormatter(value) {
@@ -69,4 +76,8 @@ function cutPayStatFormatter(value) {
 
 function monthlyTimeFormatter(value) {
     return value.substring(0, 7);
+}
+
+function cutNoFormatter(value) {
+    return '#' + value;
 }

@@ -4,8 +4,12 @@ import com.jamigo.shop.platform_order.dto.PlatformOrderDetailDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface PlatformOrderRepository extends JpaRepository<PlatformOrder, Integer> {
 
@@ -29,4 +33,13 @@ public interface PlatformOrderRepository extends JpaRepository<PlatformOrder, In
     List<PlatformOrderDetailDTO> getOrderDetailByPlatformOrderNo(Integer platformOrderNo);
 
     List<PlatformOrder> findAllByMemberNo(Integer memberNo);
+
+    @Query("SELECT p FROM PlatformOrder p WHERE p.orderTime BETWEEN :start AND :end")
+    List<PlatformOrder> findAllOrdersBetween(@Param("start") Timestamp start, @Param("end") Timestamp end);
+
+
+    @Query("SELECT p FROM PlatformOrder p WHERE p.orderTime BETWEEN :start AND :end")
+    List<PlatformOrder> findByOrderTimeBetween(Timestamp start, Timestamp end);
+
+    Optional<PlatformOrder> findFirstByOrderByOrderTimeAsc();
 }

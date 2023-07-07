@@ -168,7 +168,18 @@ function getCartInfo(memberNo) {
                         <tr class="order_total">
                             <th colspan="2">回饋點數</th>
                             <th>
-                                <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${rewardPoints} (會員等級：${levelName})
+                                <i class="fa-solid fa-coins fa-lg" style="color: #e7eb00;"></i> ${rewardPoints}
+                                
+                                <div class="btn-group dropup">
+                                    <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-regular fa-circle-question fa-xl"></i>
+                                    </a>
+                                    <div class="dropdown-menu p-4 text-muted" style="width: 260px; left: -120px">
+                                        <p>
+                                            會員等級：${levelName} (回饋倍率：${levelFeedback})
+                                        </p>
+                                    </div>
+                                </div>
                             </th>
                         </tr>
                     </tfoot>
@@ -246,35 +257,6 @@ $("div.order_table").on("click", "div.create_order button", function () {
                 memberCouponIdList: transformedData,
                 totalPoints: totalPoints
             }
-
-            // if (paymentMethod === '1') {
-            //     $.ajax({
-            //         type: "POST",
-            //         url: "/Jamigo/shop/platform_order/ecpayCheckout",
-            //         data: form_data,
-            //         contentType: "application/x-www-form-urlencoded",
-            //
-            //         success: function (res) {
-            //
-            //             Swal.fire({
-            //                 title: '你的訂單已成功送出',
-            //                 icon: 'success',
-            //                 confirmButtonText: "進入綠界金流頁面"
-            //             }).then(function () {
-            //                 $('body').append(res); // 將返回的表單插入到網頁中
-            //                 $('#allPayAPIForm').submit(); // 自動提交表單
-            //             })
-            //         },
-            //
-            //         error: function (err) {
-            //             Swal.fire({
-            //                 title: '訂單送出失敗',
-            //                 icon: 'error',
-            //                 confirmButtonText: "關閉"
-            //             })
-            //         }
-            //     })
-            // }
 
             let confirm_button_text;
 

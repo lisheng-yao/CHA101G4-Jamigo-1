@@ -1,7 +1,9 @@
 package com.jamigo.shop.platform_order.controller;
 
 import com.jamigo.shop.cart.dto.CartDTO;
+import com.jamigo.shop.counter_order.dto.EditCounterOrderDTO;
 import com.jamigo.shop.platform_order.dto.CreatePlatformOrderDTO;
+import com.jamigo.shop.platform_order.dto.EditPlatformOrderDTO;
 import com.jamigo.shop.platform_order.dto.MemberDataForCheckoutDTO;
 import com.jamigo.shop.platform_order.dto.CounterOrderForPlatformOrderDTO;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
@@ -90,6 +92,13 @@ public class PlatformOrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @PutMapping("/shop/platform_order/{platformOrderNo}")
+    public void editPlatformOrder(
+            @PathVariable("platformOrderNo") Integer platformOrderNo,
+            @RequestBody EditPlatformOrderDTO editPlatformOrderDTO) {
+
+        platformOrderService.editPlatformOrderStat(platformOrderNo, editPlatformOrderDTO);
+    }
 
     @GetMapping("/shop/platform_order/{platformOrderNo}/detail")
     public ResponseEntity<?> getOrderDetail(

@@ -51,7 +51,7 @@ function autoFillMemberData(memberNo) {
 
     $.ajax({
         type: "GET",
-        url: `http://localhost:8080/Jamigo/shop/platform_order/memberData/${memberNo}`,
+        url: `/Jamigo/shop/platform_order/memberData/${memberNo}`,
         success: function (response) {
             $("input#buyerName").val(response.memberName);
             $("input#buyerPhone").val(response.memberPhone);
@@ -69,7 +69,7 @@ function autoFillMemberData(memberNo) {
 function getCartInfo(memberNo) {
     $.ajax({
         type: "GET",
-        url: `http://localhost:8080/Jamigo/shop/platform_order/cart/${memberNo}`,
+        url: `/Jamigo/shop/platform_order/cart/${memberNo}`,
         success: function (response) {
 
             let totalPaid = 0;
@@ -90,7 +90,7 @@ function getCartInfo(memberNo) {
                     html_str +=
                         `<tr>
                             <td class="cart_img">
-                                <img src="http://localhost:8080/Jamigo/shop/product_picture/product/${item['productNo']}" alt="">
+                                <img src="/Jamigo/shop/product_picture/product/${item['productNo']}" alt="">
                             </td>
                             <td class="cart_info" colspan="2">
                                 <h5>${item["productName"]}</h5>

@@ -69,6 +69,7 @@ function counterOrderNoFormatter(value) {
 }
 
 function counterOrderStatFormatter(value) {
+
     if (value === 0)
         return '<span class="badge rounded-pill text-bg-secondary">訂單取消</span>'
     else if (value === 10)
@@ -77,10 +78,6 @@ function counterOrderStatFormatter(value) {
         return '<span class="badge rounded-pill text-bg-danger">揀貨中</span>'
     else if (value === 30)
         return '<span class="badge rounded-pill text-bg-warning">等待包裝</span>'
-    else if (value === 40)
-        return '<span class="badge rounded-pill text-bg-warning">配送中</span>'
-    else if (value === 50)
-        return '<span class="badge rounded-pill text-bg-warning">等待取貨</span>'
     else if (value === 60)
         return '<span class="badge rounded-pill text-bg-warning">等待訂單完成</span>'
     else if (value === 70)
@@ -101,7 +98,10 @@ function actuallyPaidFormatter(value) {
 
 $table.on("click", "button.full-info", function () {
 
-    // 獲得平台訂單編號
+    // 將當前按鈕的 jQuery 物件存儲到一個變量中
+    var $thisButton = $(this);
+
+    // 獲得櫃位訂單編號
     counterOrderNo = parseInt($(this).closest("td").siblings().eq(0).text().substring(1));
 
     // 找到燈箱內容元素
@@ -137,7 +137,7 @@ $table.on("click", "button.full-info", function () {
                             </td>
                             <td>
                                 <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat" disabled>
+                                <select class="form-select" id="orderDetailStat" disabled>
                                     <option value="0" selected>訂單取消</option>
                                 </select>
                             </td>
@@ -153,7 +153,7 @@ $table.on("click", "button.full-info", function () {
                             </td>
                             <td>
                                 <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat" disabled>
+                                <select class="form-select" id="orderDetailStat" disabled>
                                     <option value="10" selected>等待付款</option>
                                 </select>
                             </td>
@@ -169,9 +169,9 @@ $table.on("click", "button.full-info", function () {
                             </td>
                             <td>
                                 <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat">
+                                <select class="form-select" id="orderDetailStat">
                                     <option value="20" selected>揀貨中</option>
-                                    <option value="30">等待包裝</option>
+                                    <option value="30">揀貨完成</option>
                                 </select>
                             </td>
                         </tr>
@@ -186,40 +186,8 @@ $table.on("click", "button.full-info", function () {
                             </td>
                             <td>
                                 <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat" disabled>
+                                <select class="form-select" id="orderDetailStat" disabled>
                                     <option value="30" selected>等待包裝</option>
-                                </select>
-                            </td>
-                        </tr>
-                    `;
-                } else if (product['orderDetailStat'] === 40) {
-                    tableContent += `
-                                <span class="badge rounded-pill text-bg-warning">配送中</span>
-                            </td>
-                            <td class="cart_info">
-                                <h5>${product["productName"]}</h5>
-                                <p>單價: $${product["productPrice"]} / 數量: ${product["amount"]}</p>
-                            </td>
-                            <td>
-                                <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat" disabled>
-                                    <option value="40" selected>配送中</option>
-                                </select>
-                            </td>
-                        </tr>
-                    `;
-                } else if (product['orderDetailStat'] === 50) {
-                    tableContent += `
-                                <span class="badge rounded-pill text-bg-warning">等待取貨</span>
-                            </td>
-                            <td class="cart_info">
-                                <h5>${product["productName"]}</h5>
-                                <p>單價: $${product["productPrice"]} / 數量: ${product["amount"]}</p>
-                            </td>
-                            <td>
-                                <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat" disabled>
-                                    <option value="50" selected>等待取貨</option>
                                 </select>
                             </td>
                         </tr>
@@ -234,7 +202,7 @@ $table.on("click", "button.full-info", function () {
                             </td>
                             <td>
                                 <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat" disabled>
+                                <select class="form-select" id="orderDetailStat" disabled>
                                     <option value="60" selected>等待訂單完成</option>
                                 </select>
                             </td>
@@ -250,7 +218,7 @@ $table.on("click", "button.full-info", function () {
                             </td>
                             <td>
                                 <h5>修改狀態：</h5>
-                                <select class="form-select" id="platformOrderStat" disabled>
+                                <select class="form-select" id="orderDetailStat" disabled>
                                     <option value="70" selected>訂單完成</option>
                                 </select>
                             </td>
@@ -266,12 +234,25 @@ $table.on("click", "button.full-info", function () {
             `;
 
             modal_body.innerHTML = tableContent;
+
+
+            var orderStatusText = $thisButton.closest('tr').find('td:nth-child(2) span').text();
+
+            let modal_footer = document.querySelector("div#orderDetailModal div.modal-footer");
+
+            if (orderStatusText === '揀貨中') {
+                modal_footer.innerHTML = '<button type="button" class="btn btn-primary save" data-bs-dismiss="modal">儲存</button>';
+            }
+            else {
+                modal_footer.innerHTML = '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>';
+            }
+
         }
     })
 });
 
-$("div.modal-footer button.save").on("click", function () {
-    // 獲得平台訂單編號
+$("div#orderDetailModal").on("click", "div.modal-footer button.save", function () {
+
     // counterOrderNo = parseInt($(this).closest("td").siblings().eq(0).text().substring(1));
 
     var products = {
@@ -280,7 +261,7 @@ $("div.modal-footer button.save").on("click", function () {
 
     $('div.modal-body tbody tr').each(function() {
         var productNo = $(this).attr('class');
-        var orderDetailStat = $(this).find('select[id="platformOrderStat"] option:selected').val();
+        var orderDetailStat = $(this).find('select[id="orderDetailStat"] option:selected').val();
 
         products.editOrderDetailDTOList.push({
             productNo: parseInt(productNo),
@@ -289,8 +270,6 @@ $("div.modal-footer button.save").on("click", function () {
     });
 
     var jsonData = JSON.stringify(products);
-
-    console.log(jsonData)
 
     $.ajax({
         url: `/Jamigo/shop/counter_order/${counterOrderNo}/detail`,

@@ -253,9 +253,9 @@
         </div>
         <!-- 網頁內容主體 -->
         <div class="col-10 page-body">
-<!--            <div class="row mb-4">-->
+            <div class="row mb-4">
 <!--                <div class="col-xl-3">-->
-<!--                    <div class="card text-dark bg-warning">-->
+<!--                    <div class="card text-dark bg-danger">-->
 <!--                        <div class="card-content">-->
 <!--                            <div class="card-body">-->
 <!--                                <div class="media d-flex">-->
@@ -272,7 +272,7 @@
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="col-xl-3">-->
-<!--                    <div class="card text-white bg-danger">-->
+<!--                    <div class="card text-white bg-warning">-->
 <!--                        <div class="card-content">-->
 <!--                            <div class="card-body">-->
 <!--                                <div class="media d-flex">-->
@@ -281,7 +281,7 @@
 <!--                                    </div>-->
 <!--                                    <div class="media-body text-right">-->
 <!--                                        <h5>換貨中的商品</h5>-->
-<!--                                        <h3>456 件</h3>-->
+<!--                                        <h3>0 件</h3>-->
 <!--                                    </div>-->
 <!--                                </div>-->
 <!--                            </div>-->
@@ -289,7 +289,7 @@
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="col-xl-3">-->
-<!--                    <div class="card text-white bg-danger">-->
+<!--                    <div class="card text-white bg-warning">-->
 <!--                        <div class="card-content">-->
 <!--                            <div class="card-body">-->
 <!--                                <div class="media d-flex">-->
@@ -298,14 +298,14 @@
 <!--                                    </div>-->
 <!--                                    <div class="media-body text-right">-->
 <!--                                        <h5>退貨中的商品</h5>-->
-<!--                                        <h3>789 件</h3>-->
+<!--                                        <h3>0 件</h3>-->
 <!--                                    </div>-->
 <!--                                </div>-->
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--            </div>-->
+            </div>
 
             <table id="main_table" data-pagination="true" sticky-header="true" data-sort-name="orderTime"
                    data-sort-order="desc">
@@ -338,25 +338,25 @@
                                     aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="platformOrderStat" class="col-form-label">訂單狀態：</label>
-                                    <select class="form-control" id="platformOrderStat">
-                                        <option value="0">訂單取消</option>
-                                        <option value="10">等待付款</option>
-                                        <option value="20">揀貨中</option>
-                                        <option value="30">等待包裝</option>
-                                        <option value="40">配送中</option>
-                                        <option value="50">等待取貨</option>
-                                        <option value="60">等待訂單完成</option>
-                                        <option value="70">訂單完成</option>
-                                        <option value="80">訂單異常</option>
-                                    </select>
-                                </div>
-                            </form>
+<!--                            <form>-->
+<!--                                <div class="mb-3">-->
+<!--                                    <label for="platformOrderStat" class="col-form-label">訂單狀態：</label>-->
+<!--                                    <select class="form-select" id="platformOrderStat">-->
+<!--                                        <option value="0">訂單取消</option>-->
+<!--                                        <option value="10">等待付款</option>-->
+<!--                                        <option value="20">揀貨中</option>-->
+<!--                                        <option value="30">等待包裝</option>-->
+<!--                                        <option value="40">配送中</option>-->
+<!--                                        <option value="50">等待取貨</option>-->
+<!--                                        <option value="60">等待訂單完成</option>-->
+<!--                                        <option value="70">訂單完成</option>-->
+<!--                                        <option value="80">訂單異常</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </form>-->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">儲存</button>
+<!--                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">儲存</button>-->
                         </div>
                     </div>
                 </div>
@@ -382,6 +382,7 @@
 <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/export/bootstrap-table-export.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.0/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="js/platform_order.js"></script>
 

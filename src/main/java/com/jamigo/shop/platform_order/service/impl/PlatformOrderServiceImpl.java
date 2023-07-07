@@ -32,12 +32,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
@@ -486,5 +491,115 @@ public class PlatformOrderServiceImpl implements PlatformOrderService {
         return platformOrderRepository.findAllByMemberNo(memberNo);
     }
 
+    @Transactional
+//    @Scheduled(fixedRate = 6000) // 每六秒執行一次
+    @Scheduled(cron = "0 0 0 * * *")  // 每天 0 點執行一次
+    public void updatePlatformOrderStatus() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime startDateTime = now.minusDays(4);
+        LocalDateTime endDateTime = now.minusDays(2);
+        Timestamp end = Timestamp.valueOf(endDateTime);
+        Timestamp start = Timestamp.valueOf(startDateTime);
+
+        List<PlatformOrder> platformOrderList = platformOrderRepository.findAllOrdersBetween(start, end);
+        for (var platformOrder : platformOrderList) {
+
+            LocalDateTime orderDateTime = platformOrder.getOrderTime().toLocalDateTime();
+            long hours = ChronoUnit.HOURS.between(orderDateTime, now);
+
+            if (hours >= 72 && platformOrder.getPlatformOrderStat() == 10 && platformOrder.getPaymentMethod() == 1) {
+
+                platformOrder.setPlatformOrderStat((byte) 0);
+                platformOrder.setPaymentStat((byte) 2);
+                platformOrderRepository.save(platformOrder);
+
+                List<CounterOrder> counterOrderList = counterOrderRepository.findAllByPlatformOrderNo(platformOrder.getPlatformOrderNo());
+
+                for (var counterOrder : counterOrderList) {
+
+                    counterOrder.setCounterOrderStat((byte) 0);
+                    counterOrder.setDisbursementStat((byte) 2);
+                    counterOrderRepository.save(counterOrder);
+
+                    List<CounterOrderDetail> counterOrderDetailList = counterOrderDetailRepository.findAllByIdCounterOrderNo(counterOrder.getCounterOrderNo());
+
+                    for (var counterOrderDetail : counterOrderDetailList) {
+
+                        counterOrderDetail.setOrderDetailStat((byte) 0);
+                        counterOrderDetailRepository.save(counterOrderDetail);
+                    }
+                }
+            }
+        }
+
+//        System.out.println("執行取消訂單的排程器");
+    }
+
+    @Override
+    public void editPlatformOrderStat(Integer platformOrderNo, EditPlatformOrderDTO editPlatformOrderDTO) {
+
+        byte stat = editPlatformOrderDTO.getPlatformOrderStat();
+
+        if (stat == 60) {
+
+            PlatformOrder platformOrder = platformOrderRepository.findById(platformOrderNo).orElse(null);
+
+            if (platformOrder != null) {
+
+                platformOrder.setPlatformOrderStat(stat);
+                platformOrder.setPaymentStat((byte) 1);
+                platformOrderRepository.save(platformOrder);
+
+                List<CounterOrder> counterOrderList = counterOrderRepository.findAllByPlatformOrderNo(platformOrder.getPlatformOrderNo());
+
+                for (var counterOrder : counterOrderList) {
+
+                    counterOrder.setCounterOrderStat(stat);
+                    counterOrderRepository.save(counterOrder);
+
+                    List<CounterOrderDetail> counterOrderDetailList = counterOrderDetailRepository.findAllByIdCounterOrderNo(counterOrder.getCounterOrderNo());
+
+                    for (var counterOrderDetail : counterOrderDetailList) {
+
+                        counterOrderDetail.setOrderDetailStat(stat);
+                        counterOrderDetailRepository.save(counterOrderDetail);
+                    }
+                }
+            }
+        }
+        else if (stat == 70) {
+            PlatformOrder platformOrder = platformOrderRepository.findById(platformOrderNo).orElse(null);
+
+
+            if (platformOrder != null) {
+
+                MemberData memberData = memberDataDAO.selectById(platformOrder.getMemberNo());
+
+                platformOrder.setPlatformOrderStat(stat);
+                platformOrderRepository.save(platformOrder);
+
+                memberData.setMemberPoints(memberData.getMemberPoints() + platformOrder.getRewardPoints());
+                memberDataDAO.update(memberData);
+
+                List<CounterOrder> counterOrderList = counterOrderRepository.findAllByPlatformOrderNo(platformOrder.getPlatformOrderNo());
+
+                for (var counterOrder : counterOrderList) {
+
+                    counterOrder.setCounterOrderStat(stat);
+                    counterOrder.setDisbursementStat((byte) 1);
+                    counterOrderRepository.save(counterOrder);
+
+                    List<CounterOrderDetail> counterOrderDetailList = counterOrderDetailRepository.findAllByIdCounterOrderNo(counterOrder.getCounterOrderNo());
+
+                    for (var counterOrderDetail : counterOrderDetailList) {
+
+                        counterOrderDetail.setOrderDetailStat(stat);
+                        counterOrderDetailRepository.save(counterOrderDetail);
+                    }
+                }
+            }
+        }
+
+    }
 
 }

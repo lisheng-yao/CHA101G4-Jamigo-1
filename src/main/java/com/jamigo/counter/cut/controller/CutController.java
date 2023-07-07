@@ -1,6 +1,8 @@
 package com.jamigo.counter.cut.controller;
 
 import com.jamigo.counter.counter.entity.Counter;
+import com.jamigo.counter.cut.dto.CutForCounterDTO;
+import com.jamigo.counter.cut.dto.CutForPlatformDTO;
 import com.jamigo.counter.cut.entity.Cut;
 import com.jamigo.counter.cut.service.CutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class CutController {
     @GetMapping("/cut/all")
     public ResponseEntity<?> getAllCutData() {
 
-        List<Cut> cutList = cutService.getAllCutData();
+        List<CutForPlatformDTO> cutList = cutService.getAllCutData();
 
         if (cutList != null)
             return ResponseEntity.status(HttpStatus.OK).body(cutList);
@@ -34,7 +36,7 @@ public class CutController {
 
         Counter counter = (Counter) session.getAttribute("counter");
 
-        List<Cut> cutList = cutService.getCounterAllCutData(counter.getCounterNo());
+        List<CutForCounterDTO> cutList = cutService.getCounterAllCutData(counter.getCounterNo());
 
         if (cutList != null)
             return ResponseEntity.status(HttpStatus.OK).body(cutList);

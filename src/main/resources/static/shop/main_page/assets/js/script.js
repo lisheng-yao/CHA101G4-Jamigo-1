@@ -1,3 +1,17 @@
+// 創建一個<link>元素
+var linkElement = document.createElement("link");
+
+// 設定<link>元素的屬性
+linkElement.rel = "icon";
+linkElement.href = "/Jamigo/index/首頁/images/icon.ico";
+linkElement.type = "image/x-icon";
+
+// 獲取<head>元素
+var headElement = document.getElementsByTagName("head")[0];
+
+// 添加<link>元素到<head>元素中
+headElement.appendChild(linkElement);
+
 //判斷當前頁面，導覽列按鈕停留
 const currentPage = window.location.href;
 const links = document.querySelectorAll('.button-01');
