@@ -8,7 +8,8 @@ $(function (){
     $.ajax({
         url: `/Jamigo/products/getProductForDetailPage/${productNo}`,
         type: "GET",
-        success: function (productWithPics) {
+        async: false,
+        success: function (productWithPics, addWished) {
             console.log(productWithPics);
             product = productWithPics;
 
@@ -25,6 +26,7 @@ $(function (){
             $("input[name='productStatus'][value='" + transProductStat + "']").prop("checked", true);
             $("#productSaleNum").val(product.productSaleNum);
             $("#reportNumber").val(product.reportNumber);
+            $(".saveproNo").attr("data-productno", product.productNo);
             // $("#evalTotalPeople").val(productWithPics.evalTotalPeople);
             // $("#evalTotalScore").val(productWithPics.evalTotalScore);
             // $("#evalAvg").innerText(productWithPics.evalTotalScore / productWithPics.evalTotalPeople);
@@ -46,12 +48,14 @@ $(function (){
                 });
                 $(`#pic${i+1}:not(.cloned)`).attr('src', pic);
             }
+            addwished();
         },
         error: function (xhr, textStatus, errorThrown) {
             console.error(xhr);
         }
     });
-    //加入購物稱
+    preventAddCart();
+    //加入購物車
     addToCart(productNo);
 });
 
@@ -237,4 +241,48 @@ function goToCategoryPage(){
     $("#productCat").on("click", function (){
         window.location = `/Jamigo/shop/main_page/product_category_page.html?productCatNo=${product.productCategory.productCatNo}`;
     });
+}
+
+function addwished() {
+    let memberno = localStorage.getItem('memberNo');
+    if (!memberno) {
+        return;
+    } else {
+        $.ajax({
+            type: 'GET',
+            url: '/Jamigo/wishlist/checkWishedByMemberNo/' + memberno,
+            success: function (response) {
+                success2(response);
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '後台停電ㄌ...請稍後再試',
+                    text: error.status,
+                });
+            }
+        });
+        function success2(response) {
+            let allprodiv = $('.saveproNo');
+
+            allprodiv.each(function () {
+                let saveprono = $(this).data('productno');
+
+                if (response.includes(saveprono)) {
+                    $(this).children().first().addClass('tored');
+                }
+            })
+
+        };
+    }
+}
+
+function preventAddCart(){
+    if(product.productStat === false){
+        let addToCart_btn = document.getElementById("add_to_cart");
+        addToCart_btn.parentNode.removeChild(addToCart_btn);
+        // $("#add_to_cart").prop("disabled", true);
+        // window.location = '/Jamigo/shop/main_page/商城首頁.html';
+        return;
+    }
 }

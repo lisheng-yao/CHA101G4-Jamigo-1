@@ -124,17 +124,20 @@ public class ActivityOrderController {
 		System.out.println("ecpayCheckout!!!!!!!!!!!!");
 		Integer activityOrderNo = Integer.parseInt(requestParams.getFirst("activityOrderNo"));
         String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
-        
+        System.out.println(activityOrderNo);
         ActivityOrderVO vo = activityOrderService.getById(activityOrderNo);
-        
+        System.out.println("vo" + vo);
         Timestamp timestamp = vo.getActivityEnrollmentTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String strTimestamp = sdf.format(timestamp);
         
         Integer attendeeNum = vo.getNumberOfAttendee() + 1;
         Integer money = vo.getActivity().getActivityCost();
-        CouponType coupon = couponTypeDao.selectById(vo.getMemberCouponNo());
-        Integer discount = coupon.getCouponPrice();
+        Integer discount = 0;
+        if(vo.getMemberCouponNo() != null) {
+        	CouponType coupon = couponTypeDao.selectById(vo.getMemberCouponNo());
+        	discount = coupon.getCouponPrice();        	
+        }
         Integer totalPay = money * attendeeNum - discount;
         
         AllInOne all = new AllInOne("");

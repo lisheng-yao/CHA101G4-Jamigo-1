@@ -15,7 +15,7 @@ function getAllactivityOrder(counterNo) {
   
   xhr.addEventListener("load", () => {
     let activityOrders = JSON.parse(xhr.responseText);
-    console.log(activityOrders);
+    // console.log(activityOrders);
     render(activityOrders);
   })
   xhr.open("get", url, true);
@@ -29,30 +29,35 @@ function render(activityOrders) {
   let html = '';
   let stateHtml = '';
   for(let activityOrder of activityOrders){
-	let result = stateSwitch(activityOrder);
-	stateHtml = result[0];
-	let data_status = result[1];
+    // console.log(activityOrder);
+    let result = stateSwitch(activityOrder);
+    let date = new Date(activityOrder.activityEnrollmentTime);
+    // let localTime = date.toLocaleString('zh-TW', { timeZone: 'UTC' });
+    date.setHours(date.getHours() + 8);
+    let localTime = date.toLocaleString('zh-TW');
+    stateHtml = result[0];
+    let data_status = result[1];
     html += `
-    <tr data-status="${data_status}">
-      <td>${activityOrder.activityOrderNo}</td>
-      <td>${activityOrder.activityNo}</td>
-      <td>${activityOrder.activityEnrollmentTime}</td>
-      <td>${activityOrder.numberOfAttendee ? activityOrder.numberOfAttendee + 1 : 1}</td>
-      <td>${stateHtml}</td>
-      <td>
-        <a href="./activity_orderEdit.html?activityOrderNo=${activityOrder.activityOrderNo}" class="btn btn-edit">
-          <i class="fa fa-edit"></i>
-          修改
-        </a>
-      </td>
-      <td>
-        <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <i class="fa-solid fa-circle-info"></i>
-          詳細資訊
-        </a>
-      </td>
-    </tr>
-    `;
+      <tr data-status="${data_status}">
+        <td data-value="${activityOrder.activityOrderNo}">${activityOrder.activityOrderNo}</td>
+        <td>${activityOrder.activity.activityName}</td>
+        <td>${localTime}</td>
+        <td>${activityOrder.numberOfAttendee ? activityOrder.numberOfAttendee + 1 : 1}</td>
+        <td>${stateHtml}</td>
+        <td>
+          <a href="./activity_orderEdit.html?activityOrderNo=${activityOrder.activityOrderNo}" class="btn btn-edit">
+            <i class="fa fa-edit"></i>
+            修改
+          </a>
+        </td>
+        <td>
+          <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fa-solid fa-circle-info"></i>
+            詳細資訊
+          </a>
+        </td>
+      </tr>
+      `;
     document.querySelector('#user').innerHTML = html;
   }
 }
@@ -62,13 +67,14 @@ document.querySelector('.panel-table').addEventListener('click', e => {
   if(e.target.matches('.btn-info')) {
     let activityOrder = "";
     let parentEle = e.target.parentElement;
-    let index = parentEle.parentElement.firstElementChild.innerText;
+    let index = parentEle.parentElement.firstElementChild.getAttribute('data-value');
     let url = `/Jamigo/activityOrder/getActivityOrderById/${index}`;
     
     let xhr = new XMLHttpRequest();
 
     xhr.addEventListener("load", () => {
       activityOrder = JSON.parse(xhr.responseText);
+      console.log(activityOrder);
     })
 
     xhr.open('GET', url, false);
@@ -76,6 +82,11 @@ document.querySelector('.panel-table').addEventListener('click', e => {
     xhr.send(null);
 
     let stateHtml = stateSwitch(activityOrder);
+    
+    let date = new Date(activityOrder.activityEnrollmentTime);
+    // let localTime = date.toLocaleString('zh-TW', { timeZone: 'UTC' });
+    date.setHours(date.getHours() + 8);
+    let localTime = date.toLocaleString('zh-TW');
     let html = `
       <tr>
         <th scope="row">訂單編號</th>
@@ -84,6 +95,10 @@ document.querySelector('.panel-table').addEventListener('click', e => {
       <tr>
         <th scope="row">線下活動編號</th>
         <td>${activityOrder.activityNo}</td>
+      </tr>
+      <tr>
+        <th scope="row">線下活動名稱</th>
+        <td>${activityOrder.activity.activityName}</td>
       </tr>
       <Xtr>
         <th scope="row">會員編號</th>
@@ -107,7 +122,7 @@ document.querySelector('.panel-table').addEventListener('click', e => {
       </tr>
       <tr>
         <th scope="row">下單時間</th>
-        <td>${activityOrder.activityEnrollmentTime}</td>
+        <td>${localTime}</td>
       </tr>
       <tr class="modal-table-state">
         <th scope="row">附款狀態</th>
@@ -115,7 +130,7 @@ document.querySelector('.panel-table').addEventListener('click', e => {
       </tr>
       <tr>
         <th scope="row">使用折價券編號</th>
-        <td>${activityOrder.memberCouponNo}</td>
+        <td>${activityOrder.memberCouponNo ? activityOrder.memberCouponNo : '無'}</td>
       </tr>
       <tr>
         <th scope="row">活動評論</th>

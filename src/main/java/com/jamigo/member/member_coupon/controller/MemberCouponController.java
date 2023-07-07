@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.jamigo.member.member_coupon.Service.MemberCouponService;
+import com.jamigo.member.member_coupon.Util.checkDate;
 import com.jamigo.member.member_coupon.entity.MemberCoupon;
 import com.jamigo.member.member_coupon.entity.MemberCouponId;
 import com.jamigo.member.member_data.core.Core;
@@ -25,6 +26,8 @@ public class MemberCouponController {
     private MemberCouponService memberCouponService;
     @Autowired
     private PromotionCouponService promotionCouponService;
+    @Autowired
+    private checkDate checkDate;
 
 
     //    @PostMapping ("")//修改 使用折價券
@@ -75,6 +78,7 @@ public class MemberCouponController {
     public List<MemberCoupon> selectMemberCoupon(@RequestBody MemberCoupon memberCouponRequest) {
         List<MemberCoupon> memberCoupon = memberCouponService.selectByMember(memberCouponRequest);
         System.out.println("新增controller");
+        checkDate.checkExpiredCoupons();
         return memberCoupon;
     }
 

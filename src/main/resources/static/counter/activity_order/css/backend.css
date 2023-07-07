@@ -54,6 +54,14 @@ body{
 .panel-body {
     padding: 15px;
 }
+.panel-body #user td:nth-child(2) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.panel-body #user td:nth-child(2)::after{
+    content: "...";
+}
 
 /* .button-group .btn{
     margin-left: auto;

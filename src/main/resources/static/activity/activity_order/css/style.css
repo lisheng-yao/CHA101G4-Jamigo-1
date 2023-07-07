@@ -64,6 +64,14 @@
 	border-left: 4px solid var(--ciColor);
 	font-weight: 700;
 }
+.book-form .form-radio.attendee-gender:first-child,
+.book-form .form-radio.pay-way:first-child{
+	padding-right: 10px;
+}
+.book-form .form-radio.attendee-gender:last-child,
+.book-form .form-radio.pay-way:last-child{
+	padding-left: 10px;
+}
 .form-radio input{
 	height: 1px;
 	width: 1px;
@@ -79,6 +87,7 @@
 	border: 2px solid #000;
 	border-radius: 10px;
 }
+.activity-coupon .error_text,
 .credit-card-year .error_text,
 .credit-card-month .error_text,
 .phone_email .error_text{
@@ -87,6 +96,7 @@
 	padding-left: 4px;
 	color: #d95e50;
 }
+.activity-coupon.show .error_text,
 .credit-card-year.show .error_text,
 .credit-card-month.show .error_text,
 .phone_email.show .error_text{

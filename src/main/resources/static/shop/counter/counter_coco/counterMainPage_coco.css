@@ -5,7 +5,13 @@
     --ciColor: #ffc107;
     --bacGray: #f1f1f1;
 }
-
+.main_header.sticky-header{
+    z-index: 100;
+}
+.container{
+    position: unset;
+    height: unset;
+}
 .navbar .container{
     position: relative;
     top: 0;
@@ -200,6 +206,7 @@
 }
 .discount-grid-content p:hover a{
     color: #fff;
+    background-color: var(--ciColor);
 }
 
 .introduce-grids .effect-lexi {

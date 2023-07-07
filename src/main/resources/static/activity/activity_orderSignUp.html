@@ -14,12 +14,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   
   <!-- 首頁的css&js -->
   <!--    移動請包含link+檔案 還有最下面的js -->
-    <!-- bootstrap引用檔案 -->
-    <link rel="stylesheet" href="/Jamigo/index/頁首頁尾_final/css/bootstrap.css">
-    <!-- Font Awesome引用檔案 -->
-    <link rel="stylesheet" href="/Jamigo/index/頁首頁尾_final/css/all.css">
-    <!-- css本體 -->
-    <link rel="stylesheet" type="text/css" href="/Jamigo/index/頁首頁尾_final/css/style.css">
+  <!-- bootstrap引用檔案 -->
+  <link rel="stylesheet" href="/Jamigo/index/頁首頁尾_final/css/bootstrap.css">
+  <!-- Font Awesome引用檔案 -->
+  <!-- <link rel="stylesheet" href="/Jamigo/frontEnd/css/all.css"> -->
+  <!-- css本體 -->
+  <!-- <link rel="stylesheet" type="text/css" href="/Jamigo/frontEnd/css/style.css"> -->
+
 
   <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
@@ -40,13 +41,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
  
+  <!--    複製這裡-->
+  <link rel="stylesheet" href="/Jamigo/frontEnd/css/all.css">
+  <link rel="stylesheet" href="/Jamigo/frontEnd/assets/fontawsome/css/all.css">
+  <link rel="stylesheet" type="text/css" href="/Jamigo/frontEnd/css/style.css">
+  <!--    複製這裡-->
   <!-- New toolbar-->
 </head>
   
 <body>
   <nav class="navbar navbar-dark p-0 navbar-expand-lg">
     <div class="container">
-        <a href="/Jamigo/index/頁首頁尾_final/index.html" class="navbar-brand"><img src="/Jamigo/index/首頁/images/找百貨.png" alt="" class="LOGO"></a>
+        <a href="/Jamigo/index/首頁/index.html" class="navbar-brand"><img
+                src="/Jamigo/index/頁首頁尾_final/images/找百貨.png"
+                alt="" class="LOGO"></a>
         <img src="/Jamigo/index/頁首頁尾_final/images/頁首背景.gif" alt="" class="navbarimg">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
@@ -63,7 +71,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <a class="button-01 nav-link" href="/Jamigo/activity/event_space.html">文藝活動</a>
                 </li>
                 <li class="nav-item">
-                    <a class="button-01 nav-link" href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
+                    <a class="button-01 nav-link"
+                       href="/Jamigo/promotion/promotion_list/promotion_space.html">折扣快報</a>
                 </li>
                 <!--                <li class="nav-item">-->
                 <!--                    <a class="button-01 nav-link" href="*">客服系統</a>-->
@@ -93,7 +102,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
-  </nav>
+</nav>
   <!-------------------------------------------- 頁首結束 ------------------------------>
   <!------------------------------------------ 內文主題 放這 --------------------------->
   <main class="main_before">
@@ -101,7 +110,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--background-->
     <!---728x90---> 
     <section class="main_title_section">
-      <div class="container">
+      <div class="container-fluid">
         <h1 class="text-black">填寫活動報名資料</h1>
         <div class="row">
           <div class="col-6">
@@ -303,7 +312,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <!-- 選擇優惠券 -->
                       <div class="book-form agileits-login">
                         <h2 class="book-appointment-title text-start">選擇優惠券</h2>
-                        <div class="span1_of_1">
+                        <div class="span1_of_1 activity-coupon">
                           <label>選擇優惠券</label>
                           <!-- start_section_room -->
                           <div class="section_room">
@@ -312,6 +321,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                               <option value="0">選擇折價券</option>
                               <!-- <option value="1">新會員見面禮折50</option> -->
                             </select>
+                            <div class="error_text">
+                              <i class="fa-solid fa-circle-exclamation"></i>
+                              <span>錯誤訊息</span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -551,11 +564,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <!--移動請包含 js-->
     <!-- bootstrap -->
-    <script src="/Jamigo/index/頁首頁尾_final/js/bootstrap.js"></script>
+    <script src="/Jamigo/frontEnd/js/bootstrap.js"></script>
     <!-- FontAwesome -->
-    <script src="/Jamigo/index/頁首頁尾_final/js/all.js"></script>
+    <script src="/Jamigo/frontEnd/js/all.js"></script>
     <!-- js -->
-    <script src="/Jamigo/index/頁首頁尾_final/js/script.js"></script>
+    <script src="/Jamigo/frontEnd/js/script.js"></script>
 
     <!-- 可可的js -->
     <!-- sweetalert2 -->

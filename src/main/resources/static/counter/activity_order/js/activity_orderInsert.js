@@ -90,9 +90,13 @@ function getQueryString() {
     })
     .then(response => { return response.json() })
     .then(data => {
-      activityOrder = data;
+	  activityOrder = data;
+	  let date = new Date(activityOrder.activityEnrollmentTime);
+	  // let localTime = date.toLocaleString('zh-TW', { timeZone: 'UTC' });
+	  date.setHours(date.getHours() + 8);
+	  let localTime = date.toLocaleString('zh-TW');
       inputNo.value = activityOrder.activityOrderNo;
-      inputTime.value = activityOrder.activityEnrollmentTime;
+      inputTime.value = localTime;
       inputAttendeeMore.value = activityOrder.numberOfAttendee ? activityOrder.numberOfAttendee : '無';
       inputAttendee.value = activityOrder.numberOfAttendee ? activityOrder.numberOfAttendee + 1 : 1;
       if(activityOrder.activityAttendeeVO.length > 0){
@@ -106,74 +110,6 @@ function getQueryString() {
     .catch(error => console.log(error))
   }
 }
-
-// 新增櫃位
-// if(sure_btn) {
-//   sure_btn.addEventListener('click', () => {
-// 	  let sure_btn_promise = new Promise(async (resolve, reject) => {
-// 		await inputAccount_reject();
-// 		inputCutPercent_reject();
-//         resolve();
-// 	  });
-// 	  sure_btn_promise.then(() => {
-//   	   if(inputAccount_flag && inputCutPercent_flag) {
-// 		  insertactivityOrder();
-// 	    }
-// 	  })
-//    })
-// }
-
-// 確認是否新增活動訂單的彈窗訊息
-// + 送出修改資料到後端
-// function insertactivityOrder(){ 
-// 	Swal.fire({
-// 	    title: '確定新增櫃位?',
-// 	    // text: "You won't be able to revert this!",
-// 	    icon: 'warning',
-// 	    showCancelButton: true,
-// 	    confirmButtonColor: '#3085d6',
-// 	    cancelButtonColor: '#d33',
-// 	    confirmButtonText: '確定新增',
-// 	    cancelButtonText: "取消"
-// 	}).then((result) => {
-// 		if(result.isConfirmed) {
-// 			let data_value = selectState.getAttribute('data-value');
-// 		    let activityOrder_insert = {
-// 		      'activityOrderNo' : 0,
-// 		      'cutPercent' : inputCutPercent.value,
-// 		      'activityOrderAccount' : inputAccount.value,
-// 		      'activityOrderPassword' : 'default1234',
-// 		      'activityOrderStat' : data_value
-// 		    }
-		  
-// 		    let url = '/Jamigo/activityOrder/insert';
-// 		    fetch(url, {
-// 		      method : 'POST',
-// 		      headers : {
-// 		        'Content-Type' : 'application/json',
-// 		        'Header-Action' : 'insert'
-// 		      },
-// 		      body : JSON.stringify(activityOrder_insert)
-// 		    })
-// 		    .then(response => {
-// 			    Swal.fire({
-// 			      icon: 'success',
-// 			      title: '新增成功',
-// 			      text: '櫃位資料新增成功!',
-// 			      confirmButtonText: "確認"
-// 				})
-// 			    .then(() => window.location.href="./activity_orderCtrl.html")
-// 			})
-// 		    .catch(error => {
-// 		      Swal.fire({
-// 		        icon: 'error',
-// 		        title: '新增失敗',
-// 		        text: '櫃位資料新增失敗!',
-// 		      })
-// 		    })
-// 		}
-// 	})
-// }
 
 // 修改活動訂單
   revise_btn?.addEventListener('click', () => {

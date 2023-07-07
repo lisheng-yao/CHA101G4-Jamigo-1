@@ -29,7 +29,7 @@ let creditCardNumEnd3_input = document.querySelector('#credit-card-num-end3');
 let creditCardYear_select = document.querySelector('#credit-card-year-select');
 let creditCardMonth_select = document.querySelector('#credit-card-month-select');
 
-let couponInfo = {couponTypeNo0 : 0};
+let couponInfo = {couponPrice0 : 0, couponLowest0 : 0};
 
 // 報名等級
 let activityLev_DB;
@@ -47,10 +47,11 @@ let currentMemberNo = localStorage.getItem('memberNo');
 getMemberInfo(currentMemberNo);
 
 // 獲取活動編號
-let currentCounterNo = getActivityNo();
+let currentActivityNo = getActivityNo();
+let currentCounterNo;
 
 // 拿取活動資訊
-getActivity(currentCounterNo);
+getActivity(currentActivityNo);
 function getActivityNo(){
     let url = location.search;
 	return new URLSearchParams(url).get('activityNo');
@@ -63,6 +64,7 @@ function getMemberInfo(id){
 				{header : {'Content-Type' : 'application/json'}})
 	.then(resp => {return resp.data})
 	.then(data => {
+		// console.log(data);
 		activity_attendee_memberNo_input.value = data.memberNo;
 		activity_attendee_name_input.value = data.memberName;
 		activity_attendee_email_input.value = data.memberEmail;
@@ -78,7 +80,7 @@ function getActivity(id) {
 	axios.get(`/Jamigo/backend/appdetail/${id}`)
 	.then(resp => {return resp.data})
 	.then(data => {
-		// console.log(data);
+		console.log(data);
 		activity_activityNo_input.value = data.activityNo;
 		activity_name.innerText = data.activityName;
 		activity_statrDate.innerText = formatDate(data.activityStartTime);
@@ -91,8 +93,12 @@ function getActivity(id) {
 		activity_memberLevel.innerText = data.activityLev == 0 ? '一般會員' : 'VIP會員';
 		activity_pic.src = `data:image/png;base64, ${data.activityPic}`
 		total_pay_money.innerText = data.activityCost;
-
-		activityLev_DB = data.activityLev;
+		
+		currentCounterNo = data.counterNo;
+		activityLev_DB = (data.activityLev + 1) == 1 ? 1 : 3;
+	})
+	.then(() => {
+		getCouponSelect();;
 	})
 	.then(() => {
 		if(activityLev_member < activityLev_DB) {
@@ -141,6 +147,11 @@ function activityPlace(index){
 activity_form_submit.addEventListener('click', () => {
 	let inputAttendeeMoreName_flag = true;
 	let inputAttendeeMoreAge_flag = true;
+	
+	let inputCreditCardNum_flag = true;
+	let inputCreditCardNumEnd3_falg = true;
+	let selectCreditCardYear_falg = true;
+	let selectCreditCardMonth_flag = true;
 	for(let i = 1; i <= activity_attendee_num_select.value - 1; i++) {
 		let attendeeMoreName = document.querySelector(`#activity-attendee-more-name-input${i}`);
 		let attendeeMoreAge = document.querySelector(`#activity-attendee-more-age-input${i}`);
@@ -152,14 +163,20 @@ activity_form_submit.addEventListener('click', () => {
 			inputAttendeeMoreAge_flag = false;
 		}
 	}
-	
-	let inputCreditCardNum_flag = inputCreditCardNum_reject();
-	let inputCreditCardNumEnd3_falg = inputCreditCardNumEnd3_reject();
-	let selectCreditCardYear_falg = selectCreditCardYear_reject(creditCardYear_select);
-	let selectCreditCardMonth_flag = selectCreditCardMonth_reject(creditCardMonth_select);
-	if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag){
+	let activity_coupon_flag = activity_coupon_reject();
+	if(pay_way_credit_card.checked) {
+		inputCreditCardNum_flag = inputCreditCardNum_reject();
+		inputCreditCardNumEnd3_falg = inputCreditCardNumEnd3_reject();
+		selectCreditCardYear_falg = selectCreditCardYear_reject(creditCardYear_select);
+		selectCreditCardMonth_flag = selectCreditCardMonth_reject(creditCardMonth_select);
+		
+		if(inputCreditCardNum_flag && inputCreditCardNumEnd3_falg && selectCreditCardYear_falg && selectCreditCardMonth_flag && inputAttendeeMoreName_flag && inputAttendeeMoreAge_flag && activity_coupon_flag){
+			form_submit();
+		}
+	} else {
 		form_submit();
 	}
+	
 })
 
 // 送出表單
@@ -177,8 +194,8 @@ function form_submit() {
 			let more_attendee_num = activity_attendee_num_select.value - 1;
 	
 			axios.post('/Jamigo/activityOrder/insert', {
-				activityNo : activity_activityNo_input.value,
-				memberNo : activity_attendee_memberNo_input.value,
+				activityNo : currentActivityNo,
+				memberNo : currentMemberNo,
 				activityPaymentStat : pay_way_credit_card.checked ? 1 : 0,
 				memberCouponNo : activity_attendee_coupon.value == 0 ? null : activity_attendee_coupon.value,
 				numberOfAttendee : more_attendee_num
@@ -211,6 +228,7 @@ function form_submit() {
 				return data_activity;
 			})
 			.then(data_attendee => {
+				console.log(data_attendee);
 				if(pay_way_credit_card.checked) {
 					Swal.fire({
 						icon: 'success',
@@ -220,7 +238,6 @@ function form_submit() {
 					  })
 					  .then(() => window.location.href="/Jamigo/member/center/activity_memberSignUp/member_activityMemberSignUp.html")
 				} else {
-					console.log(data_attendee);
 					data_attendee = parseInt(data_attendee);
 					const requestBody = new URLSearchParams();
 					requestBody.append('activityOrderNo', data_attendee);
@@ -264,8 +281,7 @@ document.querySelector('.pay-way-mobile-box').addEventListener('click', () => {
 
 // 選擇人數後更新額外參加人數的欄位
 select_number_of_people.addEventListener('change', () => {
-	let couponNum = `couponTypeNo${activity_attendee_coupon.value}`;
-	let discount = couponInfo[couponNum];
+	let discount = couponInfo[`couponPrice${activity_attendee_coupon.value}`];
 	// 更新總金額
 	total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
     
@@ -284,10 +300,27 @@ select_number_of_people.addEventListener('change', () => {
 })
 
 activity_attendee_coupon.addEventListener('change', () => {
-	let couponNum = `couponTypeNo${activity_attendee_coupon.value}`;
-	let discount = couponInfo[couponNum];
-	total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
+	activity_coupon_reject();
 })
+function activity_coupon_reject(){
+	let flag = true;
+	let error_text = '';
+	let value = activity_attendee_coupon.value;
+	let couponLowest = couponInfo[`couponLowest${value}`];
+	let discount = couponInfo[`couponPrice${value}`];
+	console.log(discount);
+	// console.log('couponLowest' + couponLowest);
+	// console.log(total_pay_money.innerText >= couponLowest);
+	if(total_pay_money.innerText >= couponLowest)
+		total_pay_money.innerText = parseInt(activity_price.innerText) * parseInt(select_number_of_people.value) - parseInt(discount);
+	else {
+		flag = false;
+		error_text = `未達使用門檻`;
+	}
+	error_text_controll(flag, activity_attendee_coupon, error_text);
+	return flag;
+
+}
 
 // 自動生成額外參加人數的欄位
 function autoCreateForm(startIndex) {
@@ -338,22 +371,27 @@ function autoCreateForm(startIndex) {
 }
 
 // 動態生成優惠select欄位
-getCouponSelect();
+
 function getCouponSelect(){
 	axios.get(`/Jamigo/cart/getMemberCoupons/${currentMemberNo}`)
 	.then(resp => {return resp.data})
 	.then(datas => {
-		// console.log(datas);
+		console.log(currentCounterNo);
+		console.log(datas);
+		datas = datas.filter(data => {
+			return data.counterNo == currentCounterNo || data.counterNo == 0
+		})
+		console.log(datas);
 		for(let i = 0; i < datas.length; i++) {
 			let element = document.createElement('option');
 			element.setAttribute('value', datas[i].couponTypeNo);
-			// element.setAttribute('data-price', datas[i].couponPrice);
-			element.innerText = datas[i].couponTypeName;
+			element.innerText = `消費滿${datas[i].couponLowest}折${datas[i].couponPrice}`;
+			// element.innerText = datas[i].couponConditions;
 			activity_attendee_coupon.append(element);
-			couponInfo[`couponTypeNo${datas[i].couponTypeNo}`] = datas[i].couponPrice;
+			couponInfo[`couponPrice${datas[i].couponTypeNo}`] = datas[i].couponPrice;
 			couponInfo[`couponLowest${datas[i].couponTypeNo}`] = datas[i].couponLowest;
 		}
-		// console.log(couponInfo);
+		console.log(datas);
 	})
 	.catch(err => console.log(err))
 }
