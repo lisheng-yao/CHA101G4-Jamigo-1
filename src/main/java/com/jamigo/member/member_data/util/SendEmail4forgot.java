@@ -27,7 +27,7 @@ public class SendEmail4forgot {
             props.put("mail.smtp.port", "465");
 
             final String myGmail = "jamigo.contact@gmail.com";
-            final String myGmail_password = "xtnmxghelweuykcs";
+            final String myGmail_password = "espqaxcqcwymhpli";
             Session session = Session.getInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(myGmail, myGmail_password);
