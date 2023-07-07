@@ -48,6 +48,11 @@ public class MemberServiceImpl implements MemberService {
             memberData.setSuccessful(false);
             return memberData;
         }
+        if (dao.selectBymemberEmail(memberData.getMemberEmail()) != null) {
+            memberData.setMessage("信箱重複");
+            memberData.setSuccessful(false);
+            return memberData;
+        }
 
         final int resultCount = dao.insert(memberData);//執行insert
         if (resultCount < 1) {
