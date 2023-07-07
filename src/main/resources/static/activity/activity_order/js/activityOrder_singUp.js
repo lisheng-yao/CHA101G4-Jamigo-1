@@ -385,7 +385,7 @@ function getCouponSelect(){
 		for(let i = 0; i < datas.length; i++) {
 			let element = document.createElement('option');
 			element.setAttribute('value', datas[i].couponTypeNo);
-			element.innerText = `消費滿${datas[i].couponLowest}折${datas[i].couponPrice}`;
+			element.innerText = `消費滿${datas[i].couponLowest}折${datas[i].couponPrice} ${datas[i].couponConditions}`;
 			// element.innerText = datas[i].couponConditions;
 			activity_attendee_coupon.append(element);
 			couponInfo[`couponPrice${datas[i].couponTypeNo}`] = datas[i].couponPrice;
