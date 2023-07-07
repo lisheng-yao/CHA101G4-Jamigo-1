@@ -387,6 +387,7 @@ function endDateTime_reject(endDate, endTime) {
 		flag = false;
 		error_text = '結束時間不能比開始時間早'
 	}
+	console.log('flag' + flag);
 	error_text_controll(flag, inputEndDate_error, error_text);
 	error_text_controll(flag, inputEndTime_error, error_text);
 	return flag;
@@ -409,7 +410,7 @@ function insertImg_reject() {
 function error_text_controll(flag, item, error_text) {
 	let itemParent = item.parentElement;
 	console.log('rrrrrrrrrrr');
-	console.log(itemParent);
+	console.log(itemParent.parentElement);
 	if(flag) {
 	  itemParent.parentElement.classList.remove('show');
 	} else {
