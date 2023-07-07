@@ -13,6 +13,7 @@ public interface ActivityOrderRepository extends JpaRepository<ActivityOrderVO, 
 	List<ActivityOrderVO> findByMemberNo(Integer memberNo);
 	
 	@Transactional
-	@Query(value = "select * from activity_order ao join Activity a on ao.activityNo = a.activityNo where counterNo = :counterNo LIMIT 0, 10", nativeQuery = true)
+//	@Query(value = "select * from activity_order ao join Activity a on ao.activityNo = a.activityNo where counterNo = :counterNo LIMIT 0, 10", nativeQuery = true)
+	@Query(value = "select * from activity_order ao join Activity a on ao.activityNo = a.activityNo where counterNo = :counterNo", nativeQuery = true)
 	List<ActivityOrderVO> getByCounterNo(@Param("counterNo") Integer counterNo);
 }
