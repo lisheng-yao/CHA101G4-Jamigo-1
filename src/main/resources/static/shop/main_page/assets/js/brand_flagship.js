@@ -14,7 +14,7 @@ function render() {
 
             for (let item of response) {
 
-                if (item['counterStat'] === 2)
+                if (item['counterStat'] === 2 || item['counterStat'] === 0)
                     continue;
 
                 html_str += `
