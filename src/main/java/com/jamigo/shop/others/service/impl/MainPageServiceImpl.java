@@ -2,6 +2,7 @@ package com.jamigo.shop.others.service.impl;
 
 import com.jamigo.counter.counter.dao.CounterRepository;
 import com.jamigo.shop.others.dto.ProductForMainPageDTO;
+import com.jamigo.shop.others.dto.ScoredProductForMainPageDTO;
 import com.jamigo.shop.others.repo.ProductForMainPageRepository;
 import com.jamigo.shop.others.service.LuceneService;
 import com.jamigo.shop.others.service.MainPageService;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class MainPageServiceImpl implements MainPageService {
@@ -275,20 +277,16 @@ public class MainPageServiceImpl implements MainPageService {
         }
 
         // Search with Lucene
-        TopDocs topDocs = luceneService.searchIndex(keyword.toLowerCase());
-        List<Product> searchedProducts = new ArrayList<>();
-        for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
+        ScoreDoc[] scoreDocs = luceneService.searchIndex(keyword.toLowerCase());
+
+        List<ScoredProductForMainPageDTO> scoredProducts = new ArrayList<>();
+
+        for (ScoreDoc scoreDoc : scoreDocs) {
             Document doc = luceneService.getDocument(scoreDoc.doc);
 
             Product product = productRepository.findById(Integer.parseInt(doc.get("id"))).orElse(null);
 
-            if (product != null)
-                searchedProducts.add(product);
-        }
-
-        List<ProductForMainPageDTO> productForMainPageDTOList = new ArrayList<>();
-        for (Product product : searchedProducts) {
-            if (product.getProductStat()) {
+            if (product != null && product.getProductStat()) {
                 ProductForMainPageDTO productForMainPageDTO = new ProductForMainPageDTO();
                 productForMainPageDTO.setProductNo(product.getProductNo());
                 productForMainPageDTO.setProductName(product.getProductName());
@@ -300,9 +298,17 @@ public class MainPageServiceImpl implements MainPageService {
 
                 productForMainPageDTO.setEvalTotalPeople(product.getEvalTotalPeople());
                 productForMainPageDTO.setEvalTotalScore(product.getEvalTotalScore());
-                productForMainPageDTOList.add(productForMainPageDTO);
+
+                ScoredProductForMainPageDTO scoredProduct = new ScoredProductForMainPageDTO(productForMainPageDTO, scoreDoc.score);
+                scoredProducts.add(scoredProduct);
             }
         }
+
+        // Sort by score
+        scoredProducts.sort(Comparator.comparing(ScoredProductForMainPageDTO::getScore).reversed());
+
+        // Now create the final list of products, already sorted by score
+        List<ProductForMainPageDTO> productForMainPageDTOList = scoredProducts.stream().map(ScoredProductForMainPageDTO::getProduct).collect(Collectors.toList());
 
         Map<Integer, Comparator<ProductForMainPageDTO>> comparatorMap = new HashMap<>();
         comparatorMap.put(1, Comparator.comparingInt(ProductForMainPageDTO::getProductNo));
