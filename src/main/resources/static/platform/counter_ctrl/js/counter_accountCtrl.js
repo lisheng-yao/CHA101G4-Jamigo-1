@@ -1,3 +1,8 @@
+// 登出
+let logout_btn = document.querySelector('.sidebar #logoutbutton');
+
+console.log(logout_btn)
+
 window.addEventListener("DOMContentLoaded", () =>{
   // 先查出所有櫃位
   getAllCounter();
@@ -176,3 +181,20 @@ function stateSwitch(item) {
     }
     return [stateHtml, data_status];
 }
+
+
+logout_btn.addEventListener('click', e => {
+	e.preventDefault();
+	let url = '/Jamigo/administrator/logout'
+	fetch(url, {
+		method : 'GET'
+	})
+	.then(resp => {
+		console.log(resp);
+		localStorage.removeItem('adminNo');
+		localStorage.removeItem('adminName');
+		window.location.assign('/Jamigo/platform/login/admin_login.html')
+		
+	})
+
+})

@@ -67,3 +67,17 @@ login_btn.addEventListener('click', () => {
 	
 })
 
+//logout_btn.addEventListener('click', e => {
+//	e.preventDefault();
+//	let url = '/Jamigo/administrator/logout'
+//	fetch(url, {
+//		method : 'GET'
+//	})
+//	.then(resp => {
+//		console.log(resp);
+//		
+//	})
+//	localStorage.removeItem('adminNo', data.adminNo);
+//	localStorage.removeItem('adminName', data.adminName);
+//
+//})

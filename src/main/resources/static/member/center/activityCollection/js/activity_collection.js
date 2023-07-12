@@ -1,7 +1,8 @@
 let activityPace = document.querySelector('.form-content-edit .row');
 // let addCollection_btn = document.querySelector('.activity-track-icon i');
 
-let currentMemberNo = localStorage.getItem('memberNo');
+
+let currentMemberNo = sessionStorage.getItem('memberNo') ? sessionStorage.getItem('memberNo') : localStorage.getItem('memberNo');
 let currentActivityNo;
 
 getActivityCollection(currentMemberNo);

@@ -1,5 +1,6 @@
 let activityPace = document.querySelector('.form-content-edit .row');
-let currentMemberNo = localStorage.getItem('memberNo');
+
+let currentMemberNo = sessionStorage.getItem('memberNo') ? sessionStorage.getItem('memberNo') : localStorage.getItem('memberNo');
 
 // 判斷上一頁是不是付款頁
     
