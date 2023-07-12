@@ -33,11 +33,13 @@ console.log(currentCounterNo);
 carousel_insertFile_btn?.addEventListener('click', async () => {
 	// 檢查欄位
 	let inputText_flag = inputText_reject();
-	let endDateTime_flag = endDateTime_reject(inputEndDate.value, inputEndTime.value);
 	let inputStartDate_flag = inputDateTime_reject(inputStartDate);
 	let inputStartTime_flag = inputDateTime_reject(inputStartTime);
-	let inputEndDate_flag = inputDateTime_reject(inputEndDate);
-	let inputEndTime_flag = inputDateTime_reject(inputEndTime);
+	let inputEndDate_flag = await inputDateTime_reject(inputEndDate);
+	let inputEndTime_flag = await inputDateTime_reject(inputEndTime);
+	let endDateTime_flag = true;
+	if(inputEndDate_flag || inputEndTime_flag)
+		endDateTime_flag = endDateTime_reject(inputEndDate.value, inputEndTime.value);
 	insertImg_reject();
 
 	// 確認欄位
@@ -125,7 +127,10 @@ carousel_editFile_btn?.addEventListener('click', async () => {
 	let inputStartTime_flag = inputDateTime_reject(inputStartTime);
 	let inputEndDate_flag = await inputDateTime_reject(inputEndDate);
 	let inputEndTime_flag = await inputDateTime_reject(inputEndTime);
-	let endDateTime_flag = endDateTime_reject(inputEndDate.value, inputEndTime.value);
+	// let endDateTime_flag = endDateTime_reject(inputEndDate.value, inputEndTime.value);
+	let endDateTime_flag = true;
+	if(inputEndDate_flag || inputEndTime_flag)
+		endDateTime_flag = endDateTime_reject(inputEndDate.value, inputEndTime.value);
 	
 	// 確認欄位
 	if(inputText_flag && endDateTime_flag && inputStartDate_flag && inputStartTime_flag && inputEndDate_flag && inputEndTime_flag)

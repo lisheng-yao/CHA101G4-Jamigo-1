@@ -42,7 +42,7 @@ let activity_form_submit = document.querySelector('.activity-form-submit button'
 let total_pay_money = document.querySelector('.total-pay .total-pay-money');
 
 // 拿取當前會員編號
-let currentMemberNo = localStorage.getItem('memberNo');
+let currentMemberNo = sessionStorage.getItem('memberNo') ?? localStorage.getItem('memberNo');
 // 拿取會員資料
 getMemberInfo(currentMemberNo);
 
