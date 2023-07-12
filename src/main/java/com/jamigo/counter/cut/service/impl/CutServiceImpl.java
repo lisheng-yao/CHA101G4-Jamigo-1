@@ -12,6 +12,8 @@ import com.jamigo.shop.counter_order.repo.CounterOrderRepository;
 import com.jamigo.shop.platform_order.entity.PlatformOrder;
 import com.jamigo.shop.platform_order.repo.PlatformOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
 @Service
@@ -108,43 +111,47 @@ public class CutServiceImpl implements CutService {
         Timestamp startTimestamp = Timestamp.valueOf(startOfPreviousMonth);
         Timestamp endTimestamp = Timestamp.valueOf(endOfPreviousMonth);
 
-        calculateMonthlyIncome(startTimestamp, endTimestamp, Timestamp.valueOf(startOfPreviousMonth));
-
-        System.out.println("執行抽成月結的排程器");
-    }
-
-    @Override
-    public void calculateMonthlyIncome(Timestamp start, Timestamp end, Timestamp monthForCut) {
-        List<PlatformOrder> platformOrders = platformOrderRepository.findByOrderTimeBetween(start, end);
+        List<PlatformOrder> platformOrders = platformOrderRepository.findByOrderTimeBetween(startTimestamp, endTimestamp);
 
         Map<Integer, List<CounterOrder>> counterOrdersMap = platformOrders.stream()
                 .flatMap(po -> counterOrderRepository.findAllByPlatformOrderNo(po.getPlatformOrderNo()).stream())
                 .collect(Collectors.groupingBy(CounterOrder::getCounterNo));
 
         counterOrdersMap.forEach((counterNo, orders) -> {
-            int totalIncome = orders.stream()
-                    .mapToInt(CounterOrder::getActuallyPaid)
-                    .sum();
-
-            Counter counter = counterRepository.findById(counterNo).orElse(null);
-            double rate = 0;
-            if (counter != null) {
-                rate = counter.getCutPercent();
-            }
-
-            Cut cut = new Cut();
-            cut.setCounterNo(counterNo);
-            cut.setMonthly(totalIncome);
-
-            int cutMonthly = (int) (totalIncome * (1 - rate));
-
-            cut.setCutMonthly(cutMonthly);
-            cut.setCutPayStat((byte)0);
-            cut.setMonthlyTime(monthForCut);
-
-            cutRepository.save(cut);
+            calculateAndSaveCutForCounter(counterNo, orders, Timestamp.valueOf(startOfPreviousMonth));
         });
+
+
     }
+
+    @Async("taskExecutor")
+    public void calculateAndSaveCutForCounter(Integer counterNo, List<CounterOrder> orders, Timestamp monthForCut) {
+
+        System.out.println("執行櫃位編號 " + counterNo + " 的排程器，正在結算 " + (monthForCut.getMonth()+1) + " 月");
+
+        int totalIncome = orders.stream()
+                .mapToInt(CounterOrder::getActuallyPaid)
+                .sum();
+
+        Counter counter = counterRepository.findById(counterNo).orElse(null);
+        double rate = 0;
+        if (counter != null) {
+            rate = counter.getCutPercent();
+        }
+
+        Cut cut = new Cut();
+        cut.setCounterNo(counterNo);
+        cut.setMonthly(totalIncome);
+
+        int cutMonthly = (int) (totalIncome * (1 - rate));
+
+        cut.setCutMonthly(cutMonthly);
+        cut.setCutPayStat((byte) 0);
+        cut.setMonthlyTime(monthForCut);
+
+        cutRepository.save(cut);
+    }
+
 
 //    @Scheduled(fixedRate = 60000) // 每 60 秒執行一次
 //    public void calculateMissingMonthlyIncome() {
@@ -161,7 +168,18 @@ public class CutServiceImpl implements CutService {
 //                 startOfMonth = startOfMonth.plusMonths(1)) {
 //
 //                LocalDateTime endOfMonth = startOfMonth.plusMonths(1).minusSeconds(1);
-//                calculateMonthlyIncome(Timestamp.valueOf(startOfMonth), Timestamp.valueOf(endOfMonth), Timestamp.valueOf(startOfMonth));
+//                Timestamp startTimestamp = Timestamp.valueOf(startOfMonth);
+//                Timestamp endTimestamp = Timestamp.valueOf(endOfMonth);
+//
+//                List<PlatformOrder> platformOrders = platformOrderRepository.findByOrderTimeBetween(startTimestamp, endTimestamp);
+//
+//                Map<Integer, List<CounterOrder>> counterOrdersMap = platformOrders.stream()
+//                        .flatMap(po -> counterOrderRepository.findAllByPlatformOrderNo(po.getPlatformOrderNo()).stream())
+//                        .collect(Collectors.groupingBy(CounterOrder::getCounterNo));
+//
+//                counterOrdersMap.forEach((counterNo, orders) -> {
+//                    calculateAndSaveCutForCounter(counterNo, orders, startTimestamp);
+//                });
 //            }
 //        } else {
 //            System.out.println("沒有任何訂單資料");
